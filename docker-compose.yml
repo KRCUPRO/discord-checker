@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  # 단일 기본 컨테이너
+  d4uc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: d4uc-checker
+    restart: unless-stopped
+    environment:
+      - D4UC_MODE=${D4UC_MODE:-hybrid}
+      - D4UC_LENGTH=${D4UC_LENGTH:-4}
+      - D4UC_WORKERS=${D4UC_WORKERS:-5}
+      - D4UC_PROXY=${D4UC_PROXY:-surfshark}
+      - SURFSHARK_PRIVATE_KEYS=${SURFSHARK_PRIVATE_KEYS:-}
+      - D4UC_WEBHOOK=${D4UC_WEBHOOK:-}
+      - D4UC_NO_DASHBOARD=1
+    volumes:
+      - ./data:/app/data
+      # - ./config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================================================
+  # 다중 컨테이너 병렬 분할 샤딩 (2배 속도 가속 프로파일)
+  # 실행 방법: docker compose --profile 2shard up -d
+  # ============================================================================
+  shard1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: d4uc-shard-1
+    restart: unless-stopped
+    profiles: ["2shard", "sharding"]
+    environment:
+      - D4UC_MODE=permutation
+      - D4UC_SHARD=2_1
+      - D4UC_LENGTH=${D4UC_LENGTH:-4}
+      - D4UC_WORKERS=${D4UC_WORKERS:-5}
+      - D4UC_PROXY=${D4UC_PROXY:-surfshark}
+      - SURFSHARK_PRIVATE_KEYS=${SURFSHARK_PRIVATE_KEYS:-}
+      - D4UC_WEBHOOK=${D4UC_WEBHOOK:-}
+      - D4UC_NO_DASHBOARD=1
+    volumes:
+      - ./data:/app/data
+      # - ./config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  shard2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: d4uc-shard-2
+    restart: unless-stopped
+    profiles: ["2shard", "sharding"]
+    environment:
+      - D4UC_MODE=permutation
+      - D4UC_SHARD=2_2
+      - D4UC_LENGTH=${D4UC_LENGTH:-4}
+      - D4UC_WORKERS=${D4UC_WORKERS:-5}
+      - D4UC_PROXY=${D4UC_PROXY:-surfshark}
+      - SURFSHARK_PRIVATE_KEYS=${SURFSHARK_PRIVATE_KEYS:-}
+      - D4UC_WEBHOOK=${D4UC_WEBHOOK:-}
+      - D4UC_NO_DASHBOARD=1
+    volumes:
+      - ./data:/app/data
+      # - ./config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

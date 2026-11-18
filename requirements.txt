@@ -1,0 +1,4 @@
+curl_cffi>=0.17.0
+rich>=13.0.0
+pyyaml>=6.0.0
+customtkinter>=5.2.0

@@ -1,0 +1,60 @@
+# ==============================================================================
+# 🛡️ Security & Secret Credentials (절대 깃허브 업로드 금지)
+# ==============================================================================
+*credentials*.json
+!*credentials*.example.json
+config.yaml
+.env
+*.conf
+configs/
+data/*.conf
+data/surfshark_credentials.json
+
+# ==============================================================================
+# 📊 Output Results & Personal Scraped Data
+# ==============================================================================
+available*.txt
+taken*.txt
+checked_history.txt
+available_usernames.*
+results/
+work/
+tests/tmp/
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/*.db-journal
+*.log
+
+# ==============================================================================
+# 🐍 Python & Virtual Environments
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# ==============================================================================
+# 📦 Build Artifacts & Binaries
+# ==============================================================================
+build/
+dist/
+*.spec
+*.exe
+bin/wireproxy.exe
+bin/wireproxy
+
+# ==============================================================================
+# 💻 IDE & OS Files
+# ==============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
