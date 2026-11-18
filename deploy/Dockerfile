@@ -37,12 +37,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 4. Copy project source code and assets
 COPY src/ /app/src/
 COPY data/ /app/data/
-COPY config.example.yaml run.py /app/
+COPY config/config.example.yaml /app/config/config.example.yaml
 
 # 5. Create persistent output directories
 RUN mkdir -p /app/data /app/results
 
 VOLUME ["/app/data"]
 
-ENTRYPOINT ["python3", "run.py"]
+ENTRYPOINT ["python3", "src/run.py"]
 CMD ["--no-dashboard"]

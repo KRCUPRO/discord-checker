@@ -10,7 +10,7 @@ root = Path(__file__).parent.parent.resolve()
 sys.path.insert(0, str(root))
 
 from src.config import AppConfig
-from gui import GuiOrchestrator
+from src.gui import GuiOrchestrator
 
 async def run_verification():
     print("=====================================================================")

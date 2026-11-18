@@ -36,54 +36,54 @@
 ### A. 데스크톱 GUI (Windows)
 ```bash
 # 한글 인터페이스 실행
-python gui_ko.py
+python src/gui_ko.py
 
 # 영문 인터페이스 실행
-python gui_en.py
+python src/gui_en.py
 
-# 컴파일된 원클릭 실행 파일 (Python 미설치 PC용)
-DiscordUsernameCheckerV2_KO.exe
+# 또는 모듈 실행
+python -m src.gui_ko
 ```
 
 ### B. 헤드리스 CLI (Terminal)
 ```bash
 # 기본 실행 (하이브리드 모드, 4자리, 5워커)
-python run.py
+python src/run.py
 
 # 2분할 1번 창 (a~m 범위) 실행
-python run.py --mode permutation --length 4 --shard 2_1 --workers 5
+python src/run.py --mode permutation --length 4 --shard 2_1 --workers 5
 
 # 대시보드 화면 지우기 없이 한 줄 스트리밍 로그 모드 (백그라운드 nohup 권장)
-python run.py --no-dashboard
+python src/run.py --no-dashboard
 ```
 
 ### C. 안드로이드 모바일 (Termux Debian)
 > PC 없이 스마트폰에서 24시간 무중단 검사를 돌리는 모바일 솔루션  
-> 상세 매뉴얼: [docs/TERMUX_DEBIAN_GUIDE.md](docs/TERMUX_DEBIAN_GUIDE.md)
+> 상세 매뉴얼: [TERMUX_DEBIAN_GUIDE.md](guides/TERMUX_DEBIAN_GUIDE.md)
 
 ```bash
 # Termux 내 Debian 환경 진입 후 원클릭 설치
-chmod +x install_debian.sh run.sh
-./install_debian.sh
+chmod +x deploy/install_debian.sh deploy/run.sh
+./deploy/install_debian.sh
 
 # 24시간 백그라운드 무중단 실행 (화면 꺼짐 방지)
 termux-wake-lock
-nohup ./run.sh --no-dashboard > output.log 2>&1 &
+nohup ./deploy/run.sh --no-dashboard > output.log 2>&1 &
 ```
 
 ### D. 도커 컨테이너 (Docker & Compose)
 > 리눅스 서버, 클라우드 VPS, 라즈베리파이, NAS 전용 패키징  
-> 상세 매뉴얼: [docs/DOCKER_GUIDE.md](docs/DOCKER_GUIDE.md)
+> 상세 매뉴얼: [DOCKER_GUIDE.md](guides/DOCKER_GUIDE.md)
 
 ```bash
 # 단일 컨테이너 백그라운드 구동
-docker compose up -d
+docker compose -f deploy/docker-compose.yml up -d
 
 # 2배속 병렬 분할 (a~m / n~_) 2개 컨테이너 동시 기동
-docker compose --profile 2shard up -d
+docker compose -f deploy/docker-compose.yml --profile 2shard up -d
 
 # 실시간 스트리밍 로그 확인
-docker compose logs -f
+docker compose -f deploy/docker-compose.yml logs -f
 ```
 
 ---
@@ -139,24 +139,23 @@ docker compose logs -f
 1. **`.gitignore` 적용 필수**:
    - `credentials.json`, `config.yaml`, `.env`, `data/*.db`, `available*.txt`가 차단되어 있는지 확인.
 2. **템플릿 파일 사용**:
-   - 깃허브에는 `config.example.yaml`, `.env.example`, `data/surfshark_credentials.example.json`만 커밋.
+   - 저장소에는 `config/config.example.yaml`, `config/.env.example`, `data/surfshark_credentials.example.json` 템플릿만 포함.
 3. **실행 환경 설정**:
    - 사용자는 자신의 키를 로컬 `.env` 파일에 `SURFSHARK_PRIVATE_KEYS=내_개인키` 형태로 작성하여 구동.
-4. **Private 저장소 권장**:
-   - 개인 용도로만 사용할 경우 깃허브 저장소를 **Private**으로 생성하면 보안 걱정 없이 즉시 백업 가능.
+4. **독점 라이선스 안내**:
+   - 본 프로젝트는 `KRCUPRO` 독점 라이선스([LICENSE](../LICENSE)) 하에 보호됩니다.
 
 ---
 
-## 7. 바이브 코딩 구조 및 개발자 유지보수 가이드
+## 7. 체계적 코드 구조 및 개발자 유지보수 가이드
 
-- **프로젝트 맵**: [docs/ARCHITECTURE_MAP.md](docs/ARCHITECTURE_MAP.md)
-- **작업 인덱스 & 백로그**: [memory/tasks.md](memory/tasks.md)
-- **독립 프록시 엔진**: [surfshark-proxy-engine/README.md](surfshark-proxy-engine/README.md)
+- **프로젝트 맵**: [ARCHITECTURE_MAP.md](ARCHITECTURE_MAP.md)
+- **작업 인덱스 & 백로그**: [TASKS.md](TASKS.md)
 - **단위 테스트 실행**:
   ```bash
   python -m unittest discover -s tests
   ```
 - **빌드 스크립트 실행 (EXE 제작)**:
   ```bash
-  python build_exe.py
+  python deploy/build_exe.py
   ```

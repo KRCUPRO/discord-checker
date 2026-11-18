@@ -19,7 +19,7 @@ from src.generator.mask_gen import MaskPatternGenerator
 from src.proxy.surfshark import SurfsharkProxyProvider
 from src.storage.db import StorageManager
 from src.network.client import CheckResult, CheckStatus
-from gui import GuiOrchestrator, DiscordCheckerGui
+from src.gui import GuiOrchestrator, DiscordCheckerGui
 
 def test_1_firewall_and_paths():
     print("[TEST 1] Verifying Windows Defender Firewall Rules & Persistent Binary Paths...")

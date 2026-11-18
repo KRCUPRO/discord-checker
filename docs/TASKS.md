@@ -24,23 +24,23 @@
 
 ## 🚀 2. 현재 배포 자산 상태 (Current System Assets)
 
-1. **데스크톱 실행 파일**:
-   - `DiscordUsernameCheckerV2_KO.exe` (한국어 전용 빌드, 35.6 MB)
-   - `DiscordUsernameCheckerV2_EN.exe` (영어 전용 빌드, 35.6 MB)
+1. **데스크톱 실행 (GUI / CLI)**:
+   - `python src/gui_ko.py` (한국어 GUI) / `python src/gui_en.py` (영문 GUI)
+   - `python src/run.py` (헤드리스 Rich CLI)
+   - `python deploy/build_exe.py` (PyInstaller 단독 EXE 패키징)
 2. **모바일 Termux 자산**:
-   - `install_debian.sh` (원클릭 설치기)
-   - `run.sh` (원클릭 실행기)
-   - `docs/TERMUX_DEBIAN_GUIDE.md` (모바일 매뉴얼)
+   - `deploy/install_debian.sh` (원클릭 설치기)
+   - `deploy/run.sh` (원클릭 실행기)
+   - `docs/guides/TERMUX_DEBIAN_GUIDE.md` (모바일 매뉴얼)
 3. **도커 컨테이너 자산**:
-   - `Dockerfile` (Multi-Arch Python 3.12 slim)
-   - `docker-compose.yml` (단일 컨테이너 및 `2shard` 프로파일 2배속)
-   - `docs/DOCKER_GUIDE.md` (도커 매뉴얼)
-4. **독립 프록시 엔진 자산**:
-   - `surfshark-proxy-engine/` (D4UC 없이 단독 사용 가능한 1:1 다중 국가 터널 풀)
-5. **체계적 바이브 코딩 자산**:
-   - `GUIDE.md` (프로젝트 통합 가이드)
+   - `deploy/Dockerfile` (Multi-Arch Python 3.12 slim)
+   - `deploy/docker-compose.yml` (단일 컨테이너 및 `2shard` 프로파일 2배속)
+   - `docs/guides/DOCKER_GUIDE.md` (도커 매뉴얼)
+4. **체계적 문서 & 다국어 시스템**:
+   - `README.md` + `docs/locales/*.md` (12개국어 완벽 지원)
+   - `docs/GUIDE.md` (프로젝트 통합 가이드)
    - `docs/ARCHITECTURE_MAP.md` (아키텍처 매핑 및 데이터 흐름도)
-   - `memory/tasks.md` (작업 인덱스 및 백로그)
+   - `docs/TASKS.md` (작업 인덱스 및 백로그)
 
 ---
 

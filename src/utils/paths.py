@@ -30,8 +30,9 @@ def resolve_resource(relative_path: str) -> Path:
     Resolves a read-only or default resource path.
     1. If already absolute, return directly
     2. Checks if file exists in get_app_dir() / relative_path (user modified/local)
-    3. Checks if file exists in get_bundle_dir() / relative_path (bundled with exe)
-    4. Falls back to get_app_dir() / relative_path
+    3. Checks config/ fallback for configuration files
+    4. Checks if file exists in get_bundle_dir() / relative_path (bundled with exe)
+    5. Falls back to get_app_dir() / relative_path
     """
     p = Path(relative_path)
     if p.is_absolute():
@@ -39,9 +40,17 @@ def resolve_resource(relative_path: str) -> Path:
     local = get_app_dir() / relative_path
     if local.exists():
         return local
+    if p.name in ("config.yaml", "config.example.yaml", ".env", ".env.example"):
+        cfg_local = get_app_dir() / "config" / p.name
+        if cfg_local.exists():
+            return cfg_local
     bundled = get_bundle_dir() / relative_path
     if bundled.exists():
         return bundled
+    if p.name in ("config.yaml", "config.example.yaml", ".env", ".env.example"):
+        cfg_bundled = get_bundle_dir() / "config" / p.name
+        if cfg_bundled.exists():
+            return cfg_bundled
     return local
 
 def resolve_output_path(relative_path: str) -> Path:

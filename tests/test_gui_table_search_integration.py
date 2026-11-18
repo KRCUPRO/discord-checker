@@ -10,7 +10,7 @@ from typing import Dict, Any
 class TestGuiTableSearchIntegration(unittest.TestCase):
     def test_gui_search_and_filter_live(self):
         # Import gui inside test
-        import gui
+        from src import gui
         from src.ui.i18n import I18nManager
 
         # Instantiate GUI in Korean

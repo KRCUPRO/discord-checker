@@ -1,4 +1,4 @@
-# run.py
+# src/run.py
 import argparse
 import asyncio
 import os
@@ -6,6 +6,11 @@ import signal
 import sys
 import time
 from datetime import datetime
+from pathlib import Path
+
+_ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(_ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(_ROOT_DIR))
 from rich.console import Console
 from rich.live import Live
 

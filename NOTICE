@@ -1,0 +1,25 @@
+THIRD-PARTY OPEN-SOURCE & UPSTREAM NOTICES
+===========================================
+
+This project references or depends on the following third-party open-source packages and tools,
+each governed by its own respective license:
+
+1. curl_cffi (MIT License)
+   - TLS/JA3/JA4 browser impersonation networking stack built on BoringSSL / curl-impersonate.
+
+2. wireproxy (ISC License)
+   - User-space WireGuard client exposing local HTTP/SOCKS5 proxies (https://github.com/pufferffish/wireproxy).
+
+3. CustomTkinter (MIT License)
+   - Modern themed Tkinter wrapper for Python desktop GUI.
+
+4. Rich (MIT License)
+   - Terminal UI dashboard, progress rendering, and formatted telemetry logs.
+
+5. PyYAML (MIT License)
+   - YAML configuration parser and emitter.
+
+6. Upstream Inspiration Reference:
+   - Initial concept exploration referenced `camt4372/Discord-4Character-Usernames-Checker`,
+     later rebuilt from the ground up with asynchronous orchestration, TLS impersonation,
+     isolated multi-tunnel proxy rotation, SQLite WAL synchronization, and cross-platform packaging.

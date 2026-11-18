@@ -10,10 +10,10 @@
 ```mermaid
 graph TD
     subgraph Layer 1: Presentation ["1. 프레젠테이션 계층 (UI / CLI)"]
-        GUI_KO["gui_ko.py (한글 GUI)"]
-        GUI_EN["gui_en.py (영문 GUI)"]
-        GUI["gui.py (CustomTkinter 기반 통합 GUI)"]
-        CLI["run.py (헤드리스 CLI + Rich 대시보드)"]
+        GUI_KO["src/gui_ko.py (한글 GUI)"]
+        GUI_EN["src/gui_en.py (영문 GUI)"]
+        GUI["src/gui.py (CustomTkinter 기반 통합 GUI)"]
+        CLI["src/run.py (헤드리스 CLI + Rich 대시보드)"]
     end
 
     subgraph Layer 2: Orchestration ["2. 오케스트레이션 & 워커 풀"]
@@ -70,11 +70,11 @@ graph TD
 
 | 계층 | 모듈 / 파일 경로 | 주요 클래스 / 함수 | 핵심 책임 및 역할 |
 | :--- | :--- | :--- | :--- |
-| **UI** | `gui.py` | `DiscordUsernameCheckerGUI` | CustomTkinter 모던 다크 UI, 60 FPS 비동기 렌더링, 30ms 로그 디바운스, 툴팁, 온보딩 배너, 분할 샤딩 선택기 |
+| **UI** | `src/gui.py` | `DiscordUsernameCheckerGUI` | CustomTkinter 모던 다크 UI, 60 FPS 비동기 렌더링, 30ms 로그 디바운스, 툴팁, 온보딩 배너, 분할 샤딩 선택기 |
 | **UI** | `src/ui/dashboard.py` | `RichDashboard`, `DashboardMetrics` | 헤드리스 CLI용 터미널 Rich TUI 레이아웃 (워커 상태, RPS, 프록시 풀 상태) |
 | **UI** | `src/ui/tooltip.py` | `CTooltip` | 입력창, 옵션, 버튼 호버 시 친절한 한국어/영어 가이드 풍선 팝업 |
 | **UI** | `src/ui/i18n.py` | `I18nManager` | 한국어/영어 완전 분리 번역 사전 및 언어 동적 전환 지원 |
-| **Orchestration** | `run.py` | `Orchestrator`, `parse_args()` | 크로스 플랫폼 CLI 파서, 환경 변수 자동 오버라이드, 도커/서버용 스트리밍 로그 |
+| **Orchestration** | `src/run.py` | `Orchestrator`, `parse_args()` | 크로스 플랫폼 CLI 파서, 환경 변수 자동 오버라이드, 도커/서버용 스트리밍 로그 |
 | **Network** | `src/network/client.py` | `DiscordApiClient` | `curl_cffi` 기반 비동기 HTTP 요청, WAF 감지, 429 감지, CheckResult 생성 |
 | **Network** | `src/network/headers.py` | `get_discord_headers()` | Chrome 131 버전 매칭 브라우저 헤더 및 최신 `sec-ch-ua` 생성 |
 | **Proxy** | `src/proxy/manager.py` | `UnifiedProxyManager` | 단일 인터페이스 프록시 게이트웨이, 서프샤크/파일/ThorData 통합 라우팅 |

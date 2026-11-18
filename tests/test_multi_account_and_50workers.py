@@ -80,7 +80,7 @@ class TestMultiAccountAnd50Workers(unittest.TestCase):
 
     def test_ui_input_locking(self):
         """검사 실행 중(RUNNING) 워커 수 슬라이더 및 주요 입력이 비활성화(disabled)되는지 검증"""
-        import gui
+        from src import gui
         app = gui.DiscordCheckerGui(default_lang="ko")
         app.withdraw()
 
@@ -133,7 +133,7 @@ class TestMultiAccountAnd50Workers(unittest.TestCase):
 
     def test_launch_surfshark_browser_helper(self):
         """서프샤크 키 발급 전용 격리 브라우저 팝업 트리거 호출 검증"""
-        import gui
+        from src import gui
         app = gui.DiscordCheckerGui(default_lang="ko")
         app.withdraw()
 

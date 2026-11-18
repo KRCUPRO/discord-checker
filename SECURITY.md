@@ -1,16 +1,16 @@
 # 🛡️ Security Policy
 
-## Responsible Usage & Safety Best Practices
+## Responsible Usage & Secret Protection
 
 ### 1. Credentials & Private Keys Protection
-- **Never commit `config.yaml`, `.env`, or `credentials.json`** to public version control.
-- This repository is pre-configured with a strict `.gitignore` to prevent accidental credential leakage.
-- Always use `.env.example` and `config.example.yaml` as references when setting up your local environment.
+- **Never commit `config.yaml`, `.env`, `surfshark_credentials.json`, or `*.conf`** to version control.
+- This repository includes a hardened `.gitignore` to block local credentials, runtime databases (`*.db*`), scraped result files (`available*.txt`, `taken*.txt`, `results/`), and compiled binaries (`*.exe`).
+- Always start from `config/.env.example`, `config/config.example.yaml`, and `data/surfshark_credentials.example.json` templates.
+- No proprietary credentials or environment-specific paths are hardcoded anywhere in source code or documentation.
 
-### 2. Discord API Rate-Limiting & Safety
-- D4UC uses `curl_cffi` to mimic genuine Chrome 131 browser TLS handshakes (JA3/JA4 fingerprints).
-- When using proxies, ensure you use the integrated Surfshark 1:1 multi-tunnel engine or rotating proxies to distribute requests across distinct IPs.
-- Respect Discord's service limits and avoid excessive concurrency without sufficient proxy distribution.
+### 2. Network Isolation & Rate-Limiting Safety
+- Requests utilize `curl_cffi` TLS impersonation routed through isolated user-space HTTP/SOCKS5 tunnels (`wireproxy`), keeping host OS traffic and DNS completely unaffected.
+- Avoid excessive worker concurrency without adequate multi-cluster tunnel distribution.
 
-### 3. Reporting a Vulnerability
-If you discover a security vulnerability or credential leak within this codebase, please open a private security advisory or contact the maintainer directly.
+### 3. Reporting a Security Issue
+If you discover a security vulnerability or accidental secret exposure, please open a private security advisory in GitHub Security or contact the repository owner (`KRCUPRO`) directly.

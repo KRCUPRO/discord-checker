@@ -19,7 +19,8 @@ echo -e "${GREEN}🚀 D4UC Mobile & Linux Debian 자동 설치 및 환경 설정
 echo -e "${CYAN}================================================================${NC}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$PROJECT_ROOT"
 
 # 1. Architecture Detection
 ARCH=$(uname -m)
@@ -98,24 +99,10 @@ else
     echo "  ✅ bin/wireproxy가 이미 존재합니다."
 fi
 
-# 5. Create Easy Launcher Script (run.sh)
-echo -e "\n${YELLOW}[5단계] 원터치 실행 런처(run.sh) 생성...${NC}"
-cat << 'EOF' > run.sh
-#!/usr/bin/env bash
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
-
-if [ -f ".venv/bin/activate" ]; then
-    source .venv/bin/activate
-fi
-
-export PYTHONUNBUFFERED=1
-
-# Run with arguments
-exec python3 run.py "$@"
-EOF
-chmod +x run.sh
-echo "  ✅ ./run.sh 실행 런처 생성 완료"
+# 5. Ensure Easy Launcher Script permissions (deploy/run.sh)
+echo -e "\n${YELLOW}[5단계] 원터치 실행 런처(deploy/run.sh) 권한 설정...${NC}"
+chmod +x deploy/run.sh
+echo "  ✅ ./deploy/run.sh 실행 런처 준비 완료"
 
 # 6. Ensure data directory exists
 mkdir -p data results
@@ -125,13 +112,13 @@ echo -e "${GREEN}🎉 D4UC 데비안 / Termux 설치가 성공적으로 완료�
 echo -e "${CYAN}================================================================${NC}"
 echo -e "\n${YELLOW}💡 [실행 방법 안내]${NC}"
 echo -e "  1. 기본 실행 (설정 파일 기반):"
-echo -e "     ${CYAN}./run.sh${NC}"
+echo -e "     ${CYAN}./deploy/run.sh${NC}"
 echo -e "\n  2. 다중 창 2배 속도 분할 샤딩 실행 (1번 창):"
-echo -e "     ${CYAN}./run.sh --mode permutation --shard 2_1 --workers 5${NC}"
+echo -e "     ${CYAN}./deploy/run.sh --mode permutation --shard 2_1 --workers 5${NC}"
 echo -e "\n  3. 다중 창 2배 속도 분할 샤딩 실행 (2번 창):"
-echo -e "     ${CYAN}./run.sh --mode permutation --shard 2_2 --workers 5${NC}"
+echo -e "     ${CYAN}./deploy/run.sh --mode permutation --shard 2_2 --workers 5${NC}"
 echo -e "\n  4. Surfshark WireGuard 개인키 즉시 주입 실행:"
-echo -e "     ${CYAN}SURFSHARK_PRIVATE_KEY=\"내_개인키\" ./run.sh --workers 5${NC}"
+echo -e "     ${CYAN}SURFSHARK_PRIVATE_KEY=\"내_개인키\" ./deploy/run.sh --workers 5${NC}"
 echo -e "\n  5. 백그라운드 무중단 실행 (화면 끄고 계속 돌리기):"
-echo -e "     ${CYAN}nohup ./run.sh --no-dashboard > d4uc.log 2>&1 &${NC}"
+echo -e "     ${CYAN}nohup ./deploy/run.sh --no-dashboard > d4uc.log 2>&1 &${NC}"
 echo -e "${CYAN}================================================================${NC}\n"

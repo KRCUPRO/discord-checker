@@ -1,139 +1,191 @@
-# 🚀 D4UC — Discord Username Checker
-
 <div align="center">
 
-![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)
-![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Android%20Termux%20%7C%20Docker-brightgreen)
-![TLS Stealth](https://img.shields.io/badge/TLS%20Impersonation-Chrome%20131%20JA3%2FJA4-purple)
-![Multi-Tunnel](https://img.shields.io/badge/Proxy-Surfshark%201%3A1%20Multi--Tunnel-orange)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+<p align="center">
+  <strong>🇺🇸 English</strong> · <a href="./docs/locales/ko.md">🇰🇷 한국어</a> · <a href="./docs/locales/ja.md">🇯🇵 日本語</a> · <a href="./docs/locales/zh-CN.md">🇨🇳 中文</a> · <a href="./docs/locales/es.md">🇪🇸 Español</a> · <a href="./docs/locales/de.md">🇩🇪 Deutsch</a><br />
+  <a href="./docs/locales/fr.md">🇫🇷 Français</a> · <a href="./docs/locales/pt-BR.md">🇧🇷 Português</a> · <a href="./docs/locales/ru.md">🇷🇺 Русский</a> · <a href="./docs/locales/hi.md">🇮🇳 हिन्दी</a> · <a href="./docs/locales/ar.md">🇸🇦 العربية</a> · <a href="./docs/locales/id.md">🇮🇩 Bahasa Indonesia</a>
+</p>
 
-**초고속 비동기 TLS 스텔스 위장 + Surfshark 1:1 다중 국가 터널 풀 + SQLite WAL 멀티 인스턴스 무충돌 동기화 디스코드 닉네임 전수조사 엔진**
+# ⚡ D4UC (`discord-checker`)
 
-[English Guide](#-english-overview) | [한국어 가이드](#-한국어-개요) | [GUIDE.md](GUIDE.md) | [Architecture Map](docs/ARCHITECTURE_MAP.md)
+> **High-Performance Discord Rare Username Availability Engine — Chrome 131 TLS Impersonation, 1:1 Isolated Multi-Tunnel Pool & SQLite WAL Sharding.**
+
+[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](docs/GUIDE.md)
+[![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](docs/specs/01_NETWORK_CORE_ENGINE.md)
+
+<sub>Copyright (c) 2026 KRCUPRO · Licensed under Proprietary & Confidential (All Rights Reserved)</sub>
 
 </div>
 
 ---
 
-## 🌟 핵심 특징 (Key Highlights)
+<details open>
+<summary><b>🌟 Overview & Key Capabilities</b></summary>
 
-1. **Chrome 131 TLS JA3/JA4 스텔스 위장**:
-   - `curl_cffi` 기반으로 실제 구글 크롬 브라우저와 100% 동일한 암호화 스위트 및 핸드셰이크를 전송하여 Cloudflare/WAF 오탐을 회피합니다.
-2. **Surfshark 1:1 독립 국가 터널 풀 (`wireproxy`)**:
-   - OS 네트워크 카드를 건드리지 않고 유저스페이스(User-space)에서 전세계 142개국 엔드포인트를 로컬 루프백(`127.0.0.1:1081~1085`)으로 1:1 매핑하여 각 워커에 독립 해외 IP를 배정합니다.
-3. **429 레이트리밋 원자적 핫스왑 (Atomic Hot-Swap)**:
-   - 특정 워커가 디스코드로부터 429를 맞으면, 해당 워커의 터널만 0.3초 만에 새 국가로 교체하고 타 워커는 중단 없이 100% 풀스피드를 유지합니다.
-4. **다중 창 / 다중 컨테이너 분할 샤딩 (2배~4배 가속)**:
-   - `a~m`, `n~_` 등 알파벳 범위를 수학적으로 분할하여 다중 창이나 도커 컨테이너를 띄워 2배, 3배, 4배 속도로 전수검사를 가속합니다.
-5. **SQLite WAL 멀티 프로세스 동기화**:
-   - 프로그램을 여러 개 띄워도 `d4uc_results.db`를 안전하게 공유하여 중복 검사 0% 및 실시간 발견 닉네임 크로스 팝업을 보증합니다.
-6. **4대 크로스 플랫폼 지원**:
-   - Windows Desktop GUI (한글/영문 CustomTkinter)
-   - Headless CLI (`run.py` - TUI 대시보드 & 스트리밍 로그)
-   - Android Mobile Termux (`proot-distro debian` 24시간 백그라운드)
-   - Docker & Docker Compose (Multi-Arch ARM64 & AMD64)
+Traditional username checkers fail against modern edge defenses due to three recurring bottlenecks:
+1. **TLS Fingerprint Blocking**: Standard HTTP libraries trigger Cloudflare/WAF challenges immediately via synthetic JA3/JA4 signatures.
+2. **Host-Wide VPN Disruptions**: Running a desktop VPN client hijacks your entire machine's network interface and DNS.
+3. **429 Cascade Stalls & Multi-Process Collisions**: Hitting rate limits stalls all concurrent workers, while launching multiple instances corrupts shared result files.
+
+**D4UC (`discord-checker`)** solves all three cleanly inside an isolated, cross-platform architecture:
+- **Chrome 131 TLS JA3/JA4 Stealth**: Powered by `curl_cffi` (BoringSSL) with synchronized HTTP headers matching real Chrome 131 browser handshakes.
+- **1:1 User-Space WireGuard Tunnels (`wireproxy`)**: Maps 142 global endpoints onto isolated local ports (`127.0.0.1:1081+`) per worker — zero OS network adapter changes, zero traffic impact on your main system.
+- **0.3s Atomic 429 Hot-Swap**: Only the rate-limited worker rotates cleanly to a fresh country node while sibling workers keep running uninterrupted.
+- **Mathematical Sharding & SQLite WAL Sync**: Split exhaustive scans across 2, 3, or 4 disjoint slices (`2_1`, `2_2`, `4_1`–`4_4`) writing concurrently to `data/d4uc_results.db` with zero duplicate checks.
+
+</details>
 
 ---
 
-## 🚀 빠른 시작 (Quick Start)
+<details open>
+<summary><b>🥊 Comparison Matrix: Legacy Scripts vs D4UC v12</b></summary>
 
-### 1. 데스크톱 GUI (Windows)
+| Capability | Legacy Username Scripts | ⚡ D4UC v12 (`discord-checker`) |
+| :--- | :---: | :---: |
+| **TLS Handshake Stealth** | ❌ `requests` / `aiohttp` fingerprint flagged | **✅ BoringSSL Chrome 131 JA3/JA4 Impersonation** |
+| **Host Network Isolation** | ❌ Full-system VPN required | **✅ User-Space `wireproxy` HTTP/SOCKS5 Pool (1:1 per worker)** |
+| **429 Rate-Limit Recovery** | ❌ Global pause or worker crash | **✅ 0.3s Per-Worker Atomic Hot-Swap + Cooldown Queue** |
+| **Multi-Instance Sharding** | ❌ Duplicate checks & file race conditions | **✅ Disjoint Math Shards + SQLite WAL Concurrent Sync** |
+| **Platforms & UI** | ⚠️ CLI script only | **✅ Desktop GUI (KO/EN), Rich CLI, Android Termux & Multi-Arch Docker** |
+| **Secret & Clean-Repo Hygiene** | ⚠️ Risk of hardcoded keys | **✅ Strict `.gitignore`, `.env` injection & Dummy Templates** |
+
+</details>
+
+---
+
+<details open>
+<summary><b>🧬 8 Candidate Generation Modes & Sharding</b></summary>
+
+| Mode Key | Strategy | Best Use Case |
+| :--- | :--- | :--- |
+| `hybrid` | Dictionary stems + symmetry/numeric mutations | Fast general discovery of clean usernames |
+| `permutation` | Exhaustive ordered space (`a–z`, `0–9`, `_`) | Complete coverage using 2/3/4-way sharding (`2_1`, `2_2`) |
+| `dictionary` | 3–6 letter words, syllables, pronounceable pairs | High-value readable handles |
+| `pattern` | Symmetry/repeating structures (`aaaa`, `abba`, `abab`) | Visually distinctive rare patterns |
+| `numeric` | Sequential & repeating digits (`0000`–`9999`) | Short numeric targets |
+| `custom_mask` | Prefix, suffix, middle-dot rules (`??.vip`, `kr??`) | Targeted initials, brands, and dot placement |
+| `combinatorial` | Structured phonetic CVCV / VCCV syllables | Unique pronounceable brandable handles |
+| `recheck` | Re-evaluates previously `TAKEN` records | Detecting newly freed handles |
+
+</details>
+
+---
+
+<details open>
+<summary><b>🏛️ System Architecture & Repository Layout</b></summary>
+
+```mermaid
+graph LR
+    User["UI / CLI / Termux / Docker"] --> Orch["Orchestrator & Shard Coordinator"]
+    Orch --> Gen["8 Candidate Generators"]
+    Orch --> Pool["1:1 Wireproxy Tunnel Pool (142 Countries)"]
+    Pool --> API["Target Endpoint (Chrome 131 TLS)"]
+    API --> Store["SQLite WAL DB + Legacy TXT/CSV/JSON"]
+    API --> Hook["Discord Webhook Alerts"]
+```
+
+```text
+discord-checker/
+├── config/                  # .env.example & config.example.yaml templates
+├── data/                    # 142-cluster public endpoint DB & credentials template
+├── deploy/                  # Dockerfile, docker-compose.yml, Termux & PyInstaller scripts
+├── docs/                    # Master guides, 11 locale translations, architecture & specs
+├── src/                     # GUI (KO/EN), Headless CLI & modular core engine
+├── tests/                   # Automated regression & concurrency test suite (68 checks)
+├── CHANGELOG.md             # Version history
+├── LICENSE                  # Proprietary & Confidential License (KRCUPRO)
+├── NOTICE                   # Third-party open-source component notices
+├── README.md                # Project entry documentation
+├── requirements.txt         # Python dependencies
+└── SECURITY.md              # Secret handling & safety guidelines
+```
+
+</details>
+
+---
+
+<details open>
+<summary><b>🚀 Quick Start Across 4 Platforms</b></summary>
+
+#### 1. Desktop GUI (Windows / Desktop)
 ```bash
-# 가상환경 생성 및 의존성 설치
+git clone https://github.com/KRCUPRO/discord-checker.git
+cd discord-checker
 python -m venv .venv
 .\.venv\Scripts\activate
 pip install -r requirements.txt
 
-# 한국어 GUI 실행
-python gui_ko.py
-
-# 영어 GUI 실행
-python gui_en.py
+# Launch Korean or English GUI
+python src/gui_ko.py
+python src/gui_en.py
 ```
 
-### 2. 헤드리스 CLI (CLI & Server)
+#### 2. Headless CLI & Mathematical Sharding
 ```bash
-# 기본 실행 (하이브리드 모드, 4자리, 5워커)
-python run.py
+# Default Hybrid scan with 5 isolated workers
+python src/run.py
 
-# 순열 2분할 1번 창 (a~m 범위) 실행
-python run.py --mode permutation --length 4 --shard 2_1 --workers 5
+# Exhaustive 4-char permutation split (Shard 1 of 2: a–m)
+python src/run.py --mode permutation --length 4 --shard 2_1 --workers 5
 
-# 대시보드 없는 스트리밍 로그 모드 (백그라운드/서버 권장)
-python run.py --no-dashboard
+# Streaming stdout logs for background daemons
+python src/run.py --no-dashboard
 ```
 
-### 3. 안드로이드 모바일 Termux (24시간 무중단)
+#### 3. Docker & Multi-Container Sharding
 ```bash
-# Termux 내 Debian 진입 후 원클릭 설치
-chmod +x install_debian.sh run.sh
-./install_debian.sh
+# Copy templates and set your private key
+cp config/.env.example .env
 
-# 24시간 백그라운드 실행 (화면 꺼짐 방지)
+# Launch single background container
+docker compose -f deploy/docker-compose.yml up -d
+
+# Launch 2-shard parallel containers (2x throughput)
+docker compose -f deploy/docker-compose.yml --profile 2shard up -d
+```
+> Full manual: [Docker Guide](docs/guides/DOCKER_GUIDE.md)
+
+#### 4. Android Termux (`proot-distro debian`)
+```bash
+chmod +x deploy/install_debian.sh deploy/run.sh
+./deploy/install_debian.sh
+
 termux-wake-lock
-nohup ./run.sh --no-dashboard > output.log 2>&1 &
+nohup ./deploy/run.sh --no-dashboard > output.log 2>&1 &
 ```
-> 상세 매뉴얼: [docs/TERMUX_DEBIAN_GUIDE.md](docs/TERMUX_DEBIAN_GUIDE.md)
+> Full manual: [Termux Debian Guide](docs/guides/TERMUX_DEBIAN_GUIDE.md)
 
-### 4. 도커 컨테이너 (Docker & Compose)
-```bash
-# 단일 컨테이너 백그라운드 기동
-docker compose up -d
-
-# 2배속 병렬 분할 (a~m / n~_) 컨테이너 2개 동시 기동
-docker compose --profile 2shard up -d
-
-# 실시간 로그 스트리밍
-docker compose logs -f
-```
-> 상세 매뉴얼: [docs/DOCKER_GUIDE.md](docs/DOCKER_GUIDE.md)
+</details>
 
 ---
 
-## ⚙️ 설정 및 환경 변수 (.env)
+<details>
+<summary><b>⚙️ Configuration & Environment Variables</b></summary>
 
-`config.example.yaml` 및 `.env.example`을 복사하여 나만의 설정을 적용할 수 있습니다:
-
-```bash
-cp .env.example .env
-```
+Copy [config/.env.example](config/.env.example) to `.env` (or [config/config.example.yaml](config/config.example.yaml) to `config/config.yaml`):
 
 ```ini
-# Surfshark WireGuard 개인키 (쉼표로 여러 개 지정 가능)
 SURFSHARK_PRIVATE_KEYS=YOUR_SURFSHARK_WIREGUARD_PRIVATE_KEY_HERE
-
-# 실행 옵션
 D4UC_MODE=hybrid
 D4UC_LENGTH=4
 D4UC_WORKERS=5
 D4UC_PROXY=surfshark
-
-# 디스코드 웹훅 알림 (선택 사항)
-D4UC_WEBHOOK=https://discord.com/api/webhooks/...
+D4UC_WEBHOOK=
 ```
+
+See [Security Policy](SECURITY.md) and [Master Guide](docs/GUIDE.md) for credential safety rules.
+
+</details>
 
 ---
 
-## 🧩 아키텍처 개요 (Architecture Overview)
+<details open>
+<summary><b>📄 License & Attribution</b></summary>
 
-```mermaid
-graph LR
-    User["사용자 (GUI / CLI / Termux / Docker)"] --> Orch["Orchestrator"]
-    Orch --> Gen["8대 닉네임 생성 엔진"]
-    Orch --> TunnelPool["Surfshark 1:1 터널 풀 (:1081~1085)"]
-    TunnelPool --> WireGuard["WireGuard Global Clusters (142개국)"]
-    WireGuard --> Target["Discord API (Chrome131 TLS)"]
-    Target --> Storage["SQLite WAL DB & available.txt"]
-    Target --> Webhook["Discord Webhook Notifier"]
-```
+Copyright (c) 2026 **KRCUPRO**. All Rights Reserved.  
+Licensed under the [PROPRIETARY & CONFIDENTIAL SOFTWARE LICENSE](LICENSE).  
+Third-party open-source dependencies and notices are documented in [NOTICE](NOTICE).
 
-자세한 내부 구조 및 시퀀스 다이어그램은 [docs/ARCHITECTURE_MAP.md](docs/ARCHITECTURE_MAP.md)에서 확인하실 수 있습니다.
-
----
-
-## 🛡️ 보안 및 기여 (Security & License)
-
-- 본 저장소는 민감한 인증 정보나 결과 파일이 원천 차단된 템플릿 형태로 제공됩니다.
-- 자세한 보안 가이드는 [SECURITY.md](SECURITY.md)를 참고해 주시기 바랍니다.
-- 라이선스: MIT License
+</details>

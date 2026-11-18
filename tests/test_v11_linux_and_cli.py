@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from src.config import AppConfig
 from src.utils.paths import ensure_wireproxy_firewall_rule, find_wireproxy_bin
 from src.proxy.surfshark import SurfsharkProxyProvider
-from run import apply_env_and_args_to_config
+from src.run import apply_env_and_args_to_config
 
 class TestV11LinuxAndCli(unittest.TestCase):
     def setUp(self):

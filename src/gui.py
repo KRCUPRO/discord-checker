@@ -1,4 +1,4 @@
-# gui.py
+# src/gui.py
 import argparse
 import asyncio
 import collections
@@ -14,6 +14,10 @@ import webbrowser
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, List, Tuple, Dict, Any
+
+_ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(_ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(_ROOT_DIR))
 
 import customtkinter as ctk
 import tkinter as tk

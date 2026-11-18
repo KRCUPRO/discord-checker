@@ -43,13 +43,13 @@ cd discord-checker
 
 ### 2단계: 원클릭 자동 설치 스크립트 실행
 ```bash
-chmod +x install_debian.sh run.sh
-./install_debian.sh
+chmod +x deploy/install_debian.sh deploy/run.sh
+./deploy/install_debian.sh
 ```
 > **자동 수행 작업**:
 > 1. ARM64(aarch64) 아키텍처 자동 감지
 > 2. `python3`, `pip`, `venv`, `curl`, `wireguard-tools` 설치
-> 3. `.venv` 가상환경 및 `requirements.txt` (`curl_cffi`, `rich`, `pyyaml`) 설치
+> 3. `.venv` 가상환경 및 `requirements.txt` (`curl_cffi`, `rich`, `pyyaml`, `customtkinter`) 설치
 > 4. Linux ARM64 네이티브 `wireproxy` 바이너리 자동 다운로드 및 `bin/wireproxy` 배치
 
 ---
@@ -58,24 +58,24 @@ chmod +x install_debian.sh run.sh
 
 ### 1) 기본 대화형 터미널 대시보드 실행
 ```bash
-./run.sh
+./deploy/run.sh
 ```
 *(터미널에 실시간 RPS, 검사 완료 수, 발견 닉네임 등이 미려한 Rich 콘솔 UI로 출력됩니다)*
 
 ### 2) 다중 창 2배 속도 분할 샤딩 실행
 - **1번 작업 (a ~ m 시작 닉네임 전담)**:
 ```bash
-./run.sh --mode permutation --shard 2_1 --workers 5
+./deploy/run.sh --mode permutation --shard 2_1 --workers 5
 ```
 - **2번 작업 (n ~ _ 시작 닉네임 전담)**:
 ```bash
-./run.sh --mode permutation --shard 2_2 --workers 5
+./deploy/run.sh --mode permutation --shard 2_2 --workers 5
 ```
 *(PC와 휴대폰을 각각 2_1, 2_2로 나눠 돌리시면 집 밖에서도 PC와 함께 2배 속도로 전수검사를 끝냅니다!)*
 
 ### 3) Surfshark VPN 개인키 즉시 주입 실행
 ```bash
-SURFSHARK_PRIVATE_KEYS="내_와이어가드_개인키" ./run.sh --workers 5
+SURFSHARK_PRIVATE_KEYS="내_와이어가드_개인키" ./deploy/run.sh --workers 5
 ```
 
 ---
@@ -93,8 +93,8 @@ termux-wake-lock
 2. **데비안 로그인 후 백그라운드 데몬 실행 (`nohup`)**:
 ```bash
 proot-distro login debian
-cd D4UC/Discord-4Character-Usernames-Checker
-nohup ./run.sh --no-dashboard --mode permutation --shard 2_1 --workers 5 > d4uc.log 2>&1 &
+cd discord-checker
+nohup ./deploy/run.sh --no-dashboard --mode permutation --shard 2_1 --workers 5 > d4uc.log 2>&1 &
 ```
 
 3. **실시간 로그 모니터링**:
@@ -104,7 +104,7 @@ tail -f d4uc.log
 
 4. **검사기 종료 시**:
 ```bash
-pkill -f "python3 run.py"
+pkill -f "python3 src/run.py"
 ```
 
 5. **발견된 닉네임 확인**:

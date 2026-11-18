@@ -8,7 +8,7 @@ import yaml
 from src.utils.paths import resolve_resource
 
 DEFAULT_CONFIG_PATH = Path("config.yaml")
-EXAMPLE_CONFIG_PATH = Path("config.example.yaml")
+EXAMPLE_CONFIG_PATH = Path("config/config.example.yaml")
 
 def _replace_env_vars(match):
     var_name = match.group(1)
@@ -39,12 +39,12 @@ class AppConfig:
 
     @classmethod
     def load(cls, config_path: Optional[Path] = None) -> "AppConfig":
-        if config_path is None or config_path == DEFAULT_CONFIG_PATH:
+        if config_path is None or config_path == DEFAULT_CONFIG_PATH or str(config_path) == "config.yaml":
             resolved_path = resolve_resource("config.yaml")
             if not resolved_path.exists():
-                resolved_path = resolve_resource("config.example.yaml")
+                resolved_path = resolve_resource("config/config.example.yaml")
         else:
-            resolved_path = config_path
+            resolved_path = Path(config_path) if not isinstance(config_path, Path) else config_path
 
         if not resolved_path.exists():
             raw_data = {}

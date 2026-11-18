@@ -40,10 +40,10 @@ EOF
 ### 3단계: 기본 단일 컨테이너 백그라운드 실행
 ```bash
 # 백그라운드 빌드 및 기동
-docker compose up -d
+docker compose -f deploy/docker-compose.yml up -d
 
 # 실시간 검사 로그 확인 (스트리밍)
-docker compose logs -f d4uc
+docker compose -f deploy/docker-compose.yml logs -f d4uc
 ```
 
 ---
@@ -56,10 +56,10 @@ docker compose logs -f d4uc
 
 ```bash
 # 2개 분할 컨테이너 동시 기동 (빌드 포함)
-docker compose --profile 2shard up -d
+docker compose -f deploy/docker-compose.yml --profile 2shard up -d
 
 # 두 컨테이너의 실시간 로그 동시 모니터링
-docker compose --profile 2shard logs -f
+docker compose -f deploy/docker-compose.yml --profile 2shard logs -f
 
 # 1번 샤드 로그만 보기
 docker logs -f d4uc-shard-1
@@ -67,7 +67,7 @@ docker logs -f d4uc-shard-1
 # 2번 샤드 로그만 보기
 docker logs -f d4uc-shard-2
 ```
-> **팁**: 두 컨테이너 모두 호스트의 `./data/d4uc.db` SQLite 데이터베이스를 WAL 모드로 안전하게 공유하므로, 발견된 닉네임과 검사 완료 이력이 충돌 없이 실시간 동기화됩니다.
+> **팁**: 두 컨테이너 모두 호스트의 `./data/d4uc_results.db` SQLite 데이터베이스를 WAL 모드로 안전하게 공유하므로, 발견된 닉네임과 검사 완료 이력이 충돌 없이 실시간 동기화됩니다.
 
 ---
 
@@ -77,7 +77,7 @@ Docker Compose 없이 일반 `docker run` 명령어로 실행하는 방법:
 
 ### 1단계: 도커 이미지 빌드
 ```bash
-docker build -t d4uc:latest .
+docker build -f deploy/Dockerfile -t d4uc:latest .
 ```
 
 ### 2단계: 컨테이너 실행

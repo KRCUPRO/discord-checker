@@ -4,8 +4,8 @@ services:
   # 단일 기본 컨테이너
   d4uc:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: deploy/Dockerfile
     container_name: d4uc-checker
     restart: unless-stopped
     environment:
@@ -17,8 +17,8 @@ services:
       - D4UC_WEBHOOK=${D4UC_WEBHOOK:-}
       - D4UC_NO_DASHBOARD=1
     volumes:
-      - ./data:/app/data
-      # - ./config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
+      - ../data:/app/data
+      # - ../config/config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
     logging:
       driver: "json-file"
       options:
@@ -27,12 +27,12 @@ services:
 
   # ============================================================================
   # 다중 컨테이너 병렬 분할 샤딩 (2배 속도 가속 프로파일)
-  # 실행 방법: docker compose --profile 2shard up -d
+  # 실행 방법: docker compose -f deploy/docker-compose.yml --profile 2shard up -d
   # ============================================================================
   shard1:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: deploy/Dockerfile
     container_name: d4uc-shard-1
     restart: unless-stopped
     profiles: ["2shard", "sharding"]
@@ -46,8 +46,8 @@ services:
       - D4UC_WEBHOOK=${D4UC_WEBHOOK:-}
       - D4UC_NO_DASHBOARD=1
     volumes:
-      - ./data:/app/data
-      # - ./config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
+      - ../data:/app/data
+      # - ../config/config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
     logging:
       driver: "json-file"
       options:
@@ -56,8 +56,8 @@ services:
 
   shard2:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: deploy/Dockerfile
     container_name: d4uc-shard-2
     restart: unless-stopped
     profiles: ["2shard", "sharding"]
@@ -71,8 +71,8 @@ services:
       - D4UC_WEBHOOK=${D4UC_WEBHOOK:-}
       - D4UC_NO_DASHBOARD=1
     volumes:
-      - ./data:/app/data
-      # - ./config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
+      - ../data:/app/data
+      # - ../config/config.yaml:/app/config.yaml:ro  # 사용자 커스텀 config.yaml 적용 시 주석 해제
     logging:
       driver: "json-file"
       options:

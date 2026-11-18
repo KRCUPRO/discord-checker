@@ -11,7 +11,7 @@ from src.storage.db import StorageManager
 from src.network.client import CheckResult, CheckStatus
 from src.config import AppConfig
 from src.ui.i18n import I18nManager
-from gui import GuiOrchestrator
+from src.gui import GuiOrchestrator
 
 TEST_DIR = Path("tests/tmp_concurrency_autosave").resolve()
 

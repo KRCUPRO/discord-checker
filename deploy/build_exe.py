@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 def build():
-    root = Path(__file__).parent.resolve()
+    root = Path(__file__).resolve().parent.parent
     os.chdir(root)
 
     # 1. Ensure bin/wireproxy.exe exists
@@ -27,7 +27,7 @@ def build():
     data_flags = [
         "--add-data", f"src{os.pathsep}src",
         "--add-data", f"data{os.pathsep}data",
-        "--add-data", f"config.example.yaml{os.pathsep}.",
+        "--add-data", f"config/config.example.yaml{os.pathsep}config",
     ]
     if (root / "config.yaml").exists():
         data_flags.extend(["--add-data", f"config.yaml{os.pathsep}."])
@@ -56,7 +56,7 @@ def build():
         "--hidden-import", "curl_cffi",
         "--hidden-import", "customtkinter",
         # Entrypoint
-        "gui.py"
+        "src/gui.py"
     ]
 
     print("Executing PyInstaller command...")

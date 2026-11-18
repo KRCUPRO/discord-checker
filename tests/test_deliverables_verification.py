@@ -13,7 +13,7 @@ from src.config import AppConfig
 from src.generator.mask_gen import MaskPatternGenerator
 from src.storage.db import StorageManager
 from src.network.client import CheckResult, CheckStatus
-from gui import GuiOrchestrator
+from src.gui import GuiOrchestrator
 
 def verify_binaries():
     print("[VERIFICATION 1] Checking Deployed Executable Binaries...")
