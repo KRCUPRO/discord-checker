@@ -164,7 +164,15 @@ D4UC mengintegrasikan **pool terowongan WireGuard 1:1 di ruang pengguna** melalu
    D4UC_WEBHOOK=https://discord.com/api/webhooks/ID/TOKEN
    ```
 
-### 2. Kebijakan Anti-Bocor (Zero-Leak Policy)
+### 2. Pengikis & Penguji Multithread Proksi Publik Gratis (`--proxy free`) [Baru di v12.3.0]
+Operasi 100% gratis tanpa memerlukan langganan VPN berbayar:
+- **Pengumpulan multi-sumber otomatis**: Mengambil daftar proksi yang terus diperbarui dari 14+ repositori GitHub dan dataset Hugging Face (TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face).
+- **Dukungan multi-protokol**: Mendukung penuh proksi gratis HTTP, HTTPS, SOCKS4, dan SOCKS5.
+- **Pemeriksaan koneksi asinkron langsung**: Menguji konektivitas nyata terhadap endpoint Discord dan Cloudflare, menyaring node mati, latensi > 3500ms, dan blokir WAF 403.
+- **Rotasi batas kecepatan 429 & penyegaran latar belakang**: Mengisolasi node selama 15 detik saat terkena rate limit dan beralih otomatis ke proksi aktif tercepat.
+- **Integrasi antarmuka**: Tersedia di GUI Desktop, tombol 1-ketuk di Web Seluler, dan opsi CLI `--proxy free` (atau `-p free`).
+
+### 3. Kebijakan Anti-Bocor (Zero-Leak Policy)
 - Semua kunci privat dan file konfigurasi dikecualikan secara ketat oleh `.gitignore` dan diperiksa sebelum setiap commit.
 
 ---

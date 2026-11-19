@@ -28,6 +28,7 @@ if str(_ROOT_DIR) not in sys.path:
 from src.config import AppConfig
 from src.gui import GuiOrchestrator
 from src.network.client import CheckStatus, CheckResult
+from src.proxy.free_proxy import FreeProxyProvider
 from src.utils.paths import get_bundle_dir, resolve_resource, resolve_output_path
 
 
@@ -40,6 +41,7 @@ class WebGuiState:
         self.start_time: Optional[float] = None
         self.results_feed: collections.deque = collections.deque(maxlen=500)
         self.logs_feed: collections.deque = collections.deque(maxlen=200)
+        self.free_proxy_provider = FreeProxyProvider()
         self._load_existing_results()
 
     def _load_existing_results(self):
@@ -70,10 +72,29 @@ class WebGuiState:
         with self.lock:
             self.logs_feed.append(text)
 
+    def scrape_free_proxies_async(self) -> Dict[str, Any]:
+        with self.lock:
+            if self.free_proxy_provider.is_scraping:
+                return {"status": "busy", "message": "Scraping already in progress", "is_scraping": True}
+        self.on_log("🌐 [WEB-API] 모바일 웹 제어기로부터 무료 프록시 수집 및 실시간 검증 요청 수신", "PROXY")
+        self.free_proxy_provider.trigger_background_scrape(
+            progress_cb=lambda c, v, t: self.on_log(f"⏳ [FREE-PROXY] 검증 진행 중: {v}개 유효 / {c}개 완료", "PROXY")
+        )
+        return {"status": "ok", "message": "Free proxy scraping and verification launched in background", "is_scraping": True}
+
+    def get_free_proxy_status(self) -> Dict[str, Any]:
+        return self.free_proxy_provider.get_stats()
+
     def start_engine(self):
         with self.lock:
             if self.orchestrator and self.orchestrator.is_running:
                 return True
+            # Pre-flight check for Free Proxy mode
+            if self.config.proxy.get("mode") == "free":
+                if not self.free_proxy_provider.has_available_proxies():
+                    self.on_log("🌐 [WEB-GUI] 무료 프록시 풀 활성 노드가 없어 검사 시작 전 자동 수집 및 실시간 검증을 선행합니다...", "PROXY")
+                    self.free_proxy_provider.scrape_and_verify_sync(max_candidates=250)
+
             self.start_time = time.time()
             self.orchestrator = GuiOrchestrator(
                 config=self.config,
@@ -240,6 +261,8 @@ class D4UCWebHandler(BaseHTTPRequestHandler):
         # REST APIs
         elif clean_path == "/api/status":
             self._send_json(self.server_state.get_status_dict())
+        elif clean_path == "/api/proxy/free_status":
+            self._send_json(self.server_state.get_free_proxy_status())
         elif clean_path == "/api/config":
             self._send_json(self.server_state.config.to_dict())
         elif clean_path == "/api/results":
@@ -277,6 +300,9 @@ class D4UCWebHandler(BaseHTTPRequestHandler):
             self._send_json({"status": "ok", "running": True, "message": "Engine restarted"})
         elif clean_path == "/api/config":
             result = self.server_state.update_config(payload)
+            self._send_json(result)
+        elif clean_path == "/api/proxy/scrape":
+            result = self.server_state.scrape_free_proxies_async()
             self._send_json(result)
         else:
             self.send_error(HTTPStatus.NOT_FOUND, "API endpoint not found")

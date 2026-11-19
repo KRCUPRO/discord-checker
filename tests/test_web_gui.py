@@ -134,5 +134,20 @@ class TestWebGui(unittest.TestCase):
             self.assertIn("attachment", headers.get("Content-Disposition", ""))
             self.assertTrue(len(body) > 0)
 
+    def test_api_free_proxy_endpoints(self):
+        # 1. GET /api/proxy/free_status
+        status, _, body = self._get("/api/proxy/free_status")
+        self.assertEqual(status, 200)
+        data = json.loads(body.decode("utf-8"))
+        self.assertEqual(data["status"], "ok")
+        self.assertIn("verified_count", data)
+        self.assertIn("alive_count", data)
+        self.assertIn("is_scraping", data)
+
+        # 2. POST /api/proxy/scrape
+        status_post, res_post = self._post("/api/proxy/scrape", {})
+        self.assertEqual(status_post, 200)
+        self.assertIn(res_post["status"], ["ok", "busy"])
+
 if __name__ == "__main__":
     unittest.main()

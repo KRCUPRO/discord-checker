@@ -165,7 +165,15 @@ D4UC 配备内置的 **Surfshark WireGuard 1:1 用户空间隧道池**，彻底�
    D4UC_WEBHOOK=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
    ```
 
-### 2. 零泄露安全政策 (Zero-Leak Policy)
+### 2. 免费公开代理自动聚合与实时多线程验证器 (`--proxy free`) [v12.3.0 新增]
+支持无需付费购买 VPN 或代理的 100% 零成本开源代理聚合与验证引擎：
+- **自动化多源抓取**: 从 GitHub 和 Hugging Face 持续抓取 14+ 个优质开源公开代理源（TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face）。
+- **多协议全支持**: 完整支持 HTTP、HTTPS、SOCKS4 和 SOCKS5 免费代理。
+- **真实 API 异步验证网关**: 高并发向 Discord 用户名 API 及 Cloudflare 节点发起轻量探测，自动剔除失效节点、超 3500ms 高延迟节点与 403 WAF 封锁节点。
+- **熔断机制与 429 智能热切**: 遇到 429 频率限制自动冷却隔离 15 秒并瞬时热切换至最低延迟可用节点，后台按设定周期自动刷新代理池。
+- **跨平台界面协同**: 桌面端 `🌐 免费代理自动聚合` 模式、移动 Web 端的 1-Tap `🔄 采集并验证免费代理` 按钮与 REST API、以及 CLI 选项 `--proxy free`（或 `-p free`）。
+
+### 3. 零泄露安全政策 (Zero-Leak Policy)
 - 密钥、配置文件（`.env`, `config.yaml`）和代理列表已被 `.gitignore` 严格忽略，任何代码提交均经过自动化防泄密审计。
 
 ---

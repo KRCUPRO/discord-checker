@@ -133,6 +133,15 @@ class Orchestrator:
         )
         await self.storage.start_worker()
 
+        # Free Proxy Auto-Scrape & Verification Check
+        if self.config.proxy.get("mode") in ("free", "free_public"):
+            prov = self.proxy_manager.get_free_provider()
+            if prov and not prov.has_available_proxies():
+                console.print("[bold cyan]🌐 [FREE-PROXY] 무료 공개 프록시 목록 수집 및 실시간 유효성 검증을 시작합니다...[/bold cyan]")
+                count = await asyncio.to_thread(prov.scrape_and_verify_sync, 350)
+                stats = prov.get_stats()
+                console.print(f"[bold green]✅ [FREE-PROXY] {count}개 활성 프록시 준비 완료 (평균 레이턴시: {stats['avg_latency_ms']:.0f}ms)[/bold green]")
+
         workers = [
             asyncio.create_task(self.worker_loop(i + 1))
             for i in range(self.concurrency)
@@ -174,7 +183,7 @@ def parse_args():
     parser.add_argument("--mode", "-m", choices=["hybrid", "dictionary", "pattern", "permutation", "numeric", "custom_mask", "combinatorial", "recheck"], help="Username generation mode")
     parser.add_argument("--length", "-l", type=int, choices=[3, 4, 5, 6], help="Target username length")
     parser.add_argument("--workers", "-w", type=int, help="Number of concurrent workers (1-50)")
-    parser.add_argument("--proxy", "-p", choices=["surfshark", "file", "thordata", "direct"], help="Proxy provider to use")
+    parser.add_argument("--proxy", "-p", choices=["surfshark", "free", "file", "thordata", "direct"], help="Proxy provider to use (surfshark, free, file, thordata, direct)")
     parser.add_argument("--shard", "-s", help="Permutation sharding key (e.g. 2_1, 2_2, 3_1, 3_2, 3_3, 4_1, 4_2, 4_3, 4_4)")
     parser.add_argument("--start-char", help="Start character for custom letter range (a-z, 0-9, _)")
     parser.add_argument("--end-char", help="End character for custom letter range (a-z, 0-9, _)")

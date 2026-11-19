@@ -82,7 +82,10 @@ STRINGS: Dict[str, Dict[str, str]] = {
         "custom_mask_tooltip": "직접 패턴 마스크를 지정합니다.\n• ? = 영숫자 [a-z0-9]\n• @ = 영문자 [a-z]\n• # = 숫자 [0-9]\n• . = 점\n• 일반 문자 = 고정 문자 (예: kr?.??, ??.ab)",
 
         "proxy_title": "프록시 인프라",
-        "proxy_tooltip": "Discord API 호출에 사용할 네트워크 프록시 엔진을 선택합니다.\n• Surfshark: 유저스페이스 wireproxy 터널(127.0.0.1:1081). 호스트 PC 인터넷에 일체 영향 없음\n• File Pool: proxies.txt 파일에 기재된 프록시 목록 사용\n• ThorData: 상용 로테이팅 프록시 연동\n• Direct: 프록시 없이 현재 PC 공인 IP로 직접 검사",
+        "proxy_tooltip": "Discord API 호출에 사용할 네트워크 프록시 엔진을 선택합니다.\n• Surfshark: 유저스페이스 wireproxy 터널(127.0.0.1:1081). 호스트 PC 인터넷에 일체 영향 없음\n• 무료 프록시: GitHub/HuggingFace 공개 프록시 목록 자동 수집 및 실시간 Discord 연결성 검증\n• File Pool: proxies.txt 파일에 기재된 프록시 목록 사용\n• ThorData: 상용 로테이팅 프록시 연동\n• Direct: 프록시 없이 현재 PC 공인 IP로 직접 검사",
+        "proxy_opt_free": "🌐 무료 프록시 자동 수집 (Free Public)",
+        "btn_scrape_free": "🔄 무료 프록시 수집 & 검증",
+        "free_proxy_badge_zero": "가용: 0개 검증됨",
 
         "country_title": "선호 국가 (Surfshark)",
         "country_tooltip": "Surfshark 경유 시 우선적으로 연결할 국가 클러스터를 지정합니다.\n• 한국/일본/싱가포르: 아시아 권역으로 지연시간(Latency)이 가장 낮음\n• 미국/유럽: 대규모 IP 풀을 활용할 때 적합\n• 전세계 142개: 레이트리밋 발생 시 모든 글로벌 노드로 무한 순환",
@@ -371,7 +374,10 @@ SQLite WAL 데이터베이스와 실시간 연동되어 여러 창이 동시에 
         "custom_mask_tooltip": "Custom mask pattern:\n• ? = alphanumeric [a-z0-9]\n• @ = letters [a-z]\n• # = digits [0-9]\n• . = dot\n• Other characters = fixed literals (e.g. kr?.??, ??.ab)",
 
         "proxy_title": "Proxy Infrastructure",
-        "proxy_tooltip": "Select network proxy infrastructure for Discord API requests:\n• Surfshark: Userspace wireproxy tunnel (127.0.0.1:1081). 0% host impact\n• File Pool: Load proxies from proxies.txt\n• ThorData: Commercial rotating proxy provider\n• Direct: Direct connection using your current public IP",
+        "proxy_tooltip": "Select network proxy infrastructure for Discord API requests:\n• Surfshark: Userspace wireproxy tunnel (127.0.0.1:1081). 0% host impact\n• Free Public: Auto-scrape GitHub & HuggingFace public proxy lists and verify live Discord connectivity\n• File Pool: Load proxies from proxies.txt\n• ThorData: Commercial rotating proxy provider\n• Direct: Direct connection using your current public IP",
+        "proxy_opt_free": "🌐 Free Public Proxies (Auto Scrape)",
+        "btn_scrape_free": "🔄 Scrape & Verify Free Proxies",
+        "free_proxy_badge_zero": "Active: 0 Verified",
 
         "country_title": "Preferred Country (Surfshark)",
         "country_tooltip": "Preferred country clusters for Surfshark WireGuard:\n• KR/JP/SG: Lowest latency for Asian region\n• US/EU: Large IP pools\n• All 142: Infinite global rotation on rate limits",

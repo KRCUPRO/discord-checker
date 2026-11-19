@@ -2,6 +2,27 @@
 
 All notable changes to **D4UC (`discord-checker`)** are documented in this file.
 
+## [v12.3.0] — 2026-11-19
+
+### Added
+- **Free Public Proxy Scraper & Live Multi-Threaded Validator (`src/proxy/free_proxy.py`)**:
+  - Automated open-source candidate aggregation from 14+ continually updated GitHub repositories and Hugging Face datasets (TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face).
+  - Multi-protocol support across HTTP, HTTPS, SOCKS4, and SOCKS5 free proxies.
+  - High-speed concurrent asynchronous validation against Discord unique-username API (`/api/v9/unique-username/username-attempt-unauthed`) and Cloudflare edge traces.
+  - Automated filtering of dead nodes, latency exceeding 3,500ms, and 403 Cloudflare WAF blocks.
+  - Round-robin proxy leasing with lowest-latency prioritization, 429 rate limit cooldown handling (15s), and background auto-refresher.
+  - Clean integration into `UnifiedProxyManager` under mode `"free"` / `"free_public"`.
+- **Desktop GUI Free Proxy Mode**:
+  - Added `🌐 무료 프록시 자동 수집 (Free Public)` in proxy dropdown with live `[🔄 무료 프록시 수집 & 검증]` button and active count badge.
+- **Mobile Touch Web GUI & PWA REST APIs**:
+  - Added `Free Public` option to `#proxyMode`, 1-tap `🔄 무료 프록시 수집 & 검증` button with live polling telemetry.
+  - New REST API endpoints: `POST /api/proxy/scrape` and `GET /api/proxy/free_status`.
+- **Headless CLI Free Proxy Support**:
+  - Support for `--proxy free` (or `-p free`) with automatic pre-flight scraping and validation before launching check workers.
+- **Full Localization and Comprehensive Test Coverage**:
+  - Documented in `README.md` and all 11 locale files in `docs/locales/`.
+  - Added unit test suite `tests/test_free_proxy.py` and updated `tests/test_deliverables_verification.py` (95 passing tests, exit code 0).
+
 ## [v12.2.0] — 2026-11-19
 
 ### Added

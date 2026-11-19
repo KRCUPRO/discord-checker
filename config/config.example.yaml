@@ -16,7 +16,7 @@ network:
 
 # 3. 프록시 인프라 설정
 proxy:
-  mode: "hybrid"            # "surfshark", "thordata", "file", "hybrid" (파일+ThorData), "direct" (프록시 없음)
+  mode: "hybrid"            # "surfshark", "free" (무료 공개 프록시 자동 수집/검증), "thordata", "file", "hybrid", "direct"
   
   # Surfshark VPN 연동 (142개 글로벌 클러스터 및 자격 증명)
   surfshark:
@@ -41,6 +41,14 @@ proxy:
     path: "proxies.txt"     # 줄당 ip:port, ip:port:user:pass, socks5://... 지원
     default_protocol: "http" # "http" 또는 "socks5"
     shuffle: true
+
+  # 🌐 무료 공개 프록시 자동 수집 & 실시간 체커 (GitHub/HuggingFace)
+  free:
+    enabled: true
+    cache_file: "data/free_proxies_verified.json"
+    max_latency_ms: 3500.0  # 최대 허용 레이턴시 (ms)
+    validation_timeout: 2.5 # 개별 연결 검증 타임아웃 (초)
+    auto_refresh_minutes: 15 # 풀 고갈 시 주기적 자동 재수집/재검증
 
   # 헬스 체크 및 서킷 브레이커
   health:

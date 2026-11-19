@@ -164,7 +164,15 @@ D4UC integra un **pool de túneles WireGuard 1:1 en espacio de usuario** impulsa
    D4UC_WEBHOOK=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
    ```
 
-### 2. Política de Cero Fugas (Zero-Leak Policy)
+### 2. Raspador y Validador Multihilo de Proxies Públicos Gratuitos (`--proxy free`) [Nuevo en v12.3.0]
+Operación 100% gratuita sin necesidad de suscripciones VPN:
+- **Recolección multi-fuente automatizada**: Obtiene listas continuamente actualizadas de más de 14 repositorios de GitHub y conjuntos de datos de Hugging Face (TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face).
+- **Soporte multiprotocolo**: Soporta proxies HTTP, HTTPS, SOCKS4 y SOCKS5.
+- **Validación asíncrona en tiempo real**: Comprueba la conectividad real con endpoints de Discord y Cloudflare, filtrando nodos caídos, latencias > 3500ms y bloqueos 403 WAF.
+- **Rotación 429 y autorrefresco en segundo plano**: Aísla nodos limitados por 15s y conmuta en caliente al proxy más rápido.
+- **Interfaces**: Selector en GUI de escritorio, botón 1-tap en Web Móvil y flag CLI `--proxy free` (o `-p free`).
+
+### 3. Política de Cero Fugas (Zero-Leak Policy)
 - Los archivos de configuración (`.env`, `config.yaml`) y credenciales están rigurosamente excluidos en `.gitignore` y son auditados antes de cualquier commit.
 
 ---

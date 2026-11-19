@@ -164,7 +164,15 @@ D4UC enthält einen **1:1 Userspace-WireGuard-Tunnelpool** via `wireproxy`, um I
    D4UC_WEBHOOK=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
    ```
 
-### 2. Sicherheitsrichtlinie (Zero-Leak Policy)
+### 2. Kostenloser Public-Proxy Scraper & Live Multi-Threaded Validator (`--proxy free`) [Neu in v12.3.0]
+Vollständig kostenloser Betrieb ohne VPN-Abonnement:
+- **Automatisiertes Multi-Source-Scraping**: Sammelt kontinuierlich aktualisierte Proxy-Listen aus über 14 GitHub-Repositories und Hugging Face-Datensätzen (TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face).
+- **Multi-Protokoll-Unterstützung**: Nahtlose Unterstützung für HTTP-, HTTPS-, SOCKS4- und SOCKS5-Proxies.
+- **Asynchrone Echtzeit-Verbindungsprüfung**: Testet Kandidaten direkt gegen Discord- und Cloudflare-Endpunkte, filtert inaktive Server, Latenzen > 3500ms und 403-WAF-Sperren heraus.
+- **Schutzschaltung & 429-Rotation**: Automatische 15s-Abkühlung bei Ratenbegrenzung und Hot-Swap auf den schnellsten aktiven Proxy.
+- **Oberflächenintegration**: Desktop-GUI-Auswahl, 1-Tap-Button in der mobilen Web-GUI und CLI-Schalter `--proxy free` (oder `-p free`).
+
+### 3. Sicherheitsrichtlinie (Zero-Leak Policy)
 - Konfigurationsdateien (`.env`, `config.yaml`) und Schlüssel sind über `.gitignore` vollständig von Git ausgeschlossen.
 
 ---

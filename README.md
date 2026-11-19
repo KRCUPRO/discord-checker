@@ -178,7 +178,18 @@ D4UC incorporates an isolated **1:1 user-space WireGuard tunnel pool** powered b
    D4UC_WEBHOOK=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
    ```
 
-### 2. Zero-Leak Policy
+### 2. Free Public Proxy Auto-Scraper & Live Multi-Threaded Validator (`--proxy free`) [NEW in v12.3.0]
+D4UC now supports completely zero-cost operation via built-in open-source public proxy aggregation:
+- **Automated Multi-Source Scraping**: Pulls continually updated proxy candidate lists from 14+ GitHub repositories and Hugging Face datasets (TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face).
+- **Multi-Protocol Support**: Seamlessly aggregates HTTP, HTTPS, SOCKS4, and SOCKS5 free proxies.
+- **High-Speed Async Connection Gate**: Tests candidate proxies concurrently against real Discord endpoints (`/api/v9/unique-username/username-attempt-unauthed`) and Cloudflare edge traces. Filters out dead nodes, latency exceeding 3,500ms, and 403 WAF blocks.
+- **Circuit Breaker & 429 Rotation**: Automatically cools down rate-limited nodes for 15s and rotates to the lowest-latency active node. Auto-refreshes the pool periodically in the background.
+- **UI Integration**:
+  - **Desktop GUI**: Select `🌐 Free Public Proxies (Auto Scrape)` in the proxy selector and click `[🔄 Scrape & Verify Free Proxies]` with live verified count badges.
+  - **Mobile Web GUI**: Select `Free Public` in proxy mode, tap `🔄 Scrape & Verify Free Proxies`, or interact via `POST /api/proxy/scrape` and `GET /api/proxy/free_status`.
+  - **CLI**: Execute with `python src/run.py --proxy free` (or `-p free`).
+
+### 3. Zero-Leak Policy
 - All secrets (`.env`, `config.yaml`, proxy credential files) are strictly excluded via `.gitignore`.
 - Every automated build and git commit undergoes strict zero-leak auditing to guarantee zero private keys or credentials are ever committed.
 

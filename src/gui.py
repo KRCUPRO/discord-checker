@@ -892,10 +892,30 @@ class DiscordCheckerGui(ctk.CTk):
 
         self.proxy_menu = ctk.CTkOptionMenu(
             self.controls_scroll,
-            values=["Surfshark (격리 프록시)", "File Pool (proxies.txt)", "ThorData", "Direct (단일 IP)"]
+            values=["Surfshark (격리 프록시)", "🌐 무료 프록시 자동 수집 (Free Public)", "File Pool (proxies.txt)", "ThorData", "Direct (단일 IP)"],
+            command=self._on_proxy_mode_selected
         )
         self.proxy_menu.set("Surfshark (격리 프록시)")
         self.proxy_menu.pack(fill="x", padx=6, pady=(0, 8))
+
+        # 3.1 Free Proxy Controls Frame
+        self.frame_free_proxy = ctk.CTkFrame(self.controls_scroll, fg_color="transparent")
+        self.btn_scrape_free = ctk.CTkButton(
+            self.frame_free_proxy,
+            text=I18nManager.t("btn_scrape_free"),
+            command=self._on_scrape_free_proxies_clicked,
+            fg_color="#5865F2",
+            hover_color="#4752C4",
+            height=28
+        )
+        self.btn_scrape_free.pack(fill="x", pady=(0, 2))
+        self.lbl_free_proxy_badge = ctk.CTkLabel(
+            self.frame_free_proxy,
+            text=I18nManager.t("free_proxy_badge_zero"),
+            font=ctk.CTkFont(size=11),
+            text_color="#949ba4"
+        )
+        self.lbl_free_proxy_badge.pack(fill="x", pady=(0, 4))
 
         # 4. Preferred Country
         country_header = ctk.CTkFrame(self.controls_scroll, fg_color="transparent")
@@ -2109,6 +2129,7 @@ class DiscordCheckerGui(ctk.CTk):
                     if saved_proxy.split()[0].lower() in val.lower():
                         self.proxy_menu.set(val)
                         break
+            self._on_proxy_mode_selected(self.proxy_menu.get())
             saved_country = self.config.ui.get("last_country") or self.config.proxy.get("surfshark", {}).get("preferred_country_label")
             if saved_country:
                 for val in self.country_menu.cget("values"):
@@ -2571,6 +2592,75 @@ class DiscordCheckerGui(ctk.CTk):
         webbrowser.open(url)
         self._append_log("🌐 [BROWSER] 기본 브라우저로 서프샤크 수동 키 발급 페이지를 열었습니다.", "SYSTEM")
 
+    def _on_proxy_mode_selected(self, choice: str):
+        if "무료" in choice or "Free" in choice:
+            self.frame_free_proxy.pack(fill="x", padx=6, pady=(0, 6), after=self.proxy_menu)
+            self._update_free_proxy_badge()
+        else:
+            self.frame_free_proxy.pack_forget()
+
+    def _update_free_proxy_badge(self):
+        prov = self.proxy_manager.get_free_provider()
+        if prov:
+            stats = prov.get_stats()
+            v_cnt = stats["verified_count"]
+            avg_ms = stats["avg_latency_ms"]
+            if v_cnt > 0:
+                self.lbl_free_proxy_badge.configure(
+                    text=f"✅ 가용: {v_cnt}개 검증됨 (평균 {avg_ms:.0f}ms)",
+                    text_color="#57F287"
+                )
+            else:
+                self.lbl_free_proxy_badge.configure(
+                    text=I18nManager.t("free_proxy_badge_zero"),
+                    text_color="#949ba4"
+                )
+
+    def _on_scrape_free_proxies_clicked(self):
+        prov = self.proxy_manager.get_free_provider()
+        if not prov:
+            from src.proxy.free_proxy import FreeProxyProvider
+            prov = FreeProxyProvider()
+            self.proxy_manager.providers.append(prov)
+
+        if prov.is_scraping:
+            return
+
+        self.btn_scrape_free.configure(state="disabled", text="⏳ 수집 & 검증 진행 중...")
+        self.lbl_free_proxy_badge.configure(text="🌐 수집 & 검증 진행 중...", text_color="#FEE75C")
+        self._append_log("[SYSTEM] 🌐 무료 프록시 자동 수집 및 실시간 검증을 시작합니다...", "PROXY")
+
+        def _worker():
+            def _prog(checked, verified, total):
+                if hasattr(self, "lbl_free_proxy_badge"):
+                    try:
+                        self.after(0, lambda: self.lbl_free_proxy_badge.configure(
+                            text=f"⏳ 검증 중: {verified}개 성공 / {checked}개 완료",
+                            text_color="#FEE75C"
+                        ))
+                    except Exception:
+                        pass
+
+            count = prov.scrape_and_verify_sync(max_candidates=400, progress_cb=_prog)
+            stats = prov.get_stats()
+            avg_ms = stats["avg_latency_ms"]
+
+            def _on_done():
+                self.btn_scrape_free.configure(state="normal", text=I18nManager.t("btn_scrape_free"))
+                self.lbl_free_proxy_badge.configure(
+                    text=f"✅ 가용: {count}개 검증 완료 (평균 {avg_ms:.0f}ms)",
+                    text_color="#57F287"
+                )
+                self._append_log(f"[SYSTEM] ✅ 무료 프록시 검증 완료: {count}개 활성 준비 완료 (평균 레이턴시: {avg_ms:.0f}ms)", "PROXY")
+
+            if hasattr(self, "after"):
+                try:
+                    self.after(0, _on_done)
+                except Exception:
+                    pass
+
+        threading.Thread(target=_worker, daemon=True).start()
+
     def _on_concurrency_changed(self, v):
         count = int(v)
         if count <= 8:
@@ -2659,8 +2749,10 @@ class DiscordCheckerGui(ctk.CTk):
                 I18nManager.t("middle_dot_opt"),
                 I18nManager.t("middle_dot_req")
             ])
-            self.proxy_menu.configure(values=["Surfshark (격리 프록시)", "File Pool (proxies.txt)", "ThorData", "Direct (단일 IP)"])
+            self.proxy_menu.configure(values=["Surfshark (격리 프록시)", "🌐 무료 프록시 자동 수집 (Free Public)", "File Pool (proxies.txt)", "ThorData", "Direct (단일 IP)"])
             self.country_menu.configure(values=["전세계 142개 전체", "한국 + 일본 + 싱가포르", "한국 (KR)", "일본 (JP)", "미국 (US)", "유럽 (독일/영국)"])
+            if hasattr(self, "btn_scrape_free"):
+                self.btn_scrape_free.configure(text=I18nManager.t("btn_scrape_free"))
         else:
             self.mode_menu.configure(values=[
                 "Hybrid (Dict+Patt+Num+Mask)",
@@ -2678,8 +2770,10 @@ class DiscordCheckerGui(ctk.CTk):
                 I18nManager.t("middle_dot_opt"),
                 I18nManager.t("middle_dot_req")
             ])
-            self.proxy_menu.configure(values=["Surfshark (Isolated Proxy)", "File Pool (proxies.txt)", "ThorData", "Direct (Single IP)"])
+            self.proxy_menu.configure(values=["Surfshark (Isolated Proxy)", "🌐 Free Public Proxies (Auto Scrape)", "File Pool (proxies.txt)", "ThorData", "Direct (Single IP)"])
             self.country_menu.configure(values=["All 142 Global Clusters", "Korea + Japan + Singapore", "Korea (KR)", "Japan (JP)", "United States (US)", "Europe (DE/UK)"])
+            if hasattr(self, "btn_scrape_free"):
+                self.btn_scrape_free.configure(text=I18nManager.t("btn_scrape_free"))
 
         if hasattr(self, "lbl_comb_direction"):
             self.lbl_comb_direction.configure(text=I18nManager.t("comb_direction_label"))
@@ -2959,6 +3053,8 @@ class DiscordCheckerGui(ctk.CTk):
             self.middle_dot_menu.configure(state=st)
         if hasattr(self, "chk_skip_already"):
             self.chk_skip_already.configure(state=st)
+        if hasattr(self, "btn_scrape_free"):
+            self.btn_scrape_free.configure(state=st)
         if hasattr(self, "comb_direction_menu"):
             self.comb_direction_menu.configure(state=st)
         if hasattr(self, "comb_charset_menu"):
@@ -2994,6 +3090,14 @@ class DiscordCheckerGui(ctk.CTk):
         else:
             # Start
             self._apply_settings_to_config()
+            if self.config.proxy.get("mode") == "free":
+                prov = self.proxy_manager.get_free_provider()
+                if not prov or not prov.has_available_proxies():
+                    self._append_log("[SYSTEM] 🌐 무료 프록시 풀에 가용 노드가 없어 자동 수집 및 실시간 검증을 선행합니다...", "PROXY")
+                    if prov:
+                        prov.scrape_and_verify_sync(max_candidates=250)
+                        self._update_free_proxy_badge()
+
             is_recheck = (self.config.target.get("mode") == "recheck")
             recheck_targets = []
             if is_recheck:
@@ -3106,6 +3210,8 @@ class DiscordCheckerGui(ctk.CTk):
         p_mode = self.proxy_menu.get()
         if "Surfshark" in p_mode:
             self.config.proxy["mode"] = "surfshark"
+        elif "무료" in p_mode or "Free" in p_mode:
+            self.config.proxy["mode"] = "free"
         elif "File" in p_mode:
             self.config.proxy["mode"] = "file"
         elif "Thor" in p_mode:

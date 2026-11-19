@@ -5,6 +5,7 @@ from src.proxy.base import BaseProxyProvider, ProxyEndpoint
 from src.proxy.thordata import ThorDataProxyProvider
 from src.proxy.file_pool import FileProxyProvider
 from src.proxy.surfshark import SurfsharkProxyProvider
+from src.proxy.free_proxy import FreeProxyProvider
 
 class UnifiedProxyManager:
     def __init__(self, proxy_config: dict):
@@ -42,8 +43,20 @@ class UnifiedProxyManager:
                 )
             )
 
+        free_cfg = self.config.get("free", {})
+        if self.mode in ("free", "free_public") or (self.mode == "hybrid" and free_cfg.get("enabled", False)):
+            free_prov = FreeProxyProvider(
+                cache_file=free_cfg.get("cache_file", "data/free_proxies_verified.json"),
+                max_latency_ms=float(free_cfg.get("max_latency_ms", 3500.0)),
+                validation_timeout=float(free_cfg.get("validation_timeout", 2.5)),
+                auto_refresh_minutes=int(free_cfg.get("auto_refresh_minutes", 15))
+            )
+            if free_cfg.get("auto_refresh", True):
+                free_prov.start_auto_refresher()
+            self.providers.append(free_prov)
+
         surfshark_cfg = self.config.get("surfshark", {})
-        if self.mode in ("surfshark", "hybrid") or (self.mode not in ("direct", "file", "thordata")):
+        if self.mode in ("surfshark", "hybrid") or (self.mode not in ("direct", "file", "thordata", "free", "free_public")):
             warmup_delay = float(surfshark_cfg.get("warmup_delay", 1.0))
             self.providers.append(
                 SurfsharkProxyProvider(
@@ -65,6 +78,12 @@ class UnifiedProxyManager:
     def get_surfshark_provider(self) -> Optional[SurfsharkProxyProvider]:
         for p in self.providers:
             if isinstance(p, SurfsharkProxyProvider):
+                return p
+        return None
+
+    def get_free_provider(self) -> Optional[FreeProxyProvider]:
+        for p in self.providers:
+            if isinstance(p, FreeProxyProvider):
                 return p
         return None
 
@@ -106,6 +125,11 @@ class UnifiedProxyManager:
         for p in self.providers:
             if isinstance(p, FileProxyProvider):
                 a, c, d = p.get_stats()
+                alive_sum += a
+                cooldown_sum += c
+                dead_sum += d
+            elif isinstance(p, FreeProxyProvider):
+                a, c, d = p.get_stats_tuple()
                 alive_sum += a
                 cooldown_sum += c
                 dead_sum += d

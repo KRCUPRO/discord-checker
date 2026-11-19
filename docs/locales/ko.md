@@ -184,7 +184,18 @@ D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark 
    D4UC_WEBHOOK=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
    ```
 
-### 2. 철저한 보안 원칙 (Zero-Leak Policy)
+### 2. 무료 공개 프록시 자동 수집 & 실시간 멀티스레드 검증기 (`--proxy free`) [v12.3.0 신규]
+유료 VPN이나 프록시 결제 없이 100% 무료로 탐색을 진행할 수 있는 오픈소스 공개 프록시 수집/검증 엔진을 지원합니다:
+- **자동 다중 소스 수집**: GitHub 및 Hugging Face에서 실시간 업데이트되는 14개 이상의 공개 프록시 목록(TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face)을 고속 병렬 수집합니다.
+- **다중 프로토콜 지원**: HTTP, HTTPS, SOCKS4, SOCKS5 무료 프록시를 완벽 지원합니다.
+- **실시간 고속 비동기 검증 게이트**: 실제 Discord 사용자명 API 엔드포인트(`username-attempt-unauthed`) 및 Cloudflare 엣지 연결성을 실시간 테스트하여 불량 노드, 3,500ms 초과 고지연 노드, 403 WAF 차단 노드를 100% 자동 필터링합니다.
+- **서킷 브레이커 & 429 노드 순환**: 429 Rate Limit 수신 시 해당 노드를 15초간 자동 격리(Cooldown)하고 최저 지연 시간 활성 노드로 즉시 핫스왑 전환하며, 백그라운드에서 주기적으로 프록시 풀을 자동 갱신합니다.
+- **UI 지원**:
+  - **데스크톱 GUI**: 프록시 선택창에서 `🌐 무료 프록시 자동 수집 (Free Public)` 선택 후 `[🔄 무료 프록시 수집 & 검증]` 버튼으로 실시간 검증 및 가용 수량 배지 확인.
+  - **모바일 웹 GUI**: 프록시 설정 탭에서 1-탭 `🔄 무료 프록시 수집 & 검증` 버튼 터치 및 `/api/proxy/scrape`, `/api/proxy/free_status` REST API 제공.
+  - **헤드리스 CLI**: `python src/run.py --proxy free` (또는 `-p free`) 옵션으로 자동 수집/검증 후 즉시 탐색 시작.
+
+### 3. 철저한 보안 원칙 (Zero-Leak Policy)
 - 개인키, 설정 파일(`.env`, `config.yaml`), 프록시 자격증명 파일은 프로젝트 내의 `.gitignore`에 의해 엄격히 제외되어 있습니다.
 - 깃허브 커밋이나 외부에 절대 노출되지 않도록 설계되어 있으며, 커밋 시 자동으로 비밀값 유출 여부를 정밀 검사합니다.
 

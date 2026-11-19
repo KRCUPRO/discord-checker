@@ -165,7 +165,15 @@ D4UC は IP BAN や Rate Limit を回避するため、**Surfshark WireGuard 1:1
    D4UC_WEBHOOK=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
    ```
 
-### 2. 機密情報保護 (Zero-Leak Policy)
+### 2. 無料公開プロキシ自動収集 & リアルタイム検証機 (`--proxy free`) [v12.3.0 新機能]
+有料 VPN やプロキシの契約なしで 100% 無料で探索を実行できるオープンソース公開プロキシ収集・検証エンジンを搭載：
+- **自動マルチソース収集**: GitHub および Hugging Face で継続更新される 14 以上の公開プロキシリスト（TheSpeedX, monosans, hookzof, roosterkid, ShiftyTR, mertguvencli, Hugging Face）を高速並列収集。
+- **マルチプロトコル対応**: HTTP, HTTPS, SOCKS4, SOCKS5 無料プロキシを完全サポート。
+- **リアルタイム高速非同期接続ゲート**: 実際の Discord ユーザー名 API エンドポイントおよび Cloudflare エッジに対する疎通をテストし、低速ノード（>3500ms）や 403 WAF ブロックノードを自動除外。
+- **429 ローテーション & バックグラウンド自動更新**: 429 Rate Limit を検知したノードを 15 秒間隔離し、最低レイテンシのアクティブノードへ即座にホットスワップ切替。
+- **UI 操作**: デスクトップ GUI の `🌐 無料プロキシ自動収集`、モバイル Web GUI の 1-Tap `🔄 無料プロキシ収集 & 検証` ボタン、CLI `--proxy free`（または `-p free`）に対応。
+
+### 3. 機密情報保護 (Zero-Leak Policy)
 - 秘密鍵、設定ファイル（`.env`, `config.yaml`）、認証情報は `.gitignore` により厳重に Git から除外されています。
 
 ---
