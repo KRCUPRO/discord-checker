@@ -16,7 +16,7 @@
 <br />
 
 [![最后更新: 2026年11月19日](../assets/badges/update_badge_zh.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -112,6 +112,8 @@ discord-checker/
 ├── config/                         # 配置模板与环境变量样例
 ├── data/                           # 142 节点 WireGuard 端点与 SQLite 数据库
 ├── deploy/                         # 自动化打包、Docker 与资源生成脚本
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # 4 合 1 Windows 单独 .exe 打包脚本
 │   ├── docker-compose.yml          # Docker Compose 容器编排
 │   ├── Dockerfile                  # 轻量容器镜像构建规范
@@ -181,11 +183,25 @@ D4UC 配备内置的 **Surfshark WireGuard 1:1 用户空间隧道池**，彻底�
 ## 🚀 安装与使用
 
 ### 方案 A: Windows 免安装可执行文件 (`.exe`)
-无需配置 Python 即可使用，请从 [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0) 下载对应版本：
+无需配置 Python 即可使用，请从 [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0) 下载对应版本：
+- `DiscordUsernameChecker_v12.3.0.apk`: **安卓智能手机 1键原生安装包** [NEW]
 - `DiscordUsernameCheckerV2_Web.exe`: **移动端 Web GUI & PWA 服务端 (端口 5000)** [NEW]
 - `DiscordUsernameCheckerV2_EN.exe`: 英文桌面 GUI
 - `DiscordUsernameCheckerV2_KO.exe`: 韩文桌面 GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: 无头命令行仪表盘
+
+### 📱 安卓智能手机原生安装包 (`.apk`) — 1键即装即用 [NEW]
+- **直接下载**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **安装指南**:
+  1. 在安卓手机（三星、小米、Pixel等）上下载 `.apk` 文件。
+  2. 点击通知栏或文件管理器中的安装包。
+  3. 系统提示时开启“允许安装未知来源应用”，并点击 **[安装]**。
+  4. 在主屏幕点击 **`D4UC Discord Checker`** 即可直接运行。
+- **移动端专属特性**:
+  - 离线内置 12 种语言 Discord 深色触控 Web GUI (`assets/www/index.html`)。
+  - 原生剪贴板一键复制与系统 Toast 弹窗反馈。
+  - 屏幕常亮 Wake Lock (`WAKE_LOCK`) 防止扫描期间休眠。
+  - 支持通过局域网 Wi-Fi 或公网 IP 一键连接 PC/服务器 D4UC 后端。
 
 ### 方案 B: 运行移动端 Web GUI (手机远程控制)
 ```bash

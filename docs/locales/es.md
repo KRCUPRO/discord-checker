@@ -16,7 +16,7 @@
 <br />
 
 [![Última actualización: 19 nov 2026](../assets/badges/update_badge_es.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -111,6 +111,8 @@ discord-checker/
 ├── config/                         # Plantillas de configuración y .env.example
 ├── data/                           # Endpoints WireGuard y base de datos SQLite
 ├── deploy/                         # Scripts de compilación, Docker y recursos
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # Compilador de 4 ejecutables Windows .exe
 │   ├── docker-compose.yml          # Perfiles de Docker Compose
 │   ├── Dockerfile                  # Especificación del contenedor Multi-Arch
@@ -180,11 +182,25 @@ Operación 100% gratuita sin necesidad de suscripciones VPN:
 ## 🚀 Instalación y Uso
 
 ### Método A: Ejecutables Autónomos de Windows (`.exe`)
-Descargue los binarios precompilados desde [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0):
+Descargue los binarios precompilados desde [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+- `DiscordUsernameChecker_v12.3.0.apk`: **Paquete Nativo Android en 1 Toque** [NUEVO]
 - `DiscordUsernameCheckerV2_Web.exe`: **Servidor Web GUI Móvil & PWA (Puerto 5000)** [NUEVO]
 - `DiscordUsernameCheckerV2_EN.exe`: Interfaz de escritorio en inglés
 - `DiscordUsernameCheckerV2_KO.exe`: Interfaz de escritorio en coreano
 - `DiscordUsernameCheckerV2_CLI.exe`: Consola CLI sin entorno gráfico
+
+### 📱 Paquete Nativo para Android (`.apk`) — Instalación en 1 Toque [NEW]
+- **Descarga directa**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **Guía de instalación**:
+  1. Descarga el archivo `.apk` en tu dispositivo Android (Galaxy, Pixel, Xiaomi, etc.).
+  2. Toca el archivo desde la barra de notificaciones o el administrador de archivos.
+  3. Habilita "Permitir instalación de aplicaciones desconocidas" y pulsa **[Instalar]**.
+  4. Inicia **`D4UC Discord Checker`** desde la pantalla de inicio.
+- **Características móviles**:
+  - Interfaz táctil oscura integrada sin conexión en 12 idiomas (`assets/www/index.html`).
+  - Copia al portapapeles con un toque y notificación Toast nativa.
+  - Prevención de suspensión de pantalla Wake Lock (`WAKE_LOCK`).
+  - Conexión remota inmediata al servidor D4UC en PC mediante Wi-Fi o IP.
 
 ### Método B: Ejecutar la Web GUI Móvil (Control desde Smartphone)
 ```bash

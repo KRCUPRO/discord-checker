@@ -721,7 +721,7 @@
       <div class="brand-logo">⚡</div>
       <div>
         <div class="brand-title">D4UC Mobile Web</div>
-        <div class="brand-sub">Discord Username Checker v12.2.0</div>
+        <div class="brand-sub">Discord Username Checker v12.3.0</div>
       </div>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
@@ -968,6 +968,35 @@
           💾 프록시 및 네트워크 설정 저장
         </button>
       </div>
+
+      <!-- Mobile & Remote Server Connection Card -->
+      <div class="panel-card" style="margin-top:16px;">
+        <div class="panel-title">📱 모바일 및 원격 서버 연동 (Android / Remote)</div>
+        <div class="form-group">
+          <label class="form-label">D4UC 원격 서버 연결 URL</label>
+          <input type="text" id="serverUrlInput" class="form-input" placeholder="http://192.168.0.x:8080 or http://10.0.2.2:8080">
+          <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+            안드로이드 스마트폰 또는 원격 브라우저에서 실행 중인 PC/서버의 D4UC 주소를 지정합니다.
+          </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="action-btn-sm" style="flex:1; padding:10px; background:var(--accent-green);" onclick="saveServerUrl()">
+            💾 서버 주소 저장
+          </button>
+          <button id="btnNativeDialog" class="action-btn-sm" style="flex:1; padding:10px; background:var(--accent-blurple); display:none;" onclick="openNativeServerDialog()">
+            📱 네이티브 설정창
+          </button>
+        </div>
+        <div class="form-group" style="margin-top:12px; margin-bottom:0;">
+          <label class="checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="chkKeepAwake" onchange="toggleWakeLock(this.checked)">
+            <span style="font-size:13px; font-weight:600;">⚡ 화면 켜짐 유지 (Wake Lock)</span>
+          </label>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">
+            탐색 중 화면이 꺼지거나 절전 모드로 진입하는 것을 방지합니다.
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Tab 4: Logs -->
@@ -999,6 +1028,96 @@
     // State management
     let isRunning = false;
     let selectedMode = 'hybrid';
+
+    // Android Bridge & Remote Server Routing Engine
+    function getApiBaseUrl() {
+      if (window.AndroidBridge && typeof window.AndroidBridge.getServerUrl === 'function') {
+        try {
+          const u = window.AndroidBridge.getServerUrl();
+          if (u && u.trim().length > 0) return u.trim().replace(/\/+$/, '');
+        } catch (e) {}
+      }
+      const saved = localStorage.getItem('d4uc_server_url');
+      if (saved && saved.trim().length > 0) return saved.trim().replace(/\/+$/, '');
+      if (window.location.protocol === 'file:') return 'http://127.0.0.1:8080';
+      return '';
+    }
+
+    const _origFetch = window.fetch;
+    window.fetch = function(input, init) {
+      if (typeof input === 'string' && input.startsWith('/api/')) {
+        const base = getApiBaseUrl();
+        if (base) {
+          input = base + input;
+        }
+      }
+      return _origFetch(input, init);
+    };
+
+    function initServerUrl() {
+      const input = document.getElementById('serverUrlInput');
+      if (input) {
+        input.value = getApiBaseUrl();
+      }
+      if (window.AndroidBridge) {
+        const btn = document.getElementById('btnNativeDialog');
+        if (btn) btn.style.display = 'block';
+        const brandSub = document.querySelector('.brand-sub');
+        if (brandSub) brandSub.textContent = 'Discord Username Checker v12.3.0 (Android App)';
+      }
+    }
+
+    function saveServerUrl() {
+      const input = document.getElementById('serverUrlInput');
+      if (!input) return;
+      let url = input.value.trim();
+      if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'http://' + url;
+        input.value = url;
+      }
+      localStorage.setItem('d4uc_server_url', url);
+      if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
+        window.AndroidBridge.setServerUrl(url);
+      }
+      showToast('🌐 서버 주소 저장 완료: ' + (url || '기본값'));
+      pollStatus();
+      loadInitialConfig();
+    }
+
+    function openNativeServerDialog() {
+      if (window.AndroidBridge && typeof window.AndroidBridge.openServerConfigDialog === 'function') {
+        window.AndroidBridge.openServerConfigDialog();
+      }
+    }
+
+    window.setServerUrlFromNative = function(url) {
+      localStorage.setItem('d4uc_server_url', url);
+      const input = document.getElementById('serverUrlInput');
+      if (input) input.value = url;
+      pollStatus();
+      loadInitialConfig();
+    };
+
+    let wakeLockSentinel = null;
+    async function toggleWakeLock(enabled) {
+      if (window.AndroidBridge && typeof window.AndroidBridge.setWakeLock === 'function') {
+        window.AndroidBridge.setWakeLock(enabled);
+      }
+      if ('wakeLock' in navigator) {
+        try {
+          if (enabled) {
+            wakeLockSentinel = await navigator.wakeLock.request('screen');
+            showToast('⚡ 화면 켜짐 유지 활성화');
+          } else if (wakeLockSentinel) {
+            await wakeLockSentinel.release();
+            wakeLockSentinel = null;
+            showToast('💤 화면 켜짐 유지 해제');
+          }
+        } catch (e) {
+          console.log('Wake Lock error:', e);
+        }
+      }
+    }
     let selectedLength = 4;
     let pollInterval = null;
     let speedHistory = [];
@@ -1135,10 +1254,15 @@
 
     // Toast utility
     function showToast(msg) {
+      if (window.AndroidBridge && typeof window.AndroidBridge.showToast === 'function') {
+        window.AndroidBridge.showToast(msg);
+      }
       const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
+      if (toast) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+      }
     }
 
     // Tab switching
@@ -1331,6 +1455,11 @@
     // Copy username to clipboard
     function copyUsername(name) {
       const d = I18N_DICT[currentLang] || I18N_DICT.ko;
+      if (window.AndroidBridge && typeof window.AndroidBridge.copyToClipboard === 'function') {
+        window.AndroidBridge.copyToClipboard(name);
+        showToast(`📋 '${name}' ${d.copied}`);
+        return;
+      }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(name).then(() => {
           showToast(`📋 '${name}' ${d.copied}`);
@@ -1340,15 +1469,18 @@
         ta.value = name;
         document.body.appendChild(ta);
         ta.select();
-        document.execCommand('copy');
+        try {
+          document.execCommand('copy');
+          showToast(`📋 '${name}' ${d.copied}`);
+        } catch (e) {}
         document.body.removeChild(ta);
-        showToast(`📋 '${name}' ${d.copied}`);
       }
     }
 
     // Export Available Results
     function exportData(format) {
-      window.open('/api/export?format=' + format, '_blank');
+      const base = getApiBaseUrl();
+      window.open((base || '') + '/api/export?format=' + format, '_blank');
       showToast(`📥 ${format.toUpperCase()} 다운로드 시작`);
     }
 
@@ -1604,6 +1736,7 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
+      initServerUrl();
       const select = document.getElementById('langSelect');
       if (select) select.value = currentLang;
       changeLanguage(currentLang);

@@ -115,7 +115,9 @@ discord-checker/
 ├── data/                           # 데이터베이스 및 글로벌 클러스터 정보
 │   ├── surfshark_endpoints.json    # 142개 글로벌 WireGuard 클러스터 공용 엔드포인트
 │   └── d4uc_results.db (생성됨)     # 발견된 닉네임 SQLite WAL 데이터베이스
-├── deploy/                         # 배포, 컨테이너 및 빌드 스크립트
+├── deploy/                         # 배포, 컨테이너, APK 및 빌드 스크립트
+│   ├── android/                    # 안드로이드 네이티브 앱 프로젝트 (com.krcupro.discordchecker)
+│   ├── build_apk.py                # 안드로이드 스마트폰 설치 패키지(.apk) 빌드 스크립트
 │   ├── build_exe.py                # 4종 Windows .exe 자동 패키징 스크립트
 │   ├── docker-compose.yml          # 도커 컴포즈 (단일 및 2shard 프로파일)
 │   ├── Dockerfile                  # Multi-Arch 경량 컨테이너 이미지 명세
@@ -203,12 +205,27 @@ D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark 
 
 ## 🚀 설치 및 실행
 
-### 방법 A: Windows 전용 단독 실행 파일 (`.exe`) — 무설치 원클릭
-Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)에서 실행 파일을 다운로드합니다:
-- `DiscordUsernameCheckerV2_Web.exe`: **모바일 웹 GUI & PWA 서버 (포트 5000)** [NEW]
+### 방법 A: Windows 전용 실행 파일 (`.exe`) & 안드로이드 패키지 (`.apk`) — 무설치 원클릭
+Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)에서 설치 파일을 다운로드합니다:
+- `DiscordUsernameChecker_v12.3.0.apk`: **안드로이드 스마트폰 전용 1-탭 설치 패키지** [NEW]
+- `DiscordUsernameCheckerV2_Web.exe`: **모바일 웹 GUI & PWA 서버 (포트 5000)**
 - `DiscordUsernameCheckerV2_KO.exe`: 한국어 데스크톱 GUI
 - `DiscordUsernameCheckerV2_EN.exe`: 영어 데스크톱 GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: 헤드리스 콘솔 CLI 대시보드
+
+### 방법 A-1: 안드로이드 스마트폰 전용 설치 패키지 (`.apk`) — 1-탭 원클릭 설치 [NEW]
+갤럭시, 픽셀, 샤오미 등 모든 안드로이드 스마트폰에 직접 설치하여 1-탭으로 간편하게 사용:
+- **다운로드**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **설치 및 사용 가이드**:
+  1. 위 링크에서 `.apk` 파일을 다운로드합니다.
+  2. 다운로드 완료 후 파일 알림을 터치하거나 '내 파일' 앱에서 실행합니다.
+  3. 보안 설정에서 **"출처를 알 수 없는 앱 허용"**을 승인하고 **[설치]**를 완료합니다.
+  4. 홈 화면의 **`D4UC Discord Checker`** 아이콘을 눌러 즉시 실행합니다.
+- **주요 모바일 기능**:
+  - 12개 언어 지원 Discord-Dark 터치 반응형 웹 GUI가 오프라인 내장되어 단독 실행 (`assets/www/index.html`)
+  - 1-터치 네이티브 안드로이드 클립보드 복사 및 시스템 토스트(Toast) 팝업 알림
+  - 화면 꺼짐 방지 Wake Lock (`WAKE_LOCK`) 토글 지원으로 안정적 연속 탐색
+  - PC 또는 원격 서버의 D4UC 백엔드 IP에 1-클릭으로 연결하여 고속 원격 제어
 
 ### 방법 B: 모바일 반응형 웹 GUI 실행 (스마트폰 제어)
 ```bash

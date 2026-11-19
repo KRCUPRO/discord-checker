@@ -16,7 +16,7 @@
 <br />
 
 [![最終更新: 2026年11月19日](../assets/badges/update_badge_ja.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -112,6 +112,8 @@ discord-checker/
 ├── config/                         # 設定テンプレート & .env.example
 ├── data/                           # 142 拠点 WireGuard エンドポイント & SQLite DB
 ├── deploy/                         # ビルド、Docker & 各種自動化スクリプト
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # 4 種 Windows .exe コンパイラ
 │   ├── docker-compose.yml          # Docker Compose 設定
 │   ├── Dockerfile                  # Multi-Arch コンテナ仕様
@@ -181,11 +183,25 @@ D4UC は IP BAN や Rate Limit を回避するため、**Surfshark WireGuard 1:1
 ## 🚀 インストール & 実行
 
 ### 方法 A: Windows 向けスタンドアロン実行ファイル (`.exe`)
-Python 環境構築なしで即座に実行したい場合、[GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0) からダウンロードします：
+Python 環境構築なしで即座に実行したい場合、[GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0) からダウンロードします：
+- `DiscordUsernameChecker_v12.3.0.apk`: **Android スマホ専用 1タップ パッケージ** [NEW]
 - `DiscordUsernameCheckerV2_Web.exe`: **モバイル Web GUI & PWA サーバー (ポート 5000)** [NEW]
 - `DiscordUsernameCheckerV2_EN.exe`: 英語デスクトップ GUI
 - `DiscordUsernameCheckerV2_KO.exe`: 韓国語デスクトップ GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: ヘッドレスト CLI ダッシュボード
+
+### 📱 Android スマートフォン専用パッケージ (`.apk`) — 1タップ簡単インストール [NEW]
+- **ダウンロード**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **インストール手順**:
+  1. 上記リンクから `.apk` を端末にダウンロードします。
+  2. 通知またはファイルマネージャーからダウンロードした APK をタップします。
+  3. セキュリティ警告が出た場合は「提供元不明のアプリのインストールを許可」を選択し、**[インストール]** をタップします。
+  4. ホーム画面の **`D4UC Discord Checker`** をタップして即座に起動します。
+- **主な機能**:
+  - オフライン内蔵の 12 言語対応 Discord ダークテーマ タッチ GUI (`assets/www/index.html`)
+  - ワンタップでのネイティブクリップボードコピー＆システムトースト通知
+  - スキャン中の画面スリープを防止する Wake Lock (`WAKE_LOCK`)
+  - PC またはリモートサーバーの D4UC バックエンド IP への簡単接続
 
 ### 方法 B: モバイルレスポンシブ Web GUI の起動 (スマホ遠隔操作)
 ```bash

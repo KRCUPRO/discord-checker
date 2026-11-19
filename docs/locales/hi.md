@@ -16,7 +16,7 @@
 <br />
 
 [![अंतिम अद्यतन: 19 नवंबर 2026](../assets/badges/update_badge_hi.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -111,6 +111,8 @@ discord-checker/
 ├── config/                         # कॉन्फ़िगरेशन टेम्पलेट और .env.example
 ├── data/                           # WireGuard नोड्स और SQLite डेटाबेस
 ├── deploy/                         # बिल्ड, डॉकर और ऑटोमेशन स्क्रिप्ट्स
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # 4-इन-1 Windows .exe कंपाइलर
 │   ├── docker-compose.yml          # Docker Compose सेटिंग्स
 │   ├── Dockerfile                  # मल्टी-आर्क कंटेनर विशिष्टता
@@ -180,11 +182,25 @@ D4UC आईपी प्रतिबंधों को बायपास क�
 ## 🚀 स्थापना और निष्पादन
 
 ### तरीका A: Windows स्टैंडअलोन निष्पादन योग्य फ़ाइलें (`.exe`)
-Python इंस्टॉल किए बिना तुरंत चलाने के लिए [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0) से डाउनलोड करें:
+Python इंस्टॉल किए बिना तुरंत चलाने के लिए [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0) से डाउनलोड करें:
+- `DiscordUsernameChecker_v12.3.0.apk`: **एंड्रॉइड स्मार्टफोन 1-टैप नेटिव पैकेज** [नया]
 - `DiscordUsernameCheckerV2_Web.exe`: **मोबाइल वेब GUI और PWA सर्वर (पोर्ट 5000)** [नया]
 - `DiscordUsernameCheckerV2_EN.exe`: अंग्रेजी डेस्कटॉप GUI
 - `DiscordUsernameCheckerV2_KO.exe`: कोरियाई डेस्कटॉप GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: हेडलेस कंसोल CLI
+
+### 📱 एंड्रॉइड स्मार्टफोन नेटिव पैकेज (`.apk`) — 1-टैप आसान इंस्टॉलेशन [NEW]
+- **सीधा डाउनलोड**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **स्थापना निर्देश**:
+  1. अपने एंड्रॉइड डिवाइस (Galaxy, Pixel, Xiaomi आदि) पर `.apk` फ़ाइल डाउनलोड करें।
+  2. नोटिफिकेशन या फाइल मैनेजर से फाइल पर टैप करें।
+  3. "अज्ञात स्रोतों से ऐप्स इंस्टॉल करने की अनुमति दें" विकल्प चुनें और **[इंस्टॉल करें]** पर टैप करें।
+  4. होम स्क्रीन से **`D4UC Discord Checker`** खोलें।
+- **मुख्य मोबाइल विशेषताएं**:
+  - ऑफ़लाइन 12 भाषाओं में टच-अनुकूल Discord-Dark वेब GUI (`assets/www/index.html`)।
+  - 1-टैप क्लिपबोर्ड कॉपी और नेटिव एंड्रॉइड टोस्ट (Toast) सूचनाएं।
+  - स्क्रीन को चालू रखने के लिए वेक लॉक (`WAKE_LOCK`) सपोर्ट।
+  - स्थानीय वाई-फाई या आईपी पते के जरिए पीसी/सर्वर डी4यूसी बैकएंड से रिमोट कनेक्शन।
 
 ### तरीका B: मोबाइल वेब GUI प्रारंभ करें (स्मार्टफ़ोन से नियंत्रण)
 ```bash

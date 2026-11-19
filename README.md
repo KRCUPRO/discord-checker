@@ -109,7 +109,9 @@ discord-checker/
 ├── data/                           # 142 WireGuard cluster endpoints & SQLite DB
 │   ├── surfshark_endpoints.json    # Global WireGuard public endpoints
 │   └── d4uc_results.db (created)   # Discovered usernames SQLite WAL DB
-├── deploy/                         # Packaging, Docker and asset build scripts
+├── deploy/                         # Packaging, Docker, APK and asset build scripts
+│   ├── android/                    # Android native app project (com.krcupro.discordchecker)
+│   ├── build_apk.py                # Reproducible Android release APK builder (.apk)
 │   ├── build_exe.py                # 4-in-1 Windows standalone .exe compiler
 │   ├── docker-compose.yml          # Docker Compose (single & 2shard profiles)
 │   ├── Dockerfile                  # Multi-Arch lightweight container specification
@@ -197,14 +199,27 @@ D4UC now supports completely zero-cost operation via built-in open-source public
 
 ## 🚀 Installation & Execution
 
-### Method A: Standalone Windows Executables (`.exe`) — Zero Setup
-Download pre-compiled binaries from [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0):
-- `DiscordUsernameCheckerV2_Web.exe`: **Mobile Responsive Web GUI & PWA Server (Port 5000)** [NEW]
+### Method A: Standalone Windows Executables (`.exe`) & Android Package (`.apk`) — Zero Setup
+Download pre-compiled binaries from [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+- `DiscordUsernameChecker_v12.3.0.apk`: **Android Smartphone 1-Tap Native Package** [NEW]
+- `DiscordUsernameCheckerV2_Web.exe`: **Mobile Responsive Web GUI & PWA Server (Port 5000)**
 - `DiscordUsernameCheckerV2_EN.exe`: English Desktop GUI
 - `DiscordUsernameCheckerV2_KO.exe`: Korean Desktop GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: Headless Console CLI Dashboard
 
-### Method B: Mobile Responsive Web GUI (Smartphone Remote Control)
+### Method B: Android Smartphone Native Package (`.apk`) — 1-Tap Installation [NEW]
+Directly install and run D4UC on any Android phone (Galaxy, Pixel, Xiaomi, etc.):
+1. Download [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk).
+2. Tap the downloaded APK file in notifications or your File Manager.
+3. Allow "Install unknown apps" if prompted and tap **[Install]**.
+4. Launch **`D4UC Discord Checker`** directly from your home screen.
+- **Key Mobile Features**:
+  - Offline bundled 12-language Discord-Dark touch-friendly Web GUI (`assets/www/index.html`).
+  - Native Android clipboard copy with system Toast notification alerts.
+  - Background Wake Lock prevention (`WAKE_LOCK`) to keep checking while screen is active.
+  - Remote connect to PC/server D4UC engine via local Wi-Fi or server IP.
+
+### Method C: Mobile Responsive Web GUI (Smartphone Remote Control)
 ```bash
 # Start the Mobile Web GUI server (Default port: 5000)
 python src/web_gui.py --port 5000

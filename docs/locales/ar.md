@@ -16,7 +16,7 @@
 <br />
 
 [![آخر تحديث: 19 نوفمبر 2026](../assets/badges/update_badge_ar.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -111,6 +111,8 @@ discord-checker/
 ├── config/                         # قوالب الإعدادات وملف .env.example
 ├── data/                           # خوادم WireGuard وقاعدة بيانات SQLite
 ├── deploy/                         # سكريبتات البناء والحاويات وتوليد الوسائط
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # مجمع 4 ملفات تنفيذية لويندوز
 │   ├── docker-compose.yml          # إعدادات Docker Compose
 │   ├── Dockerfile                  # مواصفات الحاوية الخفيفة
@@ -180,11 +182,25 @@ discord-checker/
 ## 🚀 التثبيت والتشغيل
 
 ### الطريقة أ: الملفات الجاهزة للتشغيل المباشر على ويندوز (`.exe`)
-حمّل الملفات الجاهزة من صفحة الإصدارات [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0):
+حمّل الملفات الجاهزة من صفحة الإصدارات [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+- `DiscordUsernameChecker_v12.3.0.apk`: **حزمة أندرويد الأصلية (تثبيت بنقرة واحدة)** [جديد]
 - `DiscordUsernameCheckerV2_Web.exe`: **خادم واجهة الويب للهواتف وتطبيق PWA (منفذ 5000)** [جديد]
 - `DiscordUsernameCheckerV2_EN.exe`: واجهة سطح المكتب الإنجليزية
 - `DiscordUsernameCheckerV2_KO.exe`: واجهة سطح المكتب الكورية
 - `DiscordUsernameCheckerV2_CLI.exe`: واجهة سطر الأوامر الطرفية
+
+### 📱 حزمة أندرويد الأصلية (`.apk`) — تثبيت بنقرة واحدة [NEW]
+- **تحميل مباشر**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **دليل التثبيت**:
+  1. قم بتحميل ملف `.apk` على هاتفك الأندرويد (Galaxy, Pixel, Xiaomi وغيرها).
+  2. اضغط على الملف من الإشعارات أو مدير الملفات.
+  3. اسمح بـ "تثبيت التطبيقات من مصادر غير معروفة" عند المطالبة واضغط على **[تثبيت]**.
+  4. شغّل تطبيق **`D4UC Discord Checker`** مباشرة من الشاشة الرئيسية.
+- **الميزات على الهواتف**:
+  - واجهة ويب لمسية مدمجة دون اتصال بـ 12 لغة وبثيم ديسكورد الليلي (`assets/www/index.html`).
+  - نسخ اسم المستخدم بنقرة واحدة مع إشعارات Toast الأصلية.
+  - منع سكون الشاشة Wake Lock (`WAKE_LOCK`) أثناء الفحص.
+  - اتصال سريع بخادم D4UC على الكمبيوتر عبر شبكة Wi-Fi أو عنوان IP.
 
 ### الطريقة ب: تشغيل واجهة الويب للهواتف (التحكم عن بُعد عبر الهاتف)
 ```bash

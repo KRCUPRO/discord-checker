@@ -16,7 +16,7 @@
 <br />
 
 [![Pembaruan Terakhir: 19 Nov 2026](../assets/badges/update_badge_id.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -111,6 +111,8 @@ discord-checker/
 ├── config/                         # Templat konfigurasi dan .env.example
 ├── data/                           # Titik akhir WireGuard dan database SQLite
 ├── deploy/                         # Skrip build, Docker, dan generator aset
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # Kompiler 4 file mandiri .exe Windows
 │   ├── docker-compose.yml          # Konfigurasi Docker Compose
 │   ├── Dockerfile                  # Spesifikasi kontainer Multi-Arch
@@ -180,11 +182,25 @@ Operasi 100% gratis tanpa memerlukan langganan VPN berbayar:
 ## 🚀 Pemasangan & Penggunaan
 
 ### Metode A: Program Mandiri untuk Windows (`.exe`)
-Unduh aplikasi yang telah dikompilasi dari [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0):
+Unduh aplikasi yang telah dikompilasi dari [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+- `DiscordUsernameChecker_v12.3.0.apk`: **Paket Aplikasi Android (1 Ketukan)** [BARU]
 - `DiscordUsernameCheckerV2_Web.exe`: **Server Web GUI Seluler & PWA (Port 5000)** [BARU]
 - `DiscordUsernameCheckerV2_EN.exe`: GUI Desktop Bahasa Inggris
 - `DiscordUsernameCheckerV2_KO.exe`: GUI Desktop Bahasa Korea
 - `DiscordUsernameCheckerV2_CLI.exe`: Dasbor Konsol CLI Headless
+
+### 📱 Paket Aplikasi Android (`.apk`) — Instalasi 1 Ketuk [NEW]
+- **Unduh langsung**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **Panduan Instalasi**:
+  1. Unduh berkas `.apk` ke ponsel Android Anda (Galaxy, Pixel, Xiaomi, dll.).
+  2. Buka berkas dari bilah notifikasi atau pengelola berkas.
+  3. Aktifkan izin "Instal aplikasi dari sumber tidak dikenal" lalu ketuk **[Instal]**.
+  4. Jalankan **`D4UC Discord Checker`** langsung dari layar utama.
+- **Fitur Utama Mobile**:
+  - Antarmuka sentuh Discord-Dark bawaan offline dalam 12 bahasa (`assets/www/index.html`).
+  - Salin ke papan klip 1 ketukan dengan notifikasi Toast native Android.
+  - Pencegah layar mati Wake Lock (`WAKE_LOCK`) selama pemindaian aktif.
+  - Koneksi cepat ke backend D4UC di PC melalui Wi-Fi atau alamat IP.
 
 ### Metode B: Menjalankan Web GUI Seluler (Kendali Lewat Ponsel)
 ```bash

@@ -16,7 +16,7 @@
 <br />
 
 [![Последнее обновление: 19 ноя 2026](../assets/badges/update_badge_ru.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -111,6 +111,8 @@ discord-checker/
 ├── config/                         # Шаблоны конфигураций и .env.example
 ├── data/                           # Список узлов WireGuard и база SQLite
 ├── deploy/                         # Скрипты сборки, Docker и генерации
+│   ├── android/                    # Android native app project
+│   ├── build_apk.py                # Android release APK builder
 │   ├── build_exe.py                # Сборщик 4 автономных .exe для Windows
 │   ├── docker-compose.yml          # Конфигурация Docker Compose
 │   ├── Dockerfile                  # Спецификация Multi-Arch контейнера
@@ -180,11 +182,25 @@ D4UC использует **1:1 пул туннелей WireGuard в прост�
 ## 🚀 Установка и запуск
 
 ### Вариант A: Автономные исполняемые файлы для Windows (`.exe`)
-Скачайте готовые сборки со страницы [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0):
+Скачайте готовые сборки со страницы [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+- `DiscordUsernameChecker_v12.3.0.apk`: **Установочный пакет для Android (1 касание)** [НОВОЕ]
 - `DiscordUsernameCheckerV2_Web.exe`: **Сервер мобильного Web GUI & PWA (Порт 5000)** [НОВОЕ]
 - `DiscordUsernameCheckerV2_EN.exe`: Английский настольный GUI
 - `DiscordUsernameCheckerV2_KO.exe`: Корейский настольный GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: Консольная панель CLI
+
+### 📱 Установочный пакет для Android (`.apk`) — Установка в 1 касание [NEW]
+- **Скачать напрямую**: [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)
+- **Инструкция по установке**:
+  1. Скачайте файл `.apk` на смартфон Android (Galaxy, Pixel, Xiaomi и др.).
+  2. Нажмите на загруженный файл в уведомлениях или проводнике.
+  3. Разрешите установку из неизвестных источников в настройках и нажмите **[Установить]**.
+  4. Запустите **`D4UC Discord Checker`** с главного экрана.
+- **Особенности мобильной версии**:
+  - Автономный сенсорный Discord-Dark интерфейс на 12 языках (`assets/www/index.html`).
+  - Копирование в буфер в 1 касание со встроенными Toast-уведомлениями.
+  - Предотвращение спящего режима экрана Wake Lock (`WAKE_LOCK`).
+  - Мгновенное подключение к серверу D4UC на ПК по локальной сети или IP.
 
 ### Вариант B: Запуск мобильного Web GUI (Управление со смартфона)
 ```bash
