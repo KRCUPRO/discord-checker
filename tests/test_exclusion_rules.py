@@ -7,7 +7,14 @@ Unit tests for username exclusion rules and validation:
 - Enforce exclusion of reserved Discord usernames
 - Verify all generators strictly yield only valid Discord usernames
 """
+import sys
 import unittest
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from src.generator.base import DiscordRuleValidator, DISCORD_RESERVED_USERNAMES
 from src.generator.random_gen import RandomGenerator
 from src.generator.pattern_gen import PatternGenerator

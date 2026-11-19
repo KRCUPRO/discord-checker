@@ -6,8 +6,15 @@ Unit tests for D4UC V6:
 - High-Throughput Worker Pacing Optimization
 """
 
+import sys
 import unittest
+from pathlib import Path
 from unittest.mock import MagicMock, patch
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from src.proxy.surfshark import SurfsharkProxyProvider, SurfsharkCluster, SingleTunnelNode
 
 

@@ -3,8 +3,14 @@ Integration test for DiscordCheckerGui search and filter UI controls.
 Directly instantiates GUI and verifies live Treeview updates, sorting, and 0% data loss.
 """
 
+import sys
 import unittest
+from pathlib import Path
 from typing import Dict, Any
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 
 class TestGuiTableSearchIntegration(unittest.TestCase):

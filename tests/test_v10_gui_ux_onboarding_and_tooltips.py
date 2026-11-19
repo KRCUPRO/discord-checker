@@ -1,5 +1,12 @@
 # tests/test_v10_gui_ux_onboarding_and_tooltips.py
+import sys
 import unittest
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from src.ui.i18n import I18nManager
 from src.generator.permutation_gen import PermutationGenerator, SHARD_PRESETS, ALLOWED_CHARACTERS
 

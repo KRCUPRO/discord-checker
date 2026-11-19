@@ -3,10 +3,17 @@ Unit tests verifying that SingleTunnelNode and SurfsharkProxyProvider
 do not deadlock on 429 rotation and parallel worker startup.
 """
 
+import sys
 import unittest
 import threading
 import time
+from pathlib import Path
 from unittest.mock import MagicMock, patch
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from src.proxy.surfshark import SingleTunnelNode, SurfsharkCluster, SurfsharkProxyProvider
 
 

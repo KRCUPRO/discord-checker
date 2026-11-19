@@ -1,9 +1,15 @@
 # tests/test_v4_rotation_and_combinatorial.py
+import sys
 import unittest
 import asyncio
 import time
 import threading
+from pathlib import Path
 from unittest.mock import MagicMock, AsyncMock, patch
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 from src.generator.combinatorial_gen import CombinatorialGenerator
 from src.generator import create_generator

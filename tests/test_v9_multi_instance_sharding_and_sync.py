@@ -1,10 +1,15 @@
 # tests/test_v9_multi_instance_sharding_and_sync.py
+import sys
 import unittest
 import string
 import shutil
 import asyncio
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 from src.generator.permutation_gen import (
     PermutationGenerator,

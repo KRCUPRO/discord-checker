@@ -1,10 +1,15 @@
 # tests/test_web_gui.py
 import json
+import sys
 import time
 import unittest
 import urllib.request
 import urllib.parse
 from pathlib import Path
+
+_ROOT = Path(__file__).parent.parent.resolve()
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 from src.config import AppConfig
 from src.web_gui import WebGuiServer, WebGuiState
