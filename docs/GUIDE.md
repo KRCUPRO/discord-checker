@@ -4,6 +4,12 @@
 > Chrome 131 TLS 스텔스 위장 + Surfshark 1:1 다중 국가 터널 풀 + SQLite WAL 멀티 인스턴스 무충돌 동기화 기반의 고성능 디스코드 닉네임 전수검사 및 가용성 탐색 엔진  
 > **최종 개정일**: 2026년 11월 19일  
 
+| [KR 한국어](./GUIDE.md) | [US English](./locales/en/GUIDE.md) | [JP 日本語](./locales/ja/GUIDE.md) | [CN 简体中文](./locales/zh-CN/GUIDE.md) | [ES Español](./locales/es/GUIDE.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./locales/fr/GUIDE.md) | [DE Deutsch](./locales/de/GUIDE.md) | [RU Русский](./locales/ru/GUIDE.md) | [BR Português](./locales/pt-BR/GUIDE.md) | [SA العربية](./locales/ar/GUIDE.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./locales/hi/GUIDE.md">HI हिन्दी</a> • <a href="./locales/id/GUIDE.md">ID Bahasa Indonesia</a></sub></p>
+
 ---
 
 <a id="목차"></a><a id="-목차"></a>

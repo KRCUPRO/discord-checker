@@ -4,6 +4,12 @@
 > **설명**: D4UC 고성능 디스코드 희귀 사용자명 체커 공식 문서 통합 허브  
 > **최종 개정일**: 2026년 11월 19일  
 
+| [KR 한국어](./README.md) | [US English](./locales/en/README.md) | [JP 日本語](./locales/ja/README.md) | [CN 简体中文](./locales/zh-CN/README.md) | [ES Español](./locales/es/README.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./locales/fr/README.md) | [DE Deutsch](./locales/de/README.md) | [RU Русский](./locales/ru/README.md) | [BR Português](./locales/pt-BR/README.md) | [SA العربية](./locales/ar/README.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./locales/hi/README.md">HI हिन्दी</a> • <a href="./locales/id/README.md">ID Bahasa Indonesia</a></sub></p>
+
 ---
 
 <a id="목차"></a><a id="-목차"></a>

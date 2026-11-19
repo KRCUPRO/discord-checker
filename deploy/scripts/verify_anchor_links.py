@@ -1,8 +1,9 @@
-# scripts/verify_anchor_links.py
+# deploy/scripts/verify_anchor_links.py
 import pathlib
 import re
 
-root = pathlib.Path(__file__).parent.parent.resolve()
+root = pathlib.Path(__file__).resolve().parent.parent.parent
+
 
 def verify_all_document_links():
     docs = [root / "README.md"] + sorted(list((root / "docs/locales").glob("*.md")))
@@ -35,7 +36,12 @@ def verify_all_document_links():
             assert fn_refs >= 1, f"Missing fn1 ref in {g.name}"
 
     print("\n=== INTERNAL ANCHOR & FILE LINK INTEGRITY ===")
-    all_files = [root / "README.md", root / "docs/README.md", root / "docs/GUIDE.md"] + list((root / "docs/locales").glob("*.md")) + list((root / "docs/guides").glob("*.md"))
+    all_files = (
+        [root / "README.md", root / "CHANGELOG.md", root / "SECURITY.md", root / "docs/README.md", root / "docs/GUIDE.md", root / "docs/ARCHITECTURE_MAP.md", root / "docs/TASKS.md"]
+        + list((root / "docs/locales").glob("*.md"))
+        + list((root / "docs/locales").glob("*/*.md"))
+        + list((root / "docs/guides").glob("*.md"))
+    )
     broken_internal = []
     missing_files = []
 

@@ -4,6 +4,12 @@
 > **현재 버전**: v12.0 (Production Stable / Multi-Platform / Zero-Leak GitHub Ready)  
 > **최종 동기화**: 2026-11-18
 
+| [KR 한국어](./TASKS.md) | [US English](./locales/en/TASKS.md) | [JP 日本語](./locales/ja/TASKS.md) | [CN 简体中文](./locales/zh-CN/TASKS.md) | [ES Español](./locales/es/TASKS.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./locales/fr/TASKS.md) | [DE Deutsch](./locales/de/TASKS.md) | [RU Русский](./locales/ru/TASKS.md) | [BR Português](./locales/pt-BR/TASKS.md) | [SA العربية](./locales/ar/TASKS.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./locales/hi/TASKS.md">HI हिन्दी</a> • <a href="./locales/id/TASKS.md">ID Bahasa Indonesia</a></sub></p>
+
 ---
 
 ## 🏆 1. 마일스톤 완료 내역 (Completed Milestones)

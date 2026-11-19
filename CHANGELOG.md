@@ -2,6 +2,24 @@
 
 All notable changes to **D4UC (`discord-checker`)** are documented in this file.
 
+| [KR 한국어](./docs/locales/ko/CHANGELOG.md) | [US English](./CHANGELOG.md) | [JP 日本語](./docs/locales/ja/CHANGELOG.md) | [CN 简体中文](./docs/locales/zh-CN/CHANGELOG.md) | [ES Español](./docs/locales/es/CHANGELOG.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./docs/locales/fr/CHANGELOG.md) | [DE Deutsch](./docs/locales/de/CHANGELOG.md) | [RU Русский](./docs/locales/ru/CHANGELOG.md) | [BR Português](./docs/locales/pt-BR/CHANGELOG.md) | [SA العربية](./docs/locales/ar/CHANGELOG.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./docs/locales/hi/CHANGELOG.md">HI हिन्दी</a> • <a href="./docs/locales/id/CHANGELOG.md">ID Bahasa Indonesia</a></sub></p>
+
+## [v12.5.0] — 2026-11-19
+
+### Added
+- **12-Language 1:1 Complete Documentation Suite (`docs/locales/<lang>/`)**:
+  - Full 1:1 professional localization for all 8 core documents across 12 languages (Korean, English, Japanese, Simplified Chinese, Spanish, French, German, Russian, Portuguese, Arabic, Hindi, Indonesian).
+  - Clean modular hierarchy: `docs/locales/<lang>/` housing `README.md`, `ARCHITECTURE_MAP.md`, `GUIDE.md`, `TASKS.md`, `CHANGELOG.md`, `LICENSE.md`, `NOTICE.md`, `SECURITY.md`.
+- **GitHub Repository Root Streamlining & Modular Reorganization**:
+  - Moved internal maintenance scripts to `deploy/scripts/` and test configuration to `tests/pytest.ini`.
+  - Removed duplicate root scripts, reducing root clutter to 6 directories and 8 essential files so README and preview media render prominently above the fold on GitHub.
+- **Above-the-Fold Quick Jump Navigation Bar**:
+  - Instant one-touch navigation bar below badge strip (`[ Previews | Features | Requirements | Quick Start | Mobile PWA | Architecture | OS Guides | License ]`).
+
 ## [v12.4.0] — 2026-11-19
 
 ### Added

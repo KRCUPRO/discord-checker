@@ -4,6 +4,12 @@ THIRD-PARTY OPEN-SOURCE & UPSTREAM NOTICES
 This project references or depends on the following third-party open-source packages and tools,
 each governed by its own respective license:
 
+| [KR 한국어](./docs/locales/ko/NOTICE.md) | [US English](./NOTICE) | [JP 日本語](./docs/locales/ja/NOTICE.md) | [CN 简体中文](./docs/locales/zh-CN/NOTICE.md) | [ES Español](./docs/locales/es/NOTICE.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./docs/locales/fr/NOTICE.md) | [DE Deutsch](./docs/locales/de/NOTICE.md) | [RU Русский](./docs/locales/ru/NOTICE.md) | [BR Português](./docs/locales/pt-BR/NOTICE.md) | [SA العربية](./docs/locales/ar/NOTICE.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./docs/locales/hi/NOTICE.md">HI हिन्दी</a> • <a href="./docs/locales/id/NOTICE.md">ID Bahasa Indonesia</a></sub></p>
+
 1. curl_cffi (MIT License)
    - TLS/JA3/JA4 browser impersonation networking stack built on BoringSSL / curl-impersonate.
 

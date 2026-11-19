@@ -3,6 +3,12 @@
 > **프로젝트 루트**: `./` (Repository Root)  
 > **핵심 설계 원칙**: 무결점 비동기 병렬화, 0% 충돌 영구 동기화, TLS 스텔스 위장, 1:1 유저스페이스 터널 격리
 
+| [KR 한국어](./ARCHITECTURE_MAP.md) | [US English](./locales/en/ARCHITECTURE_MAP.md) | [JP 日本語](./locales/ja/ARCHITECTURE_MAP.md) | [CN 简体中文](./locales/zh-CN/ARCHITECTURE_MAP.md) | [ES Español](./locales/es/ARCHITECTURE_MAP.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./locales/fr/ARCHITECTURE_MAP.md) | [DE Deutsch](./locales/de/ARCHITECTURE_MAP.md) | [RU Русский](./locales/ru/ARCHITECTURE_MAP.md) | [BR Português](./locales/pt-BR/ARCHITECTURE_MAP.md) | [SA العربية](./locales/ar/ARCHITECTURE_MAP.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./locales/hi/ARCHITECTURE_MAP.md">HI हिन्दी</a> • <a href="./locales/id/ARCHITECTURE_MAP.md">ID Bahasa Indonesia</a></sub></p>
+
 ---
 
 ## 🏛️ 1. 시스템 계층 아키텍처 (Layered Architecture)

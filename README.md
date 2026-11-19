@@ -7,13 +7,24 @@
 
 <br />
 
-| [KR 한국어](./docs/locales/ko.md) | [US English](./README.md) | [JP 日本語](./docs/locales/ja.md) | [CN 简体中文](./docs/locales/zh-CN.md) | [ES Español](./docs/locales/es.md) |
+| [KR 한국어](./docs/locales/ko/README.md) | [US English](./README.md) | [JP 日本語](./docs/locales/ja/README.md) | [CN 简体中文](./docs/locales/zh-CN/README.md) | [ES Español](./docs/locales/es/README.md) |
 | :---: | :---: | :---: | :---: | :---: |
-| [FR Français](./docs/locales/fr.md) | [DE Deutsch](./docs/locales/de.md) | [RU Русский](./docs/locales/ru.md) | [BR Português](./docs/locales/pt-BR.md) | [SA العربية](./docs/locales/ar.md) |
+| [FR Français](./docs/locales/fr/README.md) | [DE Deutsch](./docs/locales/de/README.md) | [RU Русский](./docs/locales/ru/README.md) | [BR Português](./docs/locales/pt-BR/README.md) | [SA العربية](./docs/locales/ar/README.md) |
 
-<p align="center"><sub>🌐 Also available: <a href="./docs/locales/hi.md">HI हिन्दी</a> · <a href="./docs/locales/id.md">ID Bahasa Indonesia</a></sub></p>
+<p align="center"><sub>🌐 Also available: <a href="./docs/locales/hi/README.md">HI हिन्दी</a> • <a href="./docs/locales/id/README.md">ID Bahasa Indonesia</a></sub></p>
 
-<br />
+<p align="center">
+  <b>Quick Jump:</b>
+  <a href="#-interface-previews">Previews</a> •
+  <a href="#-key-capabilities">Features</a> •
+  <a href="#-system-requirements-dependencies">Requirements</a> •
+  <a href="#-installation-execution">Quick Start</a> •
+  <a href="#-mobile-web-gui-pwa-remote-control-guide">Mobile PWA</a> •
+  <a href="docs/ARCHITECTURE_MAP.md">Architecture</a> •
+  <a href="docs/guides/README.md">OS Guides</a> •
+  <a href="LICENSE">License</a>
+</p>
+
 
 [![Last Updated: Nov 19, 2026](docs/assets/badges/update_badge_en.svg)](CHANGELOG.md)
 [![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)

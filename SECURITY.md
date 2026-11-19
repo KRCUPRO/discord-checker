@@ -1,5 +1,11 @@
 # 🛡️ Security Policy
 
+| [KR 한국어](./docs/locales/ko/SECURITY.md) | [US English](./SECURITY.md) | [JP 日本語](./docs/locales/ja/SECURITY.md) | [CN 简体中文](./docs/locales/zh-CN/SECURITY.md) | [ES Español](./docs/locales/es/SECURITY.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./docs/locales/fr/SECURITY.md) | [DE Deutsch](./docs/locales/de/SECURITY.md) | [RU Русский](./docs/locales/ru/SECURITY.md) | [BR Português](./docs/locales/pt-BR/SECURITY.md) | [SA العربية](./docs/locales/ar/SECURITY.md) |
+
+<p align="center"><sub>🌐 Also available: <a href="./docs/locales/hi/SECURITY.md">HI हिन्दी</a> • <a href="./docs/locales/id/SECURITY.md">ID Bahasa Indonesia</a></sub></p>
+
 ## Responsible Usage & Secret Protection
 
 ### 1. Credentials & Private Keys Protection
