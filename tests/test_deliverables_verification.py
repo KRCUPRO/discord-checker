@@ -130,17 +130,24 @@ def verify_all_11_locale_documents():
 
 
 def verify_visual_media_assets():
-    print("[VERIFICATION 5] Checking Visual Media Assets (Mockups & Animated GIFs)...")
-    assets = [
+    print("[VERIFICATION 5] Checking 1:1 Localized Visual Media Assets (All 12 Languages PNG & Animated GIFs)...")
+    langs = ["ko", "en", "ja", "zh", "es", "fr", "de", "ru", "pt", "ar", "hi", "id"]
+    for l in langs:
+        for pat in [f"mobile_web_main_{l}.png", f"mobile_web_demo_{l}.gif", f"gui_{l}_main.png", f"gui_{l}_demo.gif"]:
+            p = root / "docs" / "assets" / pat
+            assert p.exists() and p.stat().st_size > 0, f"Missing or empty localized asset: {pat}"
+            print(f"   • [{l.upper()}] Asset verified: {pat} ({p.stat().st_size / 1024:.1f} KB)")
+
+    # Common & Legacy Fallbacks
+    common_assets = [
         "mobile_web_main.png", "mobile_web_demo.gif",
         "gui_ko_main.png", "gui_ko_demo.gif", "gui_en_main.png", "gui_en_demo.gif",
         "gui_settings_modal.png", "cli_dashboard.png", "cli_demo.gif", "docker_linux_capture.png"
     ]
-    for asset in assets:
+    for asset in common_assets:
         p = root / "docs" / "assets" / asset
-        assert p.exists() and p.stat().st_size > 0, f"Missing or empty asset: {asset}"
-        print(f"   • Asset verified: {asset} ({p.stat().st_size / 1024:.1f} KB)")
-    print("   ✅ Deliverable 5 Verified: All 10 visual assets (including mobile web) verified.")
+        assert p.exists() and p.stat().st_size > 0, f"Missing common asset: {asset}"
+    print("   ✅ Deliverable 5 Verified: All 48 localized media assets (12 langs x 4 files) + common assets verified.")
 
 
 def verify_exclusion_rules():

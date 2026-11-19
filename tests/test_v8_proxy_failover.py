@@ -1,8 +1,14 @@
 # tests/test_v8_proxy_failover.py
+import sys
 import unittest
 import time
 import collections
 from pathlib import Path
+
+_ROOT = Path(__file__).parent.parent.resolve()
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from src.storage.db import StorageManager
 from src.network.client import DiscordApiClient
 from src.proxy.manager import UnifiedProxyManager
@@ -11,7 +17,7 @@ from src.config import AppConfig
 
 class TestV8ProxyFailover(unittest.TestCase):
     def setUp(self):
-        self.test_dir = Path("tests/temp_v8_test")
+        self.test_dir = _ROOT / "tests" / "temp_v8_test"
         self.test_dir.mkdir(parents=True, exist_ok=True)
         self.test_db = str(self.test_dir / "test_storage.db")
 

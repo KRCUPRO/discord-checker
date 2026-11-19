@@ -31,16 +31,16 @@
 ## 📸 Visualização da Interface
 
 ### Web GUI Móvel Responsiva com Otimização ao Toque (PWA - iPhone e Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_pt.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### Demonstração Móvel em Tempo Real (Controles a 1 Toque & Telemetria)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_pt.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### Interface de Desktop (Desktop GUI)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### Interface de Desktop (Edição Portuguesa)
+[![D4UC GUI Desktop Main](../assets/gui_pt_main.png)](../guides/PC_GUIDE.md)
 
 ### Demonstração Desktop em Tempo Real (Interações Fluidas com Mouse)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_pt_demo.gif)](../guides/PC_GUIDE.md)
 
 ### Painel CLI sem Interface Gráfica
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

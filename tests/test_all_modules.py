@@ -1,9 +1,14 @@
 # tests/test_all_modules.py
+import sys
 import unittest
 import asyncio
 import os
 import shutil
 from pathlib import Path
+
+_ROOT = Path(__file__).parent.parent.resolve()
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 from src.config import AppConfig
 from src.generator.base import DiscordRuleValidator

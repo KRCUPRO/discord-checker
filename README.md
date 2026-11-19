@@ -31,10 +31,10 @@
 ## 📸 Interface Previews
 
 ### Mobile Touch-Optimized Responsive Web GUI (PWA - iPhone & Android)
-[![D4UC Mobile Web GUI](docs/assets/mobile_web_main.png)](docs/guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](docs/assets/mobile_web_main_en.png)](docs/guides/MOBILE_IOS_GUIDE.md)
 
 ### Mobile Interactive Real-Time Demo (1-Tap Touch Controls & Live Telemetry)
-[![D4UC Mobile Web Demo](docs/assets/mobile_web_demo.gif)](docs/guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](docs/assets/mobile_web_demo_en.gif)](docs/guides/MOBILE_IOS_GUIDE.md)
 
 ### Desktop GUI (English Edition)
 [![D4UC Desktop GUI](docs/assets/gui_en_main.png)](docs/guides/PC_GUIDE.md)

@@ -31,16 +31,16 @@
 ## 📸 界面预览
 
 ### 移动端触控优化响应式 Web GUI (PWA - iPhone & Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_zh.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### 移动端实时操作演示 (1-Tap 触控操作 & 实时遥测指标)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_zh.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### 桌面 GUI 运行界面 (中英文双语环境)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### 桌面 GUI 运行界面 (简体中文版)
+[![D4UC GUI Desktop Main](../assets/gui_zh_main.png)](../guides/PC_GUIDE.md)
 
 ### 实时 GUI 操作演示 (平滑鼠标交互)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_zh_demo.gif)](../guides/PC_GUIDE.md)
 
 ### 无头 CLI 实时终端仪表盘
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

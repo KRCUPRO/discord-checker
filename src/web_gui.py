@@ -166,7 +166,13 @@ class WebGuiState:
                 for k, v in updates["webhook"].items():
                     self.config.webhook[k] = v
 
-            return {"status": "ok", "message": "Settings updated successfully"}
+            # Persist updated configuration to disk
+            try:
+                self.config.save()
+            except Exception as e:
+                self.on_log(f"⚠️ 설정 파일 저장 실패: {e}", "WARN")
+
+            return {"status": "ok", "message": "Settings updated and saved successfully"}
 
 
 class D4UCWebHandler(BaseHTTPRequestHandler):

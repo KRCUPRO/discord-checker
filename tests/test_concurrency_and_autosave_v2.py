@@ -1,4 +1,5 @@
 # tests/test_concurrency_and_autosave_v2.py
+import sys
 import asyncio
 import csv
 import json
@@ -6,6 +7,10 @@ import os
 import shutil
 import unittest
 from pathlib import Path
+
+_ROOT = Path(__file__).parent.parent.resolve()
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 from src.storage.db import StorageManager
 from src.network.client import CheckResult, CheckStatus

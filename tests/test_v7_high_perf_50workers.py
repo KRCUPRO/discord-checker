@@ -1,7 +1,13 @@
 # tests/test_v7_high_perf_50workers.py
+import sys
 import sqlite3
 import unittest
 from pathlib import Path
+
+_ROOT = Path(__file__).parent.parent.resolve()
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from unittest.mock import MagicMock, patch
 from src.proxy.surfshark import SurfsharkProxyProvider, SingleTunnelNode, SurfsharkCluster
 from src.network.client import CheckResult, CheckStatus
@@ -81,15 +87,15 @@ class TestV7HighPerf50Workers(unittest.TestCase):
             self.assertEqual(node.last_verified_ip, "194.169.170.55")
 
     def test_result_proxy_used_friendly_binding(self):
-        db_path = Path("tests/test_v7.db")
+        db_path = _ROOT / "tests" / "test_v7.db"
         if db_path.exists():
             db_path.unlink()
         storage = StorageManager(
             db_path=str(db_path),
-            available_file="tests/test_v7_avail.txt"
+            available_file=str(_ROOT / "tests" / "test_v7_avail.txt")
         )
-        storage.results_dir = Path("tests/non_existent_results")
-        storage.available_csv_file = Path("tests/non_existent_avail.csv")
+        storage.results_dir = _ROOT / "tests" / "non_existent_results"
+        storage.available_csv_file = _ROOT / "tests" / "non_existent_avail.csv"
         
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()

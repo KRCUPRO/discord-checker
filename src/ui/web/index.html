@@ -131,6 +131,18 @@
       100% { opacity: 1; }
     }
 
+    .lang-select {
+      background-color: var(--bg-input);
+      color: var(--text-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
     /* Container */
     .container {
       width: 100%;
@@ -712,9 +724,25 @@
         <div class="brand-sub">Discord Username Checker v12.2.0</div>
       </div>
     </div>
-    <div id="statusBadge" class="status-badge">
-      <div id="statusDot" class="status-dot"></div>
-      <span id="statusText">대기 중</span>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="pt">🇧🇷 Português</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="id">🇮🇩 Bahasa</option>
+      </select>
+      <div id="statusBadge" class="status-badge">
+        <div id="statusDot" class="status-dot"></div>
+        <span id="statusText">대기 중</span>
+      </div>
     </div>
   </header>
 
@@ -724,27 +752,27 @@
     <!-- Telemetry Cards -->
     <div class="metrics-grid">
       <div class="metric-card">
-        <span class="metric-label">속도 (RPS)</span>
+        <span id="lblMetricRps" class="metric-label">속도 (RPS)</span>
         <span id="metricRps" class="metric-value speed">0.0</span>
       </div>
       <div class="metric-card">
-        <span class="metric-label">가용 발견</span>
+        <span id="lblMetricAvailable" class="metric-label">가용 발견</span>
         <span id="metricAvailable" class="metric-value available">0</span>
       </div>
       <div class="metric-card">
-        <span class="metric-label">총 검사</span>
+        <span id="lblMetricTotal" class="metric-label">총 검사</span>
         <span id="metricTotal" class="metric-value">0</span>
       </div>
       <div class="metric-card">
-        <span class="metric-label">선점 (Taken)</span>
+        <span id="lblMetricTaken" class="metric-label">선점 (Taken)</span>
         <span id="metricTaken" class="metric-value">0</span>
       </div>
       <div class="metric-card">
-        <span class="metric-label">429 노드교체</span>
+        <span id="lblMetric429" class="metric-label">429 노드교체</span>
         <span id="metric429" class="metric-value rate-limited">0</span>
       </div>
       <div class="metric-card">
-        <span class="metric-label">평균 레이턴시</span>
+        <span id="lblMetricLatency" class="metric-label">평균 레이턴시</span>
         <span id="metricLatency" class="metric-value">0ms</span>
       </div>
     </div>
@@ -752,7 +780,7 @@
     <!-- Real-Time Speed Chart -->
     <div class="chart-card">
       <div class="chart-header">
-        <span>⚡ 실시간 탐색 속도 추이 (RPS Rolling Chart)</span>
+        <span id="chartTitleText">⚡ 실시간 탐색 속도 추이 (RPS Rolling Chart)</span>
         <span id="chartPeak">최고: 0.0 req/s</span>
       </div>
       <canvas id="speedCanvas" class="chart-canvas" width="600" height="80"></canvas>
@@ -760,10 +788,10 @@
 
     <!-- Tabs Navigation -->
     <nav class="tabs-bar">
-      <button class="tab-btn active" onclick="switchTab('results')">결과 목록</button>
-      <button class="tab-btn" onclick="switchTab('target')">탐색 조건</button>
-      <button class="tab-btn" onclick="switchTab('proxy')">프록시 설정</button>
-      <button class="tab-btn" onclick="switchTab('logs')">실시간 로그</button>
+      <button id="tabBtnResults" class="tab-btn active" onclick="switchTab('results')">결과 목록</button>
+      <button id="tabBtnTarget" class="tab-btn" onclick="switchTab('target')">탐색 조건</button>
+      <button id="tabBtnProxy" class="tab-btn" onclick="switchTab('proxy')">프록시 설정</button>
+      <button id="tabBtnLogs" class="tab-btn" onclick="switchTab('logs')">실시간 로그</button>
     </nav>
 
     <!-- Tab 1: Results -->
@@ -771,7 +799,7 @@
       <div class="panel-card">
         <div class="results-header">
           <div class="panel-title" style="border:none; padding:0;">
-            <span>🎉 발견된 희귀 닉네임</span>
+            <span id="resultsTitleText">🎉 발견된 희귀 닉네임</span>
             <span id="resultsCountBadge" style="font-size:12px; background:var(--accent-green); padding:2px 8px; border-radius:10px; color:#fff;">0</span>
           </div>
           <div class="results-actions">
@@ -948,7 +976,7 @@
     </button>
     <button class="btn-secondary" onclick="restartChecker()">
       <span>🔄</span>
-      <span>재시작</span>
+      <span id="btnSecondaryLabel">재시작</span>
     </button>
   </footer>
 
@@ -961,6 +989,134 @@
     let speedHistory = [];
     const maxHistoryPoints = 30;
     let isKeyMasked = true;
+    let currentLang = localStorage.getItem('d4uc_lang') || 'ko';
+
+    const I18N_DICT = {
+      ko: {
+        idle: "대기 중", running: "실행 중", start: "탐색 시작", stop: "탐색 중지", restart: "재시작",
+        rps: "속도 (RPS)", avail: "가용 발견", total: "총 검사", taken: "선점 (Taken)", swaps: "429 노드교체", latency: "평균 레이턴시",
+        chart_title: "⚡ 실시간 탐색 속도 추이 (RPS Rolling Chart)", peak_prefix: "최고",
+        tab_results: "결과 목록", tab_target: "탐색 조건", tab_proxy: "프록시 설정", tab_logs: "실시간 로그",
+        results_title: "🎉 발견된 희귀 닉네임", copy: "복사", copied: "클립보드 복사 완료!",
+        empty: "아직 발견된 닉네임이 없습니다.<br>하단의 [탐색 시작] 버튼을 눌러 검사를 가동하세요."
+      },
+      en: {
+        idle: "Idle", running: "Running", start: "Start Scan", stop: "Stop Scan", restart: "Restart",
+        rps: "Speed (RPS)", avail: "Available", total: "Total Checked", taken: "Taken", swaps: "429 Hot-Swaps", latency: "Avg Latency",
+        chart_title: "⚡ Real-Time Speed Trend (RPS Rolling Chart)", peak_prefix: "Peak",
+        tab_results: "Results", tab_target: "Target", tab_proxy: "Proxy", tab_logs: "Logs",
+        results_title: "🎉 Rare Usernames Discovered", copy: "Copy", copied: "Copied to clipboard!",
+        empty: "No available usernames discovered yet.<br>Tap [Start Scan] below to launch."
+      },
+      ja: {
+        idle: "待機中", running: "実行中", start: "探索開始", stop: "探索停止", restart: "再起動",
+        rps: "速度 (RPS)", avail: "利用可能", total: "総検査数", taken: "取得済 (Taken)", swaps: "429 切替", latency: "平均遅延",
+        chart_title: "⚡ リアルタイム探索速度 (RPS Rolling Chart)", peak_prefix: "最高",
+        tab_results: "結果一覧", tab_target: "探索条件", tab_proxy: "プロキシ設定", tab_logs: "リアルタイムログ",
+        results_title: "🎉 発見されたレアニックネーム", copy: "コピー", copied: "クリップボードにコピーしました！",
+        empty: "まだ発見されたニックネームはありません。<br>下の[探索開始]ボタンをタップして起動してください。"
+      },
+      zh: {
+        idle: "空闲中", running: "运行中", start: "开始扫描", stop: "停止扫描", restart: "重启",
+        rps: "速度 (RPS)", avail: "发现可用", total: "总检查数", taken: "已占用 (Taken)", swaps: "429 节点切换", latency: "平均延迟",
+        chart_title: "⚡ 实时扫描速度趋势 (RPS Rolling Chart)", peak_prefix: "峰值",
+        tab_results: "结果列表", tab_target: "扫描条件", tab_proxy: "代理设置", tab_logs: "实时日志",
+        results_title: "🎉 发现的稀有用户名", copy: "复制", copied: "已复制到剪贴板！",
+        empty: "尚未发现可用用户名。<br>点击下方的 [开始扫描] 按钮启动检查。"
+      },
+      es: {
+        idle: "En espera", running: "Ejecutando", start: "Iniciar", stop: "Detener", restart: "Reiniciar",
+        rps: "Velocidad (RPS)", avail: "Disponible", total: "Total Verif.", taken: "Ocupado", swaps: "429 Reemplazos", latency: "Latencia media",
+        chart_title: "⚡ Velocidad en tiempo real (RPS Rolling Chart)", peak_prefix: "Máx",
+        tab_results: "Resultados", tab_target: "Objetivo", tab_proxy: "Proxy", tab_logs: "Logs",
+        results_title: "🎉 Nombres raros descubiertos", copy: "Copiar", copied: "¡Copiado al portapapeles!",
+        empty: "Aún no se han descubierto nombres.<br>Toque [Iniciar] abajo para comenzar."
+      },
+      fr: {
+        idle: "En attente", running: "En cours", start: "Démarrer", stop: "Arrêter", restart: "Redémarrer",
+        rps: "Vitesse (RPS)", avail: "Disponible", total: "Total Vérif.", taken: "Occupé", swaps: "429 Échanges", latency: "Latence moy.",
+        chart_title: "⚡ Vitesse en temps réel (RPS Rolling Chart)", peak_prefix: "Max",
+        tab_results: "Résultats", tab_target: "Cibles", tab_proxy: "Proxy", tab_logs: "Logs",
+        results_title: "🎉 Noms rares découverts", copy: "Copier", copied: "Copié dans le presse-papier !",
+        empty: "Aucun nom disponible trouvé pour l'instant.<br>Appuyez sur [Démarrer] ci-dessous."
+      },
+      de: {
+        idle: "Bereit", running: "Aktiv", start: "Starten", stop: "Stoppen", restart: "Neustart",
+        rps: "Geschw. (RPS)", avail: "Verfügbar", total: "Gesamt geprüft", taken: "Belegt", swaps: "429 Node-Tausch", latency: "Ø Latenz",
+        chart_title: "⚡ Echtzeit-Geschwindigkeit (RPS Rolling Chart)", peak_prefix: "Spitze",
+        tab_results: "Ergebnisse", tab_target: "Ziel", tab_proxy: "Proxy", tab_logs: "Logs",
+        results_title: "🎉 Seltene Namen entdeckt", copy: "Kopieren", copied: "In Zwischenablage kopiert!",
+        empty: "Noch keine verfügbaren Namen entdeckt.<br>Tippen Sie unten auf [Starten]."
+      },
+      ru: {
+        idle: "Ожидание", running: "Работает", start: "Запустить", stop: "Остановить", restart: "Перезапуск",
+        rps: "Скорость (RPS)", avail: "Доступно", total: "Всего проверено", taken: "Занято", swaps: "429 Замен узлов", latency: "Сред. задержка",
+        chart_title: "⚡ Скорость сканирования в реальном времени", peak_prefix: "Пик",
+        tab_results: "Результаты", tab_target: "Условия", tab_proxy: "Прокси", tab_logs: "Логи",
+        results_title: "🎉 Найденные редкие никнеймы", copy: "Копия", copied: "Скопировано в буфер!",
+        empty: "Доступных никнеймов пока не найдено.<br>Нажмите [Запустить] ниже."
+      },
+      pt: {
+        idle: "Ocioso", running: "Executando", start: "Iniciar", stop: "Parar", restart: "Reiniciar",
+        rps: "Velocidade (RPS)", avail: "Disponível", total: "Total Verif.", taken: "Ocupado", swaps: "429 Trocas IP", latency: "Latência média",
+        chart_title: "⚡ Velocidade em tempo real (RPS Rolling Chart)", peak_prefix: "Pico",
+        tab_results: "Resultados", tab_target: "Alvo", tab_proxy: "Proxy", tab_logs: "Logs",
+        results_title: "🎉 Nombres raros descobertos", copy: "Copiar", copied: "Copiado para a área de transferência!",
+        empty: "Nenhum nome disponível descoberto ainda.<br>Toque em [Iniciar] abaixo."
+      },
+      ar: {
+        idle: "في الانتظار", running: "قيد التشغيل", start: "بدء الفحص", stop: "إيقاف", restart: "إعادة تشغيل",
+        rps: "السرعة (RPS)", avail: "المتاحة", total: "إجمالي الفحص", taken: "محجوز", swaps: "تبديل 429", latency: "متوسط التأخير",
+        chart_title: "⚡ اتجاه السرعة في الوقت الفعلي (RPS)", peak_prefix: "الذروة",
+        tab_results: "النتائج", tab_target: "الأهداف", tab_proxy: "البروكسي", tab_logs: "السجلات",
+        results_title: "🎉 الأسماء النادرة المكتشفة", copy: "نسخ", copied: "تم النسخ إلى الحافظة!",
+        empty: "لم يتم العثور على أسماء متاحة بعد.<br>انقر على [بدء الفحص] أدناه."
+      },
+      hi: {
+        idle: "निष्क्रिय", running: "सक्रिय", start: "आरंभ करें", stop: "रोकें", restart: "पुनः आरंभ",
+        rps: "गति (RPS)", avail: "उपलब्ध", total: "कुल जाँचे", taken: "लिया गया", swaps: "429 स्वैप", latency: "औसत विलंबता",
+        chart_title: "⚡ वास्तविक समय गति प्रवृत्ति (RPS)", peak_prefix: "शीर्ष",
+        tab_results: "परिणाम", tab_target: "लक्ष्य", tab_proxy: "प्रॉक्सी", tab_logs: "लॉग्स",
+        results_title: "🎉 दुर्लभ नाम खोजे गए", copy: "कॉपी", copied: "क्लिपबोर्ड पर कॉपी हुआ!",
+        empty: "अभी तक कोई नाम नहीं मिला।<br>जाँच शुरू करने के लिए नीचे [आरंभ करें] दबाएं।"
+      },
+      id: {
+        idle: "Siaga", running: "Berjalan", start: "Mulai", stop: "Hentikan", restart: "Mulai Ulang",
+        rps: "Kecepatan (RPS)", avail: "Tersedia", total: "Total Diperiksa", taken: "Digunakan", swaps: "429 Pergantian", latency: "Rata-rata Latensi",
+        chart_title: "⚡ Tren Kecepatan Real-Time (RPS)", peak_prefix: "Puncak",
+        tab_results: "Hasil", tab_target: "Target", tab_proxy: "Proksi", tab_logs: "Log",
+        results_title: "🎉 Username Langka Ditemukan", copy: "Salin", copied: "Disalin ke papan klip!",
+        empty: "Belum ada username ditemukan.<br>Ketuk [Mulai] di bawah untuk memulai."
+      }
+    };
+
+    function changeLanguage(lang) {
+      if (!I18N_DICT[lang]) lang = 'ko';
+      currentLang = lang;
+      localStorage.setItem('d4uc_lang', lang);
+      document.documentElement.lang = lang;
+      const select = document.getElementById('langSelect');
+      if (select && select.value !== lang) select.value = lang;
+
+      const d = I18N_DICT[lang];
+      document.getElementById('lblMetricRps').textContent = d.rps;
+      document.getElementById('lblMetricAvailable').textContent = d.avail;
+      document.getElementById('lblMetricTotal').textContent = d.total;
+      document.getElementById('lblMetricTaken').textContent = d.taken;
+      document.getElementById('lblMetric429').textContent = d.swaps;
+      document.getElementById('lblMetricLatency').textContent = d.latency;
+
+      document.getElementById('chartTitleText').textContent = d.chart_title;
+      document.getElementById('tabBtnResults').textContent = d.tab_results;
+      document.getElementById('tabBtnTarget').textContent = d.tab_target;
+      document.getElementById('tabBtnProxy').textContent = d.tab_proxy;
+      document.getElementById('tabBtnLogs').textContent = d.tab_logs;
+
+      document.getElementById('resultsTitleText').textContent = d.results_title;
+      document.getElementById('btnSecondaryLabel').textContent = d.restart;
+
+      pollStatus();
+    }
 
     // Toast utility
     function showToast(msg) {
@@ -1094,9 +1250,10 @@
 
     // Copy username to clipboard
     function copyUsername(name) {
+      const d = I18N_DICT[currentLang] || I18N_DICT.ko;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(name).then(() => {
-          showToast(`📋 '${name}' 클립보드 복사 완료!`);
+          showToast(`📋 '${name}' ${d.copied}`);
         });
       } else {
         const ta = document.createElement('textarea');
@@ -1105,7 +1262,7 @@
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        showToast(`📋 '${name}' 복사 완료!`);
+        showToast(`📋 '${name}' ${d.copied}`);
       }
     }
 
@@ -1209,12 +1366,13 @@
 
       document.getElementById('resultsCountBadge').textContent = results.length;
       const listEl = document.getElementById('resultsList');
+      const d = I18N_DICT[currentLang] || I18N_DICT.ko;
 
       if (!results || results.length === 0) {
         listEl.innerHTML = `
           <div class="empty-placeholder">
             <span style="font-size:28px;">🔍</span>
-            <span>아직 발견된 닉네임이 없습니다.<br>하단의 [탐색 시작] 버튼을 눌러 검사를 가동하세요.</span>
+            <span>${d.empty}</span>
           </div>`;
         return;
       }
@@ -1226,7 +1384,7 @@
             <span class="result-meta">발견: ${r.timestamp || '방금'} | ${r.latency_ms ? r.latency_ms.toFixed(1) + 'ms' : ''} | ${r.pattern_type || ''}</span>
           </div>
           <button class="copy-btn" onclick="copyUsername('${r.username}')">
-            <span>복사</span>
+            <span>${d.copy}</span>
           </button>
         </div>
       `).join('');
@@ -1266,19 +1424,20 @@
           const btn = document.getElementById('btnStartStop');
           const btnIcon = document.getElementById('btnIcon');
           const btnLabel = document.getElementById('btnLabel');
+          const d = I18N_DICT[currentLang] || I18N_DICT.ko;
 
           if (isRunning) {
             dot.className = 'status-dot running';
-            txt.textContent = `실행 중 (${data.active_workers || data.concurrency || 5}w)`;
+            txt.textContent = `${d.running} (${data.active_workers || data.concurrency || 5}w)`;
             btn.className = 'btn-main stop';
             btnIcon.textContent = '■';
-            btnLabel.textContent = '탐색 중지';
+            btnLabel.textContent = d.stop;
           } else {
             dot.className = 'status-dot';
-            txt.textContent = '대기 중';
+            txt.textContent = d.idle;
             btn.className = 'btn-main start';
             btnIcon.textContent = '▶';
-            btnLabel.textContent = '탐색 시작';
+            btnLabel.textContent = d.start;
           }
 
           if (data.metrics) {
@@ -1291,6 +1450,19 @@
             document.getElementById('metricLatency').textContent = `${(m.avg_latency_ms || 0).toFixed(0)}ms`;
             updateChart(m.rps || 0);
           }
+
+          if (data.results) {
+            renderResults(data.results);
+          }
+
+          if (data.logs) {
+            appendLogs(data.logs);
+          }
+        })
+        .catch(err => {
+          console.warn('Status poll failed:', err);
+        });
+    }
 
           if (data.results) {
             renderResults(data.results);
@@ -1352,6 +1524,9 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
+      const select = document.getElementById('langSelect');
+      if (select) select.value = currentLang;
+      changeLanguage(currentLang);
       loadInitialConfig();
       pollStatus();
       pollInterval = setInterval(pollStatus, 1000);

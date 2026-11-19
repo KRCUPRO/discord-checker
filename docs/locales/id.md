@@ -31,16 +31,16 @@
 ## 📸 Pratinjau Antarmuka
 
 ### Web GUI Responsif Ramah Sentuhan Seluler (PWA - iPhone & Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_id.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### Demonstrasi Langsung Operasi Seluler (Kontrol 1 Ketukan & Telemetri Real-Time)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_id.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### GUI Desktop PC (Edisi Bahasa Inggris & Korea)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### GUI Desktop PC (Edisi Bahasa Indonesia)
+[![D4UC GUI Desktop Main](../assets/gui_id_main.png)](../guides/PC_GUIDE.md)
 
 ### Demonstrasi Eksekusi GUI Desktop (Interaksi Mouse yang Halus)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_id_demo.gif)](../guides/PC_GUIDE.md)
 
 ### Dasbor Terminal CLI Headless
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

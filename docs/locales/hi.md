@@ -31,16 +31,16 @@
 ## 📸 इंटरफ़ेस पूर्वावलोकन
 
 ### मोबाइल टच-अनुकूलित वेब GUI (PWA - iPhone और Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_hi.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### मोबाइल वेब इंटरैक्टिव लाइव डेमो (1-टैप टच नियंत्रण और वास्तविक समय टेलीमेट्री)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_hi.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### डेस्कटॉप GUI (अंग्रेजी और कोरियाई संस्करण)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### डेस्कटॉप GUI (हिन्दी संस्करण)
+[![D4UC GUI Desktop Main](../assets/gui_hi_main.png)](../guides/PC_GUIDE.md)
 
 ### वास्तविक समय डेस्कटॉप GUI निष्पादन डेमो (सहज माउस इंटरैक्शन)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_hi_demo.gif)](../guides/PC_GUIDE.md)
 
 ### हेडलेस CLI टर्मिनल डैशबोर्ड
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

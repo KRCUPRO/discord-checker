@@ -31,16 +31,16 @@
 ## 📸 Aperçu de l'Interface
 
 ### Web GUI Mobile Réactive Optimisée pour le Tactile (PWA - iPhone & Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_fr.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### Démonstration Tactile Mobile en Temps Réel (Contrôles à 1 Touche & Télémétrie)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_fr.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### Interface Graphique Bureau (Desktop GUI)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### Interface Graphique Bureau (Édition Française)
+[![D4UC GUI Desktop Main](../assets/gui_fr_main.png)](../guides/PC_GUIDE.md)
 
 ### Démonstration de l'Exécution Bureau (Interactions Fluides à la Souris)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_fr_demo.gif)](../guides/PC_GUIDE.md)
 
 ### Tableau de Bord CLI sans Interface Graphique
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

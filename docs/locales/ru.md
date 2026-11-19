@@ -31,16 +31,16 @@
 ## 📸 Обзор интерфейса
 
 ### Адаптивный мобильный Web GUI (PWA - iPhone и Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_ru.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### Интерактивная демонстрация мобильного Web (Сенсорное управление в 1 касание)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_ru.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### Настольный интерфейс Desktop GUI (Английская и корейская версии)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### Настольный интерфейс Desktop GUI (Русское издание)
+[![D4UC GUI Desktop Main](../assets/gui_ru_main.png)](../guides/PC_GUIDE.md)
 
 ### Анимация работы GUI (Плавное управление мышью)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_ru_demo.gif)](../guides/PC_GUIDE.md)
 
 ### Консольная панель CLI без графической оболочки
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

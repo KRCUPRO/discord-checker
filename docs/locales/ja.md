@@ -31,16 +31,16 @@
 ## 📸 インターフェース プレビュー
 
 ### モバイルタッチ最適化レスポンシブ Web GUI (PWA - iPhone & Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_ja.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### モバイル Web リアルタイム操作デモ (1-Tap タッチ操作 & ライブテレメトリ)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_ja.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### デスクトップ GUI 実行画面 (英語/韓国語版)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### デスクトップ GUI 実行画面 (日本語エディション)
+[![D4UC GUI Desktop Main](../assets/gui_ja_main.png)](../guides/PC_GUIDE.md)
 
 ### リアルタイム GUI 動作デモ (スムーズなマウス操作)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_ja_demo.gif)](../guides/PC_GUIDE.md)
 
 ### ヘッドレスト CLI ダッシュボード
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

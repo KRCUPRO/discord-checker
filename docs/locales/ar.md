@@ -31,16 +31,16 @@
 ## 📸 معاينة واجهات البرنامج
 
 ### واجهة الويب المتجاوبة للهواتف المحمولة وتطبيق PWA (لهواتف آيفون وأندرويد)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_ar.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### عرض توضيحي حي للتطبيق على الهاتف المحمول (تحكم بلمسة واحدة وقياسات فورية)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_ar.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### واجهة سطح المكتب لأجهزة الكمبيوتر (Desktop GUI)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### واجهة سطح المكتب لأجهزة الكمبيوتر (النسخة العربية)
+[![D4UC GUI Desktop Main](../assets/gui_ar_main.png)](../guides/PC_GUIDE.md)
 
 ### عرض توضيحي مباشر لتطبيق سطح المكتب (تفاعل سلس بالفأرة)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_ar_demo.gif)](../guides/PC_GUIDE.md)
 
 ### لوحة معلومات سطر الأوامر الطرفية (CLI Dashboard)
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)

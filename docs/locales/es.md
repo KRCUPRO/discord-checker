@@ -31,16 +31,16 @@
 ## 📸 Vista Previa de la Interfaz
 
 ### Web GUI Móvil Responsiva Optimizada para Táctil (PWA - iPhone & Android)
-[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main_es.png)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### Demostración Móvil Interactiva en Tiempo Real (Controles Táctiles a 1 Toque)
-[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo_es.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
-### Interfaz Gráfica de Escritorio (Desktop GUI)
-[![D4UC GUI Desktop Main](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+### Interfaz Gráfica de Escritorio (Edición en Español)
+[![D4UC GUI Desktop Main](../assets/gui_es_main.png)](../guides/PC_GUIDE.md)
 
 ### Demostración de Ejecución en Escritorio (Interacciones Fluidas con el Ratón)
-[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_es_demo.gif)](../guides/PC_GUIDE.md)
 
 ### Panel de Telemetría CLI sin Interfaz Gráfica
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
