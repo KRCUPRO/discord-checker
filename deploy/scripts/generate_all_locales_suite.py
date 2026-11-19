@@ -1058,6 +1058,22 @@ def update_master_files():
     notice_path.write_text(notice_content, encoding="utf-8")
     print("Updated NOTICE")
 
+    # 9. Master LICENSE
+    license_path = REPO_ROOT / "LICENSE"
+    license_content = license_path.read_text(encoding="utf-8")
+    license_table = generate_language_table("LICENSE", "en", "repo_root")
+    lt_start = license_content.find("| [KR")
+    if lt_start != -1:
+        lt_end = license_content.find("\n\nCopyright", lt_start)
+        if lt_end != -1:
+            license_content = license_content[:lt_start] + license_table + license_content[lt_end:]
+    else:
+        sep_pos = license_content.find("\n\nCopyright")
+        if sep_pos != -1:
+            license_content = license_content[:sep_pos] + "\n\n" + license_table + license_content[sep_pos:]
+    license_path.write_text(license_content, encoding="utf-8")
+    print("Updated LICENSE")
+
 
 def generate_all():
     print("🚀 Starting D4UC 12-Locale Documentation Suite Generation...")
