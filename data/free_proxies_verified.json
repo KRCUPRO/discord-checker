@@ -1,0 +1,32 @@
+[
+  {
+    "url": "socks4://36.37.244.41:5678",
+    "protocol": "socks4",
+    "host": "36.37.244.41",
+    "port": 5678,
+    "latency_ms": 770.7,
+    "source": "monosans-SOCKS4",
+    "country": "??",
+    "verified_at": 1795071682.4444075
+  },
+  {
+    "url": "socks4://212.50.19.150:4153",
+    "protocol": "socks4",
+    "host": "212.50.19.150",
+    "port": 4153,
+    "latency_ms": 1309.2,
+    "source": "monosans-SOCKS4",
+    "country": "BG",
+    "verified_at": 1795071639.3943493
+  },
+  {
+    "url": "socks4://116.212.156.72:1080",
+    "protocol": "socks4",
+    "host": "116.212.156.72",
+    "port": 1080,
+    "latency_ms": 1514.5,
+    "source": "monosans-SOCKS4",
+    "country": "??",
+    "verified_at": 1795071739.2007563
+  }
+]

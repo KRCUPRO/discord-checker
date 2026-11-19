@@ -29,6 +29,7 @@ from src.config import AppConfig
 from src.gui import GuiOrchestrator
 from src.network.client import CheckStatus, CheckResult
 from src.proxy.free_proxy import FreeProxyProvider
+from src.proxy.manager import UnifiedProxyManager
 from src.utils.paths import get_bundle_dir, resolve_resource, resolve_output_path
 
 
@@ -41,7 +42,8 @@ class WebGuiState:
         self.start_time: Optional[float] = None
         self.results_feed: collections.deque = collections.deque(maxlen=500)
         self.logs_feed: collections.deque = collections.deque(maxlen=200)
-        self.free_proxy_provider = FreeProxyProvider()
+        self.proxy_manager = UnifiedProxyManager(self.config.proxy)
+        self.free_proxy_provider = self.proxy_manager.get_free_provider() or FreeProxyProvider()
         self._load_existing_results()
 
     def _load_existing_results(self):
@@ -100,6 +102,7 @@ class WebGuiState:
                 config=self.config,
                 on_result_cb=self.on_result,
                 on_log_cb=self.on_log,
+                proxy_manager=self.proxy_manager,
             )
             self.orchestrator.start_thread()
             self.on_log(f"⚡ [WEB-GUI] 모바일 웹 제어기로부터 탐색 엔진 가동 시작 ({self.orchestrator.concurrency}워커)", "START")
@@ -181,6 +184,8 @@ class WebGuiState:
             if "proxy" in updates and isinstance(updates["proxy"], dict):
                 for k, v in updates["proxy"].items():
                     self.config.proxy[k] = v
+                self.proxy_manager = UnifiedProxyManager(self.config.proxy)
+                self.free_proxy_provider = self.proxy_manager.get_free_provider() or self.free_proxy_provider
 
             # Webhook update
             if "webhook" in updates and isinstance(updates["webhook"], dict):

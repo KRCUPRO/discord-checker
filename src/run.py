@@ -11,6 +11,15 @@ from pathlib import Path
 _ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(_ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(_ROOT_DIR))
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+    os.environ["PYTHONIOENCODING"] = "utf-8"
+
 from rich.console import Console
 from rich.live import Live
 
@@ -24,7 +33,7 @@ from src.notify.webhook import DiscordWebhookNotifier
 from src.ui.dashboard import RichDashboard, DashboardMetrics
 from curl_cffi.requests import AsyncSession
 
-console = Console()
+console = Console(legacy_windows=False)
 
 class Orchestrator:
     def __init__(self, config: AppConfig, force_no_dashboard: bool = False):
@@ -102,24 +111,24 @@ class Orchestrator:
                         await self.storage.enqueue_result(result)
 
                     if endpoint:
-                        self.proxy_manager.release_proxy(endpoint, success=True, latency_ms=latency)
+                        self.proxy_manager.release_proxy(endpoint, success=True, rate_limited=False)
 
                 except RateLimitedException:
                     self.metrics.rate_limited_count += 1
                     if endpoint:
-                        self.proxy_manager.release_proxy(endpoint, success=False, is_429=True)
+                        self.proxy_manager.release_proxy(endpoint, success=False, rate_limited=True)
                     await asyncio.sleep(2.0)
 
                 except (WafBlockedException, ProxyFailedException):
                     self.metrics.error_count += 1
                     if endpoint:
-                        self.proxy_manager.release_proxy(endpoint, success=False)
+                        self.proxy_manager.release_proxy(endpoint, success=False, rate_limited=False)
                     await asyncio.sleep(1.0)
 
                 except Exception:
                     self.metrics.error_count += 1
                     if endpoint:
-                        self.proxy_manager.release_proxy(endpoint, success=False)
+                        self.proxy_manager.release_proxy(endpoint, success=False, rate_limited=False)
                     await asyncio.sleep(0.5)
 
     async def run(self):

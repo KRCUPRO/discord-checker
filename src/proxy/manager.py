@@ -104,9 +104,18 @@ class UnifiedProxyManager:
 
         return None
 
-    def release_proxy(self, endpoint: Optional[ProxyEndpoint], success: bool, rate_limited: bool = False):
+    def release_proxy(
+        self,
+        endpoint: Optional[ProxyEndpoint],
+        success: bool,
+        rate_limited: bool = False,
+        **kwargs
+    ):
         if not endpoint:
             return
+
+        if "is_429" in kwargs:
+            rate_limited = bool(kwargs["is_429"])
 
         for provider in self.providers:
             provider.report_result(

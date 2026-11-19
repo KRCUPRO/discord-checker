@@ -67,7 +67,15 @@ def test_parse_proxy_line_formats():
     assert p5[2] == "5.6.7.8"
     assert p5[3] == 8000
 
-    # 6. Invalid lines (comments, whitespace, invalid port)
+    # 6. HTTPS protocol normalized to http scheme for curl CONNECT tunnel
+    p6 = parse_proxy_line("https://10.0.0.3:8443")
+    assert p6 is not None
+    assert p6[0] == "http://10.0.0.3:8443"
+    assert p6[1] == "https"
+    assert p6[2] == "10.0.0.3"
+    assert p6[3] == 8443
+
+    # 7. Invalid lines (comments, whitespace, invalid port)
     assert parse_proxy_line("# This is a comment") is None
     assert parse_proxy_line("   ") is None
     assert parse_proxy_line("invalid_no_port") is None
@@ -97,6 +105,33 @@ def test_scraper_deduplication():
     assert "1.1.1.1" in hosts
     assert "2.2.2.2" in hosts
     assert "3.3.3.3" in hosts
+
+
+@pytest.mark.asyncio
+async def test_cloudflare_trace_validation():
+    """Verify that FreeProxyValidator accepts responsive Cloudflare trace 200 responses and extracts country."""
+    validator = FreeProxyValidator(timeout=2.0, max_latency_ms=3000.0)
+
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.text = "fl=123\nvisit_scheme=https\nip=1.2.3.4\nloc=KR\n"
+
+    mock_session = AsyncMock()
+    mock_session.get.return_value = mock_resp
+
+    result = await validator.test_single_proxy(
+        candidate_url="http://1.2.3.4:8080",
+        protocol="http",
+        host="1.2.3.4",
+        port=8080,
+        source="unit_test",
+        session=mock_session,
+    )
+
+    assert result is not None
+    assert result.url == "http://1.2.3.4:8080"
+    assert result.country == "KR"
+    assert result.latency_ms > 0
 
 
 @pytest.mark.asyncio
@@ -239,14 +274,18 @@ def test_unified_proxy_manager_free_mode_integration(tmp_path):
     assert leased is not None
     assert leased.url == "socks5://9.9.9.9:1080"
 
-    # Test release through manager
-    manager.release_proxy(leased, success=True)
+    # Test release through manager (both standard and with legacy kwargs)
+    manager.release_proxy(leased, success=True, latency_ms=120.0)
     assert leased.success_count == 1
 
-    # Test stats aggregation
+    manager.release_proxy(leased, success=False, is_429=True)
+    assert leased.rate_limited_count == 1
+    assert leased.cooldown_until > time.time()
+
+    # Test stats aggregation (endpoint is currently cooling down)
     alive, cooldown, dead = manager.get_pool_summary()
-    assert alive == 1
-    assert cooldown == 0
+    assert alive == 0
+    assert cooldown == 1
     assert dead == 0
 
     manager.close()

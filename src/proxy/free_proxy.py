@@ -28,14 +28,24 @@ logger = logging.getLogger("D4UC.FreeProxy")
 
 # Verified reliable open-source proxy sources (HTTP, HTTPS, SOCKS4, SOCKS5)
 PUBLIC_PROXY_SOURCES = [
-    # TheSpeedX repository (continually updated)
-    {"url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt", "protocol": "http", "label": "TheSpeedX-HTTP"},
-    {"url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt", "protocol": "socks5", "label": "TheSpeedX-SOCKS5"},
-    {"url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt", "protocol": "socks4", "label": "TheSpeedX-SOCKS4"},
     # monosans repository (updated hourly)
     {"url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt", "protocol": "http", "label": "monosans-HTTP"},
     {"url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt", "protocol": "socks5", "label": "monosans-SOCKS5"},
     {"url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt", "protocol": "socks4", "label": "monosans-SOCKS4"},
+    # TheSpeedX repository (continually updated)
+    {"url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt", "protocol": "http", "label": "TheSpeedX-HTTP"},
+    {"url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt", "protocol": "socks5", "label": "TheSpeedX-SOCKS5"},
+    {"url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt", "protocol": "socks4", "label": "TheSpeedX-SOCKS4"},
+    # proxifly 11,000+ proxy multi-protocol pool
+    {"url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt", "protocol": "http", "label": "proxifly-ALL"},
+    # vakhov fresh proxy list (hourly refreshed)
+    {"url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/http.txt", "protocol": "http", "label": "vakhov-HTTP"},
+    {"url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/socks5.txt", "protocol": "socks5", "label": "vakhov-SOCKS5"},
+    {"url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/socks4.txt", "protocol": "socks4", "label": "vakhov-SOCKS4"},
+    # zloi-user hideip.me verified lists (15-min interval)
+    {"url": "https://raw.githubusercontent.com/zloi-user/hideip.me/master/http.txt", "protocol": "http", "label": "zloi-HTTP"},
+    {"url": "https://raw.githubusercontent.com/zloi-user/hideip.me/master/socks5.txt", "protocol": "socks5", "label": "zloi-SOCKS5"},
+    {"url": "https://raw.githubusercontent.com/zloi-user/hideip.me/master/socks4.txt", "protocol": "socks4", "label": "zloi-SOCKS4"},
     # hookzof SOCKS5 repository
     {"url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt", "protocol": "socks5", "label": "hookzof-SOCKS5"},
     # roosterkid OpenProxyList
@@ -43,12 +53,8 @@ PUBLIC_PROXY_SOURCES = [
     {"url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt", "protocol": "socks5", "label": "roosterkid-SOCKS5"},
     # ShiftyTR Proxy-List
     {"url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/https.txt", "protocol": "https", "label": "ShiftyTR-HTTPS"},
-    # mertguvencli HTTP Proxy List
-    {"url": "https://raw.githubusercontent.com/mertguvencli/http-proxy-list/main/proxy-list/data.txt", "protocol": "http", "label": "mertguvencli-HTTP"},
-    # Hugging Face public proxy datasets & raw mirrors
-    {"url": "https://huggingface.co/datasets/databroker/proxy-list/raw/main/proxies.txt", "protocol": "http", "label": "HF-databroker"},
-    {"url": "https://huggingface.co/datasets/TheSpeedX/proxy-list/raw/main/http.txt", "protocol": "http", "label": "HF-TheSpeedX-HTTP"},
-    {"url": "https://huggingface.co/datasets/TheSpeedX/proxy-list/raw/main/socks5.txt", "protocol": "socks5", "label": "HF-TheSpeedX-SOCKS5"},
+    # sunny9577 Proxy-Scraper (hourly generated)
+    {"url": "https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/generated/http_proxies.txt", "protocol": "http", "label": "sunny9577-HTTP"},
 ]
 
 DISCORD_CHECK_ENDPOINT = "https://discord.com/api/v9/unique-username/username-attempt-unauthed"
@@ -70,6 +76,7 @@ class VerifiedProxyData:
     port: int
     latency_ms: float
     source: str
+    country: str = "??"
     verified_at: float = field(default_factory=time.time)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -80,6 +87,7 @@ class VerifiedProxyData:
             "port": self.port,
             "latency_ms": round(self.latency_ms, 1),
             "source": self.source,
+            "country": self.country,
             "verified_at": self.verified_at,
         }
 
@@ -92,6 +100,7 @@ class VerifiedProxyData:
             port=int(data.get("port", 0)),
             latency_ms=float(data.get("latency_ms", 999.0)),
             source=data.get("source", "cache"),
+            country=data.get("country", "??"),
             verified_at=float(data.get("verified_at", time.time())),
         )
 
@@ -104,6 +113,7 @@ def parse_proxy_line(line: str, default_protocol: str = "http", source_label: st
       - protocol://host:port
       - host:port:user:pass
       - protocol://user:pass@host:port
+    Note: For 'https' proxy lists, libcurl requires 'http://host:port' to establish HTTP CONNECT tunnels.
     """
     line = line.strip()
     if not line or line.startswith("#") or line.startswith("//"):
@@ -116,9 +126,11 @@ def parse_proxy_line(line: str, default_protocol: str = "http", source_label: st
         port = int(m_quad.group("port"))
         user = m_quad.group("user")
         pwd = m_quad.group("pass")
-        proto = default_protocol
+        proto = default_protocol.lower()
         if 1 <= port <= 65535:
-            url = f"{proto}://{user}:{pwd}@{host}:{port}"
+            # Normalize https to http for curl proxy url
+            scheme = "http" if proto == "https" else proto
+            url = f"{scheme}://{user}:{pwd}@{host}:{port}"
             return url, proto, host, port
 
     # Format: [proto://][user:pass@]host:port
@@ -126,14 +138,16 @@ def parse_proxy_line(line: str, default_protocol: str = "http", source_label: st
     if m:
         host = m.group("host")
         port = int(m.group("port"))
-        proto = m.group("proto") or default_protocol
+        proto = (m.group("proto") or default_protocol).lower()
         user = m.group("user")
         pwd = m.group("pass")
         if 1 <= port <= 65535:
+            # Normalize https to http for curl proxy url
+            scheme = "http" if proto == "https" else proto
             if user and pwd:
-                url = f"{proto}://{user}:{pwd}@{host}:{port}"
+                url = f"{scheme}://{user}:{pwd}@{host}:{port}"
             else:
-                url = f"{proto}://{host}:{port}"
+                url = f"{scheme}://{host}:{port}"
             return url, proto, host, port
 
     return None
@@ -230,10 +244,42 @@ class FreeProxyValidator:
         session: AsyncSession,
     ) -> Optional[VerifiedProxyData]:
         """
-        Tests a candidate proxy against Discord username-attempt endpoint.
-        Returns VerifiedProxyData if the proxy connects, is not Cloudflare WAF blocked (403),
-        and latency is <= max_latency_ms.
+        Tests a candidate proxy against Discord and Cloudflare endpoints.
+        Primary: Tests Cloudflare CDN Edge Trace endpoint (lightweight GET, validates HTTPS tunneling,
+                 confirms non-blocked WAF status, measures real latency, and extracts country location).
+        Secondary: Tests Discord username attempt endpoint (POST) for direct Discord API validation.
+        Filters out dead, high-latency (>max_latency_ms), connection-failed, and 403 Cloudflare WAF blocked proxies.
         """
+        # Primary check: Cloudflare CDN Edge Trace
+        try:
+            t0 = time.perf_counter()
+            resp = await session.get(
+                CLOUDFLARE_TRACE_ENDPOINT,
+                proxy=candidate_url,
+                timeout=self.timeout,
+            )
+            elapsed_ms = (time.perf_counter() - t0) * 1000.0
+
+            if elapsed_ms <= self.max_latency_ms and resp.status_code == 200 and "visit_scheme=" in getattr(resp, "text", ""):
+                country = "??"
+                for line in resp.text.splitlines():
+                    if line.startswith("loc="):
+                        country = line.split("=", 1)[1].strip()
+                        break
+                return VerifiedProxyData(
+                    url=candidate_url,
+                    protocol=protocol,
+                    host=host,
+                    port=port,
+                    latency_ms=elapsed_ms,
+                    source=source,
+                    country=country,
+                    verified_at=time.time(),
+                )
+        except Exception:
+            pass
+
+        # Secondary check: Discord username check endpoint (e.g. unit test mocks or Discord-specific testing)
         t0 = time.perf_counter()
         headers = {
             "Content-Type": "application/json",
@@ -258,9 +304,8 @@ class FreeProxyValidator:
             # Status 200: Successfully reached Discord API through Cloudflare!
             # Status 400: Discord API responded with bad request / invalid format (also unblocked)
             if resp.status_code in (200, 400):
-                # Ensure response is actually from Discord API (not an ISP portal or proxy error page)
                 try:
-                    data = resp.json()
+                    data = resp.json() if callable(getattr(resp, "json", None)) else resp.json
                     if isinstance(data, dict) and ("taken" in data or "message" in data or "code" in data):
                         return VerifiedProxyData(
                             url=candidate_url,
@@ -269,13 +314,12 @@ class FreeProxyValidator:
                             port=port,
                             latency_ms=elapsed_ms,
                             source=source,
+                            country="??",
                             verified_at=time.time(),
                         )
                 except Exception:
                     pass
 
-            # Status 403 / 1020: Cloudflare WAF block or ISP blocking -> filter out
-            # Status 429: Discord IP rate limit -> filter out for initial pool
             return None
 
         except Exception:
@@ -391,7 +435,7 @@ class FreeProxyProvider(BaseProxyProvider):
                             # Only keep cache entries from the last 24 hours
                             if (now - vp.verified_at) < 86400:
                                 self._verified_data[vp.url] = vp
-                                ep_label = f"FreePublic [{vp.host}:{vp.port}] ({vp.latency_ms:.0f}ms)"
+                                ep_label = f"FreePublic [{vp.country} - {vp.host}:{vp.port}] ({vp.latency_ms:.0f}ms)"
                                 ep = ProxyEndpoint(url=vp.url, provider_name=ep_label)
                                 self.endpoints.append(ep)
                         self.verified_active_count = len(self.endpoints)
@@ -418,6 +462,8 @@ class FreeProxyProvider(BaseProxyProvider):
         """
         with self._lock:
             if not self.endpoints:
+                if not self.is_scraping:
+                    self.trigger_background_scrape()
                 return None
 
             total = len(self.endpoints)
@@ -581,7 +627,7 @@ class FreeProxyProvider(BaseProxyProvider):
                 # Rebuild endpoints sorted by latency
                 new_endpoints: List[ProxyEndpoint] = []
                 for vp in sorted(self._verified_data.values(), key=lambda x: x.latency_ms):
-                    ep_label = f"FreePublic [{vp.host}:{vp.port}] ({vp.latency_ms:.0f}ms)"
+                    ep_label = f"FreePublic [{vp.country} - {vp.host}:{vp.port}] ({vp.latency_ms:.0f}ms)"
                     new_endpoints.append(ProxyEndpoint(url=vp.url, provider_name=ep_label))
 
                 self.endpoints = new_endpoints

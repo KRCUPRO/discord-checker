@@ -59,7 +59,8 @@ class GuiOrchestrator:
         on_log_cb=None,
         on_status_cb=None,
         recheck_list: Optional[List[str]] = None,
-        on_recheck_result_cb=None
+        on_recheck_result_cb=None,
+        proxy_manager: Optional[UnifiedProxyManager] = None
     ):
         self.config = config
         self.on_result_cb = on_result_cb
@@ -72,7 +73,7 @@ class GuiOrchestrator:
         self.on_recheck_result_cb = on_recheck_result_cb
 
         self.metrics = DashboardMetrics()
-        self.proxy_manager = UnifiedProxyManager(config.proxy)
+        self.proxy_manager = proxy_manager or UnifiedProxyManager(config.proxy)
         self.generator = create_generator(config.target)
         self.storage = StorageManager(
             db_path=config.storage.get("db_path", "data/d4uc_results.db"),
@@ -3092,11 +3093,14 @@ class DiscordCheckerGui(ctk.CTk):
             self._apply_settings_to_config()
             if self.config.proxy.get("mode") == "free":
                 prov = self.proxy_manager.get_free_provider()
-                if not prov or not prov.has_available_proxies():
+                if not prov:
+                    from src.proxy.free_proxy import FreeProxyProvider
+                    prov = FreeProxyProvider()
+                    self.proxy_manager.providers.append(prov)
+                if not prov.has_available_proxies():
                     self._append_log("[SYSTEM] 🌐 무료 프록시 풀에 가용 노드가 없어 자동 수집 및 실시간 검증을 선행합니다...", "PROXY")
-                    if prov:
-                        prov.scrape_and_verify_sync(max_candidates=250)
-                        self._update_free_proxy_badge()
+                    prov.scrape_and_verify_sync(max_candidates=250)
+                    self._update_free_proxy_badge()
 
             is_recheck = (self.config.target.get("mode") == "recheck")
             recheck_targets = []
@@ -3112,7 +3116,8 @@ class DiscordCheckerGui(ctk.CTk):
                 on_result_cb=self._add_discovered_result,
                 on_log_cb=self._append_log,
                 recheck_list=recheck_targets,
-                on_recheck_result_cb=self._on_recheck_item_result
+                on_recheck_result_cb=self._on_recheck_item_result,
+                proxy_manager=self.proxy_manager
             )
 
             # Reset live KPI counters to 0 immediately for the fresh run
