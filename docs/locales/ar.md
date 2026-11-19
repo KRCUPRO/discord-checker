@@ -5,7 +5,8 @@
 | [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
 | :---: | :---: | :---: | :---: | :---: |
 | [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
-| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<p align="center"><sub>🌐 Also available: <a href="./hi.md">HI हिन्दी</a> · <a href="./id.md">ID Bahasa Indonesia</a></sub></p>
 
 <br />
 
@@ -24,6 +25,18 @@
 <sub>Copyright (c) 2026 KRCUPRO · رخصة برمجيات مملوكة وسرية (جميع الحقوق محفوظة)</sub>
 
 </div>
+
+---
+
+## 📸 معاينة واجهة المستخدم
+
+[![D4UC Desktop GUI](../assets/gui_en_main.png)](../guides/PC_GUIDE.md)
+
+[![D4UC GUI Demo](../assets/gui_en_demo.gif)](../guides/PC_GUIDE.md)
+
+[![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
+
+[![D4UC Docker Environment](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
 ---
 

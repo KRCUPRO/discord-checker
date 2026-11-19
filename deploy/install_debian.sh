@@ -22,6 +22,42 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$PROJECT_ROOT"
 
+# 0. Check Android Termux Host Shell Detection
+# If user is in Android Termux native environment (outside proot Debian),
+# automatically bootstrap proot-distro and provide frictionless transition.
+IS_TERMUX_HOST=false
+if [ -d "/data/data/com.termux" ] || [ -n "$TERMUX_VERSION" ]; then
+    if [ ! -f "/etc/debian_version" ]; then
+        IS_TERMUX_HOST=true
+    fi
+fi
+
+if [ "$IS_TERMUX_HOST" = true ]; then
+    echo -e "\n${YELLOW}📱 [감지] Android Termux 네이티브 쉘 환경입니다.${NC}"
+    echo -e "  D4UC의 고속 BoringSSL(curl_cffi) 및 Wireproxy 엔진은 Debian glibc 환경이 필요합니다."
+    echo -e "  Termux 내에 proot-distro 및 Debian 환경을 자동 준비합니다...\n"
+    
+    echo -e "${CYAN}-> Termux proot-distro 및 필수 도구 확인/설치 중...${NC}"
+    pkg update -y || true
+    pkg install -y proot-distro git curl wget || true
+    
+    if ! proot-distro list 2>/dev/null | grep -q "debian (installed)"; then
+        echo -e "\n${CYAN}-> Debian 리눅스 환경 다운로드 및 설치 중 (최초 1회, 약 1~2분 소요)...${NC}"
+        proot-distro install debian
+    else
+        echo -e "  ✅ Debian 환경이 이미 설치되어 있습니다."
+    fi
+    
+    echo -e "\n${GREEN}================================================================${NC}"
+    echo -e "${GREEN}🎉 Debian 환경 구성이 완료되었습니다!${NC}"
+    echo -e "${GREEN}================================================================${NC}"
+    echo -e "${YELLOW}💡 아래 1줄 명령어를 복사하여 붙여넣으시면 Debian으로 바로 접속됩니다:${NC}"
+    echo -e "\n${CYAN}proot-distro login debian --bind /data/data/com.termux/files/home:/root/termux_home${NC}\n"
+    echo -e "${YELLOW}접속 후 (root@localhost:~# 상태에서) 다음 명령어로 체커를 실행하세요:${NC}"
+    echo -e "${CYAN}cd /root/termux_home/discord-checker && ./deploy/install_debian.sh && ./deploy/run.sh${NC}\n"
+    exit 0
+fi
+
 # 1. Architecture Detection
 ARCH=$(uname -m)
 echo -e "\n${YELLOW}[1단계] 시스템 아키텍처 감지...${NC}"
@@ -43,15 +79,19 @@ esac
 
 # 2. Package Manager & System Dependencies
 echo -e "\n${YELLOW}[2단계] 시스템 필수 패키지 설치...${NC}"
+SUDO_CMD=""
+if [ "$(id -u)" -ne 0 ]; then
+    if command -v sudo >/dev/null 2>&1; then
+        SUDO_CMD="sudo"
+    else
+        echo -e "  ${YELLOW}⚠️ 일반 사용자 권한이며 sudo 명령어가 없습니다. 패키지 설치를 직접 진행합니다.${NC}"
+    fi
+fi
+
 if command -v apt-get >/dev/null 2>&1; then
     echo "  -> apt-get 패키지 업데이트 및 필수 패키지 설치 중..."
-    if [ "$(id -u)" -eq 0 ]; then
-        apt-get update -y
-        apt-get install -y python3 python3-pip python3-venv git curl wget tar gzip ca-certificates
-    else
-        sudo apt-get update -y
-        sudo apt-get install -y python3 python3-pip python3-venv git curl wget tar gzip ca-certificates
-    fi
+    $SUDO_CMD apt-get update -y || true
+    $SUDO_CMD apt-get install -y python3 python3-pip python3-venv git curl wget tar gzip ca-certificates || true
 else
     echo -e "  ${YELLOW}⚠️ apt 패키지 관리자를 찾을 수 없습니다. python3 및 curl이 설치되어 있는지 확인하세요.${NC}"
 fi
@@ -59,13 +99,20 @@ fi
 # 3. Python Virtual Environment
 echo -e "\n${YELLOW}[3단계] Python 3 가상환경(.venv) 생성 및 라이브러리 설치...${NC}"
 if [ ! -d ".venv" ]; then
-    python3 -m venv .venv
-    echo "  ✅ .venv 가상환경 생성 완료"
+    if python3 -m venv .venv 2>/dev/null; then
+        echo "  ✅ .venv 가상환경 생성 완료"
+    else
+        echo "  ⚠️ python3 -m venv 생성 실패. virtualenv 패키지 설치 시도..."
+        $SUDO_CMD apt-get install -y python3-virtualenv 2>/dev/null || pip3 install --break-system-packages virtualenv 2>/dev/null || true
+        python3 -m virtualenv .venv || virtualenv .venv || true
+    fi
 fi
 
 # Activate venv
-source .venv/bin/activate
-pip install --upgrade pip setuptools wheel
+if [ -f ".venv/bin/activate" ]; then
+    source .venv/bin/activate
+fi
+pip install --upgrade pip setuptools wheel || true
 
 echo "  -> requirements.txt 라이브러리 설치 중 (curl_cffi BoringSSL, rich, pyyaml)..."
 pip install -r requirements.txt
@@ -80,7 +127,7 @@ if [ ! -f "bin/wireproxy" ]; then
     
     TMP_TGZ="/tmp/wireproxy_${WIREPROXY_ARCH}.tar.gz"
     if curl -sSL -f -o "$TMP_TGZ" "$WIREPROXY_URL"; then
-        tar -xzf "$TMP_TGZ" -C bin wireproxy
+        tar -xzf "$TMP_TGZ" -C bin wireproxy 2>/dev/null || tar -xzf "$TMP_TGZ" -C bin
         rm -f "$TMP_TGZ"
         chmod +x bin/wireproxy
         echo -e "  ✅ bin/wireproxy 설치 및 실행 권한 부여 완료"

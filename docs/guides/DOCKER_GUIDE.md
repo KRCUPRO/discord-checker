@@ -16,6 +16,11 @@ D4UC(Discord Username Checker)를 도커 컨테이너로 패키징하여, 리눅
 
 ---
 
+## 📸 실행 화면 미리보기
+[![D4UC Docker Environment](../assets/docker_linux_capture.png)](DOCKER_GUIDE.md)
+
+---
+
 ## 🚀 1. 빠른 시작 (Docker Compose) - 가장 권장
 
 ### 1단계: 저장소 이동 및 권한 확인

@@ -18,17 +18,58 @@ from src.gui import GuiOrchestrator
 def verify_binaries():
     print("[VERIFICATION 1] Checking Deployed Executable Binaries...")
     ws_root = Path(os.environ.get("D4UC_DEPLOY_DIR", str(root)))
-    exes = [
-        ws_root / "DiscordUsernameCheckerV2.exe",
-        ws_root / "DiscordUsernameCheckerV2_KO.exe",
-        ws_root / "DiscordUsernameCheckerV2_EN.exe",
-        ws_root / "bin" / "wireproxy.exe"
+    
+    # Check standalone binaries in dist/ or root
+    bin_candidates = [
+        ("KO GUI", [ws_root / "dist" / "DiscordUsernameCheckerV2_KO.exe", ws_root / "DiscordUsernameCheckerV2_KO.exe"]),
+        ("EN GUI", [ws_root / "dist" / "DiscordUsernameCheckerV2_EN.exe", ws_root / "DiscordUsernameCheckerV2_EN.exe"]),
+        ("CLI",    [ws_root / "dist" / "DiscordUsernameCheckerV2_CLI.exe", ws_root / "DiscordUsernameCheckerV2_CLI.exe", ws_root / "DiscordUsernameCheckerV2.exe"]),
+        ("Wireproxy", [ws_root / "bin" / "wireproxy.exe", ws_root.parent / "bin" / "wireproxy.exe"])
     ]
-    for exe in exes:
-        assert exe.exists(), f"Missing binary: {exe}"
-        size_mb = exe.stat().st_size / (1024 * 1024)
-        print(f"   • {exe.name}: {size_mb:.2f} MB (Verified Present)")
-    print("   ✅ Deliverable 1 Verified: All 3 Standalone EXEs + wireproxy.exe deployed.")
+    
+    for label, paths in bin_candidates:
+        found = None
+        for p in paths:
+            if p.exists():
+                found = p
+                break
+        assert found is not None, f"Missing binary for {label}: checked {[str(p) for p in paths]}"
+        size_mb = found.stat().st_size / (1024 * 1024)
+        print(f"   • {label} ({found.name}): {size_mb:.2f} MB (Verified Present)")
+    print("   ✅ Deliverable 1 Verified: All 3 Standalone EXEs + wireproxy.exe verified present.")
+
+def verify_exclusion_rules():
+    print("[VERIFICATION 5] Checking Strict Username Exclusion Rules (.. , ab.. , a..1, dots)...")
+    from src.generator.base import DiscordRuleValidator
+    
+    invalid_samples = ["..", "ab..", "a..1", ".abc", "abc.", "..abc", "abc..", "a...b", "k..9"]
+    for sample in invalid_samples:
+        assert not DiscordRuleValidator.is_valid(sample), f"Rule failed: '{sample}' must be rejected!"
+        print(f"   • Rejected invalid pattern: '{sample}'")
+    
+    valid_samples = ["abcd", "k4rc", "z99p", "qv2x", "a.b1", "a_bc", "1234"]
+    for sample in valid_samples:
+        assert DiscordRuleValidator.is_valid(sample), f"Rule failed: '{sample}' must be accepted!"
+    print("   ✅ Deliverable 5 Verified: Strict exclusion rules rejecting consecutive dots and boundaries.")
+
+def verify_badges_and_visual_assets():
+    print("[VERIFICATION 6] Checking Badges & Visual Documentation Assets...")
+    badge_path = root / "docs" / "assets" / "badges" / "update_badge.svg"
+    assert badge_path.exists(), f"Missing update badge: {badge_path}"
+    badge_text = badge_path.read_text(encoding="utf-8")
+    assert "2026년 11월 19일" in badge_text, "Badge must contain date '2026년 11월 19일'"
+    assert "CHANGELOG.md" in badge_text, "Badge must link to CHANGELOG.md"
+    print("   • update_badge.svg: Verified date '2026년 11월 19일' & CHANGELOG.md link")
+
+    assets = [
+        "gui_ko_main.png", "gui_ko_demo.gif", "gui_en_main.png", "gui_en_demo.gif",
+        "gui_settings_modal.png", "cli_dashboard.png", "cli_demo.gif", "docker_linux_capture.png"
+    ]
+    for asset in assets:
+        p = root / "docs" / "assets" / asset
+        assert p.exists() and p.stat().st_size > 0, f"Missing or empty asset: {asset}"
+        print(f"   • Asset verified: {asset} ({p.stat().st_size / 1024:.1f} KB)")
+    print("   ✅ Deliverable 6 Verified: All 8 visual assets and SVG badges verified.")
 
 def verify_exact_pattern_length():
     print("[VERIFICATION 2] Checking User Specific Pattern: length 5, suffix 'vip', middle dot 'required'...")
@@ -178,6 +219,8 @@ def main():
     verify_exact_pattern_length()
     asyncio.run(verify_autosave_and_flush())
     asyncio.run(verify_hotswap_and_skip_checked())
+    verify_exclusion_rules()
+    verify_badges_and_visual_assets()
     print("=====================================================================")
     print("🎉 ALL DELIVERABLES VERIFIED 100% WITH CONCRETE EVIDENCE (EXIT CODE 0)!")
     print("=====================================================================")

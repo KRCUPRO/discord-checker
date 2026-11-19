@@ -10,7 +10,8 @@
 | [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
 | :---: | :---: | :---: | :---: | :---: |
 | [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
-| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<p align="center"><sub>🌐 기타 언어 문서: <a href="./hi.md">HI हिन्दी</a> · <a href="./id.md">ID Bahasa Indonesia</a></sub></p>
 
 <br />
 
@@ -30,13 +31,16 @@
 ## 📸 인터페이스 미리보기
 
 ### 데스크톱 GUI 실행 화면
-![D4UC GUI 메인 화면](../assets/gui_ko_main.png)
+[![D4UC GUI 메인 화면](../assets/gui_ko_main.png)](../guides/PC_GUIDE.md)
 
 ### 실시간 GUI 동작 데모 (자연스러운 마우스 조작)
-![D4UC GUI 동작 데모](../assets/gui_ko_demo.gif)
+[![D4UC GUI 동작 데모](../assets/gui_ko_demo.gif)](../guides/PC_GUIDE.md)
 
 ### 헤드리스 CLI 대시보드
-![D4UC CLI 대시보드](../assets/cli_dashboard.png)
+[![D4UC CLI 대시보드](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
+
+### Docker & Linux 서버 배포 환경
+[![D4UC Docker Linux 환경](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
 ---
 

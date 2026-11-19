@@ -8,13 +8,18 @@
 
 ## 🪟 Part 1. Windows 10 / 11 환경 가이드
 
-### 1. 무설치 단독 실행 파일 (`.exe`) 사용
+### 1. 인터페이스 미리보기
+[![D4UC Windows GUI](../assets/gui_ko_main.png)](PC_GUIDE.md)
+
+[![D4UC Settings Modal](../assets/gui_settings_modal.png)](PC_GUIDE.md)
+
+### 2. 무설치 단독 실행 파일 (`.exe`) 사용
 GitHub Releases에서 제공하는 Standalone 바이너리는 Python 3.12 런타임, `customtkinter`, `curl_cffi` BoringSSL 엔진, `wireproxy.exe`를 단일 실행 파일에 완전히 내장하고 있습니다.
 - `DiscordUsernameCheckerV2_KO.exe`: 한국어 GUI
 - `DiscordUsernameCheckerV2_EN.exe`: 영어 GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: 헤드리스 콘솔 CLI 대시보드
 
-### 2. 소스코드 가상환경 실행 (개발자 및 커스텀 빌드용)
+### 3. 소스코드 가상환경 실행 (개발자 및 커스텀 빌드용)
 ```powershell
 # 1. 저장소 클론 및 이동
 git clone https://github.com/KRCUPRO/discord-checker.git
@@ -51,7 +56,7 @@ macOS 환경에서는 Homebrew 패키지 매니저를 통해 필요한 유저스
 brew install python@3.12 wireproxy
 ```
 
-### 2. 가상환경 설정 및 실행
+### 2. 가상환경 구성 및 실행
 ```bash
 git clone https://github.com/KRCUPRO/discord-checker.git
 cd discord-checker
@@ -60,19 +65,6 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# wireproxy 심볼릭 링크 생성 (필요시)
-mkdir -p bin
-ln -sf $(which wireproxy) bin/wireproxy
-
-# 헤드리스 CLI 실행
-python src/run.py --mode hybrid --length 4 --workers 5
+# CLI 대시보드 실행
+python3 src/run.py --mode hybrid --length 4 --workers 5
 ```
-
----
-
-## ⚙️ Part 3. 공통 성능 최적화 팁
-
-1. **DNS 플러시 (Windows)**:
-   - 핫스왑 직후 네트워크 응답 속도가 일시적으로 느려질 경우 `ipconfig /flushdns`를 실행하여 시스템 DNS 캐시를 정리하세요.
-2. **SQLite WAL 체크포인트**:
-   - 대규모 스캔 후 `data/d4uc_results.db`의 WAL 로그는 작업 종료 시 자동 병합됩니다.

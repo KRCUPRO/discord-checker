@@ -10,7 +10,8 @@
 | [KR 한국어](./docs/locales/ko.md) | [US English](./README.md) | [JP 日本語](./docs/locales/ja.md) | [CN 简体中文](./docs/locales/zh-CN.md) | [ES Español](./docs/locales/es.md) |
 | :---: | :---: | :---: | :---: | :---: |
 | [FR Français](./docs/locales/fr.md) | [DE Deutsch](./docs/locales/de.md) | [RU Русский](./docs/locales/ru.md) | [BR Português](./docs/locales/pt-BR.md) | [SA العربية](./docs/locales/ar.md) |
-| [HI हिन्दी](./docs/locales/hi.md) | [ID Bahasa Indonesia](./docs/locales/id.md) | | | |
+
+<p align="center"><sub>🌐 Also available: <a href="./docs/locales/hi.md">HI हिन्दी</a> · <a href="./docs/locales/id.md">ID Bahasa Indonesia</a></sub></p>
 
 <br />
 
@@ -30,13 +31,16 @@
 ## 📸 Interface Previews
 
 ### Desktop GUI (English Edition)
-![D4UC Desktop GUI](docs/assets/gui_en_main.png)
+[![D4UC Desktop GUI](docs/assets/gui_en_main.png)](docs/guides/PC_GUIDE.md)
 
 ### Real-Time GUI Execution Demo (Smooth Mouse Interactions)
-![D4UC GUI Demo](docs/assets/gui_en_demo.gif)
+[![D4UC GUI Demo](docs/assets/gui_en_demo.gif)](docs/guides/PC_GUIDE.md)
 
 ### Headless CLI Dashboard
-![D4UC CLI Dashboard](docs/assets/cli_dashboard.png)
+[![D4UC CLI Dashboard](docs/assets/cli_dashboard.png)](docs/guides/TERMUX_DEBIAN_GUIDE.md)
+
+### Docker & Linux Deployment
+[![D4UC Docker Environment](docs/assets/docker_linux_capture.png)](docs/guides/DOCKER_GUIDE.md)
 
 ---
 
