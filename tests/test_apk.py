@@ -52,3 +52,30 @@ def test_apk_cryptographic_signatures():
     stdout = res.stdout
     assert "Verified using v1 scheme (JAR signing): true" in stdout or "Verified using v2 scheme (APK Signature Scheme v2): true" in stdout
     assert "Number of signers: 1" in stdout
+
+
+def test_apk_bundled_web_assets_integrity():
+    """Validates that assets/www/index.html bundled inside the APK is syntactically sound."""
+    import zipfile
+    import shutil
+    import re
+
+    assert APK_PATH.exists()
+    with zipfile.ZipFile(APK_PATH, "r") as zf:
+        namelist = zf.namelist()
+        assert "assets/www/index.html" in namelist, "assets/www/index.html missing inside APK!"
+        assert "classes.dex" in namelist, "classes.dex missing inside APK!"
+        assert "AndroidManifest.xml" in namelist, "AndroidManifest.xml missing inside APK!"
+        
+        index_content = zf.read("assets/www/index.html").decode("utf-8")
+        assert "D4UC Mobile Web" in index_content
+        assert "AndroidBridge" in index_content
+
+        # Node syntax check on all scripts inside the APK's index.html
+        node_bin = shutil.which("node")
+        if node_bin:
+            scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", index_content, re.IGNORECASE)
+            assert len(scripts) > 0
+            for idx, script in enumerate(scripts):
+                res = subprocess.run([node_bin, "-e", "new Function(process.argv[1])", script], capture_output=True, text=True)
+                assert res.returncode == 0, f"Script block {idx} inside bundled APK has syntax error:\n{res.stderr}"

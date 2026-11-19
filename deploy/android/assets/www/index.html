@@ -974,7 +974,7 @@
         <div class="panel-title">📱 모바일 및 원격 서버 연동 (Android / Remote)</div>
         <div class="form-group">
           <label class="form-label">D4UC 원격 서버 연결 URL</label>
-          <input type="text" id="serverUrlInput" class="form-input" placeholder="http://192.168.0.x:8080 or http://10.0.2.2:8080">
+          <input type="text" id="serverUrlInput" class="form-input" placeholder="http://192.168.0.x:5000 or http://10.0.2.2:5000">
           <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
             안드로이드 스마트폰 또는 원격 브라우저에서 실행 중인 PC/서버의 D4UC 주소를 지정합니다.
           </div>
@@ -1039,7 +1039,7 @@
       }
       const saved = localStorage.getItem('d4uc_server_url');
       if (saved && saved.trim().length > 0) return saved.trim().replace(/\/+$/, '');
-      if (window.location.protocol === 'file:') return 'http://127.0.0.1:8080';
+      if (window.location.protocol === 'file:') return 'http://127.0.0.1:5000';
       return '';
     }
 
@@ -1070,9 +1070,22 @@
     function saveServerUrl() {
       const input = document.getElementById('serverUrlInput');
       if (!input) return;
-      let url = input.value.trim();
+      let url = input.value.trim().replace(/\/+$/, '');
       if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'http://' + url;
+      }
+      if (url) {
+        try {
+          const u = new URL(url);
+          if (!u.port) {
+            u.port = '5000';
+            url = u.toString().replace(/\/+$/, '');
+          }
+        } catch (e) {
+          if (!url.includes(':', 7)) {
+            url = url + ':5000';
+          }
+        }
         input.value = url;
       }
       localStorage.setItem('d4uc_server_url', url);
@@ -1673,19 +1686,12 @@
         })
         .catch(err => {
           console.warn('Status poll failed:', err);
-        });
-    }
-
-          if (data.results) {
-            renderResults(data.results);
+          const txt = document.getElementById('statusText');
+          const dot = document.getElementById('statusDot');
+          if (dot) dot.className = 'status-dot';
+          if (txt && !isRunning && (window.location.protocol === 'file:' || window.AndroidBridge)) {
+            txt.textContent = '⚠️ 서버 미연결 (D4UC 서버 URL 확인)';
           }
-
-          if (data.logs) {
-            appendLogs(data.logs);
-          }
-        })
-        .catch(err => {
-          console.warn('Status poll failed:', err);
         });
     }
 

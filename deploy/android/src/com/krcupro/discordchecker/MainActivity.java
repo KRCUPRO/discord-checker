@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,7 +26,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private static final String PREFS_NAME = "D4UC_PREFS";
     private static final String KEY_SERVER_URL = "server_url";
-    private static final String DEFAULT_SERVER_URL = "http://127.0.0.1:8080";
+    private static final String DEFAULT_SERVER_URL = "http://10.0.2.2:5000";
 
     private WebView webView;
     private PowerManager.WakeLock wakeLock;
@@ -50,6 +53,10 @@ public class MainActivity extends Activity {
 
         initWebView();
         loadApp();
+
+        if (!prefs.contains(KEY_SERVER_URL)) {
+            Toast.makeText(this, "📱 PC에서 D4UC Web 실행 후, 설정 탭에서 PC IP(포트 5000)를 입력하세요.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initWebView() {
@@ -80,8 +87,32 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+                    if (url.contains("/api/export")) {
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                            return true;
+                        } catch (Exception e) {
+                            // Fallback to WebView
+                        }
+                    }
+                }
                 view.loadUrl(url);
                 return true;
+            }
+        });
+
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "다운로드 요청 실패: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -100,33 +131,45 @@ public class MainActivity extends Activity {
         prefs.edit().putString(KEY_SERVER_URL, url).apply();
     }
 
-    public void setWakeLock(boolean enable) {
-        try {
-            if (enable) {
-                if (wakeLock == null) {
-                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                    wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "D4UC::WakeLock");
-                }
-                if (!wakeLock.isHeld()) {
-                    wakeLock.acquire();
-                }
-            } else {
-                if (wakeLock != null && wakeLock.isHeld()) {
-                    wakeLock.release();
+    public void setWakeLock(final boolean enable) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (enable) {
+                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        if (wakeLock == null) {
+                            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                            if (pm != null) {
+                                wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "D4UC::KeepAwake");
+                            }
+                        }
+                        if (wakeLock != null && !wakeLock.isHeld()) {
+                            wakeLock.acquire();
+                        }
+                    } else {
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        if (wakeLock != null && wakeLock.isHeld()) {
+                            wakeLock.release();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void showServerUrlDialog() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (isFinishing() || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && isDestroyed())) {
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("🌐 D4UC 서버 주소 설정 / Server URL");
-                builder.setMessage("PC 또는 원격 서버의 D4UC Web 서버 주소를 입력하세요.\n(예: http://192.168.0.10:8080 또는 http://10.0.2.2:8080)");
+                builder.setMessage("PC 또는 원격 서버의 D4UC Web 서버 주소를 입력하세요.\n(예: http://192.168.0.10:5000 또는 http://10.0.2.2:5000)");
 
                 final EditText input = new EditText(MainActivity.this);
                 input.setText(getServerUrl());
@@ -147,6 +190,14 @@ public class MainActivity extends Activity {
                         if (!newUrl.isEmpty()) {
                             if (!newUrl.startsWith("http://") && !newUrl.startsWith("https://")) {
                                 newUrl = "http://" + newUrl;
+                            }
+                            while (newUrl.endsWith("/")) {
+                                newUrl = newUrl.substring(0, newUrl.length() - 1);
+                            }
+                            // Auto-append default port 5000 if port omitted
+                            int colonIdx = newUrl.indexOf(':', 7);
+                            if (colonIdx == -1) {
+                                newUrl = newUrl + ":5000";
                             }
                             setServerUrl(newUrl);
                             Toast.makeText(MainActivity.this, "서버 주소 설정됨: " + newUrl, Toast.LENGTH_SHORT).show();

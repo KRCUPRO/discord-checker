@@ -132,7 +132,44 @@ class TestWebGui(unittest.TestCase):
             status, headers, body = self._get(f"/api/export?format={fmt}")
             self.assertEqual(status, 200)
             self.assertIn("attachment", headers.get("Content-Disposition", ""))
+            self.assertEqual(headers.get("Access-Control-Allow-Origin"), "*")
             self.assertTrue(len(body) > 0)
+
+    def test_options_cors_preflight(self):
+        """Verifies CORS preflight OPTIONS handling for Android WebView & remote web clients."""
+        for endpoint in ["/api/config", "/api/start", "/api/stop", "/api/restart", "/api/proxy/scrape"]:
+            url = f"http://127.0.0.1:{self.port}{endpoint}"
+            req = urllib.request.Request(
+                url,
+                method="OPTIONS",
+                headers={
+                    "Origin": "file://",
+                    "Access-Control-Request-Method": "POST",
+                    "Access-Control-Request-Headers": "Content-Type"
+                }
+            )
+            with urllib.request.urlopen(req) as res:
+                self.assertEqual(res.status, 204)
+                self.assertEqual(res.headers.get("Access-Control-Allow-Origin"), "*")
+                self.assertIn("OPTIONS", res.headers.get("Access-Control-Allow-Methods", ""))
+                self.assertIn("Content-Type", res.headers.get("Access-Control-Allow-Headers", ""))
+
+    def test_web_index_html_js_syntax(self):
+        """Verifies all embedded JavaScript in index.html is syntactically valid."""
+        import shutil
+        import subprocess
+        import re
+        node_bin = shutil.which("node")
+        if not node_bin:
+            self.skipTest("node.js not available")
+
+        index_path = _ROOT / "src" / "ui" / "web" / "index.html"
+        html = index_path.read_text(encoding="utf-8")
+        scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", html, re.IGNORECASE)
+        self.assertGreater(len(scripts), 0)
+        for idx, script in enumerate(scripts):
+            res = subprocess.run([node_bin, "-e", "new Function(process.argv[1])", script], capture_output=True, text=True)
+            self.assertEqual(res.returncode, 0, f"Script block {idx} syntax error:\n{res.stderr}")
 
     def test_api_free_proxy_endpoints(self):
         # 1. GET /api/proxy/free_status

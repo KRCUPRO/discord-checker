@@ -99,6 +99,21 @@ def generate_launcher_icons():
         print(f"   • Created {folder}/ic_launcher.png ({size}x{size})")
 
 
+def validate_js_syntax(file_path: Path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        html = f.read()
+    import re
+    scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", html, re.IGNORECASE)
+    assert len(scripts) > 0, f"No scripts found in {file_path}"
+    
+    node_path = shutil.which("node")
+    if node_path:
+        for idx, script in enumerate(scripts):
+            res = subprocess.run([node_path, "-e", "new Function(process.argv[1])", script], capture_output=True, text=True)
+            if res.returncode != 0:
+                raise SyntaxError(f"JavaScript syntax error in {file_path} (script #{idx}):\n{res.stderr}")
+
+
 def sync_assets():
     print("📦 [3/8] Synchronizing Web GUI & PWA Assets into assets/www/...")
     target_www = ASSETS_DIR / "www"
@@ -107,6 +122,11 @@ def sync_assets():
     target_www.mkdir(parents=True, exist_ok=True)
 
     src_web = REPO_ROOT / "src" / "ui" / "web"
+    index_html = src_web / "index.html"
+    assert index_html.exists(), f"Missing index.html at {index_html}"
+    validate_js_syntax(index_html)
+    print("   • Validated Web GUI JavaScript syntax: PASSED")
+
     for item in src_web.iterdir():
         dest = target_www / item.name
         if item.is_dir():
