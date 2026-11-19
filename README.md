@@ -16,10 +16,10 @@
 <br />
 
 [![Last Updated: Nov 19, 2026](docs/assets/badges/update_badge_en.svg)](CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](docs/GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](docs/guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](docs/specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Proprietary & Confidential License (All Rights Reserved)</sub>
@@ -28,6 +28,33 @@
 
 ---
 
+<a id="-table-of-contents"></a><a id="table-of-contents"></a>
+## 📑 Table of Contents
+1. [📸 Interface Previews](#-interface-previews)
+2. [✨ Key Capabilities](#-key-capabilities)
+3. [🖥️ System Requirements & Dependencies](#-system-requirements-dependencies)
+4. [📁 Repository Structure](#-repository-structure)
+5. [🌐 Proxy Configuration & 🔑 Credentials](#-proxy-configuration-credentials)
+6. [🚀 Installation & Execution](#-installation-execution)
+7. [📱 Mobile Web GUI & PWA Remote Control Guide](#-mobile-web-gui-pwa-remote-control-guide)
+8. [🧵 Concurrency & Worker Tuning](#-concurrency-worker-tuning)
+9. [🔢 Username Generation Strategies](#-username-generation-strategies)
+10. [🚫 Strict Username Exclusion Rules (e.g. `ab..`, `a..1`)](#-strict-username-exclusion-rules-eg-ab-a1)
+11. [📡 Live Checker Engine Pipeline](#-live-checker-engine-pipeline)
+12. [🔄 Proxy Session Management](#-proxy-session-management)
+13. [🔁 Error Retries](#-error-retries)
+14. [💾 Multi-tier Storage](#-multi-tier-storage)
+15. [📊 Real-Time Statistics & Monitoring](#-real-time-statistics-monitoring)
+16. [🛑 Stopping the Checker](#-stopping-the-checker)
+17. [⚠️ Rate Limit Architecture](#-rate-limit-architecture)
+18. [🔧 Troubleshooting Matrix](#-troubleshooting-matrix)
+19. [📞 Discord Support: myuyayam](#-discord-support-myuyayam)
+20. [⭐ Project Support (GitHub Star)](#-project-support-github-star)
+21. [📚 Educational & Study Purpose Disclaimer](#-educational-study-purpose-disclaimer)
+
+---
+
+<a id="-interface-previews"></a><a id="interface-previews"></a>
 ## 📸 Interface Previews
 
 ### Mobile Touch-Optimized Responsive Web GUI (PWA - iPhone & Android)
@@ -37,10 +64,10 @@
 [![D4UC Mobile Web Demo](docs/assets/mobile_web_demo_en.gif)](docs/guides/MOBILE_IOS_GUIDE.md)
 
 ### Desktop GUI (English Edition)
-[![D4UC Desktop GUI](docs/assets/gui_en_main.png)](docs/guides/PC_GUIDE.md)
+[![D4UC Desktop GUI](docs/assets/gui_en_main.png)](docs/guides/WINDOWS_GUIDE.md)
 
 ### Real-Time GUI Execution Demo (Smooth Mouse Interactions)
-[![D4UC GUI Demo](docs/assets/gui_en_demo.gif)](docs/guides/PC_GUIDE.md)
+[![D4UC GUI Demo](docs/assets/gui_en_demo.gif)](docs/guides/WINDOWS_GUIDE.md)
 
 ### Headless CLI Dashboard
 [![D4UC CLI Dashboard](docs/assets/cli_dashboard.png)](docs/guides/TERMUX_DEBIAN_GUIDE.md)
@@ -48,8 +75,11 @@
 ### Docker & Linux Deployment
 [![D4UC Docker Environment](docs/assets/docker_linux_capture.png)](docs/guides/DOCKER_GUIDE.md)
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-key-capabilities"></a><a id="key-capabilities"></a>
 ## ✨ Key Capabilities
 
 1. **Mobile Touch-Optimized Responsive Web GUI & PWA Engine (`http://<host>:5000`)**:
@@ -79,8 +109,11 @@
 7. **Cross-Platform Deployments**:
    - Standalone Windows `.exe` (4 editions including Web GUI), Mobile Web PWA, Linux/macOS headless CLI, Android Termux one-click script, and Multi-Arch Docker containers.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-system-requirements-dependencies"></a><a id="system-requirements-dependencies"></a>
 ## 🖥️ System Requirements & Dependencies
 
 ### Runtime
@@ -97,8 +130,11 @@
 - `pyyaml >= 6.0.1`: YAML config parser
 - `pillow >= 10.2.0`: UI asset rendering
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-repository-structure"></a><a id="repository-structure"></a>
 ## 📁 Repository Structure
 
 ```text
@@ -157,8 +193,11 @@ discord-checker/
 └── SECURITY.md                     # Security & secret leak prevention policies
 ```
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-proxy-configuration-credentials"></a><a id="proxy-configuration-credentials"></a>
 ## 🌐 Proxy Configuration & 🔑 Credentials
 
 D4UC incorporates an isolated **1:1 user-space WireGuard tunnel pool** powered by `wireproxy` to bypass IP bans and rate limits without affecting host PC traffic.
@@ -195,12 +234,15 @@ D4UC now supports completely zero-cost operation via built-in open-source public
 - All secrets (`.env`, `config.yaml`, proxy credential files) are strictly excluded via `.gitignore`.
 - Every automated build and git commit undergoes strict zero-leak auditing to guarantee zero private keys or credentials are ever committed.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-installation-execution"></a><a id="installation-execution"></a>
 ## 🚀 Installation & Execution
 
 ### Method A: Standalone Windows Executables (`.exe`) & Android Package (`.apk`) — Zero Setup
-Download pre-compiled binaries from [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+Download pre-compiled binaries from [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
 - `DiscordUsernameChecker_v12.3.0.apk`: **Android Smartphone 1-Tap Native Package** [NEW]
 - `DiscordUsernameCheckerV2_Web.exe`: **Mobile Responsive Web GUI & PWA Server (Port 5000)**
 - `DiscordUsernameCheckerV2_EN.exe`: English Desktop GUI
@@ -246,8 +288,11 @@ python src/gui_en.py
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-mobile-web-gui-pwa-remote-control-guide"></a><a id="mobile-web-gui-pwa-remote-control-guide"></a>
 ## 📱 Mobile Web GUI & PWA Remote Control Guide
 
 Monitor and steer your username searches from your smartphone while relaxing in bed.
@@ -269,8 +314,11 @@ Monitor and steer your username searches from your smartphone while relaxing in 
   - Drag the worker slider (1–50 workers) for instant, seamless concurrency scaling.
   - Update Surfshark WireGuard keys and proxy endpoints directly from mobile.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-concurrency-worker-tuning"></a><a id="concurrency-worker-tuning"></a>
 ## 🧵 Concurrency & Worker Tuning
 
 - **Default Recommendation**: `5` workers (~12–15 RPS)
@@ -281,8 +329,11 @@ Monitor and steer your username searches from your smartphone while relaxing in 
   - 5 workers route through 5 distinct international endpoints simultaneously (e.g. Tokyo, Seoul, Singapore, Frankfurt, New York).
   - Increasing workers distributes traffic across disjoint IPs, drastically reducing rate limits.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-username-generation-strategies"></a><a id="username-generation-strategies"></a>
 ## 🔢 Username Generation Strategies
 
 D4UC provides **8 specialized candidate generation engines**:
@@ -298,8 +349,11 @@ D4UC provides **8 specialized candidate generation engines**:
 | `combinatorial` | Phonotactic CVCV / VCCV structures | Pronounceable, brandable consonant-vowel combinations |
 | `recheck` | Previously `TAKEN` handles | Re-verifies past taken handles to catch recently freed names |
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-strict-username-exclusion-rules-eg-ab-a1"></a><a id="strict-username-exclusion-rules-eg-ab-a1"></a>
 ## 🚫 Strict Username Exclusion Rules (e.g. `ab..`, `a..1`)
 
 Handles violating Discord's official username policies are **100% excluded during candidate generation**, saving network bandwidth and compute:
@@ -320,8 +374,11 @@ Handles violating Discord's official username policies are **100% excluded durin
 
 > Every rule is strictly enforced by `DiscordRuleValidator.is_valid()` in `src/generator/base.py` and validated by 84 automated unit tests.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-live-checker-engine-pipeline"></a><a id="live-checker-engine-pipeline"></a>
 ## 📡 Live Checker Engine Pipeline
 
 ```mermaid
@@ -349,8 +406,11 @@ sequenceDiagram
     end
 ```
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-proxy-session-management"></a><a id="proxy-session-management"></a>
 ## 🔄 Proxy Session Management
 
 - **Single-Responsibility Async Sessions**:
@@ -359,8 +419,11 @@ sequenceDiagram
 - **Zero-Leak Lifecycle**:
   - On shutdown, all async sessions and background `wireproxy` processes are safely terminated with zero orphaned processes (Zero-Zombie).
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-error-retries"></a><a id="error-retries"></a>
 ## 🔁 Error Retries
 
 1. **Network Timeouts & DNS Glitches**:
@@ -370,8 +433,11 @@ sequenceDiagram
 3. **429 Rate Limits**:
    - Candidate is preserved in the retry queue; the affected worker hot-swaps to a fresh endpoint within 300ms.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-multi-tier-storage"></a><a id="multi-tier-storage"></a>
 ## 💾 Multi-tier Storage
 
 Results are permanently indexed across multiple redundant storage formats:
@@ -385,8 +451,11 @@ Results are permanently indexed across multiple redundant storage formats:
 | `available_usernames.csv` | CSV Format | Spreadsheet format for external data pipelines |
 | `available_usernames.json`| JSON Format | Structured data for REST API and web dashboard integrations |
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-real-time-statistics-monitoring"></a><a id="real-time-statistics-monitoring"></a>
 ## 📊 Real-Time Statistics & Monitoring
 
 The Mobile Web GUI, Desktop GUI, and CLI dashboard render telemetry updated every 30ms:
@@ -397,23 +466,32 @@ The Mobile Web GUI, Desktop GUI, and CLI dashboard render telemetry updated ever
 - **429 Hot-Swaps**: Successful rate-limit node rotations
 - **Latency**: Discord API round-trip time (ms)
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-stopping-the-checker"></a><a id="stopping-the-checker"></a>
 ## 🛑 Stopping the Checker
 
 - **Mobile Web GUI**: Tap the prominent red `■ Stop Search` button to immediately halt requests.
 - **Desktop GUI**: Click the `■ Stop` button to safely flush queues and enter standby within 0.5s.
 - **CLI**: Press `Ctrl + C` (`SIGINT`) to commit SQLite WAL checkpoints and shut down proxy tunnels cleanly.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-rate-limit-architecture"></a><a id="rate-limit-architecture"></a>
 ## ⚠️ Rate Limit Architecture
 
 - When Discord returns `429 Too Many Requests`, D4UC does not stall the entire application.
 - Instead, D4UC's **atomic 429 hot-swap engine** isolates the affected worker and assigns it a fresh international endpoint within 300ms. Sibling workers continue uninterrupted.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-troubleshooting-matrix"></a><a id="troubleshooting-matrix"></a>
 ## 🔧 Troubleshooting Matrix
 
 | Symptom | Cause | Solution |
@@ -424,22 +502,31 @@ The Mobile Web GUI, Desktop GUI, and CLI dashboard render telemetry updated ever
 | Windows Defender Firewall popup | Missing rule | Whitelist port or run firewall setup script (`docs/guides/PC_GUIDE.md`). |
 | `No module named curl_cffi` | Virtual environment not active | Activate `.venv` and execute `pip install -r requirements.txt`. |
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-discord-support-myuyayam"></a><a id="discord-support-myuyayam"></a>
 ## 📞 Discord Support: myuyayam
 
 - For feature suggestions, bug reports, and technical assistance, reach out on Discord to **`myuyayam`**.
 - For business or enterprise inquiries, use GitHub Issues or Discord DM.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-project-support-github-star"></a><a id="project-support-github-star"></a>
 ## ⭐ Project Support (GitHub Star)
 
 If you find D4UC valuable, please consider giving the repository a **Star (⭐)**!  
 Your support and feedback drive ongoing development.
 
+[⬆️ Back to Top](#-table-of-contents)
+
 ---
 
+<a id="-educational-study-purpose-disclaimer"></a><a id="educational-study-purpose-disclaimer"></a>
 ## 📚 Educational & Study Purpose Disclaimer
 
 > **[Educational & Research Purpose Only]**
@@ -449,3 +536,13 @@ Your support and feedback drive ongoing development.
 > 1. Use of this tool for causing excessive traffic, denial of service (DoS), disrupting platform operations, or unauthorized squatting of accounts is strictly prohibited.
 > 2. Users must comply with the target platform's Terms of Service and all applicable regional laws. Any legal or administrative responsibility arising from improper usage rests solely with the individual operator.
 > 3. The developers and contributors provide no warranties and disclaim all liability for individual operational outcomes.
+
+[⬆️ Back to Top](#-table-of-contents)
+
+---
+
+### 📚 Footnotes & Technical References
+[^1]: The Chrome 131 BoringSSL handshake completely neutralizes TLS fingerprinting defenses deployed by Cloudflare and modern WAFs. [↩](#-table-of-contents)
+[^2]: wireproxy is a lightweight user-space Go binary translating WireGuard protocol into isolated local SOCKS5 proxies without root privileges. [↩](#-table-of-contents)
+
+[⬆️ Back to Top](#-table-of-contents)

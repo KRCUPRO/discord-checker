@@ -16,10 +16,10 @@
 <br />
 
 [![Pembaruan Terakhir: 19 Nov 2026](../assets/badges/update_badge_id.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
+[![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Hak Cipta (c) 2026 KRCUPRO · Lisensi Kepemilikan & Rahasia (Semua Hak Dilindungi)</sub>
@@ -28,6 +28,33 @@
 
 ---
 
+<a id="-daftar-isi"></a><a id="daftar-isi"></a>
+## 📑 Daftar Isi
+1. [📸 Pratinjau Antarmuka](#-pratinjau-antarmuka)
+2. [✨ Fitur & Kemampuan Utama](#-fitur-kemampuan-utama)
+3. [🖥️ Kebutuhan Sistem & Dependensi](#-kebutuhan-sistem-dependensi)
+4. [📁 Struktur Direktori](#-struktur-direktori)
+5. [🌐 Konfigurasi Proksi & 🔑 Kredensial](#-konfigurasi-proksi-kredensial)
+6. [🚀 Pemasangan & Penggunaan](#-pemasangan-penggunaan)
+7. [📱 Panduan Kendali Jarak Jauh Web GUI Seluler & PWA](#-panduan-kendali-jarak-jauh-web-gui-seluler-pwa)
+8. [🧵 Pengaturan Beban dan Jumlah Pekerja (Workers)](#-pengaturan-beban-dan-jumlah-pekerja-workers)
+9. [🔢 Strategi Pembuatan Nama Pengguna](#-strategi-pembuatan-nama-pengguna)
+10. [🚫 Aturan Pengecualian Ketat (Contoh: `ab..`, `a..1`)](#-aturan-pengecualian-ketat-contoh-ab-a1)
+11. [📡 Alur Kerja Mesin Pemeriksa](#-alur-kerja-mesin-pemeriksa)
+12. [🔄 Pengelolaan Sesi Proksi](#-pengelolaan-sesi-proksi)
+13. [🔁 Penanganan Kesalahan dan Percobaan Ulang](#-penanganan-kesalahan-dan-percobaan-ulang)
+14. [💾 Format Penyimpanan Data](#-format-penyimpanan-data)
+15. [📊 Metrik & Pemantauan Real-Time](#-metrik-pemantauan-real-time)
+16. [🛑 Menghentikan Proses](#-menghentikan-proses)
+17. [⚠️ Penanganan Batas Frekuensi (429)](#-penanganan-batas-frekuensi-429)
+18. [🔧 Panduan Mengatasi Masalah](#-panduan-mengatasi-masalah)
+19. [📞 Bantuan Discord: myuyayam](#-bantuan-discord-myuyayam)
+20. [⭐ Dukung Proyek Ini (GitHub Star)](#-dukung-proyek-ini-github-star)
+21. [📚 Pemberitahuan Tujuan Pembelajaran dan Penelitian](#-pemberitahuan-tujuan-pembelajaran-dan-penelitian)
+
+---
+
+<a id="-pratinjau-antarmuka"></a><a id="pratinjau-antarmuka"></a>
 ## 📸 Pratinjau Antarmuka
 
 ### Web GUI Responsif Ramah Sentuhan Seluler (PWA - iPhone & Android)
@@ -37,10 +64,10 @@
 [![D4UC Mobile Web Demo](../assets/mobile_web_demo_id.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### GUI Desktop PC (Edisi Bahasa Indonesia)
-[![D4UC GUI Desktop Main](../assets/gui_id_main.png)](../guides/PC_GUIDE.md)
+[![D4UC GUI Desktop Main](../assets/gui_id_main.png)](../guides/WINDOWS_GUIDE.md)
 
 ### Demonstrasi Eksekusi GUI Desktop (Interaksi Mouse yang Halus)
-[![D4UC GUI Demo](../assets/gui_id_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_id_demo.gif)](../guides/WINDOWS_GUIDE.md)
 
 ### Dasbor Terminal CLI Headless
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
@@ -48,8 +75,11 @@
 ### Lingkungan Penerapan Docker & Server Linux
 [![D4UC Docker Linux](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-fitur-kemampuan-utama"></a><a id="fitur-kemampuan-utama"></a>
 ## ✨ Fitur & Kemampuan Utama
 
 1. **Web GUI Responsif Seluler & Mesin PWA (`http://<host>:5000`)**:
@@ -84,8 +114,11 @@
 8. **Dukungan Lintas Platform**:
    - File eksekusi mandiri untuk Windows (4 edisi `.exe`), PWA seluler, konsol CLI Linux/macOS, skrip instalasi Android Termux, dan kontainer Docker.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-kebutuhan-sistem-dependensi"></a><a id="kebutuhan-sistem-dependensi"></a>
 ## 🖥️ Kebutuhan Sistem & Dependensi
 
 ### Lingkungan Eksekusi
@@ -102,8 +135,11 @@
 - `pyyaml >= 6.0.1`: Parser file YAML
 - `pillow >= 10.2.0`: Pemrosesan gambar dan render ikon
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-struktur-direktori"></a><a id="struktur-direktori"></a>
 ## 📁 Struktur Direktori
 
 ```text
@@ -143,8 +179,11 @@ discord-checker/
 └── SECURITY.md                     # Kebijakan keamanan dan pencegahan kebocoran
 ```
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-konfigurasi-proksi-kredensial"></a><a id="konfigurasi-proksi-kredensial"></a>
 ## 🌐 Konfigurasi Proksi & 🔑 Kredensial
 
 D4UC mengintegrasikan **pool terowongan WireGuard 1:1 di ruang pengguna** melalui `wireproxy` untuk mencegah pembatasan alamat IP.
@@ -177,12 +216,15 @@ Operasi 100% gratis tanpa memerlukan langganan VPN berbayar:
 ### 3. Kebijakan Anti-Bocor (Zero-Leak Policy)
 - Semua kunci privat dan file konfigurasi dikecualikan secara ketat oleh `.gitignore` dan diperiksa sebelum setiap commit.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-pemasangan-penggunaan"></a><a id="pemasangan-penggunaan"></a>
 ## 🚀 Pemasangan & Penggunaan
 
 ### Metode A: Program Mandiri untuk Windows (`.exe`)
-Unduh aplikasi yang telah dikompilasi dari [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+Unduh aplikasi yang telah dikompilasi dari [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
 - `DiscordUsernameChecker_v12.3.0.apk`: **Paket Aplikasi Android (1 Ketukan)** [BARU]
 - `DiscordUsernameCheckerV2_Web.exe`: **Server Web GUI Seluler & PWA (Port 5000)** [BARU]
 - `DiscordUsernameCheckerV2_EN.exe`: GUI Desktop Bahasa Inggris
@@ -224,8 +266,11 @@ python src/gui_en.py
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-panduan-kendali-jarak-jauh-web-gui-seluler-pwa"></a><a id="panduan-kendali-jarak-jauh-web-gui-seluler-pwa"></a>
 ## 📱 Panduan Kendali Jarak Jauh Web GUI Seluler & PWA
 
 Pantau pencarian nama pengguna langka dan ubah pengaturannya langsung dari ponsel Anda.
@@ -247,8 +292,11 @@ Pantau pencarian nama pengguna langka dan ubah pengaturannya langsung dari ponse
   - Mengatur slider jumlah pekerja (1–50) saat aplikasi berjalan
   - Memperbarui kunci Surfshark dan setelan proksi secara nirkabel
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-pengaturan-beban-dan-jumlah-pekerja-workers"></a><a id="pengaturan-beban-dan-jumlah-pekerja-workers"></a>
 ## 🧵 Pengaturan Beban dan Jumlah Pekerja (Workers)
 
 - **Nilai standar yang disarankan**: `5` pekerja (~12–15 RPS)
@@ -258,8 +306,11 @@ Pantau pencarian nama pengguna langka dan ubah pengaturannya langsung dari ponse
   - D4UC mengalokasikan port terowongan WireGuard khusus untuk tiap pekerja (`1081`, `1082`, dst.).
   - 5 pekerja melakukan kueri secara serentak melalui 5 negara yang berbeda (Tokyo, Seoul, Singapura, Frankfurt, New York).
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-strategi-pembuatan-nama-pengguna"></a><a id="strategi-pembuatan-nama-pengguna"></a>
 ## 🔢 Strategi Pembuatan Nama Pengguna
 
 | Kunci Mode | Strategi Pembuatan | Keterangan & Contoh |
@@ -273,8 +324,11 @@ Pantau pencarian nama pengguna langka dan ubah pengaturannya langsung dari ponse
 | `combinatorial` | Struktur suku kata CVCV / VCCV | Kombinasi konsonan dan vokal untuk nama merek baru yang dapat dieja |
 | `recheck` | Pengecekan ulang daftar terambil | Memeriksa kembali nama yang pernah terambil untuk mencari akun yang dilepas |
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-aturan-pengecualian-ketat-contoh-ab-a1"></a><a id="aturan-pengecualian-ketat-contoh-ab-a1"></a>
 ## 🚫 Aturan Pengecualian Ketat (Contoh: `ab..`, `a..1`)
 
 Nama pengguna yang melanggar aturan resmi Discord **dikecualikan 100% sejak tahap pembuatan kandidat**:
@@ -295,8 +349,11 @@ Nama pengguna yang melanggar aturan resmi Discord **dikecualikan 100% sejak taha
 
 > Divalidasi secara ketat oleh `DiscordRuleValidator.is_valid()` dalam `src/generator/base.py` dengan 84 pengujian otomatis.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-alur-kerja-mesin-pemeriksa"></a><a id="alur-kerja-mesin-pemeriksa"></a>
 ## 📡 Alur Kerja Mesin Pemeriksa
 
 ```mermaid
@@ -324,23 +381,32 @@ sequenceDiagram
     end
 ```
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-pengelolaan-sesi-proksi"></a><a id="pengelolaan-sesi-proksi"></a>
 ## 🔄 Pengelolaan Sesi Proksi
 
 - **Sesi Asinkron Terpisah**: Setiap pekerja memelihara instance `curl_cffi.requests.AsyncSession` mandiri untuk efisiensi koneksi Keep-Alive TCP.
 - **Bebas Proses Menggantung (Zero-Zombie)**: Saat dimatikan, semua proses latar belakang `wireproxy` dihentikan secara bersih tanpa sisa.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-penanganan-kesalahan-dan-percobaan-ulang"></a><a id="penanganan-kesalahan-dan-percobaan-ulang"></a>
 ## 🔁 Penanganan Kesalahan dan Percobaan Ulang
 
 1. **Batas Waktu Jaringan & Kendala DNS**: Percobaan ulang otomatis hingga 3 kali dengan jeda eksponensial (0.5s ➔ 1.0s ➔ 2.0s).
 2. **Tantangan Cloudflare WAF**: Penutupan sesi secara langsung dan pembuatan ulang terowongan seketika.
 3. **Batas Frekuensi 429**: Memasukkan kembali nama ke antrean dan mengalihkan pekerja ke IP baru dalam 0.3 detik.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-format-penyimpanan-data"></a><a id="format-penyimpanan-data"></a>
 ## 💾 Format Penyimpanan Data
 
 | Lokasi | Format | Fungsi dan Peran |
@@ -352,8 +418,11 @@ sequenceDiagram
 | `available_usernames.csv` | Format CSV | Tabel untuk pengolahan spreadsheet dan analisis data |
 | `available_usernames.json`| Format JSON | Data terstruktur untuk integrasi web dan REST API |
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-metrik-pemantauan-real-time"></a><a id="metrik-pemantauan-real-time"></a>
 ## 📊 Metrik & Pemantauan Real-Time
 
 Web GUI Seluler, aplikasi desktop, dan konsol terminal memperbarui metrik berikut setiap 30 ms:
@@ -364,23 +433,32 @@ Web GUI Seluler, aplikasi desktop, dan konsol terminal memperbarui metrik beriku
 - **429 Hot-Swaps**: Frekuensi pergantian IP proksi yang berhasil
 - **Latency**: Waktu respons bolak-balik dengan server Discord (ms)
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-menghentikan-proses"></a><a id="menghentikan-proses"></a>
 ## 🛑 Menghentikan Proses
 
 - **Web GUI Seluler**: Ketuk tombol merah `■ Berhenti Mencari`.
 - **Desktop GUI**: Klik tombol `■ Berhenti`.
 - **CLI**: Tekan `Ctrl + C` untuk menyimpan database dan menutup seluruh terowongan secara aman.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-penanganan-batas-frekuensi-429"></a><a id="penanganan-batas-frekuensi-429"></a>
 ## ⚠️ Penanganan Batas Frekuensi (429)
 
 - Discord mengirimkan respon `429 Too Many Requests` jika menerima terlalu banyak kueri dari satu alamat IP.
 - D4UC menyebarkan kueri ke **142 terowongan WireGuard global** dan mengeksekusi **hot-swap dalam 0.3 detik**, membuat pekerja lainnya dapat terus berjalan tanpa henti.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-panduan-mengatasi-masalah"></a><a id="panduan-mengatasi-masalah"></a>
 ## 🔧 Panduan Mengatasi Masalah
 
 | Kendala | Penyebab Umum | Solusi |
@@ -391,22 +469,31 @@ Web GUI Seluler, aplikasi desktop, dan konsol terminal memperbarui metrik beriku
 | Muncul dialog Firewall | Aturan belum terdaftar | Jalankan perintah penambahan aturan di PowerShell sebagai Administrator. |
 | `No module named curl_cffi` | Virtual environment belum aktif | Aktifkan `.venv` lalu jalankan `pip install -r requirements.txt`. |
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-bantuan-discord-myuyayam"></a><a id="bantuan-discord-myuyayam"></a>
 ## 📞 Bantuan Discord: myuyayam
 
 - Untuk saran fitur, pelaporan bug, atau konsultasi teknis, silakan hubungi **`myuyayam`** di Discord.
 - Untuk pertanyaan lisensi bisnis dan komersial, hubungi melalui GitHub Issues atau DM Discord.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-dukung-proyek-ini-github-star"></a><a id="dukung-proyek-ini-github-star"></a>
 ## ⭐ Dukung Proyek Ini (GitHub Star)
 
 Jika proyek ini bermanfaat bagi Anda, berikan dukungan dengan menekan tombol **Star (⭐)** di repositori GitHub!  
 Dukungan dan masukan Anda adalah pendorong utama kelanjutan pengembangan perangkat lunak ini.
 
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
 ---
 
+<a id="-pemberitahuan-tujuan-pembelajaran-dan-penelitian"></a><a id="pemberitahuan-tujuan-pembelajaran-dan-penelitian"></a>
 ## 📚 Pemberitahuan Tujuan Pembelajaran dan Penelitian
 
 > **[Pemberitahuan Khusus untuk Tujuan Edukasi dan Riset]**
@@ -416,3 +503,13 @@ Dukungan dan masukan Anda adalah pendorong utama kelanjutan pengembangan perangk
 > 1. Dilarang keras menggunakan alat ini untuk melancarkan serangan Denial of Service (DoS), membebani server secara ilegal, atau memperjualbelikan akun secara tidak sah.
 > 2. Pengguna bertanggung jawab penuh untuk mematuhi Ketentuan Layanan (Terms of Service) platform dan hukum yang berlaku. Segala risiko akibat penyalahgunaan ditanggung sepenuhnya oleh operator.
 > 3. Pengembang dan kontributor tidak memberikan jaminan dan tidak bertanggung jawab atas hasil operasional perorangan.
+
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
+---
+
+### 📚 Catatan Kaki & Referensi Teknis
+[^1]: Jabat tangan Chrome 131 BoringSSL sepenuhnya menetralkan pemblokiran sidik jari TLS dari Cloudflare dan WAF modern. [↩](#-daftar-isi)
+[^2]: wireproxy adalah biner Go ringan di ruang pengguna yang mengubah protokol WireGuard menjadi proksi SOCKS5 lokal terisolasi tanpa izin root. [↩](#-daftar-isi)
+
+[⬆️ Kembali ke Daftar Isi](#-daftar-isi)

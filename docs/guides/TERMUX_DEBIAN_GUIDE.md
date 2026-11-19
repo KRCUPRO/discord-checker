@@ -1,16 +1,46 @@
-# 📱 안드로이드 모바일 Termux (데비안 환경) D4UC 완벽 가이드
+# 📱 안드로이드 모바일 Termux (데비안 환경) D4UC 완벽 가이드 (TERMUX_DEBIAN_GUIDE.md)
 
-안드로이드 스마트폰의 **Termux**와 **proot-distro (Debian)** 환경을 활용하여, PC를 켜두지 않고도 휴대폰에서 24시간 무중단으로 디스코드 닉네임 전수검사를 돌리는 방법입니다.
+> **프로젝트**: D4UC (`discord-checker`) v12.3.0 / v12.4.0  
+> **대상 플랫폼**: Android 10+ (Termux + proot-distro Debian ARM64)  
+> **최종 개정일**: 2026년 11월 19일  
 
 ---
 
+<a id="목차"></a><a id="-목차"></a>
+## 📑 목차
+1. [개요 및 안드로이드 전용 가이드 안내](#-개요-및-안드로이드-전용-가이드-안내)
+2. [왜 proot-distro 데비안인가요?](#-왜-proot-distro-데비안인가요)
+3. [설치 및 환경 세팅 (최초 1회, 약 2~3분)](#-설치-및-환경-세팅-최초-1회-약-23분)
+4. [D4UC 소스코드 다운로드 및 원클릭 자동 설치](#-d4uc-소스코드-다운로드-및-원클릭-자동-설치)
+5. [환경 변수 설정 (.env)](#-환경-변수-설정-env)
+6. [실행 및 백그라운드 24시간 무중단 구동](#-실행-및-백그라운드-24시간-무중단-구동)
+7. [결과 파일 확인 및 내보내기](#-결과-파일-확인-및-내보내기)
+8. [자주 묻는 질문 및 트러블슈팅](#-자주-묻는-질문-및-트러블슈팅)
+9. [각주 및 기술 참고문헌](#-각주-및-기술-참고문헌)
+
+---
+
+<a id="개요-및-안드로이드-전용-가이드-안내"></a><a id="-개요-및-안드로이드-전용-가이드-안내"></a>
+## 🧭 개요 및 안드로이드 전용 가이드 안내
+
+- 🤖 **안드로이드 네이티브 APK 가이드**: [ANDROID_GUIDE.md](ANDROID_GUIDE.md) (1-Tap 설치, Wake Lock, UI 조작)
+- 🍏 **iOS / iPadOS 가이드**: [IOS_GUIDE.md](IOS_GUIDE.md)
+
+[⬆️ 목차 맨 위로 이동](#-목차)
+
+---
+
+<a id="왜-proot-distro-데비안인가요"></a><a id="-왜-proot-distro-데비안인가요"></a>
 ## 🌟 왜 proot-distro 데비안인가요?
 - 안드로이드 기본 Termux 쉘은 bionic C 라이브러리를 사용하여 일부 파이썬 C-확장 모듈(BoringSSL) 컴파일에 오류가 발생할 수 있습니다.
 - **proot-distro debian**은 안드로이드 위에 **100% 표준 GNU/Linux (glibc ARM64)** 환경을 구축하므로, PC 리눅스와 동일하게 `curl_cffi` 및 `wireproxy`가 네이티브 속도로 완벽히 구동됩니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
-## 🚀 1. 설치 및 환경 세팅 (최초 1회, 약 2~3분)
+<a id="설치-및-환경-세팅-최초-1회-약-23분"></a><a id="-설치-및-환경-세팅-최초-1회-약-23분"></a>
+## 🚀 설치 및 환경 세팅 (최초 1회, 약 2~3분)
 
 ### 1단계: Termux 앱 설치
 - 구글 플레이스토어 버전은 업데이트가 중단되었으므로, **F-Droid** 또는 **GitHub 공식 릴리즈**에서 Termux 최신 APK를 다운로드하여 설치합니다.
@@ -18,20 +48,20 @@
 ```bash
 termux-setup-storage
 ```
-*(화면에 사진/미디어 접근 권한 팝업이 뜨면 **허용**을 누르세요)*
 
 ### 2단계: 데비안 리눅스 환경 원클릭 설치 및 진입 (1줄 복사)
 ```bash
 pkg update -y && pkg install git proot-distro -y && proot-distro install debian && proot-distro login debian
 ```
-*(다운로드와 설치가 완료되면 프롬프트가 `root@localhost:~#` 로 바뀌며 데비안 진입에 성공합니다)*
+
+[⬆️ 목차 맨 위로 이동](#-목차)
 
 ---
 
-## 📦 2. D4UC 소스코드 다운로드 및 원클릭 자동 설치
+<a id="d4uc-소스코드-다운로드-및-원클릭-자동-설치"></a><a id="-d4uc-소스코드-다운로드-및-원클릭-자동-설치"></a>
+## 📦 D4UC 소스코드 다운로드 및 원클릭 자동 설치
 
 ### 1단계: D4UC 다운로드 (Git Clone)
-*(반드시 `root@localhost:~#` 상태에서 입력하세요)*
 ```bash
 git clone https://github.com/KRCUPRO/discord-checker.git
 cd discord-checker
@@ -42,96 +72,67 @@ cd discord-checker
 chmod +x deploy/install_debian.sh deploy/run.sh
 ./deploy/install_debian.sh
 ```
-> **자동 수행 작업**:
-> 1. ARM64(aarch64) 아키텍처 자동 감지
-> 2. `python3`, `pip`, `venv`, `curl`, `wireguard-tools` 설치
-> 3. `.venv` 가상환경 및 `requirements.txt` (`curl_cffi`, `rich`, `pyyaml`, `customtkinter`) 설치
-> 4. Linux ARM64 네이티브 `wireproxy` 바이너리 자동 다운로드 및 `bin/wireproxy` 배치
+
+[⬆️ 목차 맨 위로 이동](#-목차)
 
 ---
 
-## ⚡ 3. 실행 방법 (Usage)
+<a id="환경-변수-설정-env"></a><a id="-환경-변수-설정-env"></a>
+## ⚙️ 환경 변수 설정 (.env)
+```bash
+cp config/.env.example .env
+nano .env
+```
+WireGuard 개인키와 웹후크 URL을 등록합니다.
 
-### 1) 기본 대화형 터미널 대시보드 실행
-```bash
-./deploy/run.sh
-```
-*(터미널에 실시간 RPS, 검사 완료 수, 발견 닉네임 등이 미려한 Rich 콘솔 UI로 출력됩니다)*
-
-### 2) 다중 창 2배 속도 분할 샤딩 실행
-- **1번 작업 (a ~ m 시작 닉네임 전담)**:
-```bash
-./deploy/run.sh --mode permutation --shard 2_1 --workers 5
-```
-- **2번 작업 (n ~ _ 시작 닉네임 전담)**:
-```bash
-./deploy/run.sh --mode permutation --shard 2_2 --workers 5
-```
-*(PC와 휴대폰을 각각 2_1, 2_2로 나눠 돌리시면 집 밖에서도 PC와 함께 2배 속도로 전수검사를 끝냅니다!)*
-
-### 3) Surfshark VPN 개인키 즉시 주입 실행
-```bash
-SURFSHARK_PRIVATE_KEYS="내_와이어가드_개인키" ./deploy/run.sh --workers 5
-```
+[⬆️ 목차 맨 위로 이동](#-목차)
 
 ---
 
-## 🌙 4. 휴대폰 화면 끄고 24시간 백그라운드 무중단 실행 (절전 방지)
+<a id="실행-및-백그라운드-24시간-무중단-구동"></a><a id="-실행-및-백그라운드-24시간-무중단-구동"></a>
+## 🏃 실행 및 백그라운드 24시간 무중단 구동
 
-안드로이드 OS가 화면이 꺼졌을 때 Termux 프로세스를 강제 종료(Doze Mode)하지 않도록 설정합니다:
-
-### 1. Termux 절전 방지 활성화 (Termux 기본 쉘에서)
 ```bash
+# 화면 꺼짐 방지
 termux-wake-lock
-```
-*(알림창에 `Termux (wake lock held)` 고정 알림이 표시됩니다)*
 
-### 2. 데비안 로그인 후 백그라운드 무중단 데몬 실행 (`nohup`)
-```bash
-proot-distro login debian
-cd discord-checker
-nohup ./deploy/run.sh --no-dashboard --mode permutation --shard 2_1 --workers 5 > d4uc.log 2>&1 &
+# 24시간 백그라운드 구동
+nohup ./deploy/run.sh --no-dashboard > output.log 2>&1 &
+tail -f output.log
 ```
 
-### 3. 실시간 로그 모니터링
-```bash
-tail -f d4uc.log
-```
-
-### 4. 검사기 종료 시
-```bash
-pkill -f "python3 src/run.py"
-```
-
-### 5. 발견된 가용 닉네임 확인
-```bash
-cat available.txt
-```
-*(디스코드 웹훅을 등록해두셨다면 레어 닉네임 발견 즉시 모바일 디스코드 앱으로 실시간 핑 알림이 옵니다!)*
+[⬆️ 목차 맨 위로 이동](#-목차)
 
 ---
 
-## 🔧 5. 자주 묻는 질문 및 문제 해결 (FAQ & Troubleshooting)
+<a id="결과-파일-확인-및-내보내기"></a><a id="-결과-파일-확인-및-내보내기"></a>
+## 💾 결과 파일 확인 및 내보내기
 
-### Q1. `./deploy/install_debian.sh: line 52: sudo: command not found` 오류가 발생해요.
-- **원인**: 데비안 환경(`proot-distro login debian`)에 들어가지 않고 안드로이드 Termux 기본 쉘에서 스크립트를 실행했을 때 발생합니다.
-- **해결책**:
-  1. `proot-distro login debian` 명령어를 실행하여 데비안으로 먼저 로그인하세요.
-  2. 프롬프트가 `root@localhost:~#`로 바뀌었는지 확인한 후, `cd discord-checker && ./deploy/install_debian.sh`를 실행하세요.
-  *(v12.1.0 최신 스크립트에서는 Termux 쉘에서 실행하더라도 자동으로 감지하여 Debian 패키지를 준비해 줍니다)*
-
-### Q2. `ModuleNotFoundError: No module named 'rich'` 오류가 떠요.
-- **원인**: 라이브러리 설치 단계(`install_debian.sh`)를 건너뛰고 바로 `run.sh`를 실행했거나 설치가 중간에 중단된 경우입니다.
-- **해결책**:
-  ```bash
-  cd discord-checker
-  ./deploy/install_debian.sh
-  ```
-  설치가 정상 완료된 후 `./deploy/run.sh`를 실행하면 정상 구동됩니다.
-
-### Q3. 스마트폰을 재부팅한 후 다시 체커를 켤 때는 어떻게 하나요?
-다음 2줄만 입력하시면 즉시 다시 실행됩니다:
+- `cat available.txt`: 발견된 가용 닉네임 즉시 확인
+- 스마트폰 다운로드 폴더로 복사:
 ```bash
-proot-distro login debian
-cd discord-checker && ./deploy/run.sh
+cp available.txt /sdcard/Download/
 ```
+
+[⬆️ 목차 맨 위로 이동](#-목차)
+
+---
+
+<a id="자주-묻는-질문-및-트러블슈팅"></a><a id="-자주-묻는-질문-및-트러블슈팅"></a>
+## ❓ 자주 묻는 질문 및 트러블슈팅
+
+| 현상 | 해결책 |
+| :--- | :--- |
+| **`Permission denied: ./deploy/run.sh`** | `chmod +x deploy/run.sh` 실행 |
+| **화면이 꺼지면 Termux 프로세스가 종료됨** | 스마트폰 설정 ➔ 앱 ➔ Termux ➔ 배터리 '제한 없음' 설정 및 `termux-wake-lock` 실행 |
+
+[⬆️ 목차 맨 위로 이동](#-목차)
+
+---
+
+<a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
+## 📚 각주 및 기술 참고문헌
+
+[^1]: PRoot는 ptrace 시스템 콜을 통해 루트 권한 없는 안드로이드 사용자 영역에서 격리된 파일시스템 루트를 구현합니다. [↩](#-목차)
+
+[⬆️ 목차 맨 위로 이동](#-목차)

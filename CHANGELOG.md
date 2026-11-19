@@ -2,6 +2,25 @@
 
 All notable changes to **D4UC (`discord-checker`)** are documented in this file.
 
+## [v12.4.0] — 2026-11-19
+
+### Added
+- **Two-Way Document Navigation (TOC Anchor Links & Return-to-Top Navigation)**:
+  - Full interactive Table of Contents (TOC) with working anchor links added to `README.md`, all 11 locale documents in `docs/locales/` (`ko.md`, `ja.md`, `zh-CN.md`, `es.md`, `fr.md`, `de.md`, `ru.md`, `pt-BR.md`, `ar.md`, `hi.md`, `id.md`), and all OS guides.
+  - Every single section header equipped with direct anchor IDs and localized clean `[⬆️ Return to Top]` links returning to the TOC.
+  - Bidirectional footnote jumping `[^1]` / `[^2]` with clean return references (`↩`).
+- **Dedicated OS & Platform Comprehensive Guides (`docs/guides/`)**:
+  - `WINDOWS_GUIDE.md`: Complete Windows 10/11 setup, 4 standalone EXEs, Defender & firewall PowerShell script (ports 5000 / 1081+), Python source setup, Task Scheduler 24/7 background autorun.
+  - `MACOS_GUIDE.md`: Apple Silicon (M1-M4) & Intel x86_64 setup, Homebrew, BoringSSL `curl_cffi` native acceleration, Safari Dock Web App, `launchd` background daemon.
+  - `LINUX_GUIDE.md`: Ubuntu, Debian, Kali, Fedora, Arch Linux packages, `systemd` unit service (`d4uc.service`), `tmux`/`screen` multiplexer, UFW/iptables rules, multi-shard scanning.
+  - `ANDROID_GUIDE.md`: 1-Tap native APK installation (`DiscordUsernameChecker_v12.3.0.apk`), One UI / HyperOS / Pixel battery optimization exclusion, Wake Lock management, Termux PRoot Debian runner.
+  - `IOS_GUIDE.md`: Safari PWA "Add to Home Screen" borderless touch app, 0.1s Discord Webhook push notifications, Termius / Blink SSH management.
+  - `DOCKER_GUIDE.md`: Multi-Arch Docker Compose (`amd64`, `arm64`), 2-shard multi-container setup, volume persistence (`./data:/app/data`), environment variable matrix.
+  - `RASPBERRY_PI_GUIDE.md`: Raspberry Pi 4 & 5 (Debian Bookworm ARM64) 3W homelab setup, Tailscale mesh remote control, SD card WAL I/O protection.
+  - `docs/guides/README.md` & `docs/README.md`: Central documentation hub and OS guides matrix linking all platform manuals, architecture specs, and locale documents.
+- **Enhanced Concrete Evidence Deliverables Verification**:
+  - Updated `tests/test_deliverables_verification.py` with Deliverables 12 & 13 verifying two-way navigation, TOC anchor integrity, return-to-top links, and all 13 OS guide manuals (100% passed, exit code 0).
+
 ## [v12.3.0] — 2026-11-19
 
 ### Added

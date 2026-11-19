@@ -16,10 +16,10 @@
 <br />
 
 [![最后更新: 2026年11月19日](../assets/badges/update_badge_zh.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
+[![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 专有软件许可证 (All Rights Reserved)</sub>
@@ -28,6 +28,33 @@
 
 ---
 
+<a id="-目录"></a><a id="目录"></a>
+## 📑 目录
+1. [📸 界面预览](#-界面预览)
+2. [✨ 核心特性](#-核心特性)
+3. [🖥️ 运行环境与依赖](#-运行环境与依赖)
+4. [📁 目录结构](#-目录结构)
+5. [🌐 代理配置与 🔑 凭据管理](#-代理配置与-凭据管理)
+6. [🚀 安装与使用](#-安装与使用)
+7. [📱 移动端 Web GUI & PWA 远程控制指南](#-移动端-web-gui-pwa-远程控制指南)
+8. [🧵 线程并发与工作数调节](#-线程并发与工作数调节)
+9. [🔢 用户名生成策略](#-用户名生成策略)
+10. [🚫 候选生成排除规则 (示例: `ab..`, `a..1`)](#-候选生成排除规则-示例-ab-a1)
+11. [📡 检测工作执行流程](#-检测工作执行流程)
+12. [🔄 代理会话管理](#-代理会话管理)
+13. [🔁 错误重试机制](#-错误重试机制)
+14. [💾 数据持久化形式](#-数据持久化形式)
+15. [📊 实时数据统计](#-实时数据统计)
+16. [🛑 停止检测](#-停止检测)
+17. [⚠️ 速率限制说明 (Rate Limit)](#-速率限制说明-rate-limit)
+18. [🔧 常见故障排查](#-常见故障排查)
+19. [📞 联系作者 Discord : myuyayam](#-联系作者-discord-myuyayam)
+20. [⭐ 支持项目 (GitHub Star)](#-支持项目-github-star)
+21. [📚 学习与技术研究声明](#-学习与技术研究声明)
+
+---
+
+<a id="-界面预览"></a><a id="界面预览"></a>
 ## 📸 界面预览
 
 ### 移动端触控优化响应式 Web GUI (PWA - iPhone & Android)
@@ -37,10 +64,10 @@
 [![D4UC Mobile Web Demo](../assets/mobile_web_demo_zh.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### 桌面 GUI 运行界面 (简体中文版)
-[![D4UC GUI Desktop Main](../assets/gui_zh_main.png)](../guides/PC_GUIDE.md)
+[![D4UC GUI Desktop Main](../assets/gui_zh_main.png)](../guides/WINDOWS_GUIDE.md)
 
 ### 实时 GUI 操作演示 (平滑鼠标交互)
-[![D4UC GUI Demo](../assets/gui_zh_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_zh_demo.gif)](../guides/WINDOWS_GUIDE.md)
 
 ### 无头 CLI 实时终端仪表盘
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
@@ -48,8 +75,11 @@
 ### Docker & Linux 服务器部署环境
 [![D4UC Docker Linux](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-核心特性"></a><a id="核心特性"></a>
 ## ✨ 核心特性
 
 1. **移动端响应式 Web GUI & PWA 引擎 (`http://<host>:5000`)**:
@@ -85,8 +115,11 @@
 8. **全平台环境适配**:
    - 包含 Windows 10/11 单独可执行文件（4 种 `.exe`）、移动端 PWA、Linux/macOS 终端 CLI、Android Termux 脚本以及 Multi-Arch Docker 容器。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-运行环境与依赖"></a><a id="运行环境与依赖"></a>
 ## 🖥️ 运行环境与依赖
 
 ### 1. 系统要求
@@ -103,8 +136,11 @@
 - `pyyaml >= 6.0.1`: YAML 配置文件解析
 - `pillow >= 10.2.0`: UI 图像渲染与图标支持
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-目录结构"></a><a id="目录结构"></a>
 ## 📁 目录结构
 
 ```text
@@ -144,8 +180,11 @@ discord-checker/
 └── SECURITY.md                     # 安全准则与机密防泄漏政策
 ```
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-代理配置与-凭据管理"></a><a id="代理配置与-凭据管理"></a>
 ## 🌐 代理配置与 🔑 凭据管理
 
 D4UC 配备内置的 **Surfshark WireGuard 1:1 用户空间隧道池**，彻底化解 IP 封锁与频率限制。
@@ -178,12 +217,15 @@ D4UC 配备内置的 **Surfshark WireGuard 1:1 用户空间隧道池**，彻底�
 ### 3. 零泄露安全政策 (Zero-Leak Policy)
 - 密钥、配置文件（`.env`, `config.yaml`）和代理列表已被 `.gitignore` 严格忽略，任何代码提交均经过自动化防泄密审计。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-安装与使用"></a><a id="安装与使用"></a>
 ## 🚀 安装与使用
 
 ### 方案 A: Windows 免安装可执行文件 (`.exe`)
-无需配置 Python 即可使用，请从 [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0) 下载对应版本：
+无需配置 Python 即可使用，请从 [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) 下载对应版本：
 - `DiscordUsernameChecker_v12.3.0.apk`: **安卓智能手机 1键原生安装包** [NEW]
 - `DiscordUsernameCheckerV2_Web.exe`: **移动端 Web GUI & PWA 服务端 (端口 5000)** [NEW]
 - `DiscordUsernameCheckerV2_EN.exe`: 英文桌面 GUI
@@ -225,8 +267,11 @@ python src/gui_en.py
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-移动端-web-gui-pwa-远程控制指南"></a><a id="移动端-web-gui-pwa-远程控制指南"></a>
 ## 📱 移动端 Web GUI & PWA 远程控制指南
 
 即使躺在床上，也可通过手机随时查看最新发现的稀有用户名并调整检测设置。
@@ -248,8 +293,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
   - 通过滑块在 1–50 线程间无缝动态伸缩（Hot-Scale）
   - 手机端直接更新 Surfshark 密钥及代理配置
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-线程并发与工作数调节"></a><a id="线程并发与工作数调节"></a>
 ## 🧵 线程并发与工作数调节
 
 - **推荐默认值**: `5` 线程 (RPS 约 12–15)
@@ -259,8 +307,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
   - D4UC 为每个工作线程分配独立的 WireGuard 端口（如 `1081`, `1082` 等）。
   - 5 个线程意味着分别通过东京、首尔、新加坡、法兰克福、纽约等 5 个不同国家节点并发检测，大幅降低单 IP 的触发封禁几率。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-用户名生成策略"></a><a id="用户名生成策略"></a>
 ## 🔢 用户名生成策略
 
 | 模式标识 | 生成算法 | 行为说明与典型示例 |
@@ -274,8 +325,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
 | `combinatorial` | 语音学 CVCV / VCCV 构词 | 辅音+元音组合，生成易读的品牌原创词汇 |
 | `recheck` | 已占用列表二次重查 | 重新检测历史上占用的名字，捕捉刚注销或改名释放的名字 |
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-候选生成排除规则-示例-ab-a1"></a><a id="候选生成排除规则-示例-ab-a1"></a>
 ## 🚫 候选生成排除规则 (示例: `ab..`, `a..1`)
 
 根据 Discord 官方社区用户名规范，以下非法格式在**候选生成阶段将被 100% 提前排除**，绝不浪费网络请求：
@@ -296,8 +350,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 > 规则均由 `src/generator/base.py` 中的 `DiscordRuleValidator.is_valid()` 进行强制校验，并通过 84 项测试验证。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-检测工作执行流程"></a><a id="检测工作执行流程"></a>
 ## 📡 检测工作执行流程
 
 ```mermaid
@@ -325,23 +382,32 @@ sequenceDiagram
     end
 ```
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-代理会话管理"></a><a id="代理会话管理"></a>
 ## 🔄 代理会话管理
 
 - **单一责任异步会话**: 每个线程维持独立的 `curl_cffi.requests.AsyncSession`，最大化利用 TCP Keep-Alive 管道。
 - **零进程泄漏 (Zero-Zombie)**: 退出时安全关闭所有网络会话并清理后台 `wireproxy` 守护进程。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-错误重试机制"></a><a id="错误重试机制"></a>
 ## 🔁 错误重试机制
 
 1. **临时网络超时与 DNS 波动**: 采用指数退避（0.5s ➔ 1.0s ➔ 2.0s）最多重试 3 次。
 2. **Cloudflare WAF 质询**: 立即销毁异常会话并快速重置对应隧道。
 3. **429 速率限制**: 将候选名重新入队，对应工作线程仅需 0.3 秒自动轮换 IP 恢复检测。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-数据持久化形式"></a><a id="数据持久化形式"></a>
 ## 💾 数据持久化形式
 
 | 文件路径 | 存储格式 | 用途与特性 |
@@ -353,8 +419,11 @@ sequenceDiagram
 | `available_usernames.csv` | CSV 表格 | 便于导入 Excel 或数据分析工具 |
 | `available_usernames.json`| JSON 格式 | 结构化数据，用于 REST API 与前端对接 |
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-实时数据统计"></a><a id="实时数据统计"></a>
 ## 📊 实时数据统计
 
 移动端 Web GUI、桌面 GUI 与命令行控制台均支持以 30ms 精度实时查看以下指标：
@@ -365,23 +434,32 @@ sequenceDiagram
 - **429 Hot-Swaps**: 自动热切换节点成功次数
 - **Latency**: 对应节点的 Discord 往返延迟 (ms)
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-停止检测"></a><a id="停止检测"></a>
 ## 🛑 停止检测
 
 - **移动端 Web GUI**: 点击底部的红色 `■ 停止检测` 按钮即可立即挂起。
 - **桌面 GUI**: 点击界面上方的 `■ 停止` 按钮即可平滑结束。
 - **CLI 命令行**: 按下 `Ctrl + C` 触发优雅终止信号，保存数据库 WAL 检查点并释放代理端口。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-速率限制说明-rate-limit"></a><a id="速率限制说明-rate-limit"></a>
 ## ⚠️ 速率限制说明 (Rate Limit)
 
 - Discord API 对短时间内的高频单 IP 访问返回 `429 Too Many Requests`。
 - D4UC 通过 142 个国家端点池分摊流量，并具备 **0.3 秒原子热切换** 机制，单节点受限完全不影响其余工作线程，保障检测永续运行。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-常见故障排查"></a><a id="常见故障排查"></a>
 ## 🔧 常见故障排查
 
 | 现象 | 可能原因 | 解决方案 |
@@ -392,22 +470,31 @@ sequenceDiagram
 | 弹出防火墙权限请求窗口 | 防火墙规则未正确注册 | 使用管理员身份运行 PowerShell 注册防火墙放行规则。 |
 | `No module named curl_cffi` | 未激活虚拟环境 | 激活 `.venv` 后重新执行 `pip install -r requirements.txt`。 |
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-联系作者-discord-myuyayam"></a><a id="联系作者-discord-myuyayam"></a>
 ## 📞 联系作者 Discord : myuyayam
 
 - 功能建议、Bug 反馈及技术咨询，请联系 Discord **`myuyayam`**。
 - 商业授权或企业合作事宜，请通过 GitHub Issues 或 Discord 私信沟通。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-支持项目-github-star"></a><a id="支持项目-github-star"></a>
 ## ⭐ 支持项目 (GitHub Star)
 
 如果您觉得本项目对您有所帮助，请为本项目点亮一颗 **Star (⭐)**！  
 您的支持是我们持续优化与维护的最大动力。
 
+[⬆️ 返回顶部目录](#-目录)
+
 ---
 
+<a id="-学习与技术研究声明"></a><a id="学习与技术研究声明"></a>
 ## 📚 学习与技术研究声明
 
 > **[学习与技术研究免责声明 — Educational & Research Purpose Only]**
@@ -417,3 +504,13 @@ sequenceDiagram
 > 1. 严禁利用本工具对任何目标服务发动拒绝服务攻击（DoS）、产生恶意拥塞流量或实施抢注囤积等违规行为。
 > 2. 使用者应当严格遵守目标平台的服务条款（Terms of Service）与所在国家法律法规。任何违规滥用所产生的法律责任由使用者自行承担。
 > 3. 开发者及代码贡献者对使用者的个人运行结果不承担任何明示或暗示的担保及连带责任。
+
+[⬆️ 返回顶部目录](#-目录)
+
+---
+
+### 📚 脚注与技术参考文献
+[^1]: Chrome 131 BoringSSL 握手彻底消除了 Cloudflare 及现代 WAF 的 TLS 指纹拦截。[↩](#-目录)
+[^2]: wireproxy 是一款在用户空间运行的轻量级 Go 二进制程序，无需 Root 权限即可将 WireGuard 转换为独立的本地 SOCKS5 代理。[↩](#-目录)
+
+[⬆️ 返回顶部目录](#-目录)

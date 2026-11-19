@@ -387,6 +387,86 @@ def verify_android_apk():
     print("   ✅ Deliverable 11 Verified: Android APK package present, signed, and structurally valid.")
 
 
+def verify_two_way_document_navigation():
+    print("[VERIFICATION 12] Checking 1:1 Two-Way Document Navigation (TOC Anchors, Return-to-Top, Footnotes)...")
+    import re
+    locales = [
+        ("docs/locales/ko.md", "목차", "[⬆️ 목차 맨 위로 이동](#-목차)"),
+        ("README.md",          "Table of Contents", "[⬆️ Back to Top](#-table-of-contents)"),
+        ("docs/locales/ja.md", "目次", "[⬆️ 目次へ戻る](#-目次)"),
+        ("docs/locales/zh-CN.md", "目录", "[⬆️ 返回顶部目录](#-目录)"),
+        ("docs/locales/es.md", "Tabla de Contenidos", "[⬆️ Volver al inicio](#-tabla-de-contenidos)"),
+        ("docs/locales/fr.md", "Table des Matières", "[⬆️ Haut de page](#-table-des-matières)"),
+        ("docs/locales/de.md", "Inhaltsverzeichnis", "[⬆️ Nach oben](#-inhaltsverzeichnis)"),
+        ("docs/locales/ru.md", "Содержание", "[⬆️ Наверх к оглавлению](#-содержание)"),
+        ("docs/locales/pt-BR.md", "Índice", "[⬆️ Voltar ao topo](#-índice)"),
+        ("docs/locales/ar.md", "جدول المحتويات", "[⬆️ العودة إلى أعلى الفهرس](#-جدول-المحتويات)"),
+        ("docs/locales/hi.md", "सामग्री तालिका", "[⬆️ सामग्री सूची पर वापस जाएं](#-सामग्री-तालिका)"),
+        ("docs/locales/id.md", "Daftar Isi", "[⬆️ Kembali ke Daftar Isi](#-daftar-isi)"),
+    ]
+
+    for rel_path, toc_word, return_top_str in locales:
+        doc_path = root / rel_path
+        assert doc_path.exists(), f"Missing doc: {rel_path}"
+        text = doc_path.read_text(encoding="utf-8")
+        
+        # 1. Verify TOC existence
+        assert f"## 📑 {toc_word}" in text, f"Missing TOC '## 📑 {toc_word}' in {rel_path}"
+        
+        # 2. Extract TOC items
+        toc_items = re.findall(r"^\d+\.\s+\[([^\]]+)\]\(#([^\)]+)\)", text, re.M)
+        assert len(toc_items) == 21, f"Expected 21 TOC items, got {len(toc_items)} in {rel_path}"
+        
+        # 3. Verify every anchor in TOC has a matching target in the file
+        for title, anchor in toc_items:
+            assert f'id="{anchor}"' in text, f"Anchor id=\"{anchor}\" for '{title}' missing in {rel_path}"
+        
+        # 4. Verify return-to-top links exist for all sections
+        return_count = text.count(return_top_str)
+        assert return_count >= 21, f"Expected >= 21 return-to-top links, got {return_count} in {rel_path}"
+        
+        # 5. Verify bidirectional footnotes exist
+        assert "[^1]" in text and "[^1]:" in text, f"Missing footnote [^1] in {rel_path}"
+        assert "[^2]" in text and "[^2]:" in text, f"Missing footnote [^2] in {rel_path}"
+        assert "↩" in text, f"Missing footnote return link ↩ in {rel_path}"
+        
+        print(f"   • Two-Way Navigation verified: {rel_path} ({len(toc_items)} TOC links, {return_count} return links, footnotes confirmed)")
+
+    print("   ✅ Deliverable 12 Verified: Two-Way Document Navigation (TOC + Return to Top + Footnotes) 100% Verified.")
+
+
+def verify_all_os_guides():
+    print("[VERIFICATION 13] Checking Comprehensive OS & Platform Guides in docs/guides/...")
+    guides = [
+        ("docs/guides/WINDOWS_GUIDE.md",      ["Windows 10", "4대 무설치", "PowerShell", "5000", "wireproxy.exe"]),
+        ("docs/guides/MACOS_GUIDE.md",        ["Apple Silicon", "Homebrew", "BoringSSL", "5000", "wireproxy"]),
+        ("docs/guides/LINUX_GUIDE.md",        ["Ubuntu", "Debian", "systemd", "d4uc.service", "5000"]),
+        ("docs/guides/ANDROID_GUIDE.md",      ["DiscordUsernameChecker_v12.3.0.apk", "Wake Lock", "One UI", "Termux"]),
+        ("docs/guides/IOS_GUIDE.md",          ["Safari", "PWA", "홈 화면에 추가", "Webhook", "Termius"]),
+        ("docs/guides/DOCKER_GUIDE.md",       ["docker-compose.yml", "2shard", "Multi-Arch", "amd64", "arm64"]),
+        ("docs/guides/RASPBERRY_PI_GUIDE.md", ["Raspberry Pi", "aarch64", "Tailscale", "WAL", "3W"]),
+        ("docs/guides/PC_GUIDE.md",           ["WINDOWS_GUIDE.md", "MACOS_GUIDE.md", "목차"]),
+        ("docs/guides/MOBILE_IOS_GUIDE.md",   ["IOS_GUIDE.md", "ANDROID_GUIDE.md", "목차"]),
+        ("docs/guides/TERMUX_DEBIAN_GUIDE.md",["install_debian.sh", "ANDROID_GUIDE.md", "목차"]),
+        ("docs/guides/README.md",             ["WINDOWS_GUIDE.md", "MACOS_GUIDE.md", "LINUX_GUIDE.md", "ANDROID_GUIDE.md", "IOS_GUIDE.md", "DOCKER_GUIDE.md", "RASPBERRY_PI_GUIDE.md"]),
+        ("docs/README.md",                    ["guides/", "locales/", "specs/", "목차"]),
+        ("docs/GUIDE.md",                     ["WINDOWS_GUIDE.md", "MACOS_GUIDE.md", "LINUX_GUIDE.md", "ANDROID_GUIDE.md", "IOS_GUIDE.md", "DOCKER_GUIDE.md", "RASPBERRY_PI_GUIDE.md"]),
+    ]
+
+    for rel_path, required_terms in guides:
+        guide_path = root / rel_path
+        assert guide_path.exists(), f"Missing guide file: {rel_path}"
+        text = guide_path.read_text(encoding="utf-8")
+        assert len(text) > 1200, f"Guide {rel_path} is too short ({len(text)} chars)"
+        assert "## 📑 목차" in text or "## 📑 Table of Contents" in text, f"Missing TOC in {rel_path}"
+        assert "[⬆️" in text, f"Missing return-to-top in {rel_path}"
+        for term in required_terms:
+            assert term in text, f"Missing term '{term}' in {rel_path}"
+        print(f"   • OS Guide verified: {rel_path} ({len(text):,} chars, valid TOC and return links)")
+
+    print("   ✅ Deliverable 13 Verified: All OS & Platform Comprehensive Guides 100% Verified.")
+
+
 def main():
     print("=====================================================================")
     print("🚀 [D4UC V12.3.0] Deliverables Concrete Evidence Verification")
@@ -402,9 +482,15 @@ def main():
     asyncio.run(verify_hotswap_and_skip_checked())
     verify_free_proxy_engine()
     verify_android_apk()
+    verify_two_way_document_navigation()
+    verify_all_os_guides()
     print("=====================================================================")
     print("🎉 ALL DELIVERABLES VERIFIED 100% WITH CONCRETE EVIDENCE (EXIT CODE 0)!")
     print("=====================================================================")
+
+
+def test_all_deliverables_concrete_evidence():
+    main()
 
 
 if __name__ == "__main__":

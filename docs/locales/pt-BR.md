@@ -16,10 +16,10 @@
 <br />
 
 [![Última atualização: 19 nov 2026](../assets/badges/update_badge_pt.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
+[![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Licença Proprietária e Confidencial (Todos os direitos reservados)</sub>
@@ -28,6 +28,33 @@
 
 ---
 
+<a id="-índice"></a><a id="índice"></a>
+## 📑 Índice
+1. [📸 Visualização da Interface](#-visualização-da-interface)
+2. [✨ Recursos Principais](#-recursos-principais)
+3. [🖥️ Requisitos de Sistema e Dependências](#-requisitos-de-sistema-e-dependências)
+4. [📁 Estrutura de Diretórios](#-estrutura-de-diretórios)
+5. [🌐 Configuração de Proxy & 🔑 Credenciais](#-configuração-de-proxy-credenciais)
+6. [🚀 Instalação e Uso](#-instalação-e-uso)
+7. [📱 Guia de Controle Remoto via Web GUI Móvel & PWA](#-guia-de-controle-remoto-via-web-gui-móvel-pwa)
+8. [🧵 Concorrência e Quantidade de Workers](#-concorrência-e-quantidade-de-workers)
+9. [🔢 Modos de Geração de Nomes](#-modos-de-geração-de-nomes)
+10. [🚫 Regras Rígidas de Exclusão (Exemplos: `ab..`, `a..1`)](#-regras-rígidas-de-exclusão-exemplos-ab-a1)
+11. [📡 Fluxo de Execução do Verificador](#-fluxo-de-execução-do-verificador)
+12. [🔄 Gestão de Sessões de Proxy](#-gestão-de-sessões-de-proxy)
+13. [🔁 Tratamento de Falhas e Novas Tentativas](#-tratamento-de-falhas-e-novas-tentativas)
+14. [💾 Persistência dos Resultados](#-persistência-dos-resultados)
+15. [📊 Métricas e Monitoramento em Tempo Real](#-métricas-e-monitoramento-em-tempo-real)
+16. [🛑 Parando a Execução](#-parando-a-execução)
+17. [⚠️ Estratégia Contra Rate Limit (429)](#-estratégia-contra-rate-limit-429)
+18. [🔧 Solução de Problemas](#-solução-de-problemas)
+19. [📞 Suporte via Discord: myuyayam](#-suporte-via-discord-myuyayam)
+20. [⭐ Apoie o Projeto (GitHub Star)](#-apoie-o-projeto-github-star)
+21. [📚 Declaração para Fins Educacionais e de Estudo](#-declaração-para-fins-educacionais-e-de-estudo)
+
+---
+
+<a id="-visualização-da-interface"></a><a id="visualização-da-interface"></a>
 ## 📸 Visualização da Interface
 
 ### Web GUI Móvel Responsiva com Otimização ao Toque (PWA - iPhone e Android)
@@ -37,10 +64,10 @@
 [![D4UC Mobile Web Demo](../assets/mobile_web_demo_pt.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### Interface de Desktop (Edição Portuguesa)
-[![D4UC GUI Desktop Main](../assets/gui_pt_main.png)](../guides/PC_GUIDE.md)
+[![D4UC GUI Desktop Main](../assets/gui_pt_main.png)](../guides/WINDOWS_GUIDE.md)
 
 ### Demonstração Desktop em Tempo Real (Interações Fluidas com Mouse)
-[![D4UC GUI Demo](../assets/gui_pt_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_pt_demo.gif)](../guides/WINDOWS_GUIDE.md)
 
 ### Painel CLI sem Interface Gráfica
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
@@ -48,8 +75,11 @@
 ### Implantação em Contêiner Docker & Servidor Linux
 [![D4UC Docker Linux](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-recursos-principais"></a><a id="recursos-principais"></a>
 ## ✨ Recursos Principais
 
 1. **Web GUI Móvel Responsiva & Motor PWA (`http://<host>:5000`)**:
@@ -84,8 +114,11 @@
 8. **Suporte Multiplataforma Completo**:
    - Executáveis autônomos para Windows (4 edições `.exe`), PWA móvel, terminal CLI Linux/macOS, instalador Android Termux e contêineres Docker.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-requisitos-de-sistema-e-dependências"></a><a id="requisitos-de-sistema-e-dependências"></a>
 ## 🖥️ Requisitos de Sistema e Dependências
 
 ### Ambiente de Execução
@@ -102,8 +135,11 @@
 - `pyyaml >= 6.0.1`: Leitor de arquivos YAML
 - `pillow >= 10.2.0`: Processamento de imagens e renderização
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-estrutura-de-diretórios"></a><a id="estrutura-de-diretórios"></a>
 ## 📁 Estrutura de Diretórios
 
 ```text
@@ -143,8 +179,11 @@ discord-checker/
 └── SECURITY.md                     # Políticas de segurança e proteção
 ```
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-configuração-de-proxy-credenciais"></a><a id="configuração-de-proxy-credenciais"></a>
 ## 🌐 Configuração de Proxy & 🔑 Credenciais
 
 O D4UC integra um **pool de túneis WireGuard 1:1 em espaço de usuário** através do `wireproxy`, garantindo desvio de bloqueios de IP de forma isolada.
@@ -177,12 +216,15 @@ Operação 100% gratuita sem necessidade de planos VPN:
 ### 3. Política de Fuga Zero (Zero-Leak Policy)
 - Chaves privadas e configurações sensíveis são estritamente mantidas fora do Git via `.gitignore` e verificadas antes de cada publicação.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-instalação-e-uso"></a><a id="instalação-e-uso"></a>
 ## 🚀 Instalação e Uso
 
 ### Método A: Executáveis Autônomos para Windows (`.exe`)
-Baixe as versões compiladas em [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0):
+Baixe as versões compiladas em [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
 - `DiscordUsernameChecker_v12.3.0.apk`: **Pacote Nativo para Android (1 Toque)** [NOVO]
 - `DiscordUsernameCheckerV2_Web.exe`: **Servidor Web GUI Móvel & PWA (Porta 5000)** [NOVO]
 - `DiscordUsernameCheckerV2_EN.exe`: Interface desktop em inglês
@@ -224,8 +266,11 @@ python src/gui_en.py
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-guia-de-controle-remoto-via-web-gui-móvel-pwa"></a><a id="guia-de-controle-remoto-via-web-gui-móvel-pwa"></a>
 ## 📱 Guia de Controle Remoto via Web GUI Móvel & PWA
 
 Acompanhe os resultados e ajuste as opções diretamente pelo smartphone.
@@ -247,8 +292,11 @@ Acompanhe os resultados e ajuste as opções diretamente pelo smartphone.
   - Controle deslizante para escalar a quantidade de workers (1 a 50)
   - Modificação remota de chaves de proxy e configurações de rede
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-concorrência-e-quantidade-de-workers"></a><a id="concorrência-e-quantidade-de-workers"></a>
 ## 🧵 Concorrência e Quantidade de Workers
 
 - **Valor recomendado**: `5` workers (12 a 15 RPS)
@@ -258,8 +306,11 @@ Acompanhe os resultados e ajuste as opções diretamente pelo smartphone.
   - Cada worker recebe uma porta de túnel WireGuard individual (`1081`, `1082`, etc.).
   - 5 workers consultam o serviço através de 5 nós internacionais diferentes em simultâneo (Tóquio, Seul, Singapura, Frankfurt, Nova York).
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-modos-de-geração-de-nomes"></a><a id="modos-de-geração-de-nomes"></a>
 ## 🔢 Modos de Geração de Nomes
 
 | Modo | Estratégia | Detalhes e Exemplos |
@@ -273,8 +324,11 @@ Acompanhe os resultados e ajuste as opções diretamente pelo smartphone.
 | `combinatorial` | Estruturas fonéticas CVCV / VCCV | Junção de consoantes e vogais para criação de marcas inéditas |
 | `recheck` | Reinspeção de identificadores ocupados | Varre nomes já tomados para capturar contas excluídas ou alteradas |
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-regras-rígidas-de-exclusão-exemplos-ab-a1"></a><a id="regras-rígidas-de-exclusão-exemplos-ab-a1"></a>
 ## 🚫 Regras Rígidas de Exclusão (Exemplos: `ab..`, `a..1`)
 
 Nomes fora dos padrões da plataforma são **100% excluídos antes do envio de tráfego**:
@@ -295,8 +349,11 @@ Nomes fora dos padrões da plataforma são **100% excluídos antes do envio de t
 
 > Validação executada por `DiscordRuleValidator.is_valid()` em `src/generator/base.py` e comprovada por 84 testes unitários.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-fluxo-de-execução-do-verificador"></a><a id="fluxo-de-execução-do-verificador"></a>
 ## 📡 Fluxo de Execução do Verificador
 
 ```mermaid
@@ -324,23 +381,32 @@ sequenceDiagram
     end
 ```
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-gestão-de-sessões-de-proxy"></a><a id="gestão-de-sessões-de-proxy"></a>
 ## 🔄 Gestão de Sessões de Proxy
 
 - **Sessões assíncronas isoladas**: Cada thread gerencia sua instância de `curl_cffi.requests.AsyncSession` reutilizando conexões TCP Keep-Alive.
 - **Finalização segura**: No encerramento, todos os subprocessos do `wireproxy` são eliminados sem deixar processos órfãos (Zero-Zombie).
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-tratamento-de-falhas-e-novas-tentativas"></a><a id="tratamento-de-falhas-e-novas-tentativas"></a>
 ## 🔁 Tratamento de Falhas e Novas Tentativas
 
 1. **Falhas de DNS e timeouts de rede**: Recuo exponencial (0.5s ➔ 1.0s ➔ 2.0s) em até 3 tentativas.
 2. **Desafios WAF Cloudflare**: Descarte da sessão e reinicialização imediata do túnel.
 3. **Limite de taxa 429**: Reenfileiramento do candidato e migração instantânea para novo IP em 0.3s.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-persistência-dos-resultados"></a><a id="persistência-dos-resultados"></a>
 ## 💾 Persistência dos Resultados
 
 | Caminho | Formato | Aplicação |
@@ -352,8 +418,11 @@ sequenceDiagram
 | `available_usernames.csv` | Formato CSV | Dados em tabela para planilhas e análises |
 | `available_usernames.json`| Formato JSON | Estrutura para integrações com APIs e dashboards |
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-métricas-e-monitoramento-em-tempo-real"></a><a id="métricas-e-monitoramento-em-tempo-real"></a>
 ## 📊 Métricas e Monitoramento em Tempo Real
 
 A Web GUI Móvel, o aplicativo desktop e o console exibem métricas a cada 30 ms:
@@ -364,23 +433,32 @@ A Web GUI Móvel, o aplicativo desktop e o console exibem métricas a cada 30 ms
 - **429 Hot-Swaps**: Rotações de IP por limite de requisições bem-sucedidas
 - **Latency**: Tempo de resposta de ida e volta da API do Discord (ms)
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-parando-a-execução"></a><a id="parando-a-execução"></a>
 ## 🛑 Parando a Execução
 
 - **Web GUI Móvel**: Toque no botão vermelho `■ Parar Verificação`.
 - **Desktop GUI**: Clique em `■ Parar`.
 - **CLI**: Pressione `Ctrl + C` para consolidar o banco de dados e encerrar os túneis de forma segura.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-estratégia-contra-rate-limit-429"></a><a id="estratégia-contra-rate-limit-429"></a>
 ## ⚠️ Estratégia Contra Rate Limit (429)
 
 - O Discord aplica `429 Too Many Requests` quando há concentração excessiva de chamadas em um mesmo IP.
 - O D4UC distribui o fluxo por **142 túneis WireGuard** e executa o **hot-swap em 0.3s**, permitindo que os demais workers trabalhem sem paralisação.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-solução-de-problemas"></a><a id="solução-de-problemas"></a>
 ## 🔧 Solução de Problemas
 
 | Problema | Causa | Resolução |
@@ -391,22 +469,31 @@ A Web GUI Móvel, o aplicativo desktop e o console exibem métricas a cada 30 ms
 | Caixa de diálogo do Firewall | Regra não cadastrada | Adicione as regras de Firewall no PowerShell com privilégios de Administrador. |
 | `No module named curl_cffi` | Ambiente virtual desativado | Ative o `.venv` e instale as dependências com `pip install -r requirements.txt`. |
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-suporte-via-discord-myuyayam"></a><a id="suporte-via-discord-myuyayam"></a>
 ## 📞 Suporte via Discord: myuyayam
 
 - Para sugestões, relatórios de erros ou dúvidas técnicas, entre em contato no Discord com **`myuyayam`**.
 - Para parcerias ou licenças empresariais, envie mensagem pelas Issues do GitHub ou via mensagem direta no Discord.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-apoie-o-projeto-github-star"></a><a id="apoie-o-projeto-github-star"></a>
 ## ⭐ Apoie o Projeto (GitHub Star)
 
 Se este projeto foi útil para você, deixe uma estrela **Star (⭐)** no repositório!  
 Seu incentivo e feedback mantêm esta ferramenta em constante evolução.
 
+[⬆️ Voltar ao topo](#-índice)
+
 ---
 
+<a id="-declaração-para-fins-educacionais-e-de-estudo"></a><a id="declaração-para-fins-educacionais-e-de-estudo"></a>
 ## 📚 Declaração para Fins Educacionais e de Estudo
 
 > **[Aviso Exclusivo para Fins de Ensino e Pesquisa]**
@@ -416,3 +503,13 @@ Seu incentivo e feedback mantêm esta ferramenta em constante evolução.
 > 1. É terminantemente proibido o emprego desta ferramenta para ataques de negação de serviço (DoS), sobrecarga maliciosa ou reserva abusiva e comercialização de contas.
 > 2. O usuário é o único responsável pelo cumprimento dos Termos de Serviço da plataforma e das leis aplicáveis. Qualquer responsabilidade resultante do uso inadequado recai inteiramente sobre o operador.
 > 3. Os autores e colaboradores não oferecem garantias e não respondem pelas consequências do uso individual do software.
+
+[⬆️ Voltar ao topo](#-índice)
+
+---
+
+### 📚 Notas de Rodapé e Referências Técnicas
+[^1]: O handshake BoringSSL do Chrome 131 neutraliza completamente os bloqueios de impressão digital TLS do Cloudflare e WAFs modernos. [↩](#-índice)
+[^2]: O wireproxy é um binário Go leve em espaço de usuário que converte o protocolo WireGuard em proxies SOCKS5 locais isolados sem privilégios de root. [↩](#-índice)
+
+[⬆️ Voltar ao topo](#-índice)

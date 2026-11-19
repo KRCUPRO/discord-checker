@@ -16,10 +16,10 @@
 <br />
 
 [![最終更新: 2026年11月19日](../assets/badges/update_badge_ja.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)
+[![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 独占ソフトウェアライセンス (All Rights Reserved)</sub>
@@ -28,6 +28,33 @@
 
 ---
 
+<a id="-目次"></a><a id="目次"></a>
+## 📑 目次
+1. [📸 インターフェース プレビュー](#-インターフェース-プレビュー)
+2. [✨ 主な機能](#-主な機能)
+3. [🖥️ 動作要件 & 依存関係](#-動作要件-依存関係)
+4. [📁 ディレクトリ構成](#-ディレクトリ構成)
+5. [🌐 プロキシ設定 & 🔑 認証情報](#-プロキシ設定-認証情報)
+6. [🚀 インストール & 実行](#-インストール-実行)
+7. [📱 モバイル Web GUI & PWA 遠隔操作ガイド](#-モバイル-web-gui-pwa-遠隔操作ガイド)
+8. [🧵 スレッド・ワーカー数調整](#-スレッドワーカー数調整)
+9. [🔢 ユーザー名生成モード](#-ユーザー名生成モード)
+10. [🚫 生成から除外されるユーザー名 (例: `ab..`, `a..1`)](#-生成から除外されるユーザー名-例-ab-a1)
+11. [📡 チェカー実行パイプライン](#-チェカー実行パイプライン)
+12. [🔄 プロキシセッション管理](#-プロキシセッション管理)
+13. [🔁 エラー発生時の再試行](#-エラー発生時の再試行)
+14. [💾 保存ファイル形式](#-保存ファイル形式)
+15. [📊 リアルタイム統計 & モニタリング](#-リアルタイム統計-モニタリング)
+16. [🛑 チェッカーの停止](#-チェッカーの停止)
+17. [⚠️ レート制限 (Rate Limit)](#-レート制限-rate-limit)
+18. [🔧 トラブルシューティング](#-トラブルシューティング)
+19. [📞 お問い合わせ Discord : myuyayam](#-お問い合わせ-discord-myuyayam)
+20. [⭐ プロジェクトの応援 (GitHub Star)](#-プロジェクトの応援-github-star)
+21. [📚 学習および研究目的の明示](#-学習および研究目的の明示)
+
+---
+
+<a id="-インターフェース-プレビュー"></a><a id="インターフェース-プレビュー"></a>
 ## 📸 インターフェース プレビュー
 
 ### モバイルタッチ最適化レスポンシブ Web GUI (PWA - iPhone & Android)
@@ -37,10 +64,10 @@
 [![D4UC Mobile Web Demo](../assets/mobile_web_demo_ja.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### デスクトップ GUI 実行画面 (日本語エディション)
-[![D4UC GUI Desktop Main](../assets/gui_ja_main.png)](../guides/PC_GUIDE.md)
+[![D4UC GUI Desktop Main](../assets/gui_ja_main.png)](../guides/WINDOWS_GUIDE.md)
 
 ### リアルタイム GUI 動作デモ (スムーズなマウス操作)
-[![D4UC GUI Demo](../assets/gui_ja_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI Demo](../assets/gui_ja_demo.gif)](../guides/WINDOWS_GUIDE.md)
 
 ### ヘッドレスト CLI ダッシュボード
 [![D4UC CLI Dashboard](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
@@ -48,8 +75,11 @@
 ### Docker & Linux サーバーデプロイ環境
 [![D4UC Docker Linux](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-主な機能"></a><a id="主な機能"></a>
 ## ✨ 主な機能
 
 1. **モバイルレスポンシブ Web GUI & PWA エンジン (`http://<host>:5000`)**:
@@ -85,8 +115,11 @@
 8. **クロスプラットフォーム対応**:
    - Windows 10/11 向けスタンドアロン実行ファイル（4 種の `.exe`）、モバイル Web PWA、Linux/macOS CLI、Android Termux、Docker を網羅。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-動作要件-依存関係"></a><a id="動作要件-依存関係"></a>
 ## 🖥️ 動作要件 & 依存関係
 
 ### 1. ランタイム環境
@@ -103,8 +136,11 @@
 - `pyyaml >= 6.0.1`: YAML 設定ファイル解析
 - `pillow >= 10.2.0`: UI 画像処理およびアイコン描画
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-ディレクトリ構成"></a><a id="ディレクトリ構成"></a>
 ## 📁 ディレクトリ構成
 
 ```text
@@ -144,8 +180,11 @@ discord-checker/
 └── SECURITY.md                     # セキュリティポリシー
 ```
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-プロキシ設定-認証情報"></a><a id="プロキシ設定-認証情報"></a>
 ## 🌐 プロキシ設定 & 🔑 認証情報
 
 D4UC は IP BAN や Rate Limit を回避するため、**Surfshark WireGuard 1:1 トンネルプール**を内蔵しています。
@@ -178,12 +217,15 @@ D4UC は IP BAN や Rate Limit を回避するため、**Surfshark WireGuard 1:1
 ### 3. 機密情報保護 (Zero-Leak Policy)
 - 秘密鍵、設定ファイル（`.env`, `config.yaml`）、認証情報は `.gitignore` により厳重に Git から除外されています。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-インストール-実行"></a><a id="インストール-実行"></a>
 ## 🚀 インストール & 実行
 
 ### 方法 A: Windows 向けスタンドアロン実行ファイル (`.exe`)
-Python 環境構築なしで即座に実行したい場合、[GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0) からダウンロードします：
+Python 環境構築なしで即座に実行したい場合、[GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) からダウンロードします：
 - `DiscordUsernameChecker_v12.3.0.apk`: **Android スマホ専用 1タップ パッケージ** [NEW]
 - `DiscordUsernameCheckerV2_Web.exe`: **モバイル Web GUI & PWA サーバー (ポート 5000)** [NEW]
 - `DiscordUsernameCheckerV2_EN.exe`: 英語デスクトップ GUI
@@ -225,8 +267,11 @@ python src/gui_en.py
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-モバイル-web-gui-pwa-遠隔操作ガイド"></a><a id="モバイル-web-gui-pwa-遠隔操作ガイド"></a>
 ## 📱 モバイル Web GUI & PWA 遠隔操作ガイド
 
 ベッドに横になりながらスマートフォンで探索状況を監視し、自由に設定を変更できます。
@@ -248,8 +293,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
   - ワーカー数スライダー（1〜50）によるリアルタイム動的スケール（Hot-Scale）
   - Surfshark 秘密鍵やプロキシ情報の遠隔保存
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-スレッドワーカー数調整"></a><a id="スレッドワーカー数調整"></a>
 ## 🧵 スレッド・ワーカー数調整
 
 - **推奨デフォルト値**: `5` ワーカー（RPS 約 12〜15）
@@ -259,8 +307,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
   - D4UC は 1 ワーカーごとに独立した WireGuard トンネルポート（`1081`, `1082` など）を 1:1 で割り当てます。
   - 5 ワーカーであれば、東京、ソウル、シンガポール、フランクフルト、ニューヨークなど 5 つの異なる国際エンドポイントから並行リクエストが送信されます。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-ユーザー名生成モード"></a><a id="ユーザー名生成モード"></a>
 ## 🔢 ユーザー名生成モード
 
 | モードキー | 生成戦略 | 動作詳細と例 |
@@ -274,8 +325,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
 | `combinatorial` | 音韻論的 CVCV / VCCV 構造 | 子音＋母音＋子音の組み合わせで発音可能な造語を生成 |
 | `recheck` | 既存 `TAKEN` リスト再検証 | 過去に使用中だった ID のうち、退会や変更で解放された名前を追跡 |
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-生成から除外されるユーザー名-例-ab-a1"></a><a id="生成から除外されるユーザー名-例-ab-a1"></a>
 ## 🚫 生成から除外されるユーザー名 (例: `ab..`, `a..1`)
 
 Discord の公式ユーザー名ポリシーに基づき、以下の無効なユーザー名は候補生成時に **100% 事前除外**されます：
@@ -296,8 +350,11 @@ Discord の公式ユーザー名ポリシーに基づき、以下の無効なユ
 
 > すべての検証ルールは `src/generator/base.py` の `DiscordRuleValidator.is_valid()` によって厳格に管理され、84 種のテストを通過しています。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-チェカー実行パイプライン"></a><a id="チェカー実行パイプライン"></a>
 ## 📡 チェカー実行パイプライン
 
 ```mermaid
@@ -325,23 +382,32 @@ sequenceDiagram
     end
 ```
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-プロキシセッション管理"></a><a id="プロキシセッション管理"></a>
 ## 🔄 プロキシセッション管理
 
 - **単一責務の非同期セッション**: 各ワーカーは独立した `curl_cffi.requests.AsyncSession` を保持し、Keep-Alive 効率を最大化します。
 - **リソース完全回収 (Zero-Zombie)**: 終了時にはすべての非同期セッションとバックグラウンド `wireproxy` プロセスを安全に終了します。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-エラー発生時の再試行"></a><a id="エラー発生時の再試行"></a>
 ## 🔁 エラー発生時の再試行
 
 1. **一時的なネットワークタイムアウト / DNS エラー**: 指数バックオフ（0.5s ➔ 1.0s ➔ 2.0s）を適用し最大 3 回自動再試行。
 2. **Cloudflare WAF チャレンジ検知**: セッションを破棄し、トンネルを即時リセット。
 3. **429 Rate Limit 検知**: 候補を再試行キューに保持したまま、該当ワーカーのみ 0.3 秒で新ノードへホットスワップ。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-保存ファイル形式"></a><a id="保存ファイル形式"></a>
 ## 💾 保存ファイル形式
 
 | ファイルパス | 形式 | 用途と特徴 |
@@ -353,8 +419,11 @@ sequenceDiagram
 | `available_usernames.csv` | CSV 形式 | 外部分析ツール連携用スプレッドシートデータ |
 | `available_usernames.json`| JSON 形式 | REST API およびダッシュボード連携用構造化データ |
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-リアルタイム統計-モニタリング"></a><a id="リアルタイム統計-モニタリング"></a>
 ## 📊 リアルタイム統計 & モニタリング
 
 モバイル Web GUI、デスクトップ GUI、CLI ダッシュボードで以下の指標がリアルタイム表示されます：
@@ -365,23 +434,32 @@ sequenceDiagram
 - **429 Hot-Swaps**: レート制限によるノード切り替え成功回数
 - **Latency**: 各トンネルの Discord API 往復応答時間 (ms)
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-チェッカーの停止"></a><a id="チェッカーの停止"></a>
 ## 🛑 チェッカーの停止
 
 - **モバイル Web GUI**: 画面下の赤い `■ 探索停止` ボタンをタップすると即時停止します。
 - **デスクトップ GUI**: 上部の `■ 停止` ボタンを押すと安全にキューがフラッシュされ待機状態に戻ります。
 - **CLI**: `Ctrl + C` を入力すると、安全にチェックポイントを保存し全トンネルを終了します。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-レート制限-rate-limit"></a><a id="レート制限-rate-limit"></a>
 ## ⚠️ レート制限 (Rate Limit)
 
 - Discord API は同一 IP からの過剰なリクエストに対して `429 Too Many Requests` を返します。
 - D4UC は 142 箇所のグローバル WireGuard トンネルプールによりトラフィックを分散し、429 を受けたトンネルのみを 0.3 秒で自動切り替えるため、探索を止めることなく永続稼働が可能です。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-トラブルシューティング"></a><a id="トラブルシューティング"></a>
 ## 🔧 トラブルシューティング
 
 | 症状 | 原因 | 解決策 |
@@ -392,22 +470,31 @@ sequenceDiagram
 | ファイアウォール許可ダイアログが出る | Defender ルール未登録 | 管理者 PowerShell でファイアウォール許可ルールを登録してください。 |
 | `No module named curl_cffi` | 仮想環境が有効化されていない | `.venv` をアクティベートし、`pip install -r requirements.txt` を実行してください。 |
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-お問い合わせ-discord-myuyayam"></a><a id="お問い合わせ-discord-myuyayam"></a>
 ## 📞 お問い合わせ Discord : myuyayam
 
 - 機能提案、バグ報告、技術的なサポートは Discord **`myuyayam`** までご連絡ください。
 - エンタープライズやビジネス利用に関するご相談は GitHub Issues または Discord DM をご利用ください。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-プロジェクトの応援-github-star"></a><a id="プロジェクトの応援-github-star"></a>
 ## ⭐ プロジェクトの応援 (GitHub Star)
 
 このプロジェクトが役立ちましたら、リポジトリ右上の **Star (⭐)** を押して応援をお願いいたします！  
 皆様のフィードバックが開発の大きな励みになります。
 
+[⬆️ 目次へ戻る](#-目次)
+
 ---
 
+<a id="-学習および研究目的の明示"></a><a id="学習および研究目的の明示"></a>
 ## 📚 学習および研究目的の明示
 
 > **[学習・研究目的の免責事項 — Educational & Research Purpose Only]**
@@ -417,3 +504,13 @@ sequenceDiagram
 > 1. 本ツールを使用した過剰なトラフィック誘発、サービス妨害（DoS）、プラットフォーム運営の妨害、アカウントの不当な買い占めや転売行為を固く禁止します。
 > 2. 利用者は対象プラットフォームの利用規約（Terms of Service）および関連法規を遵守する義務を負い、本ツールの利用により生じた一切の責任は実行者自身に帰属します。
 > 3. 開発者および貢献者は、利用者の個別の運用結果についていかなる保証や法的責任も負いません。
+
+[⬆️ 目次へ戻る](#-目次)
+
+---
+
+### 📚 脚注および技術参考文献
+[^1]: Chrome 131 BoringSSLハンドシェイクは、WAFのTLSフィンガープリントによる遮断を完全に無力化します。[↩](#-目次)
+[^2]: wireproxyは、管理者権限なしにWireGuardプロトコルを独立したローカルSOCKS5プロキシに変換する軽量Goバイナリです。[↩](#-目次)
+
+[⬆️ 目次へ戻る](#-目次)

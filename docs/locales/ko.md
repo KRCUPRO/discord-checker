@@ -16,10 +16,10 @@
 <br />
 
 [![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
+[![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 독점 소프트웨어 라이선스 (All Rights Reserved)</sub>
@@ -28,6 +28,33 @@
 
 ---
 
+<a id="-목차"></a><a id="목차"></a>
+## 📑 목차
+1. [📸 인터페이스 미리보기](#-인터페이스-미리보기)
+2. [✨ 주요 기능](#-주요-기능)
+3. [🖥️ 필수 환경 & 필요한 라이브러리](#-필수-환경-필요한-라이브러리)
+4. [📁 프로젝트 구조](#-프로젝트-구조)
+5. [🌐 프록시 설정 & 🔑 프록시 인증 정보](#-프록시-설정-프록시-인증-정보)
+6. [🚀 설치 및 실행](#-설치-및-실행)
+7. [📱 모바일 웹 GUI & PWA 원격 제어 가이드](#-모바일-웹-gui-pwa-원격-제어-가이드)
+8. [🧵 스레드 개수 설정](#-스레드-개수-설정)
+9. [🔢 사용자명 생성 방식](#-사용자명-생성-방식)
+10. [🚫 생성에서 제외되는 사용자명 (예시: `ab..`, `a..1`)](#-생성에서-제외되는-사용자명-예시-ab-a1)
+11. [📡 사용자명 체커 동작](#-사용자명-체커-동작)
+12. [🔄 프록시 Session 관리](#-프록시-session-관리)
+13. [🔁 오류 발생 시 재시도](#-오류-발생-시-재시도)
+14. [💾 결과 파일](#-결과-파일)
+15. [📊 실시간 체커 통계](#-실시간-체커-통계)
+16. [🛑 체커 중지](#-체커-중지)
+17. [⚠️ Rate Limit](#-rate-limit)
+18. [🔧 문제 해결](#-문제-해결)
+19. [📞 문의 디스코드 : myuyayam](#-문의-디스코드-myuyayam)
+20. [⭐ 프로젝트 지원 (GitHub Star)](#-프로젝트-지원-github-star)
+21. [📚 공부 및 학습 목적](#-공부-및-학습-목적)
+
+---
+
+<a id="-인터페이스-미리보기"></a><a id="인터페이스-미리보기"></a>
 ## 📸 인터페이스 미리보기
 
 ### 모바일 터치 최적화 반응형 웹 GUI (PWA - iPhone & Android)
@@ -37,10 +64,10 @@
 [![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### 데스크톱 GUI 실행 화면
-[![D4UC GUI 메인 화면](../assets/gui_ko_main.png)](../guides/PC_GUIDE.md)
+[![D4UC GUI 메인 화면](../assets/gui_ko_main.png)](../guides/WINDOWS_GUIDE.md)
 
 ### 실시간 GUI 동작 데모 (자연스러운 마우스 조작)
-[![D4UC GUI 동작 데모](../assets/gui_ko_demo.gif)](../guides/PC_GUIDE.md)
+[![D4UC GUI 동작 데모](../assets/gui_ko_demo.gif)](../guides/WINDOWS_GUIDE.md)
 
 ### 헤드리스 CLI 대시보드
 [![D4UC CLI 대시보드](../assets/cli_dashboard.png)](../guides/TERMUX_DEBIAN_GUIDE.md)
@@ -48,8 +75,11 @@
 ### Docker & Linux 서버 배포 환경
 [![D4UC Docker Linux 환경](../assets/docker_linux_capture.png)](../guides/DOCKER_GUIDE.md)
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-주요-기능"></a><a id="주요-기능"></a>
 ## ✨ 주요 기능
 
 1. **모바일 반응형 웹 GUI & PWA 엔진 (`http://<host>:5000`)**:
@@ -85,8 +115,11 @@
 8. **크로스 플랫폼 지원**:
    - Windows 10/11 전용 4종 단독 실행 파일(`.exe`), 모바일 웹 PWA, Linux/macOS 헤드리스 CLI, Android Termux 모바일 원클릭 스크립트, Multi-Arch Docker 컨테이너를 모두 제공합니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-필수-환경-필요한-라이브러리"></a><a id="필수-환경-필요한-라이브러리"></a>
 ## 🖥️ 필수 환경 & 필요한 라이브러리
 
 ### 1. 런타임 요구 사양
@@ -103,8 +136,11 @@
 - `pyyaml >= 6.0.1`: YAML 설정 파일 파싱
 - `pillow >= 10.2.0`: GUI 이미지 처리 및 아이콘 렌더링
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-프로젝트-구조"></a><a id="프로젝트-구조"></a>
 ## 📁 프로젝트 구조
 
 ```text
@@ -163,8 +199,11 @@ discord-checker/
 └── SECURITY.md                     # 보안 및 시크릿 유출 방지 가이드라인
 ```
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-프록시-설정-프록시-인증-정보"></a><a id="프록시-설정-프록시-인증-정보"></a>
 ## 🌐 프록시 설정 & 🔑 프록시 인증 정보
 
 D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark WireGuard 유저스페이스 1:1 터널 풀**을 탑재하고 있습니다.
@@ -201,12 +240,15 @@ D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark 
 - 개인키, 설정 파일(`.env`, `config.yaml`), 프록시 자격증명 파일은 프로젝트 내의 `.gitignore`에 의해 엄격히 제외되어 있습니다.
 - 깃허브 커밋이나 외부에 절대 노출되지 않도록 설계되어 있으며, 커밋 시 자동으로 비밀값 유출 여부를 정밀 검사합니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-설치-및-실행"></a><a id="설치-및-실행"></a>
 ## 🚀 설치 및 실행
 
 ### 방법 A: Windows 전용 실행 파일 (`.exe`) & 안드로이드 패키지 (`.apk`) — 무설치 원클릭
-Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.3.0)에서 설치 파일을 다운로드합니다:
+Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)에서 설치 파일을 다운로드합니다:
 - `DiscordUsernameChecker_v12.3.0.apk`: **안드로이드 스마트폰 전용 1-탭 설치 패키지** [NEW]
 - `DiscordUsernameCheckerV2_Web.exe`: **모바일 웹 GUI & PWA 서버 (포트 5000)**
 - `DiscordUsernameCheckerV2_KO.exe`: 한국어 데스크톱 GUI
@@ -250,8 +292,11 @@ python src/gui_ko.py
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-모바일-웹-gui-pwa-원격-제어-가이드"></a><a id="모바일-웹-gui-pwa-원격-제어-가이드"></a>
 ## 📱 모바일 웹 GUI & PWA 원격 제어 가이드
 
 스마트폰에서 침대에 누워 편안하게 희귀 닉네임 탐색을 감시하고 제어할 수 있습니다.
@@ -273,8 +318,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
   - 워커 슬라이더(1~50개)를 통한 동시성 실시간 무중단 확장/축소 (Hot-Scale)
   - Surfshark WireGuard 개인키 및 프록시 설정 모바일에서 원격 저장
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-스레드-개수-설정"></a><a id="스레드-개수-설정"></a>
 ## 🧵 스레드 개수 설정
 
 - **기본 권장값**: `5` 워커 (RPS 약 12~15)
@@ -285,8 +333,11 @@ python src/run.py --mode hybrid --length 4 --workers 5
   - 워커 수가 5개이면 로컬 포트 `1081`, `1082`, `1083`, `1084`, `1085`가 각각 독립된 국가 엔드포인트(예: 일본, 한국, 싱가포르, 미국, 독일)로 라우팅됩니다.
   - 따라서 스레드를 늘려도 IP가 분산되므로 Discord 서버로부터 429 차단을 맞을 확률이 대폭 감소합니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-사용자명-생성-방식"></a><a id="사용자명-생성-방식"></a>
 ## 🔢 사용자명 생성 방식
 
 D4UC는 탐색 목적에 맞는 **8가지 생성 엔진**을 제공합니다:
@@ -302,8 +353,11 @@ D4UC는 탐색 목적에 맞는 **8가지 생성 엔진**을 제공합니다:
 | `combinatorial` | 음운학적 CVCV / VCCV 구조 | 자음+모음+자음 조합으로 발음 가능한 신규 브랜드명 생성 |
 | `recheck` | 기존 `TAKEN` 목록 재점검 | 과거 선점되었던 닉네임 중 회원 탈퇴/변경으로 풀린 계정 추적 |
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-생성에서-제외되는-사용자명-예시-ab-a1"></a><a id="생성에서-제외되는-사용자명-예시-ab-a1"></a>
 ## 🚫 생성에서 제외되는 사용자명 (예시: `ab..`, `a..1`)
 
 Discord 사용자명 정책(Community Guidelines & Username Rules)에 위배되는 잘못된 닉네임은 시간과 네트워크 자원을 낭비하지 않도록 **후보 생성 단계에서 100% 사전에 제외**됩니다:
@@ -324,8 +378,11 @@ Discord 사용자명 정책(Community Guidelines & Username Rules)에 위배되�
 
 > 모든 규칙은 `src/generator/base.py`의 `DiscordRuleValidator.is_valid()`에 의해 엄격하게 검증되며, `tests/test_exclusion_rules.py`의 84개 테스트를 통해 무결성이 입증되었습니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-사용자명-체커-동작"></a><a id="사용자명-체커-동작"></a>
 ## 📡 사용자명 체커 동작
 
 ```mermaid
@@ -353,8 +410,11 @@ sequenceDiagram
     end
 ```
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-프록시-session-관리"></a><a id="프록시-session-관리"></a>
 ## 🔄 프록시 Session 관리
 
 - **단일 책임 비동기 세션**:
@@ -363,8 +423,11 @@ sequenceDiagram
 - **연결 누수 0%**:
   - 체커 종료 시 등록된 모든 비동기 세션을 정상 `close()`하며, 백그라운드 Wireproxy 서브프로세스를 완전히 회수(Zero-Zombie)합니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-오류-발생-시-재시도"></a><a id="오류-발생-시-재시도"></a>
 ## 🔁 오류 발생 시 재시도
 
 1. **일시적 네트워크 타임아웃 / DNS 오류**:
@@ -374,8 +437,11 @@ sequenceDiagram
 3. **429 Rate Limit 감지**:
    - 즉시 쿨다운 큐로 이동하고, 해당 터널은 0.3초 내에 새로운 국가 엔드포인트로 핫스왑됩니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-결과-파일"></a><a id="결과-파일"></a>
 ## 💾 결과 파일
 
 탐색 결과는 무결성을 보장하기 위해 다중 계층으로 영구 보존됩니다:
@@ -389,8 +455,11 @@ sequenceDiagram
 | `available_usernames.csv` | CSV 포맷 | 타 분석 툴 연동용 스프레드시트 포맷 |
 | `available_usernames.json`| JSON 포맷 | REST API 및 웹 대시보드 연동용 구조화 데이터 |
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-실시간-체커-통계"></a><a id="실시간-체커-통계"></a>
 ## 📊 실시간 체커 통계
 
 모바일 웹 GUI, 데스크톱 GUI 상단 카드 및 CLI 대시보드를 통해 다음 지표가 30ms 단위로 실시간 렌더링됩니다:
@@ -401,23 +470,32 @@ sequenceDiagram
 - **429 Hot-Swaps**: 무중단 원자적 프록시 노드 교체 성공 횟수
 - **Latency**: 각 터널별 Discord API 응답 왕복 시간(ms)
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-체커-중지"></a><a id="체커-중지"></a>
 ## 🛑 체커 중지
 
 - **모바일 웹 GUI**: 하단의 붉은색 `■ 탐색 중지` 버튼을 탭하면 즉시 새로운 요청 발송이 중단되고 대기 상태로 전환됩니다.
 - **데스크톱 GUI**: 상단의 `■ 중지` 버튼을 누르면 즉시 세션이 안전하게 플러시된 후 0.5초 이내에 대기 상태로 전환됩니다.
 - **CLI**: `Ctrl + C` 인터럽트 신호 입력 시 `SIGINT` 핸들러가 동작하여 SQLite WAL 체크포인트를 안전하게 커밋하고 모든 백그라운드 프록시 포트를 정리한 후 정상 종료됩니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-rate-limit"></a><a id="rate-limit"></a>
 ## ⚠️ Rate Limit
 
 - Discord API는 단일 IP 주소당 짧은 시간 내 과도한 요청이 발생할 경우 `429 Too Many Requests` 상태와 함께 `retry_after` 헤더를 반환합니다.
 - D4UC는 단일 IP에 부하를 집중시키지 않고 **142개 글로벌 WireGuard 터널 풀을 워커 단위로 분산 라우팅**하므로, 특정 터널이 Rate Limit에 도달해도 0.3초 만에 새 터널로 교체되어 작업이 영구 지속됩니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-문제-해결"></a><a id="문제-해결"></a>
 ## 🔧 문제 해결
 
 | 증상 | 원인 | 해결 방법 |
@@ -428,22 +506,31 @@ sequenceDiagram
 | 방화벽 허용 팝업이 뜨는 경우 | Windows Defender 방화벽 미등록 | PowerShell 관리자 권한으로 방화벽 허용 규칙을 등록하세요 (`docs/guides/PC_GUIDE.md` 참조). |
 | `No module named curl_cffi` | 가상환경 미활성화 | `.venv\Scripts\activate` 후 `pip install -r requirements.txt`를 실행하세요. |
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-문의-디스코드-myuyayam"></a><a id="문의-디스코드-myuyayam"></a>
 ## 📞 문의 디스코드 : myuyayam
 
 - 기능 건의, 버그 제보, 기술 문의는 디스코드 **`myuyayam`** 으로 연락주시기 바랍니다.
 - 비즈니스 및 엔터프라이즈 라이선스 관련 문의는 GitHub Repository Issues 또는 Discord DM을 이용해주세요.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-프로젝트-지원-github-star"></a><a id="프로젝트-지원-github-star"></a>
 ## ⭐ 프로젝트 지원 (GitHub Star)
 
 이 프로젝트가 마음에 드셨다면 저장소 우측 상단의 **Star(⭐)** 버튼을 눌러 응원해주세요!  
 여러분의 스타와 피드백은 오픈소스 엔진 개발에 가장 큰 원동력이 됩니다.
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="-공부-및-학습-목적"></a><a id="공부-및-학습-목적"></a>
 ## 📚 공부 및 학습 목적
 
 > **[학습 및 연구 목적 고지 — Educational & Research Purpose Only]**
@@ -453,3 +540,13 @@ sequenceDiagram
 > 1. 본 도구를 사용하여 특정 서비스에 대한 과도한 트래픽 유발, 서비스 거부(DoS), 시스템 운영 방해, 계정 무단 선점 등의 남용 행위를 엄격히 금지합니다.
 > 2. 사용자는 해당 플랫폼의 서비스 이용약관(Terms of Service)과 관련 법령을 반드시 준수해야 하며, 본 도구의 부적절한 사용으로 인해 발생하는 모든 법적·행정적 책임은 전적으로 실행자 본인에게 있습니다.
 > 3. 개발자 및 기여자는 사용자의 개별적 운용 결과에 대해 일체의 법적 보증이나 책임을 부담하지 않습니다.
+
+[⬆️ 목차 맨 위로 이동](#-목차)
+
+---
+
+### 📚 각주 및 기술 참고문헌
+[^1]: Chrome 131 BoringSSL 핸드셰이크는 WAF의 TLS 핑거프린팅 차단을 원천 무력화합니다. [↩](#-목차)
+[^2]: wireproxy는 사용자 영역에서 WireGuard 프로토콜을 SOCKS5 프록시로 변환하는 경량 Go 바이너리입니다. [↩](#-목차)
+
+[⬆️ 목차 맨 위로 이동](#-목차)
