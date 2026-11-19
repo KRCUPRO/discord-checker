@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <a href="./ja.md">🇯🇵 日本語</a> · <a href="./zh-CN.md">🇨🇳 中文</a> · <a href="./es.md">🇪🇸 Español</a> · <strong>🇩🇪 Deutsch</strong><br />
-  <a href="./fr.md">🇫🇷 Français</a> · <a href="./pt-BR.md">🇧🇷 Português</a> · <a href="./ru.md">🇷🇺 Русский</a> · <a href="./hi.md">🇮🇳 हिन्दी</a> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **Hochleistungs-Prüfmaschine für seltene Discord-Benutzernamen — Chrome 131 TLS-Tarnung, isolierter 1:1 Multi-Tunnel-Pool & SQLite WAL-Sharding.**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,20 @@ Lizenziert unter der [PROPRIETARY & CONFIDENTIAL SOFTWARE LICENSE](../../LICENSE
 Hinweise zu Drittanbieter-Komponenten finden Sie in [NOTICE](../../NOTICE).
 
 </details>
+
+---
+
+## 🚫 Ausgeschlossene Benutzernamen (Beispiele: `ab..`, `a..1`)
+
+Gemäß den offiziellen Discord-Richtlinien werden folgende ungültige Muster zu 100% vorab gefiltert:
+1. **Aufeinanderfolgende Punkte verboten (`..`)**:
+   - `ab..` (Am Ende) ➔ **Ausgeschlossen**
+   - `a..1` (In der Mitte) ➔ **Ausgeschlossen**
+   - `..kr` (Am Anfang) ➔ **Ausgeschlossen**
+2. **Punkt am Anfang oder Ende verboten (`.`)**: `.abc`, `abc.` ➔ **Ausgeschlossen**
+3. **Erlaubte Zeichen**: Nur Kleinbuchstaben (`a-z`), Ziffern (`0-9`), Unterstrich (`_`) und Einzelpunkt (`.`).
+4. **Reservierte Begriffe**: `discord`, `clyde`, `system`, `everyone` werden automatisch blockiert.
+
+## 📞 Discord Kontakt : myuyayam
+
+Fragen und Support via Discord: **`myuyayam`**.

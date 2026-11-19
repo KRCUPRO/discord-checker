@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <a href="./ja.md">🇯🇵 日本語</a> · <a href="./zh-CN.md">🇨🇳 中文</a> · <a href="./es.md">🇪🇸 Español</a> · <a href="./de.md">🇩🇪 Deutsch</a><br />
-  <strong>🇫🇷 Français</strong> · <a href="./pt-BR.md">🇧🇷 Português</a> · <a href="./ru.md">🇷🇺 Русский</a> · <a href="./hi.md">🇮🇳 हिन्दी</a> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **Moteur Haute Performance de Vérification de Noms d'Utilisateur Discord — Usurpation TLS Chrome 131, Pool Multi-Tunnels Isolé 1:1 & Sharding SQLite WAL.**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,19 @@ Sous licence [PROPRIETARY & CONFIDENTIAL SOFTWARE LICENSE](../../LICENSE).
 Les mentions des composants open source tiers figurent dans [NOTICE](../../NOTICE).
 
 </details>
+
+---
+
+## 🚫 Noms d'utilisateur Exclus (Exemples: `ab..`, `a..1`)
+
+Conformément aux règles d'identifiants de Discord, les motifs suivants sont exclus à 100% avant toute requête:
+1. **Points consécutifs interdits (`..`)**:
+   - `ab..` (Points consécutifs à la fin) ➔ **Exclu**
+   - `a..1` (Points consécutifs au milieu) ➔ **Exclu**
+   - `..kr` (Points consécutifs au début) ➔ **Exclu**
+2. **Point en début ou fin interdit (`.`)**: `.abc`, `abc.` ➔ **Exclu**
+3. **Caractères valides**: Uniquement minuscules (`a-z`), chiffres (`0-9`), souligné (`_`) et point unique (`.`).
+
+## 📞 Contact Discord : myuyayam
+
+Support et questions sur Discord : **`myuyayam`**.

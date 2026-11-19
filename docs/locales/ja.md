@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <strong>🇯🇵 日本語</strong> · <a href="./zh-CN.md">🇨🇳 中文</a> · <a href="./es.md">🇪🇸 Español</a> · <a href="./de.md">🇩🇪 Deutsch</a><br />
-  <a href="./fr.md">🇫🇷 Français</a> · <a href="./pt-BR.md">🇧🇷 Português</a> · <a href="./ru.md">🇷🇺 Русский</a> · <a href="./hi.md">🇮🇳 हिन्दी</a> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **高性能 Discord 希少ユーザー名空き状況チェッカー — Chrome 131 TLS 偽装・1:1 隔離マルチトンネルプール・SQLite WAL シャーディング対応。**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,22 @@ Copyright (c) 2026 **KRCUPRO**. All Rights Reserved.
 サードパーティライブラリの権利表記は [NOTICE](../../NOTICE) をご確認ください。
 
 </details>
+
+---
+
+## 🚫 生成から除外されるユーザー名 (例: `ab..`, `a..1`)
+
+Discord の公式ユーザー名ポリシーに基づき、以下の無効なユーザー名は候補生成時に 100% 事前除外されます：
+1. **連続したドット (`..`) の禁止**:
+   - `ab..` (末尾の連続ドット) ➔ **自動除外**
+   - `a..1` (中間の連続ドット) ➔ **自動除外**
+   - `..kr` (先頭の連続ドット) ➔ **自動除外**
+2. **先頭および末尾の単一ドット (`.`) の禁止**: `.abc`, `abc.` ➔ **自動除外**
+3. **使用可能文字**: 英小文字 (`a-z`), 数字 (`0-9`), アンダースコア (`_`), 単一ドット (`.`) のみ許可
+4. **予約語除外**: `discord`, `clyde`, `system`, `everyone` などのシステム予約語は自動フィルタリング
+
+> 全ての検証ロジックは `DiscordRuleValidator.is_valid()` によって厳密に管理され、84 種のテストを通過しています。
+
+## 📞 お問い合わせ Discord : myuyayam
+
+ご質問やサポートは Discord **`myuyayam`** までお問い合わせください。

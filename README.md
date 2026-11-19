@@ -1,191 +1,228 @@
 <div align="center">
 
-<p align="center">
-  <strong>🇺🇸 English</strong> · <a href="./docs/locales/ko.md">🇰🇷 한국어</a> · <a href="./docs/locales/ja.md">🇯🇵 日本語</a> · <a href="./docs/locales/zh-CN.md">🇨🇳 中文</a> · <a href="./docs/locales/es.md">🇪🇸 Español</a> · <a href="./docs/locales/de.md">🇩🇪 Deutsch</a><br />
-  <a href="./docs/locales/fr.md">🇫🇷 Français</a> · <a href="./docs/locales/pt-BR.md">🇧🇷 Português</a> · <a href="./docs/locales/ru.md">🇷🇺 Русский</a> · <a href="./docs/locales/hi.md">🇮🇳 हिन्दी</a> · <a href="./docs/locales/ar.md">🇸🇦 العربية</a> · <a href="./docs/locales/id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+# ⚡ D4UC (`discord-checker`) v12.1.0
 
-# ⚡ D4UC (`discord-checker`)
+> **High-Performance Discord Rare Username Availability Engine**  
+> Chrome 131 TLS Impersonation · 1:1 Isolated Multi-Tunnel Pool · 0.3s Atomic 429 Hot-Swap · SQLite WAL Sharding
 
-> **High-Performance Discord Rare Username Availability Engine — Chrome 131 TLS Impersonation, 1:1 Isolated Multi-Tunnel Pool & SQLite WAL Sharding.**
+<br />
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+| [KR 한국어](./docs/locales/ko.md) | [US English](./README.md) | [JP 日本語](./docs/locales/ja.md) | [CN 简体中文](./docs/locales/zh-CN.md) | [ES Español](./docs/locales/es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./docs/locales/fr.md) | [DE Deutsch](./docs/locales/de.md) | [RU Русский](./docs/locales/ru.md) | [BR Português](./docs/locales/pt-BR.md) | [SA العربية](./docs/locales/ar.md) |
+| [HI हिन्दी](./docs/locales/hi.md) | [ID Bahasa Indonesia](./docs/locales/id.md) | | | |
+
+<br />
+
+[![Last Updated: 2026-11-19](docs/assets/badges/update_badge_en.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](docs/GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Termux%20%7C%20Docker-purple.svg)](docs/GUIDE.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](docs/specs/01_NETWORK_CORE_ENGINE.md)
 
-<sub>Copyright (c) 2026 KRCUPRO · Licensed under Proprietary & Confidential (All Rights Reserved)</sub>
+<sub>Copyright (c) 2026 KRCUPRO · Proprietary & Confidential License (All Rights Reserved)</sub>
 
 </div>
 
 ---
 
-<details open>
-<summary><b>🌟 Overview & Key Capabilities</b></summary>
+## 📸 Interface Previews
 
-Traditional username checkers fail against modern edge defenses due to three recurring bottlenecks:
-1. **TLS Fingerprint Blocking**: Standard HTTP libraries trigger Cloudflare/WAF challenges immediately via synthetic JA3/JA4 signatures.
-2. **Host-Wide VPN Disruptions**: Running a desktop VPN client hijacks your entire machine's network interface and DNS.
-3. **429 Cascade Stalls & Multi-Process Collisions**: Hitting rate limits stalls all concurrent workers, while launching multiple instances corrupts shared result files.
+### Desktop GUI (English Edition)
+![D4UC Desktop GUI](docs/assets/gui_en_main.png)
 
-**D4UC (`discord-checker`)** solves all three cleanly inside an isolated, cross-platform architecture:
-- **Chrome 131 TLS JA3/JA4 Stealth**: Powered by `curl_cffi` (BoringSSL) with synchronized HTTP headers matching real Chrome 131 browser handshakes.
-- **1:1 User-Space WireGuard Tunnels (`wireproxy`)**: Maps 142 global endpoints onto isolated local ports (`127.0.0.1:1081+`) per worker — zero OS network adapter changes, zero traffic impact on your main system.
-- **0.3s Atomic 429 Hot-Swap**: Only the rate-limited worker rotates cleanly to a fresh country node while sibling workers keep running uninterrupted.
-- **Mathematical Sharding & SQLite WAL Sync**: Split exhaustive scans across 2, 3, or 4 disjoint slices (`2_1`, `2_2`, `4_1`–`4_4`) writing concurrently to `data/d4uc_results.db` with zero duplicate checks.
+### Real-Time GUI Execution Demo (Smooth Mouse Interactions)
+![D4UC GUI Demo](docs/assets/gui_en_demo.gif)
 
-</details>
+### Headless CLI Dashboard
+![D4UC CLI Dashboard](docs/assets/cli_dashboard.png)
 
 ---
 
-<details open>
-<summary><b>🥊 Comparison Matrix: Legacy Scripts vs D4UC v12</b></summary>
+## ✨ Key Capabilities
 
-| Capability | Legacy Username Scripts | ⚡ D4UC v12 (`discord-checker`) |
-| :--- | :---: | :---: |
-| **TLS Handshake Stealth** | ❌ `requests` / `aiohttp` fingerprint flagged | **✅ BoringSSL Chrome 131 JA3/JA4 Impersonation** |
-| **Host Network Isolation** | ❌ Full-system VPN required | **✅ User-Space `wireproxy` HTTP/SOCKS5 Pool (1:1 per worker)** |
-| **429 Rate-Limit Recovery** | ❌ Global pause or worker crash | **✅ 0.3s Per-Worker Atomic Hot-Swap + Cooldown Queue** |
-| **Multi-Instance Sharding** | ❌ Duplicate checks & file race conditions | **✅ Disjoint Math Shards + SQLite WAL Concurrent Sync** |
-| **Platforms & UI** | ⚠️ CLI script only | **✅ Desktop GUI (KO/EN), Rich CLI, Android Termux & Multi-Arch Docker** |
-| **Secret & Clean-Repo Hygiene** | ⚠️ Risk of hardcoded keys | **✅ Strict `.gitignore`, `.env` injection & Dummy Templates** |
+1. **Chrome 131 TLS JA3/JA4 Stealth (`curl_cffi` BoringSSL)**:
+   - Eliminates detectable synthetic TLS signatures generated by standard Python HTTP libraries (`requests`, `aiohttp`, `httpx`).
+   - Bit-for-bit identical Cipher Suites, Extensions, Supported Groups, and HTTP/2 SETTINGS frames mirroring official Google Chrome 131 to bypass Cloudflare/WAF challenges.
 
-</details>
+2. **1:1 User-Space WireGuard Tunnels (`wireproxy`)**:
+   - Zero host network adapter modification. Does not hijack your PC's DNS or global routing.
+   - Maps 142 global endpoints onto isolated local ports (`127.0.0.1:1081+`) per worker. Main PC traffic remains completely uninterrupted.
 
----
+3. **0.3s Atomic 429 Hot-Swap**:
+   - When a worker encounters HTTP 429 Rate Limit, only that specific worker rotates to a fresh country node within 300ms. Sibling workers keep running without stopping.
 
-<details open>
-<summary><b>🧬 8 Candidate Generation Modes & Sharding</b></summary>
+4. **Mathematical Sharding & SQLite WAL Sync**:
+   - Split exhaustive scans across 2, 3, or 4 disjoint slices (`2_1`, `2_2`, `4_1`–`4_4`) with 0 duplicate checks across instances.
+   - High-throughput concurrency backed by SQLite WAL mode (`data/d4uc_results.db`) and mirrored atomic text/CSV/JSON exports.
 
-| Mode Key | Strategy | Best Use Case |
-| :--- | :--- | :--- |
-| `hybrid` | Dictionary stems + symmetry/numeric mutations | Fast general discovery of clean usernames |
-| `permutation` | Exhaustive ordered space (`a–z`, `0–9`, `_`) | Complete coverage using 2/3/4-way sharding (`2_1`, `2_2`) |
-| `dictionary` | 3–6 letter words, syllables, pronounceable pairs | High-value readable handles |
-| `pattern` | Symmetry/repeating structures (`aaaa`, `abba`, `abab`) | Visually distinctive rare patterns |
-| `numeric` | Sequential & repeating digits (`0000`–`9999`) | Short numeric targets |
-| `custom_mask` | Prefix, suffix, middle-dot rules (`??.vip`, `kr??`) | Targeted initials, brands, and dot placement |
-| `combinatorial` | Structured phonetic CVCV / VCCV syllables | Unique pronounceable brandable handles |
-| `recheck` | Re-evaluates previously `TAKEN` records | Detecting newly freed handles |
+5. **8 Intelligent Candidate Generation Engines**:
+   - Hybrid, Permutation, Dictionary, Pattern, Numeric, Custom Mask, Combinatorial, and Recheck.
 
-</details>
+6. **Cross-Platform Deployments**:
+   - Standalone Windows `.exe`, Linux/macOS headless CLI, Android Termux one-click script, and Multi-Arch Docker containers.
 
 ---
 
-<details open>
-<summary><b>🏛️ System Architecture & Repository Layout</b></summary>
+## 🖥️ System Requirements & Dependencies
 
-```mermaid
-graph LR
-    User["UI / CLI / Termux / Docker"] --> Orch["Orchestrator & Shard Coordinator"]
-    Orch --> Gen["8 Candidate Generators"]
-    Orch --> Pool["1:1 Wireproxy Tunnel Pool (142 Countries)"]
-    Pool --> API["Target Endpoint (Chrome 131 TLS)"]
-    API --> Store["SQLite WAL DB + Legacy TXT/CSV/JSON"]
-    API --> Hook["Discord Webhook Alerts"]
-```
+### Runtime
+- **OS**: Windows 10/11 (64-bit), Linux (Debian 11+, Ubuntu 20.04+, Arch), macOS 12+ (Apple Silicon / Intel), Android 10+ (Termux)
+- **Python**: 3.10, 3.11, 3.12 (Recommended: **Python 3.12**)
+- **RAM**: Minimum 512 MB (~250 MB for 50 concurrent workers)
+
+### Dependencies (`requirements.txt`)
+- `curl_cffi >= 0.7.0`: Chrome 131 BoringSSL TLS impersonation
+- `customtkinter >= 5.2.0`: Modern dark desktop GUI
+- `rich >= 13.7.0`: Terminal live dashboard & telemetry
+- `pydantic >= 2.6.0`: Configuration validation
+- `pyyaml >= 6.0.1`: YAML config parser
+- `pillow >= 10.2.0`: UI asset rendering
+
+---
+
+## 📁 Repository Structure
 
 ```text
 discord-checker/
-├── config/                  # .env.example & config.example.yaml templates
-├── data/                    # 142-cluster public endpoint DB & credentials template
-├── deploy/                  # Dockerfile, docker-compose.yml, Termux & PyInstaller scripts
-├── docs/                    # Master guides, 11 locale translations, architecture & specs
-├── src/                     # GUI (KO/EN), Headless CLI & modular core engine
-├── tests/                   # Automated regression & concurrency test suite (68 checks)
-├── CHANGELOG.md             # Version history
-├── LICENSE                  # Proprietary & Confidential License (KRCUPRO)
-├── NOTICE                   # Third-party open-source component notices
-├── README.md                # Project entry documentation
-├── requirements.txt         # Python dependencies
-└── SECURITY.md              # Secret handling & safety guidelines
+├── config/                         # Configuration templates & .env.example
+├── data/                           # 142 WireGuard cluster endpoints & SQLite DB
+├── deploy/                         # Dockerfile, docker-compose, Termux & build scripts
+│   ├── build_exe.py                # 3-in-1 Windows standalone .exe compiler
+│   └── generate_assets.py          # High-fidelity visual asset generator
+├── docs/                           # Documentation, 11 translations, guides & assets
+│   ├── assets/                     # Screenshots, animated GIFs, SVG badges
+│   ├── guides/                     # iOS, PC, Docker, and Termux manuals
+│   └── locales/                    # 11 language translations
+├── src/                            # Modular engine source code
+│   ├── generator/                  # 8 candidate generation modes & exclusion filters
+│   ├── network/                    # Chrome 131 TLS client & backoff logic
+│   ├── notify/                     # Discord Webhook notifications
+│   ├── proxy/                      # 1:1 WireGuard tunnel pool manager
+│   ├── storage/                    # SQLite WAL & legacy file writers
+│   ├── gui_ko.py / gui_en.py       # Desktop GUI entrypoints
+│   └── run.py                      # Headless CLI entrypoint
+├── tests/                          # 84 automated unit & regression tests
+├── CHANGELOG.md                    # Detailed release history
+├── LICENSE                         # Proprietary License (KRCUPRO)
+└── SECURITY.md                     # Security & secret hygiene guidelines
 ```
-
-</details>
 
 ---
 
-<details open>
-<summary><b>🚀 Quick Start Across 4 Platforms</b></summary>
+## 🌐 Proxy Setup & 🔑 Credentials
 
-#### 1. Desktop GUI (Windows / Desktop)
+1. Copy `config/.env.example` to `.env`:
+   ```bash
+   cp config/.env.example .env
+   ```
+2. Populate your Surfshark WireGuard private keys:
+   ```ini
+   SURFSHARK_PRIVATE_KEYS=YOUR_BASE64_WIREGUARD_PRIVATE_KEY_HERE
+   D4UC_WORKERS=5
+   D4UC_WEBHOOK=https://discord.com/api/webhooks/your/token
+   ```
+3. **Zero-Leak Guarantee**: `.env` and all credential stores are gitignored.
+
+---
+
+## 🚀 Quick Start & Installation
+
+### Option 1: Standalone Windows `.exe` (Zero Setup)
+Download precompiled binaries from [GitHub Releases v12.1.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0):
+- `DiscordUsernameCheckerV2_KO.exe` (Korean Desktop GUI)
+- `DiscordUsernameCheckerV2_EN.exe` (English Desktop GUI)
+- `DiscordUsernameCheckerV2_CLI.exe` (Headless CLI Dashboard)
+
+### Option 2: Run from Source
 ```bash
 git clone https://github.com/KRCUPRO/discord-checker.git
 cd discord-checker
 python -m venv .venv
-.\.venv\Scripts\activate
+source .venv/bin/activate  # Windows: .\.venv\Scripts\activate
 pip install -r requirements.txt
 
-# Launch Korean or English GUI
-python src/gui_ko.py
+# Run GUI
 python src/gui_en.py
+
+# Run CLI
+python src/run.py --mode hybrid --length 4 --workers 5
 ```
-
-#### 2. Headless CLI & Mathematical Sharding
-```bash
-# Default Hybrid scan with 5 isolated workers
-python src/run.py
-
-# Exhaustive 4-char permutation split (Shard 1 of 2: a–m)
-python src/run.py --mode permutation --length 4 --shard 2_1 --workers 5
-
-# Streaming stdout logs for background daemons
-python src/run.py --no-dashboard
-```
-
-#### 3. Docker & Multi-Container Sharding
-```bash
-# Copy templates and set your private key
-cp config/.env.example .env
-
-# Launch single background container
-docker compose -f deploy/docker-compose.yml up -d
-
-# Launch 2-shard parallel containers (2x throughput)
-docker compose -f deploy/docker-compose.yml --profile 2shard up -d
-```
-> Full manual: [Docker Guide](docs/guides/DOCKER_GUIDE.md)
-
-#### 4. Android Termux (`proot-distro debian`)
-```bash
-chmod +x deploy/install_debian.sh deploy/run.sh
-./deploy/install_debian.sh
-
-termux-wake-lock
-nohup ./deploy/run.sh --no-dashboard > output.log 2>&1 &
-```
-> Full manual: [Termux Debian Guide](docs/guides/TERMUX_DEBIAN_GUIDE.md)
-
-</details>
 
 ---
 
-<details>
-<summary><b>⚙️ Configuration & Environment Variables</b></summary>
+## 🧵 Worker Tuning & Performance
 
-Copy [config/.env.example](config/.env.example) to `.env` (or [config/config.example.yaml](config/config.example.yaml) to `config/config.yaml`):
-
-```ini
-SURFSHARK_PRIVATE_KEYS=YOUR_SURFSHARK_WIREGUARD_PRIVATE_KEY_HERE
-D4UC_MODE=hybrid
-D4UC_LENGTH=4
-D4UC_WORKERS=5
-D4UC_PROXY=surfshark
-D4UC_WEBHOOK=
-```
-
-See [Security Policy](SECURITY.md) and [Master Guide](docs/GUIDE.md) for credential safety rules.
-
-</details>
+- **Default Recommendation**: `5` workers (12–15 RPS)
+- **Low-Resource**: `1`–`3` workers
+- **High-Performance**: `10`–`20` workers (Supports up to 50 workers)
+- Each worker binds 1:1 to an isolated WireGuard tunnel port (`1081+`), distributing requests across 142 countries.
 
 ---
 
-<details open>
-<summary><b>📄 License & Attribution</b></summary>
+## 🔢 8 Username Generation Modes
 
-Copyright (c) 2026 **KRCUPRO**. All Rights Reserved.  
-Licensed under the [PROPRIETARY & CONFIDENTIAL SOFTWARE LICENSE](LICENSE).  
-Third-party open-source dependencies and notices are documented in [NOTICE](NOTICE).
+| Mode | Strategy | Best For |
+| :--- | :--- | :--- |
+| `hybrid` | Dictionary roots + symmetry/numbers | General discovery (`krc1`, `v1be`) |
+| `permutation` | Ordered space (`a–z`, `0–9`, `_`) | Complete exhaustive sharding (`2_1`, `2_2`) |
+| `dictionary` | 3–6 letter word roots | High-value English words |
+| `pattern` | Visual repeating patterns | Distinctive handles (`aaaa`, `abba`) |
+| `numeric` | Digits `0000`–`9999` | Short numeric IDs |
+| `custom_mask`| Targeted mask (`kr??`, `??.??`) | Specific prefixes, suffixes, and middle dots |
+| `combinatorial` | Phonetic CVCV / VCCV | Brandable pronounceable names |
+| `recheck` | Previously `TAKEN` records | Newly freed deleted accounts |
 
-</details>
+---
+
+## 🚫 Excluded Username Rules (e.g. `ab..`, `a..1`)
+
+To conserve bandwidth and prevent wasted requests, invalid candidates are **100% filtered out before sending**:
+1. **Consecutive Dots (`..`)**:
+   - `ab..` (Trailing consecutive dots) ➔ **Excluded**
+   - `a..1` (Middle consecutive dots) ➔ **Excluded**
+   - `..kr` (Leading consecutive dots) ➔ **Excluded**
+2. **Leading/Trailing Single Dots (`.`)**:
+   - `.abc` / `abc.` ➔ **Excluded**
+3. **Invalid Characters**: Only `a-z`, `0-9`, `_`, and single dots `.` are allowed.
+4. **Length**: 2–32 characters (Default target: 4 characters).
+5. **Discord Reserved Words**: `discord`, `clyde`, `system`, etc. are filtered out.
+
+---
+
+## 📡 How the Checker Works
+
+1. Worker requests candidate from generation pipeline.
+2. Request dispatched via local Wireproxy port using BoringSSL Chrome 131 JA3/JA4 TLS handshake.
+3. If `200 OK` (Available): Saved atomically to SQLite WAL DB, appended to `available.txt`, and sent to Discord Webhook.
+4. If `404 Not Found` (Taken): Cached in `taken.txt`.
+5. If `429 Too Many Requests`: Worker executes 0.3s atomic hot-swap to a fresh country node.
+
+---
+
+## 💾 Result Persistence
+
+- `data/d4uc_results.db`: SQLite WAL transactional database.
+- `available.txt`: Plaintext list of discovered available handles.
+- `taken.txt`: Plaintext list of taken handles.
+- `checked_history.txt`: Deduplication cache.
+- `available_usernames.csv` & `.json`: Exported structured datasets.
+
+---
+
+## 📞 Contact Discord : myuyayam
+
+- Inquiries, feedback, and support: Discord **`myuyayam`**.
+
+---
+
+## ⭐ Project Support
+
+If you find this project useful, please give it a **Star (⭐)** on GitHub!
+
+---
+
+## 📚 Educational & Study Purpose Notice
+
+This software is developed strictly for **academic study and educational research into modern TLS fingerprint architecture (Chrome 131 BoringSSL JA3/JA4), user-space network proxy tunneling, and high-concurrency SQLite WAL sharding**. Users must comply with Discord Terms of Service and applicable regulations. Excessive request spamming or malicious misuse is strictly prohibited.

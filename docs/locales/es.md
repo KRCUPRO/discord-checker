@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <a href="./ja.md">🇯🇵 日本語</a> · <a href="./zh-CN.md">🇨🇳 中文</a> · <strong>🇪🇸 Español</strong> · <a href="./de.md">🇩🇪 Deutsch</a><br />
-  <a href="./fr.md">🇫🇷 Français</a> · <a href="./pt-BR.md">🇧🇷 Português</a> · <a href="./ru.md">🇷🇺 Русский</a> · <a href="./hi.md">🇮🇳 हिन्दी</a> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **Motor de Verificación de Nombres de Usuario Poco Comunes para Discord — Suplantación TLS Chrome 131, Pool Multitúnel Aislado 1:1 y Sharding SQLite WAL.**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,20 @@ Licenciado bajo la [LICENCIA DE SOFTWARE PROPIETARIA Y CONFIDENCIAL](../../LICEN
 Avisos de código abierto de terceros en [NOTICE](../../NOTICE).
 
 </details>
+
+---
+
+## 🚫 Nombres de Usuario Excluidos (Ejemplos: `ab..`, `a..1`)
+
+De acuerdo con las reglas oficiales de nombres de usuario de Discord, los siguientes patrones quedan 100% excluidos antes del escaneo:
+1. **Puntos consecutivos prohibidos (`..`)**:
+   - `ab..` (Puntos consecutivos al final) ➔ **Excluido**
+   - `a..1` (Puntos consecutivos en medio) ➔ **Excluido**
+   - `..kr` (Puntos consecutivos al inicio) ➔ **Excluido**
+2. **Prohibido punto único al inicio o final (`.`)**: `.abc`, `abc.` ➔ **Excluido**
+3. **Caracteres válidos**: Solo minúsculas (`a-z`), dígitos (`0-9`), guion bajo (`_`) y punto simple (`.`).
+4. **Palabras reservadas**: `discord`, `clyde`, `system`, `everyone` filtradas automáticamente.
+
+## 📞 Contacto Discord : myuyayam
+
+Para consultas o soporte técnico, contactar en Discord: **`myuyayam`**.

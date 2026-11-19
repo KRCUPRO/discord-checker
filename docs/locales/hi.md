@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <a href="./ja.md">🇯🇵 日本語</a> · <a href="./zh-CN.md">🇨🇳 中文</a> · <a href="./es.md">🇪🇸 Español</a> · <a href="./de.md">🇩🇪 Deutsch</a><br />
-  <a href="./fr.md">🇫🇷 Français</a> · <a href="./pt-BR.md">🇧🇷 Português</a> · <a href="./ru.md">🇷🇺 Русский</a> · <strong>🇮🇳 हिन्दी</strong> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **उच्च-प्रदर्शन Discord दुर्लभ यूज़रनेम उपलब्धता इंजन — Chrome 131 TLS छद्मावरण, 1:1 पृथक मल्टी-टनल पूल और SQLite WAL शार्डिंग।**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,18 @@ Copyright (c) 2026 **KRCUPRO**. सर्वाधिकार सुरक्�
 तृतीय-पक्ष ओपन-सोर्स सूचनाएँ [NOTICE](../../NOTICE) में दर्ज हैं।
 
 </details>
+
+---
+
+## 🚫 अमान्य उपयोगकर्ता नाम बहिष्करण नियम (उदाहरण: `ab..`, `a..1`)
+
+Discord के नियमों के अनुसार निम्नलिखित अमान्य पैटर्न पूरी तरह बहिष्कृत हैं:
+1. **लगातार बिंदु प्रतिबंधित (`..`)**:
+   - `ab..` (अंत में लगातार बिंदु) ➔ **बहिष्कृत**
+   - `a..1` (मध्य में लगातार बिंदु) ➔ **बहिष्कृत**
+   - `..kr` (शुरुआत में लगातार बिंदु) ➔ **बहिष्कृत**
+2. **आरंभ या अंत में बिंदु प्रतिबंधित (`.`)**: `.abc`, `abc.` ➔ **बहिष्कृत**
+
+## 📞 संपर्क Discord : myuyayam
+
+सहायता एवं पूछताछ के लिए Discord: **`myuyayam`**.

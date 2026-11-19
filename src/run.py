@@ -67,7 +67,7 @@ class Orchestrator:
                     cand = self.generator.next_username()
                     if not cand:
                         break
-                    if not self.storage.is_already_tried(cand):
+                    if not self.storage.is_tried(cand):
                         username = cand
                         break
                     self.metrics.skipped_count += 1
@@ -77,13 +77,13 @@ class Orchestrator:
                     continue
 
                 # 2. Acquire Proxy
-                endpoint = self.proxy_manager.get_proxy()
+                endpoint = self.proxy_manager.lease_proxy()
                 proxy_url = endpoint.url if endpoint else None
 
                 # 3. Check Discord
                 t0 = time.time()
                 try:
-                    result = await self.client.check_username(
+                    result = await self.client.check(
                         session=session,
                         username=username,
                         proxy=proxy_url,
@@ -95,29 +95,31 @@ class Orchestrator:
                         self.metrics.available_count += 1
                         self.metrics.total_checked += 1
                         await self.storage.enqueue_result(result)
-                        await self.webhook.send_alert(result)
+                        await self.webhook.notify_available(result)
                     elif result.status == CheckStatus.TAKEN:
                         self.metrics.taken_count += 1
                         self.metrics.total_checked += 1
                         await self.storage.enqueue_result(result)
 
                     if endpoint:
-                        self.proxy_manager.report_success(endpoint, latency)
+                        self.proxy_manager.release_proxy(endpoint, success=True, latency_ms=latency)
 
                 except RateLimitedException:
                     self.metrics.rate_limited_count += 1
                     if endpoint:
-                        self.proxy_manager.report_429(endpoint)
+                        self.proxy_manager.release_proxy(endpoint, success=False, is_429=True)
                     await asyncio.sleep(2.0)
 
                 except (WafBlockedException, ProxyFailedException):
                     self.metrics.error_count += 1
                     if endpoint:
-                        self.proxy_manager.report_failure(endpoint)
+                        self.proxy_manager.release_proxy(endpoint, success=False)
                     await asyncio.sleep(1.0)
 
                 except Exception:
                     self.metrics.error_count += 1
+                    if endpoint:
+                        self.proxy_manager.release_proxy(endpoint, success=False)
                     await asyncio.sleep(0.5)
 
     async def run(self):

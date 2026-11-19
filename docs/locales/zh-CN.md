@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <a href="./ja.md">🇯🇵 日本語</a> · <strong>🇨🇳 中文</strong> · <a href="./es.md">🇪🇸 Español</a> · <a href="./de.md">🇩🇪 Deutsch</a><br />
-  <a href="./fr.md">🇫🇷 Français</a> · <a href="./pt-BR.md">🇧🇷 Português</a> · <a href="./ru.md">🇷🇺 Русский</a> · <a href="./hi.md">🇮🇳 हिन्दी</a> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **高性能 Discord 稀有用户名检测引擎 — Chrome 131 TLS 指纹伪装、1:1 隔离多隧道池与 SQLite WAL 多分片同步。**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,22 @@ Copyright (c) 2026 **KRCUPRO**. All Rights Reserved.
 第三方开源组件版权声明详见 [NOTICE](../../NOTICE)。
 
 </details>
+
+---
+
+## 🚫 生成排除的用户名规则 (示例: `ab..`, `a..1`)
+
+根据 Discord 官方用户名规范，以下格式在生成时将 100% 自动排除，绝不浪费网络请求：
+1. **禁止连续句点 (`..`)**:
+   - `ab..` (末尾连续句点) ➔ **自动排除**
+   - `a..1` (中间连续句点) ➔ **自动排除**
+   - `..kr` (起始连续句点) ➔ **自动排除**
+2. **禁止前导或末尾单个句点 (`.`)**: `.abc`, `abc.` ➔ **自动排除**
+3. **允许字符**: 仅限英文字母小写 (`a-z`), 数字 (`0-9`), 下划线 (`_`), 单句点 (`.`)
+4. **系统保留词**: `discord`, `clyde`, `system`, `everyone` 自动过滤
+
+> 所有验证规则均通过 `DiscordRuleValidator.is_valid()` 强制校验，通过 84 项单元测试。
+
+## 📞 联系方式 Discord : myuyayam
+
+如有功能建议或技术支持需求，请联系 Discord **`myuyayam`**。

@@ -84,7 +84,7 @@ def create_generator(config: dict) -> BaseGenerator:
             suffix=suffix,
             exclude_reserved=exclude_reserved
         )
-    elif mode in ("mask", "custom", "pattern_mask"):
+    elif mode in ("mask", "custom", "pattern_mask", "custom_mask"):
         return MaskPatternGenerator(
             length=length,
             prefix=prefix,

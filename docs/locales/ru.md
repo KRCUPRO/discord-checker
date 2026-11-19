@@ -1,15 +1,21 @@
 <div align="center">
 
-<p align="center">
-  <a href="../../README.md">🇺🇸 English</a> · <a href="./ko.md">🇰🇷 한국어</a> · <a href="./ja.md">🇯🇵 日本語</a> · <a href="./zh-CN.md">🇨🇳 中文</a> · <a href="./es.md">🇪🇸 Español</a> · <a href="./de.md">🇩🇪 Deutsch</a><br />
-  <a href="./fr.md">🇫🇷 Français</a> · <a href="./pt-BR.md">🇧🇷 Português</a> · <strong>🇷🇺 Русский</strong> · <a href="./hi.md">🇮🇳 हिन्दी</a> · <a href="./ar.md">🇸🇦 العربية</a> · <a href="./id.md">🇮🇩 Bahasa Indonesia</a>
-</p>
+<br />
+
+| [KR 한국어](./ko.md) | [US English](../../README.md) | [JP 日本語](./ja.md) | [CN 简体中文](./zh-CN.md) | [ES Español](./es.md) |
+| :---: | :---: | :---: | :---: | :---: |
+| [FR Français](./fr.md) | [DE Deutsch](./de.md) | [RU Русский](./ru.md) | [BR Português](./pt-BR.md) | [SA العربية](./ar.md) |
+| [HI हिन्दी](./hi.md) | [ID Bahasa Indonesia](./id.md) | | | |
+
+<br />
+
+[![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
 
 # ⚡ D4UC (`discord-checker`)
 
 > **Высокопроизводительный движок проверки редких имен пользователей Discord — маскировка TLS Chrome 131, изолированный пул 1:1 и шардинг SQLite WAL.**
 
-[![Version](https://img.shields.io/badge/Version-v12.0.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.0.0)
+[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
@@ -175,3 +181,19 @@ Copyright (c) 2026 **KRCUPRO**. Все права защищены.
 Уведомления о сторонних компонентах приведены в [NOTICE](../../NOTICE).
 
 </details>
+
+---
+
+## 🚫 Исключаемые имена пользователей (Примеры: `ab..`, `a..1`)
+
+Согласно правилам Discord, следующие некорректные шаблоны исключаются на 100% до отправки сетевых запросов:
+1. **Запрещены последовательные точки (`..`)**:
+   - `ab..` (Точки на конце) ➔ **Исключено**
+   - `a..1` (Точки в середине) ➔ **Исключено**
+   - `..kr` (Точки в начале) ➔ **Исключено**
+2. **Запрещена точка в начале или конце (`.`)**: `.abc`, `abc.` ➔ **Исключено**
+3. **Разрешенные символы**: Строчные латинские (`a-z`), цифры (`0-9`), подчеркивание (`_`) и одиночная точка (`.`).
+
+## 📞 Контакт в Discord : myuyayam
+
+Техническая поддержка и связь: Discord **`myuyayam`**.
