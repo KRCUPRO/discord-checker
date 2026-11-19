@@ -33,7 +33,7 @@
 <a id="왜-proot-distro-데비안인가요"></a><a id="-왜-proot-distro-데비안인가요"></a>
 ## 🌟 왜 proot-distro 데비안인가요?
 - 안드로이드 기본 Termux 쉘은 bionic C 라이브러리를 사용하여 일부 파이썬 C-확장 모듈(BoringSSL) 컴파일에 오류가 발생할 수 있습니다.
-- **proot-distro debian**은 안드로이드 위에 **100% 표준 GNU/Linux (glibc ARM64)** 환경을 구축하므로, PC 리눅스와 동일하게 `curl_cffi` 및 `wireproxy`가 네이티브 속도로 완벽히 구동됩니다.
+- <a id="fnref-1"></a><a id="fnref1"></a>**proot-distro debian**[^1]은 안드로이드 위에 **100% 표준 GNU/Linux (glibc ARM64)** 환경을 구축하므로, PC 리눅스와 동일하게 `curl_cffi` 및 `wireproxy`가 네이티브 속도로 완벽히 구동됩니다.
 
 [⬆️ 목차 맨 위로 이동](#-목차)
 
@@ -133,6 +133,5 @@ cp available.txt /sdcard/Download/
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: PRoot는 ptrace 시스템 콜을 통해 루트 권한 없는 안드로이드 사용자 영역에서 격리된 파일시스템 루트를 구현합니다. [↩](#-목차)
-
+[^1]: PRoot는 ptrace 시스템 콜을 통해 루트 권한 없는 안드로이드 사용자 영역에서 격리된 파일시스템 루트를 구현합니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)

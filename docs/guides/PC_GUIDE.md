@@ -37,7 +37,7 @@ PC 환경에서의 보다 심층적인 설정, 방화벽 예외 처리, 시작 �
 ### 2. 무설치 단독 실행 파일 (`.exe`) 사용
 GitHub Releases에서 제공하는 Standalone 바이너리는 Python 3.12 런타임, `customtkinter`, `curl_cffi` BoringSSL 엔진, `wireproxy.exe`를 단일 실행 파일에 완전히 내장하고 있습니다.
 - `DiscordUsernameCheckerV2_Web.exe`: 모바일 반응형 웹 GUI (포트 5000)
-- `DiscordUsernameCheckerV2_KO.exe`: 한국어 데스크톱 GUI
+- `DiscordUsernameCheckerV2_KO.exe`: 한국어 <a id="fnref-1"></a><a id="fnref1"></a>데스크톱 GUI[^1]
 - `DiscordUsernameCheckerV2_EN.exe`: 영어 데스크톱 GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: 헤드리스 콘솔 CLI 대시보드
 
@@ -103,6 +103,5 @@ python3 src/web_gui.py --port 5000
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: PC 플랫폼(Windows/macOS)은 데스크톱 GUI와 웹 GUI를 동시에 실행할 수 있습니다. [↩](#-목차)
-
+[^1]: PC 플랫폼(Windows/macOS)은 데스크톱 GUI와 웹 GUI를 동시에 실행할 수 있습니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)

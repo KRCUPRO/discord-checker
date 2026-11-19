@@ -42,7 +42,7 @@ D4UC는 모바일 환경에서 사용자의 기호와 기기 성능에 맞춰 3�
 [![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](ANDROID_GUIDE.md)
 
 ### 1. 다운로드 및 설치 절차
-1. 스마트폰에서 [`DiscordUsernameChecker_v12.3.0.apk`](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)를 다운로드합니다.
+1. 스마트폰에서 [<a id="fnref-1"></a><a id="fnref1"></a>`DiscordUsernameChecker_v12.3.0.apk`[^1]](https://github.com/KRCUPRO/discord-checker/releases/download/v12.3.0/DiscordUsernameChecker_v12.3.0.apk)를 다운로드합니다.
 2. 다운로드 알림 또는 **[내 파일 / 다운로드]** 폴더에서 `.apk` 파일을 터치합니다.
 3. **"출처를 알 수 없는 앱 설치"** 팝업이 나타나면 **[설정] ➔ [이 출처의 앱 허용]**을 켭니다.
 4. **[설치]**를 눌러 완료한 후 홈 화면의 **`D4UC Discord Checker`** 앱을 실행합니다.
@@ -140,6 +140,5 @@ nohup python3 src/run.py --mode hybrid --length 4 --workers 5 --no-dashboard > c
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: 안드로이드 네이티브 APK는 `com.krcupro.discordchecker` 패키지 식별자와 v1/v2/v3 보안 서명 체계가 완비되어 있습니다. [↩](#-목차)
-
+[^1]: 안드로이드 네이티브 APK는 `com.krcupro.discordchecker` 패키지 식별자와 v1/v2/v3 보안 서명 체계가 완비되어 있습니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)

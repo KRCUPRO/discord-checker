@@ -1,11 +1,21 @@
 # 🚀 D4UC 깃허브(GitHub) 안전 푸시 및 배포 가이드
 
-이 폴더(`github-ready/`)는 **실제 결제 계정 정보, 유료 WireGuard 개인키, 스크랩 결과 텍스트, SQLite 데이터베이스가 100% 안전하게 제거된 공식 깃허브 배포용 클린 패키지**입니다.
+이 폴더(`github-ready/`)는 **실제 결제 계정 정보, 유료 WireGuard 개인키, 스크랩 결과 텍스트, SQLite 데이터베이스가 100% 안전하게 제거된 공식 깃허브 배포용 클린 패키지**<a id="fnref-1"></a><a id="fnref1"></a>[^1]입니다.
 
 이 폴더의 소스코드는 **공개(Public) 저장소로 올려도 서프샤크 계정이 정지되거나 개인키가 털릴 위험이 0%**입니다.
 
 ---
 
+<a id="목차"></a><a id="-목차"></a>
+## 📑 목차
+1. [방법 1: 기존 저장소에서 바로 푸시하기](#-방법-1-기존-저장소discord-4character-usernames-checker에서-바로-푸시하기)
+2. [방법 2: 신규 깃허브 저장소를 새로 만들어 github-ready 올리기](#-방법-2-신규-깃허브-저장소를-새로-만들어-github-ready를-올리기)
+3. [배포 후 다른 컴퓨터나 사용자가 쓸 때의 세팅법](#-배포-후-다른-컴퓨터나-사용자가-쓸-때의-세팅법)
+4. [각주 및 기술 참고문헌](#-각주-및-기술-참고문헌)
+
+---
+
+<a id="방법-1-기존-저장소discord-4character-usernames-checker에서-바로-푸시하기"></a><a id="-방법-1-기존-저장소discord-4character-usernames-checker에서-바로-푸시하기"></a>
 ## 📌 방법 1: 기존 저장소(`Discord-4Character-Usernames-Checker`)에서 바로 푸시하기
 
 이미 로컬 저장소의 `.gitignore`와 소스코드에서 시크릿이 완벽하게 차단되었으므로, 터미널에서 바로 푸시할 수 있습니다:
@@ -27,8 +37,11 @@ git commit -m "feat: D4UC v12 multi-platform release (TLS stealth, Docker, Termu
 git push origin main
 ```
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="방법-2-신규-깃허브-저장소를-새로-만들어-github-ready를-올리기"></a><a id="-방법-2-신규-깃허브-저장소를-새로-만들어-github-ready를-올리기"></a>
 ## 📌 방법 2: 신규 깃허브 저장소를 새로 만들어 `github-ready/`를 올리기
 
 새로운 깃허브 저장소(Public 또는 Private)를 파서 깔끔하게 새로 시작하고 싶을 때:
@@ -55,8 +68,11 @@ git remote add origin https://github.com/KRCUPRO/discord-checker.git
 git push -u origin main
 ```
 
+[⬆️ 목차 맨 위로 이동](#-목차)
+
 ---
 
+<a id="배포-후-다른-컴퓨터나-사용자가-쓸-때의-세팅법"></a><a id="-배포-후-다른-컴퓨터나-사용자가-쓸-때의-세팅법"></a>
 ## 🔑 배포 후 다른 컴퓨터나 사용자가 쓸 때의 세팅법
 
 깃허브에서 코드를 클론(다운로드)한 사람은 아래 방법으로 본인 서프샤크 키를 넣어 실행합니다:
@@ -73,3 +89,15 @@ git push -u origin main
    - 데스크톱 GUI: `python gui_ko.py`
    - CLI: `python run.py`
    - 도커: `docker compose up -d`
+
+[⬆️ 목차 맨 위로 이동](#-목차)
+
+---
+
+<a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
+## 📚 각주 및 기술 참고문헌
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: 본 가이드는 서프샤크 VPN 개인키 및 SQLite 데이터베이스의 깃허브 유출을 100% 방지하는 제로-리크(Zero-Leak) 보안 규칙을 준수합니다. [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
+
+[⬆️ 목차 맨 위로 이동](#-목차)

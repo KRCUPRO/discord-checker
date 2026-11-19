@@ -88,11 +88,11 @@
    - Große touch-optimierte [Start / Stopp]-Schaltflächen, reines HTML5-Canvas-Geschwindigkeitsdiagramm, 1-Tap-Kopieren gefundener Namen und direkter Export als TXT/CSV/JSON.
    - Vollständige Fernkonfiguration und Hot-Swap von Proxys (Surfshark-Schlüsselpool, Dateien, Thordata), 8 Generierungsmodi und Worker-Schieberegler (1–50) direkt vom Smartphone.
 
-2. **Chrome 131 TLS-Tarnung JA3/JA4 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Chrome 131 TLS-Tarnung JA3/JA4 (`curl_cffi` BoringSSL)[^1]**:
    - Verhindert künstliche TLS-Signaturen herkömmlicher Python-Bibliotheken (`requests`, `aiohttp`, `httpx`).
    - Bitgenaue Emulation der Cipher Suites, Extensions und HTTP/2 SETTINGS-Frames des echten Google Chrome 131 zur Überwindung von Cloudflare- und WAF-Prüfungen.
 
-3. **1:1 isolierter WireGuard-Tunnelpool im Userspace (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**1:1 isolierter WireGuard-Tunnelpool im Userspace (`wireproxy`)[^2]**:
    - Verändert weder Netzwerkadapter noch DNS oder System-Routen des Host-PCs.
    - Weist jedem Worker über die Userspace-Binary `wireproxy` einen isolierten lokalen Port (`127.0.0.1:1081+`) zu, der auf 142 weltweite Endpunkte gemappt wird. Normaler Datenverkehr auf dem PC bleibt zu 100 % unbeeinträchtigt.
 
@@ -508,8 +508,13 @@ Ihr Feedback und Ihre Unterstützung sind unsere größte Motivation.
 
 ---
 
+<a id="-fußnoten-und-technische-referenzen"></a><a id="fußnoten-und-technische-referenzen"></a><a id="footnote-heading"></a>
 ### 📚 Fußnoten und technische Referenzen
-[^1]: Der Chrome 131 BoringSSL-Handshake neutralisiert TLS-Fingerprinting-Sperren von Cloudflare und modernen WAFs vollständig. [↩](#-inhaltsverzeichnis)
-[^2]: wireproxy ist eine leichtgewichtige Go-Binärdatei im Userspace, die das WireGuard-Protokoll ohne Root-Rechte in isolierte lokale SOCKS5-Proxys übersetzt. [↩](#-inhaltsverzeichnis)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Der Chrome 131 BoringSSL-Handshake neutralisiert TLS-Fingerprinting-Sperren von Cloudflare und modernen WAFs vollständig. [↩ Zurück zum Text](#fnref-1) · [⬆️ Nach oben](#-inhaltsverzeichnis)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy ist eine leichtgewichtige Go-Binärdatei im Userspace, die das WireGuard-Protokoll ohne Root-Rechte in isolierte lokale SOCKS5-Proxys übersetzt. [↩ Zurück zum Text](#fnref-2) · [⬆️ Nach oben](#-inhaltsverzeichnis)
 
 [⬆️ Nach oben](#-inhaltsverzeichnis)

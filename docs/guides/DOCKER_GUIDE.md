@@ -28,7 +28,7 @@ D4UC(Discord Username Checker)를 도커 컨테이너로 패키징하여, 리눅
 
 1. **완벽한 환경 격리 (Zero Dependency)**:
    - 호스트 머신에 Python, gcc, wireguard 도구를 따로 설치할 필요 없이 도커 엔진만 있으면 즉시 실행 가능합니다.
-2. **멀티 아키텍처(Multi-Arch) 자동 감지 지원**:
+2. **<a id="fnref-1"></a><a id="fnref1"></a>멀티 아키텍처(Multi-Arch)[^1] 자동 감지 지원**:
    - `linux/amd64` (인텔/AMD 서버) 및 `linux/arm64` (라즈베리파이, 오라클 ARM 인스턴스, 애플 실리콘 Mac) 모두 지원하며 아키텍처에 맞는 `wireproxy` 바이너리를 자동 번들링합니다.
 3. **볼륨 마운트를 통한 영구 데이터 보존**:
    - 컨테이너 내부의 `/app/data` 경로가 호스트 디렉토리(`./data`)와 1:1 바인드되어, 컨테이너를 삭제하거나 재부팅해도 SQLite WAL DB와 `available.txt`가 100% 영구 보존됩니다.
@@ -185,6 +185,5 @@ docker run -d \
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: Multi-Arch 컨테이너는 Docker Buildx 엔진을 통해 `linux/amd64`와 `linux/arm64` 이미지를 단일 태그로 제공합니다. [↩](#-목차)
-
+[^1]: Multi-Arch 컨테이너는 Docker Buildx 엔진을 통해 `linux/amd64`와 `linux/arm64` 이미지를 단일 태그로 제공합니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)

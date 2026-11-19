@@ -88,11 +88,11 @@
    - 대형 터치 친화적 [탐색 시작/중지] 버튼, 실시간 RPS 캔버스 차트, 1-Tap 닉네임 원클릭 복사, TXT/CSV/JSON 즉시 다운로드를 제공합니다.
    - 프록시(Surfshark 개인키 풀, 커스텀 파일, Thordata), 8대 생성 모드, 워커 슬라이더(1~50개)를 스마트폰에서 즉시 원격 설정 및 핫스왑할 수 있습니다.
 
-2. **Chrome 131 TLS JA3/JA4 스텔스 위장 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Chrome 131 TLS JA3/JA4 스텔스 위장 (`curl_cffi` BoringSSL)[^1]**:
    - 일반 Python HTTP 라이브러리(`requests`, `aiohttp`, `httpx`)에서 감지되는 비정상 TLS 핑거프린트를 완전히 탈피했습니다.
    - 실제 최신 Google Chrome 131 브라우저의 암호화 스위트(Cipher Suites), 확장 필드(Extensions), 타원 곡선(Supported Groups), HTTP/2 SETTINGS 프레임 시그니처를 100% 동일하게 에뮬레이션하여 Cloudflare 및 WAF의 사전 차단을 원천 무력화합니다.
 
-3. **1:1 유저스페이스 WireGuard 터널 풀 (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**1:1 유저스페이스 WireGuard 터널 풀 (`wireproxy`)[^2]**:
    - 데스크톱 VPN 클라이언트처럼 호스트 OS의 네트워크 어댑터를 가로채거나 라우팅 테이블을 변경하지 않습니다.
    - 유저스페이스에서 동작하는 경량 `wireproxy` 바이너리를 통하여 워커마다 독립된 로컬 포트(`127.0.0.1:1081+`)를 할당하며, 글로벌 142개 엔드포인트를 1:1로 매핑합니다.
    - 메인 PC의 업무, 웹서핑, 게임, 메신저 트래픽에는 0.00%의 속도 저하 및 IP 간섭도 발생하지 않습니다.
@@ -545,8 +545,13 @@ sequenceDiagram
 
 ---
 
+<a id="-각주-및-기술-참고문헌"></a><a id="각주-및-기술-참고문헌"></a><a id="footnote-heading"></a>
 ### 📚 각주 및 기술 참고문헌
-[^1]: Chrome 131 BoringSSL 핸드셰이크는 WAF의 TLS 핑거프린팅 차단을 원천 무력화합니다. [↩](#-목차)
-[^2]: wireproxy는 사용자 영역에서 WireGuard 프로토콜을 SOCKS5 프록시로 변환하는 경량 Go 바이너리입니다. [↩](#-목차)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Chrome 131 BoringSSL 핸드셰이크는 WAF의 TLS 핑거프린팅 차단을 원천 무력화합니다. [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy는 사용자 영역에서 WireGuard 프로토콜을 SOCKS5 프록시로 변환하는 경량 Go 바이너리입니다. [↩ 본문으로 돌아가기](#fnref-2) · [⬆️ 목차 맨 위로 이동](#-목차)
 
 [⬆️ 목차 맨 위로 이동](#-목차)

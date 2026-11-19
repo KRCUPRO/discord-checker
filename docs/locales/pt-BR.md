@@ -88,11 +88,11 @@
    - Botões táteis amplos de [Iniciar / Parar], gráfico dinâmico de velocidade RPS em Canvas HTML5 puro, cópia de nomes a 1 toque e download em TXT/CSV/JSON.
    - Configuração remota e hot-swap de proxies (chaves Surfshark, arquivos locais, Thordata), 8 modos de geração e ajuste de workers (1–50) pelo celular.
 
-2. **Furtividade TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Furtividade TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)[^1]**:
    - Elimina as assinaturas TLS artificiais das bibliotecas comuns de Python (`requests`, `aiohttp`, `httpx`).
    - Reproduz bit a bit as Cipher Suites, Extensions e quadros HTTP/2 SETTINGS do navegador oficial Google Chrome 131 para neutralizar defesas Cloudflare e WAFs.
 
-3. **Pool de Túneis WireGuard 1:1 em Espaço de Usuário (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**Pool de Túneis WireGuard 1:1 em Espaço de Usuário (`wireproxy`)[^2]**:
    - Sem alterações nas placas de rede locais nem sequestro de rotas ou DNS do computador.
    - Mapeia 142 endpoints globais em portas locais exclusivas (`127.0.0.1:1081+`) por worker. As atividades normais no seu PC continuam sem qualquer impacto (0.00% de interferência).
 
@@ -508,8 +508,13 @@ Seu incentivo e feedback mantêm esta ferramenta em constante evolução.
 
 ---
 
+<a id="-notas-de-rodapé-e-referências-técnicas"></a><a id="notas-de-rodapé-e-referências-técnicas"></a><a id="footnote-heading"></a>
 ### 📚 Notas de Rodapé e Referências Técnicas
-[^1]: O handshake BoringSSL do Chrome 131 neutraliza completamente os bloqueios de impressão digital TLS do Cloudflare e WAFs modernos. [↩](#-índice)
-[^2]: O wireproxy é um binário Go leve em espaço de usuário que converte o protocolo WireGuard em proxies SOCKS5 locais isolados sem privilégios de root. [↩](#-índice)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: O handshake BoringSSL do Chrome 131 neutraliza completamente os bloqueios de impressão digital TLS do Cloudflare e WAFs modernos. [↩ Voltar ao texto](#fnref-1) · [⬆️ Voltar ao topo](#-índice)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: O wireproxy é um binário Go leve em espaço de usuário que converte o protocolo WireGuard em proxies SOCKS5 locais isolados sem privilégios de root. [↩ Voltar ao texto](#fnref-2) · [⬆️ Voltar ao topo](#-índice)
 
 [⬆️ Voltar ao topo](#-índice)

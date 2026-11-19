@@ -88,11 +88,11 @@
    - Grands boutons tactiles [Démarrer / Arrêter], courbe de vitesse RPS en Canvas HTML5 pur, copie immédiate du pseudonyme en 1 touche et exportations directes TXT/CSV/JSON.
    - Ajustement à chaud des proxys (clés Surfshark, fichiers de proxys, Thordata), des 8 modes de génération et du curseur de threads (1 à 50) depuis le mobile.
 
-2. **Furtivité TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Furtivité TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)[^1]**:
    - Élimine les empreintes TLS anormales produites par les bibliothèques standard de Python (`requests`, `aiohttp`, `httpx`).
    - Réplique au bit près les suites cryptographiques, extensions et trames HTTP/2 SETTINGS du navigateur Google Chrome 131 afin de contourner Cloudflare et les WAFs.
 
-3. **Pool de Tunnels WireGuard 1:1 en Espace Utilisateur (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**Pool de Tunnels WireGuard 1:1 en Espace Utilisateur (`wireproxy`)[^2]**:
    - Ne modifie aucun adaptateur réseau hôte et ne détourne ni le DNS ni le routage global du système.
    - Associe 142 points de terminaison mondiaux à des ports locaux isolés (`127.0.0.1:1081+`) par worker. Le trafic standard de votre machine n'est aucunement perturbé.
 
@@ -508,8 +508,13 @@ Votre soutien est notre plus grande motivation pour continuer à maintenir et en
 
 ---
 
+<a id="-notes-de-bas-de-page-et-références-techniques"></a><a id="notes-de-bas-de-page-et-références-techniques"></a><a id="footnote-heading"></a>
 ### 📚 Notes de Bas de Page et Références Techniques
-[^1]: Le handshake BoringSSL de Chrome 131 neutralise entièrement les blocages d'empreintes TLS de Cloudflare et des WAF modernes. [↩](#-table-des-matières)
-[^2]: wireproxy est un binaire Go léger en espace utilisateur qui convertit le protocole WireGuard en proxys SOCKS5 locaux isolés sans privilèges root. [↩](#-table-des-matières)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Le handshake BoringSSL de Chrome 131 neutralise entièrement les blocages d'empreintes TLS de Cloudflare et des WAF modernes. [↩ Retour au texte](#fnref-1) · [⬆️ Haut de page](#-table-des-matières)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy est un binaire Go léger en espace utilisateur qui convertit le protocole WireGuard en proxys SOCKS5 locaux isolés sans privilèges root. [↩ Retour au texte](#fnref-2) · [⬆️ Haut de page](#-table-des-matières)
 
 [⬆️ Haut de page](#-table-des-matières)

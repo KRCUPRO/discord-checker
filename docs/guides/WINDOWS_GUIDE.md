@@ -38,7 +38,7 @@
 <a id="4대-무설치-단독-실행-파일-exe-안내"></a><a id="-4대-무설치-단독-실행-파일-exe-안내"></a>
 ## 🚀 4대 무설치 단독 실행 파일 (.exe) 안내
 
-GitHub Releases에서 배포되는 바이너리는 Python 런타임, C++ 의존성, `curl_cffi` BoringSSL 엔진, `wireproxy.exe`가 단일 파일에 번들링되어 있어 추가 설치 없이 즉시 실행 가능합니다.
+GitHub Releases에서 배포되는 바이너리는 Python 런타임, C++ 의존성, <a id="fnref-1"></a><a id="fnref1"></a>`curl_cffi` BoringSSL 엔진[^1], <a id="fnref-2"></a><a id="fnref2"></a>`wireproxy.exe`가 단일 파일에 번들링[^2]되어 있어 추가 설치 없이 즉시 실행 가능합니다.
 
 [![D4UC Windows GUI](../assets/gui_ko_main.png)](WINDOWS_GUIDE.md)
 
@@ -197,7 +197,6 @@ D4UC는 4단계 프록시 구성을 지원합니다:
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: D4UC의 Chrome 131 TLS 지문 위장은 BoringSSL 기반의 `curl_cffi` 엔진을 사용하여 JA3 및 JA4 지문을 완벽하게 위장합니다. [↩](#-목차)
-[^2]: 유저스페이스 Wireproxy 터널링은 OS 네트워크 어댑터를 수정하지 않으므로 호스트 PC의 다른 네트워크 트래픽에 영향을 주지 않습니다. [↩](#-목차)
-
+[^1]: D4UC의 Chrome 131 TLS 지문 위장은 BoringSSL 기반의 `curl_cffi` 엔진을 사용하여 JA3 및 JA4 지문을 완벽하게 위장합니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
+[^2]: 유저스페이스 Wireproxy 터널링은 OS 네트워크 어댑터를 수정하지 않으므로 호스트 PC의 다른 네트워크 트래픽에 영향을 주지 않습니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-2) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)

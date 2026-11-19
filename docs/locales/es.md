@@ -88,11 +88,11 @@
    - Botones táctiles grandes de [Iniciar / Detener], gráfico de velocidad RPS en Canvas HTML5 puro, copia inmediata de nombres a 1 toque y descargas directas en TXT/CSV/JSON.
    - Ajuste y hot-swap en tiempo real de proxies (claves privadas de Surfshark, archivos de proxy, Thordata), 8 modos de generación y control deslizante de workers (1–50).
 
-2. **Evasión de Firmas TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Evasión de Firmas TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)[^1]**:
    - Elimina las huellas TLS sintéticas generadas por librerías estándar de Python (`requests`, `aiohttp`, `httpx`).
    - Reproduce de forma idéntica los Cipher Suites, Extensions, Supported Groups y tramas HTTP/2 SETTINGS del navegador oficial Google Chrome 131 para superar filtros WAF y Cloudflare.
 
-3. **Túneles WireGuard 1:1 en Espacio de Usuario (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**Túneles WireGuard 1:1 en Espacio de Usuario (`wireproxy`)[^2]**:
    - Sin modificar los adaptadores de red del sistema ni secuestrar el DNS o enrutamiento del PC.
    - Mapea 142 ubicaciones globales en puertos locales aislados (`127.0.0.1:1081+`) por cada worker. El tráfico general de su ordenador no sufre ninguna ralentización ni interferencia.
 
@@ -508,8 +508,13 @@ Su apoyo e interés impulsan el desarrollo continuo de esta herramienta.
 
 ---
 
+<a id="-notas-al-pie-y-referencias-técnicas"></a><a id="notas-al-pie-y-referencias-técnicas"></a><a id="footnote-heading"></a>
 ### 📚 Notas al Pie y Referencias Técnicas
-[^1]: El apretón de manos BoringSSL de Chrome 131 neutraliza por completo los bloqueos por huella digital TLS de Cloudflare y WAFs modernos. [↩](#-tabla-de-contenidos)
-[^2]: wireproxy es un binario ligero en Go en espacio de usuario que traduce el protocolo WireGuard en proxies locales SOCKS5 sin privilegios de root. [↩](#-tabla-de-contenidos)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: El apretón de manos BoringSSL de Chrome 131 neutraliza por completo los bloqueos por huella digital TLS de Cloudflare y WAFs modernos. [↩ Volver al texto](#fnref-1) · [⬆️ Volver al inicio](#-tabla-de-contenidos)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy es un binario ligero en Go en espacio de usuario que traduce el protocolo WireGuard en proxies locales SOCKS5 sin privilegios de root. [↩ Volver al texto](#fnref-2) · [⬆️ Volver al inicio](#-tabla-de-contenidos)
 
 [⬆️ Volver al inicio](#-tabla-de-contenidos)

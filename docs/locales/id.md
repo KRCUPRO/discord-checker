@@ -88,11 +88,11 @@
    - Tombol sentuh besar [Mulai / Berhenti], grafik Canvas kecepatan RPS murni, salin nama instan 1 ketukan, dan unduh langsung format TXT/CSV/JSON.
    - Konfigurasi jarak jauh dan pergantian langsung proksi (kunci privat Surfshark, file proksi, Thordata), 8 mode pembuat nama, dan slider pekerja (1–50) dari ponsel.
 
-2. **Penyamaran TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Penyamaran TLS Chrome 131 JA3/JA4 (`curl_cffi` BoringSSL)[^1]**:
    - Menghilangkan jejak TLS sintetis yang biasa ditinggalkan oleh pustaka HTTP standar Python (`requests`, `aiohttp`, `httpx`).
    - Meniru Cipher Suites, Extensions, dan frame HTTP/2 SETTINGS persis seperti peramban resmi Google Chrome 131 untuk melewati WAF dan Cloudflare.
 
-3. **Pool Terowongan WireGuard 1:1 di Ruang Pengguna (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**Pool Terowongan WireGuard 1:1 di Ruang Pengguna (`wireproxy`)[^2]**:
    - Beroperasi tanpa memodifikasi kartu jaringan host dan tanpa mengganggu DNS atau rute sistem komputer Anda.
    - Mengalokasikan port lokal terisolasi (`127.0.0.1:1081+`) untuk setiap pekerja yang terhubung ke 142 server di seluruh dunia. Lalu lintas internet normal komputer Anda tidak terganggu sama sekali (0.00% interferensi).
 
@@ -508,8 +508,13 @@ Dukungan dan masukan Anda adalah pendorong utama kelanjutan pengembangan perangk
 
 ---
 
+<a id="-catatan-kaki-referensi-teknis"></a><a id="catatan-kaki-referensi-teknis"></a><a id="footnote-heading"></a>
 ### 📚 Catatan Kaki & Referensi Teknis
-[^1]: Jabat tangan Chrome 131 BoringSSL sepenuhnya menetralkan pemblokiran sidik jari TLS dari Cloudflare dan WAF modern. [↩](#-daftar-isi)
-[^2]: wireproxy adalah biner Go ringan di ruang pengguna yang mengubah protokol WireGuard menjadi proksi SOCKS5 lokal terisolasi tanpa izin root. [↩](#-daftar-isi)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Jabat tangan Chrome 131 BoringSSL sepenuhnya menetralkan pemblokiran sidik jari TLS dari Cloudflare dan WAF modern. [↩ Kembali ke teks](#fnref-1) · [⬆️ Kembali ke Daftar Isi](#-daftar-isi)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy adalah biner Go ringan di ruang pengguna yang mengubah protokol WireGuard menjadi proksi SOCKS5 lokal terisolasi tanpa izin root. [↩ Kembali ke teks](#fnref-2) · [⬆️ Kembali ke Daftar Isi](#-daftar-isi)
 
 [⬆️ Kembali ke Daftar Isi](#-daftar-isi)

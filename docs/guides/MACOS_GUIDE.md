@@ -31,7 +31,7 @@ D4UC는 Apple Silicon ARM64(`arm64`) 및 레거시 Intel 64-bit(`x86_64`) 아키
 | **권장 OS 버전** | macOS 14 Sonoma / macOS 15 Sequoia | macOS 12 Monterey 이상 |
 | **아키텍처 바이너리** | ARM64 Native Execution | x86_64 Native Execution |
 | **TLS 위장 엔진** | `curl_cffi` BoringSSL Native ARM64 | `curl_cffi` BoringSSL x86_64 |
-| **와이어프록시** | `brew install wireproxy` (ARM64 네이티브) | `brew install wireproxy` (x86_64 네이티브) |
+| **와이어프록시** | `brew install <a id="fnref-1"></a><a id="fnref1"></a>wireproxy[^1]` (ARM64 네이티브) | `brew install wireproxy` (x86_64 네이티브) |
 | **메모리 점유** | 유휴 상태 약 80MB / 50워커 가동 시 약 280MB | 유휴 상태 약 95MB / 50워커 가동 시 약 310MB |
 
 [⬆️ 목차 맨 위로 이동](#-목차)
@@ -202,6 +202,5 @@ launchctl load ~/Library/LaunchAgents/com.krcupro.d4uc.plist
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: macOS 환경에서의 유저스페이스 와이어프록시는 로컬 루프백(`127.0.0.1`) SOCKS5 인터페이스를 생성하여 루트(sudo) 권한 없이 동작합니다. [↩](#-목차)
-
+[^1]: macOS 환경에서의 유저스페이스 와이어프록시는 로컬 루프백(`127.0.0.1`) SOCKS5 인터페이스를 생성하여 루트(sudo) 권한 없이 동작합니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)

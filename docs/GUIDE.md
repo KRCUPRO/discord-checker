@@ -30,8 +30,8 @@
 
 - **엔진 원리**: 디스코드 가입 API(`https://discord.com/api/v9/unique-username/username-attempt-unauthed`) 엔드포인트를 대상으로, Cloudflare/WAF 차단 없이 합법적인 비로그인 가용 여부를 초고속 판별합니다.
 - **핵심 차별화 기술**:
-  1. **Chrome 131 TLS JA3/JA4 스텔스 위장**: Python 표준 requests의 지문 차단을 극복하고 최신 크롬 브라우저와 100% 동일한 TLS 핸드셰이크 전송 (`curl_cffi`)[^1].
-  2. **Surfshark 1:1 독립 국가 터널 풀 (`wireproxy`)**: OS 네트워크 카드를 건드리지 않고 유저스페이스에서 전세계 142개국 엔드포인트를 로컬 루프백(`127.0.0.1:1081~1085`)으로 1:1 매핑[^2].
+  1. <a id="fnref-1"></a><a id="fnref1"></a>**Chrome 131 TLS JA3/JA4 스텔스 위장**: Python 표준 requests의 지문 차단을 극복하고 최신 크롬 브라우저와 100% 동일한 TLS 핸드셰이크 전송 (`curl_cffi`)[^1].
+  2. <a id="fnref-2"></a><a id="fnref2"></a>**Surfshark 1:1 독립 국가 터널 풀 (`wireproxy`)**: OS 네트워크 카드를 건드리지 않고 유저스페이스에서 전세계 142개국 엔드포인트를 로컬 루프백(`127.0.0.1:1081~1085`)으로 1:1 매핑[^2].
   3. **429 레이트리밋 원자적 핫스왑 (Atomic Hot-Swap)**: 특정 워커가 429를 맞으면 해당 워커의 터널만 0.3초 만에 새 국가로 원자적 교체하고, 타 워커는 중단 없이 100% 풀스피드 유지.
   4. **무료 공개 프록시 자동 수집/검증기 (`--proxy free`)**: 유료 VPN 없이도 14개 이상의 글로벌 공개 프록시를 실시간 수집 및 검증하여 즉시 투입.
   5. **SQLite WAL 멀티 프로세스 동기화**: 프로그램을 여러 개 띄워도 `d4uc_results.db`를 안전하게 공유하여 중복 검사 0% 및 실시간 발견 닉네임 크로스 팝업.
@@ -61,6 +61,7 @@
 <a id="3-주요-실행-환경별-빠른-시작"></a><a id="-3-주요-실행-환경별-빠른-시작"></a>
 ## 3. 주요 실행 환경별 빠른 시작
 
+<a id="a-데스크톱-gui-windows--macos"></a><a id="a-데스크톱-gui-windows-macos"></a>
 ### A. 데스크톱 GUI (Windows & macOS)
 ```bash
 # 한글 인터페이스 실행
@@ -71,16 +72,19 @@ python src/gui_en.py
 ```
 > Windows 사용자라면 별도 설치 없이 `DiscordUsernameCheckerV2_KO.exe` 또는 `DiscordUsernameCheckerV2_EN.exe`를 더블클릭하여 바로 실행할 수 있습니다.
 
+<a id="b-모바일-터치-최적화-web-gui--pwa"></a><a id="b-모바일-터치-최적화-web-gui-pwa"></a>
 ### B. 모바일 터치 최적화 Web GUI & PWA
 ```bash
 python src/web_gui.py --port 5000
 ```
 > 스마트폰 브라우저에서 `http://<호스트_IP>:5000`에 접속하여 [홈 화면에 추가]를 누르면 네이티브 모바일 앱으로 실행됩니다.
 
+<a id="c-안드로이드-스마트폰-1-tap-apk"></a>
 ### C. 안드로이드 스마트폰 (1-Tap APK)
 - 최신 Releases에서 `DiscordUsernameChecker_v12.3.0.apk`를 스마트폰에 다운로드 후 터치하여 설치합니다.
 - 내장된 반응형 웹 엔진과 클립보드 복사 기능을 지원합니다.
 
+<a id="d-헤드리스-cli-terminal--linux"></a><a id="d-헤드리스-cli-terminal-linux"></a>
 ### D. 헤드리스 CLI (Terminal / Linux)
 ```bash
 # 기본 실행 (하이브리드 모드, 4자리, 5워커)
@@ -93,6 +97,7 @@ python src/run.py --mode permutation --length 4 --shard 2_1 --workers 5
 python src/run.py --no-dashboard
 ```
 
+<a id="e-도커-컨테이너-docker--compose"></a><a id="e-도커-컨테이너-docker-compose"></a>
 ### E. 도커 컨테이너 (Docker & Compose)
 ```bash
 # 단일 컨테이너 백그라운드 구동
@@ -205,7 +210,10 @@ docker compose -f deploy/docker-compose.yml logs -f
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: Chrome 131 BoringSSL 핸드셰이크는 WAF의 TLS 핑거프린팅 차단을 원천 무력화합니다. [↩](#-목차)
-[^2]: wireproxy는 사용자 영역에서 WireGuard 프로토콜을 SOCKS5 프록시로 변환하는 경량 Go 바이너리입니다. [↩](#-목차)
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Chrome 131 BoringSSL 핸드셰이크는 WAF의 TLS 핑거프린팅 차단을 원천 무력화합니다. [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy는 사용자 영역에서 WireGuard 프로토콜을 SOCKS5 프록시로 변환하는 경량 Go 바이너리입니다. [↩ 본문으로 돌아가기](#fnref-2) · [⬆️ 목차 맨 위로 이동](#-목차)
 
 [⬆️ 목차 맨 위로 이동](#-목차)

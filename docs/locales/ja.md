@@ -88,11 +88,11 @@
    - 親指操作に最適化された巨大な [探索開始/停止] ボタン、純粋な HTML5 キャンバスリアルタイム RPS グラフ、1-Tap クリップボードコピー、TXT/CSV/JSON 即時エクスポート。
    - プロキシ設定（Surfshark 秘密鍵プール、独自プロキシファイル、Thordata）、8 つの探索モード、ワーカー数スライダー（1〜50）をスマホからリアルタイム遠隔ホットスワップ可能。
 
-2. **Chrome 131 TLS JA3/JA4 ステルス偽装 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Chrome 131 TLS JA3/JA4 ステルス偽装 (`curl_cffi` BoringSSL)[^1]**:
    - 一般的な Python HTTP ライブラリ（`requests`, `aiohttp`, `httpx`）の不自然な TLS 署名を完全に排除。
    - 最新の公式 Google Chrome 131 ブラウザと完全に一致する Cipher Suites、Extensions、Supported Groups、HTTP/2 SETTINGS フレームをエミュレートし、Cloudflare や WAF による事前ブロックを無力化。
 
-3. **1:1 ユーザー空間 WireGuard トンネルプール (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**1:1 ユーザー空間 WireGuard トンネルプール (`wireproxy`)[^2]**:
    - ホスト OS のネットワークアダプターを乗っ取ったりルーティングテーブルを書き換えたりしません。
    - ユーザー空間の軽量バイナリ `wireproxy` を通じてワーカーごとに独立したローカルポート（`127.0.0.1:1081+`）を割り当て、世界 142 拠点のエンドポイントに 1:1 でマップ。
    - メイン PC の業務、Web 閲覧、オンラインゲーム、通話トラフィックに 0.00% の干渉や速度低下も与えません。
@@ -509,8 +509,13 @@ sequenceDiagram
 
 ---
 
+<a id="-脚注および技術参考文献"></a><a id="脚注および技術参考文献"></a><a id="footnote-heading"></a>
 ### 📚 脚注および技術参考文献
-[^1]: Chrome 131 BoringSSLハンドシェイクは、WAFのTLSフィンガープリントによる遮断を完全に無力化します。[↩](#-目次)
-[^2]: wireproxyは、管理者権限なしにWireGuardプロトコルを独立したローカルSOCKS5プロキシに変換する軽量Goバイナリです。[↩](#-目次)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Chrome 131 BoringSSLハンドシェイクは、WAFのTLSフィンガープリントによる遮断を完全に無力化します。 [↩ 本文に戻る](#fnref-1) · [⬆️ 目次へ戻る](#-目次)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxyは、管理者権限なしにWireGuardプロトコルを独立したローカルSOCKS5プロキシに変換する軽量Goバイナリです。 [↩ 本文に戻る](#fnref-2) · [⬆️ 目次へ戻る](#-目次)
 
 [⬆️ 目次へ戻る](#-目次)

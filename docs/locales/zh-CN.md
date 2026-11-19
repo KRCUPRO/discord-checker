@@ -88,11 +88,11 @@
    - 针对触屏优化的大尺寸 [开始/停止] 按钮、纯 HTML5 Canvas 实时 RPS 曲线图、1-Tap 一键复制用户名、TXT/CSV/JSON 快速下载。
    - 可在手机上直接远程配置与热切换代理（Surfshark 密钥池、自定义代理文件、Thordata）、8 种生成模式及工作线程滑块（1–50）。
 
-2. **Chrome 131 TLS JA3/JA4 隐形伪装 (`curl_cffi` BoringSSL)**:
+2. <a id="fnref-1"></a><a id="fnref1"></a>**Chrome 131 TLS JA3/JA4 隐形伪装 (`curl_cffi` BoringSSL)[^1]**:
    - 彻底摆脱标准 Python 库（`requests`, `aiohttp`, `httpx`）极易被识别的合成 TLS 特征码。
    - 逐位复刻最新 Google Chrome 131 浏览器的加密套件（Cipher Suites）、扩展字段（Extensions）、椭圆曲线（Supported Groups）及 HTTP/2 SETTINGS 帧，有效化解 Cloudflare 与 WAF 挑战。
 
-3. **1:1 用户空间 WireGuard 隧道池 (`wireproxy`)**:
+3. <a id="fnref-2"></a><a id="fnref2"></a>**1:1 用户空间 WireGuard 隧道池 (`wireproxy`)[^2]**:
    - 无需修改宿主机网络适配器，不劫持 PC 全局 DNS 或系统路由表。
    - 借助用户空间轻量二进制 `wireproxy` 为每个工作线程分配独立的本地端口（`127.0.0.1:1081+`），与全球 142 个国家端点一一映射。
    - 宿主机正常的日常办公、网页浏览、游戏及即时通讯流量完全不受影响（0.00% 干扰）。
@@ -509,8 +509,13 @@ sequenceDiagram
 
 ---
 
+<a id="-脚注与技术参考文献"></a><a id="脚注与技术参考文献"></a><a id="footnote-heading"></a>
 ### 📚 脚注与技术参考文献
-[^1]: Chrome 131 BoringSSL 握手彻底消除了 Cloudflare 及现代 WAF 的 TLS 指纹拦截。[↩](#-目录)
-[^2]: wireproxy 是一款在用户空间运行的轻量级 Go 二进制程序，无需 Root 权限即可将 WireGuard 转换为独立的本地 SOCKS5 代理。[↩](#-目录)
+
+<a id="footnote-1"></a><a id="fn-1"></a>
+[^1]: Chrome 131 BoringSSL 握手彻底消除了 Cloudflare 及现代 WAF 的 TLS 指纹拦截。 [↩ 返回正文引用](#fnref-1) · [⬆️ 返回顶部目录](#-目录)
+
+<a id="footnote-2"></a><a id="fn-2"></a>
+[^2]: wireproxy 是一款在用户空间运行的轻量级 Go 二进制程序，无需 Root 权限即可将 WireGuard 转换为独立的本地 SOCKS5 代理。 [↩ 返回正文引用](#fnref-2) · [⬆️ 返回顶部目录](#-目录)
 
 [⬆️ 返回顶部目录](#-目录)

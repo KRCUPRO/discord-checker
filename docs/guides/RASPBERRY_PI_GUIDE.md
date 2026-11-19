@@ -40,7 +40,7 @@
 ## ⚙️ 사전 필수 환경 및 64비트 OS 구성
 
 > [!IMPORTANT]
-> D4UC의 `curl_cffi` 및 BoringSSL 라이브러리는 **64-bit ARM(`aarch64`)** 환경을 필요로 합니다. 반드시 Raspberry Pi OS 64-bit 버전을 사용해야 합니다 (32-bit는 지원되지 않습니다).
+> D4UC의 `curl_cffi` 및 <a id="fnref-1"></a><a id="fnref1"></a>BoringSSL[^1] 라이브러리는 **64-bit ARM(`aarch64`)** 환경을 필요로 합니다. 반드시 Raspberry Pi OS 64-bit 버전을 사용해야 합니다 (32-bit는 지원되지 않습니다).
 
 ```bash
 # 아키텍처 확인 (aarch64가 출력되어야 함)
@@ -202,6 +202,5 @@ sudo systemctl status d4uc
 <a id="각주-및-기술-참고문헌"></a><a id="-각주-및-기술-참고문헌"></a>
 ## 📚 각주 및 기술 참고문헌
 
-[^1]: Raspberry Pi 4 및 5의 ARM Cortex-A72 / A76 아키텍처는 BoringSSL 암호화 가속 명령어를 완벽하게 지원하여 x86_64 데스크톱 대비 90% 이상의 네트워크 처리 효율을 발휘합니다. [↩](#-목차)
-
+[^1]: Raspberry Pi 4 및 5의 ARM Cortex-A72 / A76 아키텍처는 BoringSSL 암호화 가속 명령어를 완벽하게 지원하여 x86_64 데스크톱 대비 90% 이상의 네트워크 처리 효율을 발휘합니다. [↩](#-목차) [↩ 본문으로 돌아가기](#fnref-1) · [⬆️ 목차 맨 위로 이동](#-목차)
 [⬆️ 목차 맨 위로 이동](#-목차)
