@@ -34,8 +34,16 @@
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
-      --safe-bottom: env(safe-area-inset-bottom, 16px);
-      --safe-top: env(safe-area-inset-top, 12px);
+      --safe-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+      --safe-top: max(env(safe-area-inset-top, 0px), 20px);
+      --safe-left: max(env(safe-area-inset-left, 0px), 12px);
+      --safe-right: max(env(safe-area-inset-right, 0px), 12px);
+    }
+
+    /* Android native app notch & status bar padding boost */
+    html.android-app {
+      --safe-top: max(env(safe-area-inset-top, 0px), 26px);
+      --safe-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
     }
 
     * {
@@ -55,74 +63,196 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      padding-top: var(--safe-top);
-      padding-bottom: calc(var(--safe-bottom) + 70px);
+      padding-top: 0;
+      padding-bottom: calc(var(--safe-bottom) + 76px);
+      padding-left: 0;
+      padding-right: 0;
     }
 
     /* Header */
     header {
-      background-color: var(--bg-panel);
+      width: 100%;
+      background-color: rgba(43, 45, 49, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 12px 16px;
+      padding-top: max(var(--safe-top), 14px);
+      padding-bottom: 10px;
+      padding-left: max(var(--safe-left), 14px);
+      padding-right: max(var(--safe-right), 14px);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      min-height: 56px;
+      box-sizing: border-box;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .brand-logo {
       width: 32px;
       height: 32px;
-      background: var(--accent-blurple);
+      background: linear-gradient(135deg, var(--accent-blurple), #404eed);
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
+      box-shadow: 0 2px 8px rgba(88, 101, 242, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-text-container {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .brand-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .brand-title {
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
       letter-spacing: -0.3px;
     }
 
+    .brand-badge {
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(88, 101, 242, 0.2);
+      color: #98a2fa;
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      padding: 1px 5px;
+      border-radius: 8px;
+    }
+
     .brand-sub {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      .brand-sub {
+        display: none;
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
+      padding: 5px 10px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       background-color: var(--bg-input);
       border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .status-badge:active {
+      transform: scale(0.95);
+    }
+
+    .status-badge.connected {
+      background: rgba(35, 165, 90, 0.15);
+      border-color: rgba(35, 165, 90, 0.5);
+      color: #79f7a7;
+    }
+
+    .status-badge.checking {
+      background: rgba(252, 166, 26, 0.15);
+      border-color: rgba(252, 166, 26, 0.5);
+      color: #ffd680;
+    }
+
+    .status-badge.disconnected {
+      background: rgba(242, 63, 67, 0.15);
+      border-color: rgba(242, 63, 67, 0.5);
+      color: #ff9da0;
+    }
+
+    .status-badge.mock {
+      background: rgba(88, 101, 242, 0.2);
+      border-color: rgba(88, 101, 242, 0.5);
+      color: #c9cdfb;
+    }
+
+    @media (max-width: 380px) {
+      .brand-sub {
+        display: none;
+      }
+      .brand-title {
+        font-size: 14px;
+      }
+      .brand-logo {
+        width: 28px;
+        height: 28px;
+        font-size: 15px;
+      }
+      .status-badge {
+        padding: 4px 8px;
+        font-size: 10px;
+        gap: 4px;
+      }
+      .brand-badge {
+        font-size: 8px;
+        padding: 1px 4px;
+      }
     }
 
     .status-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background-color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .status-dot.connected {
+      background-color: var(--accent-green);
     }
 
     .status-dot.running {
       background-color: var(--accent-green);
       box-shadow: 0 0 8px var(--accent-green);
-      animation: pulse 1.8s infinite;
+      animation: pulse 1.5s infinite;
+    }
+
+    .status-dot.checking {
+      background-color: var(--accent-yellow);
+      animation: pulse 1.2s infinite;
+    }
+
+    .status-dot.disconnected {
+      background-color: var(--accent-red);
+    }
+
+    .status-dot.mock {
+      background-color: var(--accent-blurple);
+      box-shadow: 0 0 6px var(--accent-blurple);
     }
 
     @keyframes pulse {
@@ -138,9 +268,11 @@
       border-radius: 16px;
       padding: 4px 8px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       outline: none;
+      text-align: center;
+      flex-shrink: 0;
     }
 
     /* Container */
@@ -148,10 +280,11 @@
       width: 100%;
       max-width: 680px;
       margin: 0 auto;
-      padding: 14px 14px 0 14px;
+      padding: 12px max(var(--safe-right), 12px) 0 max(var(--safe-left), 12px);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      box-sizing: border-box;
     }
 
     /* Telemetry Grid */
@@ -171,26 +304,34 @@
       background-color: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 10px 12px;
+      padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       transition: border-color 0.2s;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .metric-label {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
       text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.3px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .metric-value {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 800;
       font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
       color: var(--text-white);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .metric-value.available {
@@ -242,13 +383,18 @@
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
       gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-bar::-webkit-scrollbar {
+      display: none;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 10px 4px;
-      font-size: 13px;
-      font-weight: 600;
+      padding: 9px 4px;
+      font-size: 12px;
+      font-weight: 700;
       border: none;
       background: none;
       color: var(--text-muted);
@@ -256,6 +402,7 @@
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
+      white-space: nowrap;
     }
 
     .tab-btn.active {
@@ -615,16 +762,19 @@
     .bottom-bar {
       position: fixed;
       bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: var(--bg-panel);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 680px;
+      background: rgba(43, 45, 49, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid var(--border);
-      padding: 10px 16px calc(var(--safe-bottom) + 10px) 16px;
+      padding: 10px 16px calc(var(--safe-bottom) + 8px) 16px;
       display: flex;
       gap: 10px;
       z-index: 200;
-      max-width: 680px;
-      margin: 0 auto;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
     }
 
     .btn-main {
@@ -650,7 +800,7 @@
 
     .btn-main.start:active {
       background-color: var(--accent-green-hover);
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     .btn-main.stop {
@@ -661,7 +811,7 @@
 
     .btn-main.stop:active {
       background-color: var(--accent-red-hover);
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     .btn-secondary {
@@ -682,13 +832,13 @@
 
     .btn-secondary:active {
       background-color: var(--bg-input);
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     /* Toast Notification */
     .toast-container {
       position: fixed;
-      top: 60px;
+      top: calc(var(--safe-top) + 54px);
       left: 50%;
       transform: translateX(-50%);
       background-color: var(--accent-green);
@@ -708,6 +858,211 @@
       opacity: 1;
       transform: translateX(-50%) translateY(10px);
     }
+
+    /* Connection Notice Banner */
+    .connection-notice-banner {
+      background: rgba(242, 63, 67, 0.12);
+      border: 1px solid rgba(242, 63, 67, 0.35);
+      border-radius: var(--radius-md);
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: #ffb8ba;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .connection-notice-banner:active {
+      background: rgba(242, 63, 67, 0.22);
+    }
+
+    .notice-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .notice-text {
+      flex: 1;
+      line-height: 1.35;
+    }
+
+    .notice-text strong {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .notice-arrow {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-white);
+      flex-shrink: 0;
+    }
+
+    /* Modal Dialog */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.96);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .modal-close:active {
+      background: var(--bg-card);
+      color: var(--text-white);
+    }
+
+    .modal-body {
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-status-box {
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-input);
+    }
+
+    .modal-status-box.connected {
+      border-color: rgba(35, 165, 90, 0.5);
+      background: rgba(35, 165, 90, 0.12);
+    }
+
+    .modal-status-box.disconnected {
+      border-color: rgba(242, 63, 67, 0.5);
+      background: rgba(242, 63, 67, 0.1);
+    }
+
+    .modal-status-box.mock {
+      border-color: rgba(88, 101, 242, 0.5);
+      background: rgba(88, 101, 242, 0.15);
+    }
+
+    .status-indicator-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .modal-status-box.connected .status-indicator-dot {
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    .modal-status-box.disconnected .status-indicator-dot {
+      background: var(--accent-red);
+    }
+
+    .modal-status-box.mock .status-indicator-dot {
+      background: var(--accent-blurple);
+      box-shadow: 0 0 8px var(--accent-blurple);
+    }
+
+    .status-indicator-info {
+      flex: 1;
+    }
+
+    .status-main-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .status-sub-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn {
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-white);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .preset-btn:hover, .preset-btn:active {
+      border-color: var(--accent-blurple);
+      background: var(--accent-blurple);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -719,35 +1074,54 @@
   <header>
     <div class="brand">
       <div class="brand-logo">⚡</div>
-      <div>
-        <div class="brand-title">D4UC Mobile Web</div>
-        <div class="brand-sub">Discord Username Checker v12.3.0</div>
+      <div class="brand-text-container">
+        <div class="brand-title-row">
+          <span class="brand-title">D4UC</span>
+          <span id="appBadge" class="brand-badge">v12.3.0</span>
+        </div>
+        <div class="brand-sub">Discord Username Checker</div>
       </div>
     </div>
-    <div style="display:flex; align-items:center; gap:8px;">
-      <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="en">🇺🇸 English</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="pt">🇧🇷 Português</option>
-        <option value="ar">🇸🇦 العربية</option>
-        <option value="hi">🇮🇳 हिन्दी</option>
-        <option value="id">🇮🇩 Bahasa</option>
-      </select>
-      <div id="statusBadge" class="status-badge">
-        <div id="statusDot" class="status-dot"></div>
-        <span id="statusText">대기 중</span>
+    <div class="header-right">
+      <div id="statusBadge" class="status-badge disconnected" onclick="openServerModal()" title="서버 연결 설정">
+        <div id="statusDot" class="status-dot disconnected"></div>
+        <span id="statusText">확인 중...</span>
       </div>
+      <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
+        <option value="ko">KR</option>
+        <option value="en">EN</option>
+        <option value="ja">JP</option>
+        <option value="zh">CN</option>
+        <option value="es">ES</option>
+        <option value="fr">FR</option>
+        <option value="de">DE</option>
+        <option value="ru">RU</option>
+        <option value="pt">PT</option>
+        <option value="ar">AR</option>
+        <option value="hi">HI</option>
+        <option value="id">ID</option>
+      </select>
     </div>
   </header>
 
   <!-- Main Container -->
   <main class="container">
+
+    <!-- Connection Notice Banner -->
+    <div id="connectionBanner" class="connection-notice-banner" style="display:none;">
+      <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0;" onclick="openServerModal()">
+        <span class="notice-icon">⚠️</span>
+        <span class="notice-text">PC 서버 미연결 — 동일 Wi-Fi PC IP를 연결하거나 독립 시연 모드로 바로 체험하세요.</span>
+      </div>
+      <div style="display:flex; gap:6px; flex-shrink:0;">
+        <button class="action-btn-sm" style="padding:5px 9px; font-size:11px; font-weight:700; background:linear-gradient(135deg, var(--accent-blurple), #404eed); color:#fff; border:none; border-radius:12px; cursor:pointer;" onclick="event.stopPropagation(); MockEngine.start();">
+          🟣 시연 시작
+        </button>
+        <button class="action-btn-sm" style="padding:5px 9px; font-size:11px; font-weight:700; background:var(--bg-input); color:#fff; border:1px solid var(--border); border-radius:12px; cursor:pointer;" onclick="event.stopPropagation(); openServerModal();">
+          🌐 연결 설정
+        </button>
+      </div>
+    </div>
 
     <!-- Telemetry Cards -->
     <div class="metrics-grid">
@@ -974,8 +1348,13 @@
         <div class="panel-title">📱 모바일 및 원격 서버 연동 (Android / Remote)</div>
         <div class="form-group">
           <label class="form-label">D4UC 원격 서버 연결 URL</label>
-          <input type="text" id="serverUrlInput" class="form-input" placeholder="http://192.168.0.x:5000 or http://10.0.2.2:5000">
-          <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="serverUrlInput" class="form-input" placeholder="http://192.168.0.x:5000">
+            <button class="action-btn-sm" style="min-width:72px; background:var(--accent-blurple);" onclick="testDirectPing()">
+              ⚡ 핑
+            </button>
+          </div>
+          <div id="tabPingResult" style="font-size:11px; color:var(--text-muted); margin-top:4px;">
             안드로이드 스마트폰 또는 원격 브라우저에서 실행 중인 PC/서버의 D4UC 주소를 지정합니다.
           </div>
         </div>
@@ -983,8 +1362,11 @@
           <button class="action-btn-sm" style="flex:1; padding:10px; background:var(--accent-green);" onclick="saveServerUrl()">
             💾 서버 주소 저장
           </button>
-          <button id="btnNativeDialog" class="action-btn-sm" style="flex:1; padding:10px; background:var(--accent-blurple); display:none;" onclick="openNativeServerDialog()">
-            📱 네이티브 설정창
+          <button class="action-btn-sm" style="flex:1; padding:10px; background:var(--accent-blurple);" onclick="openServerModal()">
+            🌐 연결 마법사 열기
+          </button>
+          <button id="btnNativeDialog" class="action-btn-sm" style="flex:1; padding:10px; background:var(--bg-card); border:1px solid var(--border); display:none;" onclick="openNativeServerDialog()">
+            📱 OS 대화상자
           </button>
         </div>
         <div class="form-group" style="margin-top:12px; margin-bottom:0;">
@@ -1024,120 +1406,109 @@
     </button>
   </footer>
 
+  <!-- Server Connection Assistant Modal -->
+  <div id="serverModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">🌐 D4UC 서버 연결 마법사</div>
+        <button class="modal-close" onclick="closeServerModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- Live Connection Status Box -->
+        <div id="modalStatusBox" class="modal-status-box disconnected">
+          <div class="status-indicator-dot"></div>
+          <div class="status-indicator-info">
+            <div id="modalStatusTitle" class="status-main-text">🔴 서버 미연결</div>
+            <div id="modalStatusSub" class="status-sub-text">동일 Wi-Fi의 PC IP를 입력하거나 [독립 시연 모드]를 활성화하세요.</div>
+          </div>
+        </div>
+
+        <!-- URL Input & Ping -->
+        <div class="form-group">
+          <label class="form-label">D4UC Web 서버 주소 (호스트:포트)</label>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="modalServerUrlInput" class="form-input" placeholder="http://192.168.0.x:5000">
+            <button id="btnModalPing" class="action-btn-sm" style="min-width:85px; background:var(--accent-blurple); font-weight:700;" onclick="testModalPing()">
+              ⚡ 핑 테스트
+            </button>
+          </div>
+          <div id="modalPingResult" style="font-size:11px; color:var(--text-muted); margin-top:5px; min-height:16px;"></div>
+        </div>
+
+        <!-- Detected Subnets / Quick Presets -->
+        <div class="form-group" style="margin-top:2px;">
+          <label class="form-label" style="font-size:11px;">💡 빠른 주소 프리셋 (탭하여 즉시 적용):</label>
+          <div id="presetButtonsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
+            <!-- Injected dynamically based on Wi-Fi subnet and candidate IPs -->
+          </div>
+        </div>
+
+        <!-- Auto Subnet Scanner -->
+        <button id="btnAutoScan" class="action-btn-sm" style="width:100%; padding:10px; background:var(--bg-card); border:1px solid var(--border); font-size:12px; font-weight:600;" onclick="autoScanSubnet()">
+          🔍 로컬 네트워크 자동 탐색 (Auto Scan)
+        </button>
+        <div id="autoScanStatus" style="font-size:11px; color:var(--accent-cyan); display:none; text-align:center;"></div>
+
+        <!-- Standalone Mock Mode Section -->
+        <div style="padding:12px; border-radius:var(--radius-md); background:rgba(88, 101, 242, 0.12); border:1px solid rgba(88, 101, 242, 0.35); margin-top:4px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div>
+              <div style="font-weight:700; font-size:12px; color:var(--text-white);">📱 독립 시연 / 오프라인 모드</div>
+              <div style="font-size:10px; color:var(--text-muted); margin-top:2px; line-height:1.3;">
+                PC 서버 연결 없이도 스마트폰 앱 내에서 탐색 속도, 희귀 닉네임 감지, 차트 애니메이션을 100% 시연할 수 있습니다.
+              </div>
+            </div>
+            <button id="btnToggleMock" class="action-btn-sm" style="background:var(--accent-blurple); min-width:80px; flex-shrink:0; font-weight:700;" onclick="toggleStandaloneMockMode()">
+              시연 켜기
+            </button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px;">
+        <button class="action-btn-sm" style="flex:1; padding:12px; background:var(--accent-green); font-size:13px; font-weight:800;" onclick="applyAndCloseServerModal()">
+          💾 설정 저장 및 닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disconnected Action Modal -->
+  <div id="disconnectedModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">⚠️ 서버 미연결 안내</div>
+        <button class="modal-close" onclick="closeDisconnectedModal()">✕</button>
+      </div>
+      <div class="modal-body" style="gap:12px;">
+        <div class="modal-status-box disconnected">
+          <div class="status-indicator-dot"></div>
+          <div class="status-indicator-info">
+            <div class="status-main-text">🔴 PC 서버와 연결되지 않음</div>
+            <div class="status-sub-text">스마트폰 단독으로 기능을 즉시 체험하거나, 동일 Wi-Fi의 PC IP를 입력하세요.</div>
+          </div>
+        </div>
+
+        <button class="action-btn-sm" style="padding:14px; background:linear-gradient(135deg, var(--accent-blurple), #404eed); color:#fff; font-size:14px; font-weight:800; border:none; border-radius:var(--radius-md); box-shadow:0 4px 14px rgba(88,101,242,0.4); cursor:pointer;" onclick="startMockFromModal()">
+          🟣 독립 시연 모드로 바로 시작 (권장)
+        </button>
+
+        <button class="action-btn-sm" style="padding:12px; background:var(--bg-card); border:1px solid var(--border); color:var(--text-white); font-size:13px; font-weight:700; border-radius:var(--radius-md); cursor:pointer;" onclick="closeDisconnectedModal(); openServerModal();">
+          🌐 PC 서버 연결 설정 마법사
+        </button>
+
+        <button class="action-btn-sm" style="padding:11px; background:var(--bg-input); border:1px solid var(--border); color:var(--accent-cyan); font-size:12px; font-weight:600; border-radius:var(--radius-md); cursor:pointer;" onclick="closeDisconnectedModal(); openServerModal(); autoScanSubnet();">
+          🔍 같은 Wi-Fi PC 자동 탐색 (Auto Scan)
+        </button>
+      </div>
+      <div style="padding:10px 16px; border-top:1px solid var(--border); text-align:center;">
+        <button class="action-btn-sm" style="width:100%; padding:8px; background:none; border:none; color:var(--text-muted); font-size:12px; cursor:pointer;" onclick="closeDisconnectedModal()">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // State management
-    let isRunning = false;
-    let selectedMode = 'hybrid';
-
-    // Android Bridge & Remote Server Routing Engine
-    function getApiBaseUrl() {
-      if (window.AndroidBridge && typeof window.AndroidBridge.getServerUrl === 'function') {
-        try {
-          const u = window.AndroidBridge.getServerUrl();
-          if (u && u.trim().length > 0) return u.trim().replace(/\/+$/, '');
-        } catch (e) {}
-      }
-      const saved = localStorage.getItem('d4uc_server_url');
-      if (saved && saved.trim().length > 0) return saved.trim().replace(/\/+$/, '');
-      if (window.location.protocol === 'file:') return 'http://127.0.0.1:5000';
-      return '';
-    }
-
-    const _origFetch = window.fetch;
-    window.fetch = function(input, init) {
-      if (typeof input === 'string' && input.startsWith('/api/')) {
-        const base = getApiBaseUrl();
-        if (base) {
-          input = base + input;
-        }
-      }
-      return _origFetch(input, init);
-    };
-
-    function initServerUrl() {
-      const input = document.getElementById('serverUrlInput');
-      if (input) {
-        input.value = getApiBaseUrl();
-      }
-      if (window.AndroidBridge) {
-        const btn = document.getElementById('btnNativeDialog');
-        if (btn) btn.style.display = 'block';
-        const brandSub = document.querySelector('.brand-sub');
-        if (brandSub) brandSub.textContent = 'Discord Username Checker v12.3.0 (Android App)';
-      }
-    }
-
-    function saveServerUrl() {
-      const input = document.getElementById('serverUrlInput');
-      if (!input) return;
-      let url = input.value.trim().replace(/\/+$/, '');
-      if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'http://' + url;
-      }
-      if (url) {
-        try {
-          const u = new URL(url);
-          if (!u.port) {
-            u.port = '5000';
-            url = u.toString().replace(/\/+$/, '');
-          }
-        } catch (e) {
-          if (!url.includes(':', 7)) {
-            url = url + ':5000';
-          }
-        }
-        input.value = url;
-      }
-      localStorage.setItem('d4uc_server_url', url);
-      if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
-        window.AndroidBridge.setServerUrl(url);
-      }
-      showToast('🌐 서버 주소 저장 완료: ' + (url || '기본값'));
-      pollStatus();
-      loadInitialConfig();
-    }
-
-    function openNativeServerDialog() {
-      if (window.AndroidBridge && typeof window.AndroidBridge.openServerConfigDialog === 'function') {
-        window.AndroidBridge.openServerConfigDialog();
-      }
-    }
-
-    window.setServerUrlFromNative = function(url) {
-      localStorage.setItem('d4uc_server_url', url);
-      const input = document.getElementById('serverUrlInput');
-      if (input) input.value = url;
-      pollStatus();
-      loadInitialConfig();
-    };
-
-    let wakeLockSentinel = null;
-    async function toggleWakeLock(enabled) {
-      if (window.AndroidBridge && typeof window.AndroidBridge.setWakeLock === 'function') {
-        window.AndroidBridge.setWakeLock(enabled);
-      }
-      if ('wakeLock' in navigator) {
-        try {
-          if (enabled) {
-            wakeLockSentinel = await navigator.wakeLock.request('screen');
-            showToast('⚡ 화면 켜짐 유지 활성화');
-          } else if (wakeLockSentinel) {
-            await wakeLockSentinel.release();
-            wakeLockSentinel = null;
-            showToast('💤 화면 켜짐 유지 해제');
-          }
-        } catch (e) {
-          console.log('Wake Lock error:', e);
-        }
-      }
-    }
-    let selectedLength = 4;
-    let pollInterval = null;
-    let speedHistory = [];
-    const maxHistoryPoints = 30;
-    let isKeyMasked = true;
-    let currentLang = localStorage.getItem('d4uc_lang') || 'ko';
-
     const I18N_DICT = {
       ko: {
         idle: "대기 중", running: "실행 중", start: "탐색 시작", stop: "탐색 중지", restart: "재시작",
@@ -1237,6 +1608,439 @@
       }
     };
 
+    // State management
+    let isRunning = false;
+    let selectedMode = 'hybrid';
+    let serverConnected = false;
+    let isMockMode = false;
+    let currentLatencyMs = null;
+    let detectedLanUrls = [];
+    let selectedLength = 4;
+    let pollInterval = null;
+    let speedHistory = [];
+    const maxHistoryPoints = 30;
+    let isKeyMasked = true;
+    let currentLang = localStorage.getItem('d4uc_lang') || 'ko';
+
+    // Android Bridge & Remote Server Routing Engine
+    function getApiBaseUrl() {
+      if (isMockMode) return '';
+      const isEmu = window.AndroidBridge && typeof window.AndroidBridge.isEmulator === 'function' ? window.AndroidBridge.isEmulator() : false;
+      let saved = localStorage.getItem('d4uc_server_url');
+      if (saved && !isEmu && saved.indexOf('10.0.2.2') !== -1) {
+        localStorage.removeItem('d4uc_server_url');
+        saved = null;
+      }
+      if (saved && saved.trim().length > 0) return saved.trim().replace(/\/+$/, '');
+      if (window.AndroidBridge && typeof window.AndroidBridge.getServerUrl === 'function') {
+        try {
+          const u = window.AndroidBridge.getServerUrl();
+          if (u && (!u.includes('10.0.2.2') || isEmu) && u.trim().length > 0) return u.trim().replace(/\/+$/, '');
+        } catch (e) {}
+      }
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        return window.location.origin;
+      }
+      return '';
+    }
+
+    const _origFetch = window.fetch;
+    window.fetch = function(input, init) {
+      if (typeof input === 'string' && input.startsWith('/api/')) {
+        const base = getApiBaseUrl();
+        if (base) {
+          input = base + input;
+        }
+      }
+      return _origFetch(input, init);
+    };
+
+    function setConnectionStatus(status, latencyMs) {
+      serverConnected = (status === 'connected');
+      if (latencyMs !== undefined && latencyMs !== null) currentLatencyMs = latencyMs;
+      const badge = document.getElementById('statusBadge');
+      const dot = document.getElementById('statusDot');
+      const txt = document.getElementById('statusText');
+      const banner = document.getElementById('connectionBanner');
+      const modalBox = document.getElementById('modalStatusBox');
+      const modalTitle = document.getElementById('modalStatusTitle');
+      const modalSub = document.getElementById('modalStatusSub');
+      const d = I18N_DICT[currentLang] || I18N_DICT.ko;
+
+      if (isMockMode) {
+        if (badge) badge.className = 'status-badge mock';
+        if (dot) dot.className = isRunning ? 'status-dot running' : 'status-dot mock';
+        if (txt) txt.textContent = isRunning ? '시연 중' : '시연 모드';
+        if (banner) banner.style.display = 'none';
+        if (modalBox) modalBox.className = 'modal-status-box mock';
+        if (modalTitle) modalTitle.textContent = '🟣 독립 시연 모드 활성';
+        if (modalSub) modalSub.textContent = 'PC 연결 없이 로컬 시뮬레이션 동작 중';
+        const mockBtn = document.getElementById('btnToggleMock');
+        if (mockBtn) mockBtn.textContent = '시연 끄기';
+        return;
+      }
+
+      const mockBtn = document.getElementById('btnToggleMock');
+      if (mockBtn) mockBtn.textContent = '시연 켜기';
+
+      if (status === 'connected') {
+        if (badge) badge.className = 'status-badge connected';
+        if (dot) dot.className = isRunning ? 'status-dot running' : 'status-dot connected';
+        if (txt) txt.textContent = isRunning ? (d.running || '실행 중') : (currentLatencyMs ? `${currentLatencyMs}ms` : '연결됨');
+        if (banner) banner.style.display = 'none';
+        if (modalBox) modalBox.className = 'modal-status-box connected';
+        if (modalTitle) modalTitle.textContent = '🟢 D4UC 서버 정상 연결됨';
+        if (modalSub) modalSub.textContent = `${getApiBaseUrl() || '현재 호스트'} (${currentLatencyMs || 0}ms)`;
+      } else if (status === 'checking') {
+        if (badge) badge.className = 'status-badge checking';
+        if (dot) dot.className = 'status-dot checking';
+        if (txt) txt.textContent = '확인 중...';
+        if (modalBox) modalBox.className = 'modal-status-box';
+        if (modalTitle) modalTitle.textContent = '🟡 연결 확인 중...';
+      } else {
+        if (badge) badge.className = 'status-badge disconnected';
+        if (dot) dot.className = 'status-dot disconnected';
+        if (txt) txt.textContent = '미연결';
+        if (banner) banner.style.display = 'flex';
+        if (modalBox) modalBox.className = 'modal-status-box disconnected';
+        if (modalTitle) modalTitle.textContent = '🔴 D4UC 서버 미연결';
+        if (modalSub) modalSub.textContent = '동일 Wi-Fi의 PC IP를 입력하거나 [독립 시연 모드]를 활성화하세요.';
+      }
+    }
+
+    async function probeUrl(url, timeoutMs) {
+      if (!url) return { ok: false };
+      timeoutMs = timeoutMs || 900;
+      let cleanUrl = url.trim().replace(/\/+$/, '');
+      if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+        cleanUrl = 'http://' + cleanUrl;
+      }
+      try {
+        const u = new URL(cleanUrl);
+        if (!u.port) u.port = '5000';
+        cleanUrl = u.toString().replace(/\/+$/, '');
+      } catch (e) {
+        if (!cleanUrl.includes(':', 7)) cleanUrl = cleanUrl + ':5000';
+      }
+
+      const t0 = performance.now();
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(function() { controller.abort(); }, timeoutMs);
+        const res = await _origFetch(cleanUrl + '/api/ping', {
+          signal: controller.signal,
+          mode: 'cors'
+        });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const latency = Math.round(performance.now() - t0);
+          return { ok: true, url: cleanUrl, latency: latency };
+        }
+      } catch (err) {
+        try {
+          const controller2 = new AbortController();
+          const timeoutId2 = setTimeout(function() { controller2.abort(); }, Math.min(timeoutMs, 600));
+          const res2 = await _origFetch(cleanUrl + '/api/status', {
+            signal: controller2.signal,
+            mode: 'cors'
+          });
+          clearTimeout(timeoutId2);
+          if (res2.ok) {
+            const latency = Math.round(performance.now() - t0);
+            return { ok: true, url: cleanUrl, latency: latency };
+          }
+        } catch (e2) {}
+      }
+      return { ok: false, url: cleanUrl };
+    }
+
+    function probeCandidatesParallel(candidates, timeoutMs) {
+      return new Promise(function(resolve) {
+        if (!candidates || candidates.length === 0) {
+          resolve(null);
+          return;
+        }
+        let resolved = false;
+        let remaining = candidates.length;
+        candidates.forEach(function(url) {
+          probeUrl(url, timeoutMs).then(function(res) {
+            if (res && res.ok && !resolved) {
+              resolved = true;
+              resolve(res);
+            } else {
+              remaining--;
+              if (remaining <= 0 && !resolved) resolve(null);
+            }
+          }).catch(function() {
+            remaining--;
+            if (remaining <= 0 && !resolved) resolve(null);
+          });
+        });
+      });
+    }
+
+    async function autoDetectServer() {
+      const isEmu = window.AndroidBridge && typeof window.AndroidBridge.isEmulator === 'function' ? window.AndroidBridge.isEmulator() : false;
+      const candidates = [];
+      let saved = localStorage.getItem('d4uc_server_url');
+      if (saved && !isEmu && saved.indexOf('10.0.2.2') !== -1) {
+        localStorage.removeItem('d4uc_server_url');
+        saved = null;
+      }
+      if (saved) candidates.push(saved);
+
+      if (window.AndroidBridge && typeof window.AndroidBridge.getServerUrl === 'function') {
+        const bridgeUrl = window.AndroidBridge.getServerUrl();
+        if (bridgeUrl && (!bridgeUrl.includes('10.0.2.2') || isEmu) && candidates.indexOf(bridgeUrl) === -1) {
+          candidates.push(bridgeUrl);
+        }
+      }
+
+      if (window.location.protocol !== 'file:' && window.location.origin) {
+        if (candidates.indexOf(window.location.origin) === -1) candidates.push(window.location.origin);
+      }
+
+      // Add device local Wi-Fi IP candidates
+      if (window.AndroidBridge && typeof window.AndroidBridge.getDeviceLocalIp === 'function') {
+        const devIp = window.AndroidBridge.getDeviceLocalIp();
+        if (devIp) {
+          const parts = devIp.split('.');
+          if (parts.length === 4) {
+            const subnet = parts[0] + '.' + parts[1] + '.' + parts[2];
+            const hosts = [110, 100, 1, 2, 3, 4, 5, 10, 20, 50, 101, 102, 103, 104, 105, 120, 150, 200];
+            for (let i = 0; i < hosts.length; i++) {
+              const u = 'http://' + subnet + '.' + hosts[i] + ':5000';
+              if (candidates.indexOf(u) === -1) candidates.push(u);
+            }
+          }
+        }
+      }
+
+      if (isEmu) {
+        candidates.push('http://10.0.2.2:5000');
+      }
+      candidates.push('http://localhost:5000');
+      candidates.push('http://127.0.0.1:5000');
+
+      const res = await probeCandidatesParallel(candidates, 900);
+      if (res && res.ok) {
+        localStorage.setItem('d4uc_server_url', res.url);
+        if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
+          window.AndroidBridge.setServerUrl(res.url);
+        }
+        setConnectionStatus('connected', res.latency);
+        return res;
+      }
+      return null;
+    }
+
+    const MockEngine = {
+      active: false,
+      timer: null,
+      totalChecked: 1840,
+      availableFound: 2,
+      takenCount: 1810,
+      rateLimitedCount: 28,
+      currentRps: 0.0,
+      mockNames: ['krcu', 'vibe_99', 'zeus_7', 'nova_x', 'sol_88', 'echo_1', 'luna_vip', 'nexus_core', 'apex_0', 'sky_line', 'zenith_kr', 'flow_ui', 'rare_v', 'dex_9', 'zero_k'],
+      mockIdx: 0,
+      mockResults: [
+        { username: 'krcu', timestamp: '12:01:14', latency_ms: 42.5, pattern_type: 'custom' },
+        { username: 'vibe_99', timestamp: '12:02:40', latency_ms: 38.1, pattern_type: 'hybrid' }
+      ],
+      mockLogs: [
+        '[12:00:01] [SYSTEM] D4UC 고성능 탐색 엔진 v12.3.0 초기화 완료',
+        '[12:00:03] [PROXY] 통합 프록시 풀 연결 확인 (10개 활성)',
+        '[12:01:14] [AVAILABLE] 🎉 가용 닉네임 발견! -> \'krcu\' (지연: 42.5ms)',
+        '[12:02:40] [AVAILABLE] 🎉 가용 닉네임 발견! -> \'vibe_99\' (지연: 38.1ms)'
+      ],
+
+      start: function() {
+        this.active = true;
+        isMockMode = true;
+        isRunning = true;
+        updateUIState(true);
+        setConnectionStatus('mock');
+        renderResults(this.mockResults);
+        appendLogs(this.mockLogs);
+        showToast('🟣 독립 시연 모드: 탐색 시뮬레이션 가동 시작!');
+        if (window.AndroidBridge && typeof window.AndroidBridge.showToast === 'function') {
+          window.AndroidBridge.showToast('🟣 독립 시연 모드 시작!');
+        }
+        const self = this;
+        if (this.timer) clearInterval(this.timer);
+        this.timer = setInterval(function() { self.tick(); }, 600);
+      },
+
+      stop: function() {
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+        isRunning = false;
+        this.currentRps = 0.0;
+        updateUIState(false);
+        setConnectionStatus('mock');
+        updateChart(0);
+        showToast('⏹️ 시연 모드 탐색 중지');
+      },
+
+      restart: function() {
+        this.totalChecked = 0;
+        this.availableFound = 0;
+        this.takenCount = 0;
+        this.rateLimitedCount = 0;
+        this.currentRps = 0.0;
+        this.mockIdx = 0;
+        this.mockResults = [];
+        this.mockLogs = [
+          `[${new Date().toLocaleTimeString()}] [SYSTEM] 시연 모드 데이터 리셋 및 탐색 재시작`
+        ];
+        speedHistory = [];
+        lastRenderedResultCount = -1;
+        document.getElementById('resultsList').innerHTML = '';
+        document.getElementById('resultsCountBadge').textContent = '0';
+        appendLogs(this.mockLogs);
+        showToast('🔄 시연 데이터 초기화 및 재시작');
+        if (!this.active) this.start();
+      },
+
+      tick: function() {
+        if (!this.active || !isRunning) return;
+        const delta = (Math.random() * 4 - 2);
+        this.currentRps = Math.max(9.5, Math.min(25.0, (this.currentRps || 14.5) + delta));
+        const batch = Math.floor(this.currentRps * 0.6);
+        this.totalChecked += batch;
+        this.takenCount += batch - 1;
+        if (Math.random() < 0.2) this.rateLimitedCount += 1;
+        const latency = Math.floor(40 + Math.random() * 45);
+
+        document.getElementById('metricRps').textContent = this.currentRps.toFixed(1);
+        document.getElementById('metricAvailable').textContent = this.availableFound.toLocaleString();
+        document.getElementById('metricTotal').textContent = this.totalChecked.toLocaleString();
+        document.getElementById('metricTaken').textContent = this.takenCount.toLocaleString();
+        document.getElementById('metric429').textContent = this.rateLimitedCount.toLocaleString();
+        document.getElementById('metricLatency').textContent = latency + 'ms';
+
+        speedHistory.push(this.currentRps);
+        if (speedHistory.length > maxHistoryPoints) speedHistory.shift();
+        updateChart(this.currentRps);
+
+        if (Math.random() < 0.18 && this.mockIdx < this.mockNames.length) {
+          const name = this.mockNames[this.mockIdx++];
+          this.availableFound += 1;
+          document.getElementById('metricAvailable').textContent = this.availableFound.toLocaleString();
+          const mockResult = {
+            username: name,
+            timestamp: new Date().toLocaleTimeString(),
+            latency_ms: latency,
+            pattern_type: selectedMode || 'combinatorial'
+          };
+          this.mockResults.unshift(mockResult);
+          lastRenderedResultCount = -1;
+          renderResults(this.mockResults);
+          showToast('🎉 가용 희귀 닉네임 발견: ' + name);
+          if (window.AndroidBridge && typeof window.AndroidBridge.showToast === 'function') {
+            window.AndroidBridge.showToast('🎉 가용 닉네임: ' + name);
+          }
+          this.mockLogs.push(`[${new Date().toLocaleTimeString()}] [AVAILABLE] 🎉 가용 닉네임 발견! -> '${name}' (지연: ${latency}ms, 모드: ${selectedMode})`);
+          if (this.mockLogs.length > 200) this.mockLogs.shift();
+          appendLogs(this.mockLogs);
+        }
+
+        if (Math.random() < 0.25) {
+          const wId = Math.floor(Math.random() * 5 + 1);
+          this.mockLogs.push(`[${new Date().toLocaleTimeString()}] [WORKER-${wId}] 탐색 진행 중... 속도: ${this.currentRps.toFixed(1)} req/s`);
+          if (this.mockLogs.length > 200) this.mockLogs.shift();
+          appendLogs(this.mockLogs);
+        }
+      }
+    };
+
+    function initServerUrl() {
+      if (window.AndroidBridge) {
+        document.documentElement.classList.add('android-app');
+      }
+      const input = document.getElementById('serverUrlInput');
+      if (input) {
+        input.value = getApiBaseUrl();
+      }
+      if (window.AndroidBridge) {
+        const btn = document.getElementById('btnNativeDialog');
+        if (btn) btn.style.display = 'block';
+        const brandSub = document.querySelector('.brand-sub');
+        if (brandSub) brandSub.textContent = 'Discord Checker (Android App)';
+        const appBadge = document.getElementById('appBadge');
+        if (appBadge) appBadge.textContent = 'APK v12.3.0';
+      }
+    }
+
+    function saveServerUrl() {
+      const input = document.getElementById('serverUrlInput');
+      if (!input) return;
+      let url = input.value.trim().replace(/\/+$/, '');
+      if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'http://' + url;
+      }
+      if (url) {
+        try {
+          const u = new URL(url);
+          if (!u.port) {
+            u.port = '5000';
+            url = u.toString().replace(/\/+$/, '');
+          }
+        } catch (e) {
+          if (!url.includes(':', 7)) {
+            url = url + ':5000';
+          }
+        }
+        input.value = url;
+      }
+      localStorage.setItem('d4uc_server_url', url);
+      if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
+        window.AndroidBridge.setServerUrl(url);
+      }
+      showToast('🌐 서버 주소 저장 완료: ' + (url || '기본값'));
+      pollStatus();
+      loadInitialConfig();
+    }
+
+    function openNativeServerDialog() {
+      if (window.AndroidBridge && typeof window.AndroidBridge.openServerConfigDialog === 'function') {
+        window.AndroidBridge.openServerConfigDialog();
+      }
+    }
+
+    window.setServerUrlFromNative = function(url) {
+      localStorage.setItem('d4uc_server_url', url);
+      const input = document.getElementById('serverUrlInput');
+      if (input) input.value = url;
+      pollStatus();
+      loadInitialConfig();
+    };
+
+    let wakeLockSentinel = null;
+    async function toggleWakeLock(enabled) {
+      if (window.AndroidBridge && typeof window.AndroidBridge.setWakeLock === 'function') {
+        window.AndroidBridge.setWakeLock(enabled);
+      }
+      if ('wakeLock' in navigator) {
+        try {
+          if (enabled) {
+            wakeLockSentinel = await navigator.wakeLock.request('screen');
+            showToast('⚡ 화면 켜짐 유지 활성화');
+          } else if (wakeLockSentinel) {
+            await wakeLockSentinel.release();
+            wakeLockSentinel = null;
+            showToast('💤 화면 켜짐 유지 해제');
+          }
+        } catch (e) {
+          console.log('Wake Lock error:', e);
+        }
+      }
+    }
+
+    
     function changeLanguage(lang) {
       if (!I18N_DICT[lang]) lang = 'ko';
       currentLang = lang;
@@ -1282,8 +2086,10 @@
     function switchTab(tabId) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById('tab-' + tabId).classList.add('active');
+      const btn = document.getElementById('tabBtn' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+      if (btn) btn.classList.add('active');
+      const pane = document.getElementById('tab-' + tabId);
+      if (pane) pane.classList.add('active');
     }
 
     // Mode Selection
@@ -1404,64 +2210,128 @@
       }
     }
 
+    function resizeSpeedCanvas() {
+      const canvas = document.getElementById('speedCanvas');
+      if (!canvas) return;
+      const parentW = canvas.parentElement ? (canvas.parentElement.clientWidth - 28) : 360;
+      if (parentW > 100 && Math.abs(canvas.width - parentW) > 8) {
+        canvas.width = parentW;
+        canvas.height = 70;
+      }
+    }
+
     // Real-Time Speed Canvas Chart
     function updateChart(currentRps) {
-      speedHistory.push(currentRps);
-      if (speedHistory.length > maxHistoryPoints) {
-        speedHistory.shift();
+      if (!isMockMode && currentRps !== undefined && currentRps !== null) {
+        speedHistory.push(currentRps);
+        if (speedHistory.length > maxHistoryPoints) {
+          speedHistory.shift();
+        }
       }
 
       const canvas = document.getElementById('speedCanvas');
+      if (!canvas) return;
+      resizeSpeedCanvas();
       const ctx = canvas.getContext('2d');
       const w = canvas.width;
       const h = canvas.height;
 
       ctx.clearRect(0, 0, w, h);
 
-      // Draw faint grid line
-      ctx.strokeStyle = '#2b2d31';
+      // Dark background fill
+      ctx.fillStyle = '#232428';
+      ctx.fillRect(0, 0, w, h);
+
+      // Subtle horizontal dashed grid lines
+      ctx.strokeStyle = '#2f3136';
       ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, h / 2);
-      ctx.lineTo(w, h / 2);
-      ctx.stroke();
+      ctx.setLineDash([4, 4]);
+      [0.25, 0.5, 0.75].forEach(function(fraction) {
+        ctx.beginPath();
+        ctx.moveTo(0, h * fraction);
+        ctx.lineTo(w, h * fraction);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
 
-      if (speedHistory.length < 2) return;
+      const isIdle = speedHistory.length < 2 || Math.max.apply(null, speedHistory) === 0;
+      if (isIdle) {
+        // Draw resting baseline
+        ctx.strokeStyle = '#383b42';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, h - 12);
+        ctx.lineTo(w, h - 12);
+        ctx.stroke();
 
-      const maxVal = Math.max(10, Math.max(...speedHistory) * 1.2);
-      document.getElementById('chartPeak').textContent = `최고: ${Math.max(...speedHistory).toFixed(1)} req/s`;
+        // Sleek placeholder text
+        ctx.font = '600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillStyle = '#949ba4';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        let msg = '⚡ 엔진 대기 중 — [탐색 시작]을 누르면 실시간 속도 그래프가 활성화됩니다';
+        if (isMockMode) {
+          msg = '🟣 시연 모드 대기 중 — [탐색 시작]을 누르면 시뮬레이션 파형이 시작됩니다';
+        } else if (!serverConnected) {
+          msg = '⚠️ 서버 연결 대기 중 — 상단 [미연결] 배지를 눌러 연결을 설정하세요';
+        }
+        ctx.fillText(msg, w / 2, h / 2);
+        const peakEl = document.getElementById('chartPeak');
+        if (peakEl) peakEl.textContent = '최고: 0.0 req/s';
+        return;
+      }
 
-      // Draw gradient fill
+      const maxVal = Math.max(10, Math.max.apply(null, speedHistory) * 1.25);
+      const peakVal = Math.max.apply(null, speedHistory);
+      const peakEl = document.getElementById('chartPeak');
+      if (peakEl) peakEl.textContent = '최고: ' + peakVal.toFixed(1) + ' req/s';
+
+      // Gradient area fill
       const grad = ctx.createLinearGradient(0, 0, 0, h);
       grad.addColorStop(0, 'rgba(88, 101, 242, 0.45)');
+      grad.addColorStop(0.7, 'rgba(0, 196, 204, 0.15)');
       grad.addColorStop(1, 'rgba(88, 101, 242, 0.0)');
 
-      ctx.beginPath();
       const step = w / (maxHistoryPoints - 1);
-      speedHistory.forEach((v, i) => {
-        const x = i * step;
-        const y = h - (v / maxVal) * (h - 8) - 4;
+      const startIdx = maxHistoryPoints - speedHistory.length;
+
+      ctx.beginPath();
+      speedHistory.forEach(function(v, i) {
+        const x = (startIdx + i) * step;
+        const y = h - (v / maxVal) * (h - 14) - 6;
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       });
 
-      // Close path for fill
-      ctx.lineTo((speedHistory.length - 1) * step, h);
-      ctx.lineTo(0, h);
+      const lastX = (startIdx + speedHistory.length - 1) * step;
+      ctx.lineTo(lastX, h);
+      ctx.lineTo(startIdx * step, h);
       ctx.closePath();
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // Stroke line
+      // Stroke curve
       ctx.beginPath();
-      speedHistory.forEach((v, i) => {
-        const x = i * step;
-        const y = h - (v / maxVal) * (h - 8) - 4;
+      speedHistory.forEach(function(v, i) {
+        const x = (startIdx + i) * step;
+        const y = h - (v / maxVal) * (h - 14) - 6;
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       });
-      ctx.strokeStyle = '#5865f2';
+      ctx.strokeStyle = '#00c4cc';
       ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Glowing endpoint circle
+      const currentVal = speedHistory[speedHistory.length - 1] || 0;
+      const curX = lastX;
+      const curY = h - (currentVal / maxVal) * (h - 14) - 6;
+      ctx.beginPath();
+      ctx.arc(curX, curY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#00c4cc';
       ctx.stroke();
     }
 
@@ -1499,7 +2369,12 @@
 
     // Clear logs
     function clearLogs() {
-      document.getElementById('logTerminal').innerHTML = '';
+      const term = document.getElementById('logTerminal');
+      if (term) term.innerHTML = '';
+      if (isMockMode) {
+        MockEngine.mockLogs = [];
+      }
+      lastLogCount = 0;
       showToast('🧹 로그가 초기화되었습니다.');
     }
 
@@ -1558,29 +2433,319 @@
       });
     }
 
+    // Disconnected Action Modal Controls
+    function openDisconnectedModal() {
+      const modal = document.getElementById('disconnectedModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeDisconnectedModal() {
+      const modal = document.getElementById('disconnectedModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function startMockFromModal() {
+      closeDisconnectedModal();
+      MockEngine.start();
+    }
+
     // Start / Stop Toggle
     function toggleStartStop() {
+      if (isMockMode) {
+        if (isRunning) MockEngine.stop();
+        else MockEngine.start();
+        return;
+      }
+
+      if (!serverConnected) {
+        openDisconnectedModal();
+        return;
+      }
+
       const endpoint = isRunning ? '/api/stop' : '/api/start';
       fetch(endpoint, { method: 'POST' })
-        .then(res => res.json())
-        .then(data => {
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
           pollStatus();
           if (!isRunning) {
             showToast('🚀 탐색 엔진 기동 시작!');
           } else {
             showToast('⏹️ 탐색 엔진 정지 중...');
           }
+        })
+        .catch(function(err) {
+          showToast('❌ 서버 통신 실패: ' + err);
+          setConnectionStatus('disconnected');
         });
     }
 
     // Restart Checker
     function restartChecker() {
+      if (isMockMode) {
+        MockEngine.restart();
+        return;
+      }
+      if (!serverConnected) {
+        openDisconnectedModal();
+        return;
+      }
       fetch('/api/restart', { method: 'POST' })
-        .then(res => res.json())
-        .then(data => {
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
           showToast('🔄 엔진 재시작 완료!');
           pollStatus();
+        })
+        .catch(function(err) {
+          showToast('❌ 재시작 실패: ' + err);
         });
+    }
+
+    // Modal Control Functions
+    function openServerModal() {
+      const modal = document.getElementById('serverModal');
+      const input = document.getElementById('modalServerUrlInput');
+      if (input) input.value = getApiBaseUrl() || '';
+      renderPresetButtons();
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeServerModal() {
+      const modal = document.getElementById('serverModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function renderPresetButtons() {
+      const container = document.getElementById('presetButtonsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const presets = [];
+
+      // If Android device local IP is available
+      if (window.AndroidBridge && typeof window.AndroidBridge.getDeviceLocalIp === 'function') {
+        const devIp = window.AndroidBridge.getDeviceLocalIp();
+        if (devIp) {
+          const parts = devIp.split('.');
+          if (parts.length === 4) {
+            const subnetPrefix = 'http://' + parts[0] + '.' + parts[1] + '.' + parts[2] + '.';
+            const phoneLast = parseInt(parts[3], 10);
+            presets.push({ label: `📱 내 Wi-Fi (${parts[0]}.${parts[1]}.${parts[2]}.110)`, value: subnetPrefix + '110:5000' });
+            presets.push({ label: `📱 내 Wi-Fi (${parts[0]}.${parts[1]}.${parts[2]}.100)`, value: subnetPrefix + '100:5000' });
+            if (!isNaN(phoneLast)) {
+              if (phoneLast > 1) presets.push({ label: `📱 PC 인접 IP (.${phoneLast - 1})`, value: subnetPrefix + (phoneLast - 1) + ':5000' });
+              presets.push({ label: `📱 PC 인접 IP (.${phoneLast + 1})`, value: subnetPrefix + (phoneLast + 1) + ':5000' });
+            }
+            presets.push({ label: `📱 게이트웨이 (.1)`, value: subnetPrefix + '1:5000' });
+          }
+        }
+      }
+
+      if (detectedLanUrls && detectedLanUrls.length > 0) {
+        detectedLanUrls.forEach(function(u) {
+          presets.push({ label: `💻 PC (${u.replace(/^http:\/\//, '')})`, value: u });
+        });
+      }
+
+      if (window.AndroidBridge && typeof window.AndroidBridge.isEmulator === 'function' && window.AndroidBridge.isEmulator()) {
+        presets.push({ label: '🤖 에뮬레이터 (10.0.2.2:5000)', value: 'http://10.0.2.2:5000' });
+      }
+
+      presets.push({ label: '🌐 192.168.219.110', value: 'http://192.168.219.110:5000' });
+      presets.push({ label: '🌐 192.168.0.100', value: 'http://192.168.0.100:5000' });
+      presets.push({ label: '🌐 192.168.1.100', value: 'http://192.168.1.100:5000' });
+      presets.push({ label: '🌐 192.168.35.100', value: 'http://192.168.35.100:5000' });
+      presets.push({ label: '🏠 localhost:5000', value: 'http://localhost:5000' });
+
+      presets.forEach(function(p) {
+        const btn = document.createElement('button');
+        btn.className = 'preset-btn';
+        btn.textContent = p.label;
+        btn.onclick = function() {
+          const input = document.getElementById('modalServerUrlInput');
+          if (input) input.value = p.value;
+          testModalPing();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    async function testModalPing() {
+      const input = document.getElementById('modalServerUrlInput');
+      const resEl = document.getElementById('modalPingResult');
+      if (!input || !resEl) return;
+      let url = input.value.trim();
+      if (!url) {
+        resEl.textContent = '⚠️ 주소를 입력하세요.';
+        resEl.style.color = '#fca61a';
+        return;
+      }
+      resEl.textContent = '⏳ 핑 테스트 중...';
+      resEl.style.color = '#949ba4';
+
+      const res = await probeUrl(url, 1500);
+      if (res.ok) {
+        resEl.textContent = `🟢 ${res.latency}ms — 정상 연결됨! (D4UC 서버 응답)`;
+        resEl.style.color = '#23a55a';
+        localStorage.setItem('d4uc_server_url', url);
+        if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
+          window.AndroidBridge.setServerUrl(url);
+        }
+        setConnectionStatus('connected', res.latency);
+      } else {
+        resEl.textContent = '🔴 연결 실패 — 동일 Wi-Fi 여부 및 PC 방화벽 5000번 포트를 확인하세요.';
+        resEl.style.color = '#f23f43';
+        setConnectionStatus('disconnected');
+      }
+    }
+
+    async function testDirectPing() {
+      const input = document.getElementById('serverUrlInput');
+      const resEl = document.getElementById('tabPingResult');
+      if (!input || !resEl) return;
+      const url = input.value.trim();
+      if (!url) return;
+      resEl.textContent = '⏳ 연결 확인 중...';
+      const res = await probeUrl(url, 1500);
+      if (res.ok) {
+        resEl.textContent = `🟢 ${res.latency}ms — 정상 연결 성공!`;
+        resEl.style.color = '#23a55a';
+        setConnectionStatus('connected', res.latency);
+      } else {
+        resEl.textContent = '🔴 연결 실패 — D4UC Web 서버 실행 여부 확인 필요';
+        resEl.style.color = '#f23f43';
+        setConnectionStatus('disconnected');
+      }
+    }
+
+    async function autoScanSubnet() {
+      const statusEl = document.getElementById('autoScanStatus');
+      const input = document.getElementById('modalServerUrlInput');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.textContent = '🔍 로컬 서브넷 초고속 탐색 중...';
+        statusEl.style.color = 'var(--accent-cyan)';
+      }
+
+      let subnets = ['192.168.219', '192.168.0', '192.168.1', '192.168.35', '10.0.0'];
+      if (window.AndroidBridge && typeof window.AndroidBridge.getDeviceLocalIp === 'function') {
+        const devIp = window.AndroidBridge.getDeviceLocalIp();
+        if (devIp) {
+          const parts = devIp.split('.');
+          if (parts.length === 4) {
+            subnets.unshift(parts[0] + '.' + parts[1] + '.' + parts[2]);
+          }
+        }
+      }
+      subnets = subnets.filter(function(v, i, a) { return a.indexOf(v) === i; });
+
+      const priorityHosts = [110, 100, 1, 2, 3, 4, 5, 10, 20, 50, 101, 102, 103, 104, 105, 120, 150, 200];
+      const allUrls = [];
+      subnets.forEach(function(sub) {
+        priorityHosts.forEach(function(h) {
+          allUrls.push('http://' + sub + '.' + h + ':5000');
+        });
+      });
+
+      const batchSize = 15;
+      for (let i = 0; i < allUrls.length; i += batchSize) {
+        const batch = allUrls.slice(i, i + batchSize);
+        if (statusEl) statusEl.textContent = `🔍 탐색 진행 중 (${i + 1}/${allUrls.length})...`;
+        const res = await probeCandidatesParallel(batch, 500);
+        if (res && res.ok) {
+          if (input) input.value = res.url;
+          localStorage.setItem('d4uc_server_url', res.url);
+          if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
+            window.AndroidBridge.setServerUrl(res.url);
+          }
+          const tabInput = document.getElementById('serverUrlInput');
+          if (tabInput) tabInput.value = res.url;
+          if (isMockMode) {
+            MockEngine.stop();
+            isMockMode = false;
+          }
+          if (statusEl) {
+            statusEl.textContent = `🎉 서버 발견: ${res.url} (${res.latency}ms)!`;
+            statusEl.style.color = '#23a55a';
+          }
+          setConnectionStatus('connected', res.latency);
+          showToast(`🎉 서버 자동 발견: ${res.url}`);
+          pollStatus();
+          return;
+        }
+      }
+
+      if (statusEl) {
+        statusEl.textContent = '⚠️ 자동 탐색으로 서버를 찾지 못했습니다. PC IP를 수동 입력하세요.';
+        statusEl.style.color = '#fca61a';
+      }
+    }
+
+    function toggleStandaloneMockMode() {
+      if (isMockMode) {
+        MockEngine.stop();
+        isMockMode = false;
+        closeServerModal();
+        setConnectionStatus('disconnected');
+        showToast('⏹️ 독립 시연 모드가 종료되었습니다.');
+        autoDetectServer();
+      } else {
+        closeServerModal();
+        MockEngine.start();
+      }
+    }
+
+    function applyAndCloseServerModal() {
+      if (isMockMode) {
+        MockEngine.stop();
+        isMockMode = false;
+      }
+      const input = document.getElementById('modalServerUrlInput');
+      if (input && input.value.trim()) {
+        let url = input.value.trim().replace(/\/+$/, '');
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'http://' + url;
+        }
+        try {
+          const u = new URL(url);
+          if (!u.port) u.port = '5000';
+          url = u.toString().replace(/\/+$/, '');
+        } catch (e) {
+          if (!url.includes(':', 7)) url = url + ':5000';
+        }
+        localStorage.setItem('d4uc_server_url', url);
+        if (window.AndroidBridge && typeof window.AndroidBridge.setServerUrl === 'function') {
+          window.AndroidBridge.setServerUrl(url);
+        }
+        const tabInput = document.getElementById('serverUrlInput');
+        if (tabInput) tabInput.value = url;
+      }
+      closeServerModal();
+      pollStatus();
+      loadInitialConfig();
+    }
+
+    function updateUIState(running) {
+      isRunning = running;
+      const dot = document.getElementById('statusDot');
+      const txt = document.getElementById('statusText');
+      const btn = document.getElementById('btnStartStop');
+      const btnIcon = document.getElementById('btnIcon');
+      const btnLabel = document.getElementById('btnLabel');
+      const d = I18N_DICT[currentLang] || I18N_DICT.ko;
+
+      if (running) {
+        if (dot) dot.className = 'status-dot running';
+        if (txt) txt.textContent = isMockMode ? '시연 중' : `${d.running} (${document.getElementById('workerSlider').value || 5}w)`;
+        if (btn) btn.className = 'btn-main stop';
+        if (btnIcon) btnIcon.textContent = '■';
+        if (btnLabel) btnLabel.textContent = d.stop;
+      } else {
+        if (dot) dot.className = isMockMode ? 'status-dot mock' : (serverConnected ? 'status-dot connected' : 'status-dot disconnected');
+        if (txt) txt.textContent = isMockMode ? '시연 모드' : (serverConnected ? d.idle : '미연결');
+        if (btn) btn.className = 'btn-main start';
+        if (btnIcon) btnIcon.textContent = '▶';
+        if (btnLabel) btnLabel.textContent = d.start;
+      }
     }
 
     // Render results
@@ -1589,11 +2754,17 @@
       if (results.length === lastRenderedResultCount) return;
       lastRenderedResultCount = results.length;
 
-      document.getElementById('resultsCountBadge').textContent = results.length;
+      if (!results) results = [];
+      if (results.length === lastRenderedResultCount) return;
+      lastRenderedResultCount = results.length;
+
+      const badge = document.getElementById('resultsCountBadge');
+      if (badge) badge.textContent = results.length;
       const listEl = document.getElementById('resultsList');
+      if (!listEl) return;
       const d = I18N_DICT[currentLang] || I18N_DICT.ko;
 
-      if (!results || results.length === 0) {
+      if (results.length === 0) {
         listEl.innerHTML = `
           <div class="empty-placeholder">
             <span style="font-size:28px;">🔍</span>
@@ -1606,7 +2777,7 @@
         <div class="result-item">
           <div class="result-info">
             <span class="result-username">${r.username}</span>
-            <span class="result-meta">발견: ${r.timestamp || '방금'} | ${r.latency_ms ? r.latency_ms.toFixed(1) + 'ms' : ''} | ${r.pattern_type || ''}</span>
+            <span class="result-meta">발견: ${r.timestamp || '방금'} | ${r.latency_ms ? Number(r.latency_ms).toFixed(1) + 'ms' : ''} | ${r.pattern_type || ''}</span>
           </div>
           <button class="copy-btn" onclick="copyUsername('${r.username}')">
             <span>${d.copy}</span>
@@ -1618,9 +2789,11 @@
     // Append logs
     let lastLogCount = 0;
     function appendLogs(logs) {
-      if (!logs || logs.length === 0 || logs.length === lastLogCount) return;
+      if (!logs || logs.length === 0) return;
+      if (logs.length === lastLogCount && !isMockMode) return;
       lastLogCount = logs.length;
       const term = document.getElementById('logTerminal');
+      if (!term) return;
       term.innerHTML = logs.map(l => {
         let cls = 'INFO';
         if (l.includes('[AVAILABLE]')) cls = 'AVAILABLE';
@@ -1640,30 +2813,18 @@
 
     // Polling status
     function pollStatus() {
+      if (isMockMode) return;
+      const t0 = performance.now();
       fetch('/api/status')
-        .then(res => res.json())
-        .then(data => {
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const latency = Math.round(performance.now() - t0);
+          setConnectionStatus('connected', latency);
+          return res.json();
+        })
+        .then(function(data) {
           isRunning = data.running;
-          const dot = document.getElementById('statusDot');
-          const txt = document.getElementById('statusText');
-          const btn = document.getElementById('btnStartStop');
-          const btnIcon = document.getElementById('btnIcon');
-          const btnLabel = document.getElementById('btnLabel');
-          const d = I18N_DICT[currentLang] || I18N_DICT.ko;
-
-          if (isRunning) {
-            dot.className = 'status-dot running';
-            txt.textContent = `${d.running} (${data.active_workers || data.concurrency || 5}w)`;
-            btn.className = 'btn-main stop';
-            btnIcon.textContent = '■';
-            btnLabel.textContent = d.stop;
-          } else {
-            dot.className = 'status-dot';
-            txt.textContent = d.idle;
-            btn.className = 'btn-main start';
-            btnIcon.textContent = '▶';
-            btnLabel.textContent = d.start;
-          }
+          updateUIState(isRunning);
 
           if (data.metrics) {
             const m = data.metrics;
@@ -1684,22 +2845,19 @@
             appendLogs(data.logs);
           }
         })
-        .catch(err => {
-          console.warn('Status poll failed:', err);
-          const txt = document.getElementById('statusText');
-          const dot = document.getElementById('statusDot');
-          if (dot) dot.className = 'status-dot';
-          if (txt && !isRunning && (window.location.protocol === 'file:' || window.AndroidBridge)) {
-            txt.textContent = '⚠️ 서버 미연결 (D4UC 서버 URL 확인)';
-          }
+        .catch(function(err) {
+          setConnectionStatus('disconnected');
+          updateUIState(false);
+          updateChart(0);
         });
     }
 
     // Fetch initial config
     function loadInitialConfig() {
+      if (isMockMode) return;
       fetch('/api/config')
-        .then(res => res.json())
-        .then(cfg => {
+        .then(function(res) { return res.json(); })
+        .then(function(cfg) {
           if (cfg.target) {
             if (cfg.target.mode) selectMode(cfg.target.mode);
             if (cfg.target.length) selectLength(cfg.target.length);
@@ -1728,27 +2886,55 @@
           if (cfg.webhook && cfg.webhook.url) {
             document.getElementById('webhookUrl').value = cfg.webhook.url;
           }
-        });
+        })
+        .catch(function(err) {});
+
+      // Fetch network info to gather server LAN URLs for presets
+      fetch('/api/network_info')
+        .then(function(res) { return res.json(); })
+        .then(function(net) {
+          if (net && net.recommended_urls) {
+            detectedLanUrls = net.recommended_urls;
+            renderPresetButtons();
+          }
+        })
+        .catch(function(err) {});
     }
 
     // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function(err) {
           console.log('SW registration skipped:', err);
         });
       });
     }
 
     // Initialize
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', function() {
+      if (window.AndroidBridge) {
+        document.documentElement.classList.add('android-app');
+      }
       initServerUrl();
       const select = document.getElementById('langSelect');
       if (select) select.value = currentLang;
       changeLanguage(currentLang);
-      loadInitialConfig();
-      pollStatus();
-      pollInterval = setInterval(pollStatus, 1000);
+      updateChart(0);
+
+      setConnectionStatus('checking');
+      autoDetectServer().then(function(res) {
+        if (res && res.ok) {
+          loadInitialConfig();
+          pollStatus();
+        } else {
+          setConnectionStatus('disconnected');
+          if (window.AndroidBridge && !res) {
+            setTimeout(function() { openServerModal(); }, 400);
+          }
+        }
+      });
+
+      pollInterval = setInterval(pollStatus, 1200);
     });
   </script>
 </body>

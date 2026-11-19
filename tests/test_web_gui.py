@@ -84,6 +84,25 @@ class TestWebGui(unittest.TestCase):
         self.assertIn("total_checked", data["metrics"])
         self.assertIn("available_count", data["metrics"])
 
+    def test_api_network_info_and_ping(self):
+        # 1. /api/network_info
+        status, _, body = self._get("/api/network_info")
+        self.assertEqual(status, 200)
+        net = json.loads(body.decode("utf-8"))
+        self.assertEqual(net["status"], "ok")
+        self.assertIn("lan_ips", net)
+        self.assertIn("primary_ip", net)
+        self.assertIn("recommended_urls", net)
+        self.assertTrue(len(net["lan_ips"]) > 0)
+        self.assertTrue(len(net["recommended_urls"]) > 0)
+
+        # 2. /api/ping
+        status_ping, _, body_ping = self._get("/api/ping")
+        self.assertEqual(status_ping, 200)
+        ping = json.loads(body_ping.decode("utf-8"))
+        self.assertEqual(ping["status"], "ok")
+        self.assertEqual(ping["message"], "pong")
+
     def test_api_config_get_and_post(self):
         # 1. GET
         status, _, body = self._get("/api/config")
@@ -168,7 +187,7 @@ class TestWebGui(unittest.TestCase):
         scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", html, re.IGNORECASE)
         self.assertGreater(len(scripts), 0)
         for idx, script in enumerate(scripts):
-            res = subprocess.run([node_bin, "-e", "new Function(process.argv[1])", script], capture_output=True, text=True)
+            res = subprocess.run([node_bin, "-e", "new Function(require('fs').readFileSync(0, 'utf-8'))"], input=script, capture_output=True, text=True, encoding="utf-8")
             self.assertEqual(res.returncode, 0, f"Script block {idx} syntax error:\n{res.stderr}")
 
     def test_api_free_proxy_endpoints(self):

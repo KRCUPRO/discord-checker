@@ -10,6 +10,7 @@ import csv
 import json
 import os
 import signal
+import socket
 import sys
 import threading
 import time
@@ -31,6 +32,48 @@ from src.network.client import CheckStatus, CheckResult
 from src.proxy.free_proxy import FreeProxyProvider
 from src.proxy.manager import UnifiedProxyManager
 from src.utils.paths import get_bundle_dir, resolve_resource, resolve_output_path
+
+
+def get_local_ip_addresses() -> List[str]:
+    """Discovers host LAN IPv4 addresses suitable for mobile and remote device connection."""
+    ips = []
+    # 1. Check primary outgoing socket route (fastest, most accurate)
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            s.connect(("8.8.8.8", 80))
+            primary = s.getsockname()[0]
+            if primary and not primary.startswith("127.") and not primary.startswith("169.254."):
+                ips.append(primary)
+        finally:
+            s.close()
+    except Exception:
+        pass
+
+    # 2. Check getaddrinfo on hostname for all active interfaces
+    try:
+        hostname = socket.gethostname()
+        for info in socket.getaddrinfo(hostname, None, socket.AF_INET):
+            addr = info[4][0]
+            if addr and not addr.startswith("127.") and not addr.startswith("169.254.") and addr not in ips:
+                ips.append(addr)
+    except Exception:
+        pass
+
+    # Sort IPs: private networks first (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
+    def ip_priority(ip_str: str) -> int:
+        if ip_str.startswith("192.168."):
+            return 1
+        if ip_str.startswith("10."):
+            return 2
+        if ip_str.startswith("172."):
+            return 3
+        return 4
+
+    ips.sort(key=ip_priority)
+    if not ips:
+        ips = ["127.0.0.1"]
+    return ips
 
 
 class WebGuiState:
@@ -278,6 +321,21 @@ class D4UCWebHandler(BaseHTTPRequestHandler):
         # REST APIs
         elif clean_path == "/api/status":
             self._send_json(self.server_state.get_status_dict())
+        elif clean_path == "/api/network_info":
+            ips = get_local_ip_addresses()
+            primary = ips[0] if ips else "127.0.0.1"
+            port = getattr(self.server, "server_port", 5000)
+            self._send_json({
+                "status": "ok",
+                "hostname": socket.gethostname(),
+                "port": port,
+                "primary_ip": primary,
+                "lan_ips": ips,
+                "recommended_urls": [f"http://{ip}:{port}" for ip in ips],
+                "server_time": datetime.now().isoformat()
+            })
+        elif clean_path in ("/api/ping", "/ping"):
+            self._send_json({"status": "ok", "message": "pong", "time": time.time()})
         elif clean_path == "/api/proxy/free_status":
             self._send_json(self.server_state.get_free_proxy_status())
         elif clean_path == "/api/config":
@@ -399,10 +457,13 @@ class WebGuiServer:
 
     def start(self, block: bool = True):
         self.is_running = True
+        ips = get_local_ip_addresses()
+        primary_ip = ips[0] if ips else "localhost"
         print("=====================================================================")
         print(f"🚀 [D4UC Mobile Web GUI] Server running at http://localhost:{self.port}")
-        print(f"📱 Access from Mobile (iPhone / Android) on same Wi-Fi: http://<PC_IP>:{self.port}")
-        print(f"✨ PWA Add to Home Screen: Enabled (manifest.json & service worker active)")
+        for ip in ips:
+            print(f"📱 Mobile Device URL (same Wi-Fi): http://{ip}:{self.port}")
+        print(f"✨ PWA & Android APK Remote Control: Active")
         print("=====================================================================")
 
         if block:

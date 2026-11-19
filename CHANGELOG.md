@@ -11,6 +11,15 @@ All notable changes to **D4UC (`discord-checker`)** are documented in this file.
 ## [v12.5.0] — 2026-11-19
 
 ### Added
+- **Mobile APK & Touch Web GUI UX Overhaul**:
+  - Responsive safe-area-inset padding (`env(safe-area-inset-top)` / `bottom`) to eliminate header and action bar overlap with Android status bar (`SKT 6:24`, notch, punch-hole camera) and gesture navigation bar on Samsung Galaxy One UI, Google Pixel, and Xiaomi HyperOS.
+  - Redesigned compact status badge (`🟢 34ms`, `🟡 확인 중...`, `🔴 미연결`, `🟣 시연 모드`) and actionable warning banner.
+  - Modern live neon spline speed chart with informative idle baseline, grid guides, and pulsating glow marker replacing the previous empty black canvas void.
+- **Smart Network Multi-Probe & Server Connection Assistant Modal**:
+  - Dynamic host LAN IPv4 auto-detection (`GET /api/network_info`) with multi-probe fallback and 1-tap ping latency tester (`GET /api/ping`).
+  - Android APK bridge detection (`AndroidBridge.isEmulator()`, `getDeviceLocalIp()`) eliminating invalid `10.0.2.2` loopback on physical smartphones.
+  - Standalone Mock / Self-Test Mode enabling full offline simulation of scanning velocity, real-time chart animation, rare username discovery, and native clipboard copying.
+  - Dedicated architecture and UX guide in `docs/MOBILE_AND_APK_UX_GUIDE.md` and updated `docs/guides/ANDROID_GUIDE.md`.
 - **12-Language 1:1 Complete Documentation Suite (`docs/locales/<lang>/`)**:
   - Full 1:1 professional localization for all 8 core documents across 12 languages (Korean, English, Japanese, Simplified Chinese, Spanish, French, German, Russian, Portuguese, Arabic, Hindi, Indonesian).
   - Clean modular hierarchy: `docs/locales/<lang>/` housing `README.md`, `ARCHITECTURE_MAP.md`, `GUIDE.md`, `TASKS.md`, `CHANGELOG.md`, `LICENSE.md`, `NOTICE.md`, `SECURITY.md`.

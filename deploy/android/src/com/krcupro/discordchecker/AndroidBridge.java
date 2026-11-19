@@ -77,6 +77,21 @@ public class AndroidBridge {
     }
 
     @JavascriptInterface
+    public boolean isEmulator() {
+        return MainActivity.isEmulator();
+    }
+
+    @JavascriptInterface
+    public String getDeviceLocalIp() {
+        return MainActivity.getDeviceLocalIp();
+    }
+
+    @JavascriptInterface
+    public String getDeviceModel() {
+        return MainActivity.getDeviceModel();
+    }
+
+    @JavascriptInterface
     public String getAppVersion() {
         return "v12.3.0";
     }

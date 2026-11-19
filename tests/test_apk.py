@@ -77,5 +77,5 @@ def test_apk_bundled_web_assets_integrity():
             scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", index_content, re.IGNORECASE)
             assert len(scripts) > 0
             for idx, script in enumerate(scripts):
-                res = subprocess.run([node_bin, "-e", "new Function(process.argv[1])", script], capture_output=True, text=True)
+                res = subprocess.run([node_bin, "-e", "new Function(require('fs').readFileSync(0, 'utf-8'))"], input=script, capture_output=True, text=True, encoding="utf-8")
                 assert res.returncode == 0, f"Script block {idx} inside bundled APK has syntax error:\n{res.stderr}"

@@ -109,7 +109,7 @@ def validate_js_syntax(file_path: Path):
     node_path = shutil.which("node")
     if node_path:
         for idx, script in enumerate(scripts):
-            res = subprocess.run([node_path, "-e", "new Function(process.argv[1])", script], capture_output=True, text=True)
+            res = subprocess.run([node_path, "-e", "new Function(require('fs').readFileSync(0, 'utf-8'))"], input=script, capture_output=True, text=True, encoding="utf-8")
             if res.returncode != 0:
                 raise SyntaxError(f"JavaScript syntax error in {file_path} (script #{idx}):\n{res.stderr}")
 

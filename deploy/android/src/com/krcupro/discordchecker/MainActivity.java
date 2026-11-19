@@ -22,15 +22,67 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 
 public class MainActivity extends Activity {
     private static final String PREFS_NAME = "D4UC_PREFS";
     private static final String KEY_SERVER_URL = "server_url";
-    private static final String DEFAULT_SERVER_URL = "http://10.0.2.2:5000";
+    private static final String DEFAULT_EMULATOR_URL = "http://10.0.2.2:5000";
 
     private WebView webView;
     private PowerManager.WakeLock wakeLock;
     private SharedPreferences prefs;
+
+    public static boolean isEmulator() {
+        return Build.FINGERPRINT.startsWith("generic")
+            || Build.FINGERPRINT.startsWith("unknown")
+            || Build.MODEL.contains("google_sdk")
+            || Build.MODEL.contains("Emulator")
+            || Build.MODEL.contains("Android SDK built for x86")
+            || Build.MANUFACTURER.contains("Genymotion")
+            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+            || "google_sdk".equals(Build.PRODUCT);
+    }
+
+    public static String getDeviceLocalIp() {
+        try {
+            Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+            String fallbackIp = "";
+            while (en != null && en.hasMoreElements()) {
+                NetworkInterface intf = en.nextElement();
+                String name = intf.getName() != null ? intf.getName().toLowerCase() : "";
+                boolean isWifiOrEth = name.startsWith("wlan") || name.startsWith("eth") || name.contains("wlan");
+                Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses();
+                while (enumIpAddr.hasMoreElements()) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
+                        String ip = inetAddress.getHostAddress();
+                        if (ip != null && !ip.startsWith("127.") && !ip.startsWith("169.254.")) {
+                            if (isWifiOrEth) {
+                                return ip; // Prioritize local Wi-Fi / Ethernet over cellular
+                            }
+                            if (fallbackIp.isEmpty()) {
+                                fallbackIp = ip;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!fallbackIp.isEmpty()) {
+                return fallbackIp;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String getDeviceModel() {
+        return Build.MANUFACTURER + " " + Build.MODEL;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +95,13 @@ public class MainActivity extends Activity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor("#1e1f22"));
             window.setNavigationBarColor(Color.parseColor("#1e1f22"));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            try {
+                WindowManager.LayoutParams lp = window.getAttributes();
+                lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+                window.setAttributes(lp);
+            } catch (Exception e) {}
         }
 
         prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -124,7 +183,18 @@ public class MainActivity extends Activity {
     }
 
     public String getServerUrl() {
-        return prefs.getString(KEY_SERVER_URL, DEFAULT_SERVER_URL);
+        if (prefs.contains(KEY_SERVER_URL)) {
+            String url = prefs.getString(KEY_SERVER_URL, "");
+            if (!isEmulator() && url != null && url.contains("10.0.2.2")) {
+                prefs.edit().remove(KEY_SERVER_URL).apply();
+                return "";
+            }
+            return url;
+        }
+        if (isEmulator()) {
+            return DEFAULT_EMULATOR_URL;
+        }
+        return "";
     }
 
     public void setServerUrl(String url) {
