@@ -1,56 +1,64 @@
 # 📱 iOS & Mobile Environment Deployment Guide (MOBILE_IOS_GUIDE.md)
 
-> **프로젝트**: D4UC (`discord-checker`)  
-> **대상 플랫폼**: Apple iOS (iPhone / iPad), iPadOS, Mobile Remote Bridges  
+> **프로젝트**: D4UC (`discord-checker`) v12.2.0  
+> **대상 플랫폼**: Apple iOS (iPhone / iPad), iPadOS, Android, Mobile Web PWA  
 > **최종 개정일**: 2026년 11월 19일  
 
 ---
 
-## 🧭 1. iOS 샌드박스 보안 아키텍처 및 기술적 한계
+## 📸 모바일 웹 GUI & PWA 인터페이스 미리보기
 
-iOS는 애플의 강력한 앱 샌드박스(App Sandbox) 보안 모델을 적용하고 있어, 데스크톱이나 안드로이드(Termux) 환경과 다른 기술적 제약이 존재합니다:
-
-1. **JIT (Just-In-Time) 컴파일 및 네이티브 라이브러리 제약**:
-   - `curl_cffi`는 BoringSSL C 라이브러리를 동적 링크하여 Chrome 131 JA3/JA4 지문을 에뮬레이트합니다.
-   - iOS의 일반 앱(a-Shell 등)은 커스텀 C 바이너리의 동적 로딩 및 임의 네이티브 C 확장 실행에 엄격한 제한을 둡니다.
-2. **유저스페이스 네트워크 어댑터(`wireproxy`) 소켓 권한**:
-   - iOS에서는 루트 권한이나 VPN Network Extension 권한 없이 유저스페이스에서 WireGuard UDP 터널을 1:1로 다중 바인딩하는 것이 제한됩니다.
-3. **iSH (x86 Linux 에뮬레이터) 성능 한계**:
-   - iSH는 x86 명령어를 사용자 레벨에서 소프트웨어 에뮬레이션하므로, 대량의 비동기 동시성 네트워크 요청 시 심각한 CPU 병목과 지연이 발생합니다.
+[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../assets/mobile_web_main.png)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../assets/mobile_web_demo.gif)
 
 ---
 
-## 🚀 2. 실전 권장 아키텍처: 모바일 원격 제어 & 웹훅 브리지
+## 🌟 1. 최우선 권장: 모바일 터치 최적화 웹 GUI & PWA (`http://<host>:5000`)
 
-현업 엔지니어가 모바일(아이폰/아이패드) 환경에서 D4UC를 24시간 가동하고 제어하는 **가장 안정적인 3대 실전 구성**입니다:
+v12.2.0부터 D4UC는 스마트폰 브라우저에 최적화된 **반응형 웹 애플리케이션 및 PWA(Progressive Web App)** 를 기본 탑재했습니다.
 
-### 권장 구성 A: Discord Webhook 모바일 즉시 푸시 (가장 간편)
-- D4UC 코어는 PC, 홈 서버, 또는 클라우드 VPS(Ubuntu/Debian)에서 백그라운드로 24시간 가동합니다.
+### ✨ 특징
+1. **무설치 네이티브 모바일 앱 경험 (PWA)**:
+   - App Store 심사나 복잡한 프로비저닝 없이 Safari의 **"홈 화면에 추가"** 기능으로 주소창 없는 전체화면 네이티브 앱으로 구동됩니다.
+2. **모바일 1-Tap 터치 제어**:
+   - 대형 시작/중지 터치 버튼, 실시간 RPS 속도 캔버스 차트, 1-Tap 클립보드 복사, TXT/CSV/JSON 즉시 다운로드.
+   - 침대에 누워서도 스마트폰으로 탐색 조건(모드, 자릿수, 마스크, 샤딩)과 프록시(Surfshark 키, 워커 수 1~50개)를 즉시 원격 핫스왑할 수 있습니다.
+
+### 🚀 사용 방법
+1. PC, 서버, 또는 Termux에서 모바일 웹 서버를 실행합니다:
+   ```bash
+   python src/web_gui.py --port 5000
+   # 또는 Windows 단독 실행 파일 실행:
+   # DiscordUsernameCheckerV2_Web.exe
+   ```
+2. iPhone Safari 또는 Android Chrome 브라우저에서 접속합니다:
+   ```text
+   http://<PC의_로컬_IP>:5000
+   ```
+3. **홈 화면에 추가 (PWA 설치)**:
+   - **iPhone Safari**: 하단 공유 버튼(네모+화살표) ➔ **"홈 화면에 추가"** 탭
+   - **Android Chrome**: 우측 상단 더보기(⋮) ➔ **"홈 화면에 추가"** 또는 **"앱 설치"** 탭
+4. 홈 화면에 생성된 보라색 **D4UC Web** 아이콘을 터치하여 실행합니다.
+
+---
+
+## 🧭 2. 기타 모바일 환경 가이드
+
+### 구성 B: Discord Webhook 모바일 즉시 푸시
 - `.env`에 `D4UC_WEBHOOK`을 등록해두면 희귀 닉네임이 발견되는 즉시 **아이폰의 Discord 모바일 앱으로 0.1초 만에 푸시 알림**이 전송됩니다.
 
-### 권장 구성 B: iOS SSH 터미널 클라이언트 연동 (Termius, Blink, Prompt)
-1. 데스크톱 PC 또는 클라우드 서버에서 D4UC를 `tmux` 또는 `screen` 세션으로 실행합니다:
-   ```bash
-   tmux new -s d4uc
-   python src/run.py --mode hybrid --length 4 --workers 5
-   # Ctrl+B, D를 눌러 세션 분리(Detach)
-   ```
-2. 아이폰/아이패드에서 **Termius** 또는 **Blink Shell** 앱을 실행합니다.
-3. SSH로 서버에 접속한 후 세션에 다시 연결합니다:
-   ```bash
-   tmux attach -t d4uc
-   ```
-4. 모바일 화면에서 실시간 Rich CLI 대시보드(RPS, 가용 닉네임, 워커 상태)를 완벽하게 모니터링하고 제어할 수 있습니다.
+### 구성 C: iOS SSH 터미널 클라이언트 연동 (Termius, Blink)
+- PC 또는 클라우드 VPS에서 `tmux` 세션으로 `python src/run.py`를 실행하고 스마트폰 SSH 앱으로 모니터링합니다.
 
-### 권장 구성 C: 안드로이드 기기 병행 사용 (Termux 완벽 지원)
+### 구성 D: 안드로이드 기기 단독 백그라운드 구동 (Termux)
 - 안드로이드 환경에서는 [TERMUX_DEBIAN_GUIDE.md](./TERMUX_DEBIAN_GUIDE.md)를 참조하여 기기 자체에서 무제한 백그라운드 스캔이 가능합니다.
 
 ---
 
 ## 📋 요약 비교표
 
-| 환경 | 설치 난이도 | 24시간 가동성 | 실시간 제어 | 권장도 |
-| :--- | :---: | :---: | :---: | :---: |
-| **iOS Discord Webhook** | 초급 (1분) | ⭐⭐⭐⭐⭐ (완벽) | 푸시 수신 | **최우선 권장** |
-| **iOS SSH + tmux** | 중급 (5분) | ⭐⭐⭐⭐⭐ (완벽) | 실시간 양방향 제어 | **고급 사용자 권장** |
-| **iOS a-Shell / iSH** | 고급 (난해) | ⭐ (백그라운드 킬) | 매우 느림 | 비권장 (테스트용) |
+| 환경 | 설치 난이도 | 모바일 조작성 | 실시간 제어 | 권장도 |
+| :--- | :--- | :--- | :--- | :--- |
+| **D4UC 모바일 PWA Web GUI** | 초급 (원클릭) | ⭐⭐⭐⭐⭐ (최고) | 실시간 양방향 제어 & 1-Tap 복사 | **최우선 권장 (신규)** |
+| **Discord Webhook 알림** | 초급 (1분) | ⭐⭐⭐ (수신 전용) | 실시간 푸시 수신 | **기본 알림용 권장** |
+| **iOS SSH + tmux CLI** | 중급 (5분) | ⭐⭐⭐ (터미널) | 터미널 제어 | **고급 사용자 권장** |

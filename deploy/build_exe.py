@@ -51,6 +51,11 @@ def build():
 
     targets = [
         {
+            "name": "DiscordUsernameCheckerV2_Web",
+            "entry": "src/web_gui.py",
+            "windowed": False,
+        },
+        {
             "name": "DiscordUsernameCheckerV2_KO",
             "entry": "src/gui_ko.py",
             "windowed": True,
@@ -66,6 +71,10 @@ def build():
             "windowed": False,
         },
     ]
+
+    selected_target = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("-") else None
+    if selected_target:
+        targets = [t for t in targets if t["name"] == selected_target or selected_target in t["name"]]
 
     for target in targets:
         name = target["name"]
@@ -104,11 +113,16 @@ def build():
         if out_exe.exists():
             size_mb = out_exe.stat().st_size / (1024 * 1024)
             print(f"✅ Successfully compiled: {out_exe} ({size_mb:.2f} MB)")
+            # Mirror to bin/ directory
+            bin_dir = root / "bin"
+            bin_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(out_exe, bin_dir / out_exe.name)
+            print(f"   Mirrored to {bin_dir / out_exe.name}")
         else:
             print(f"❌ Target executable {out_exe} not found after build!")
             sys.exit(1)
 
-    print("\n🎉 All 3 Windows Standalone Executables Successfully Built in dist/!")
+    print("\n🎉 Windows Standalone Executables Successfully Built in dist/ and bin/!")
     for t in targets:
         p = dist_dir / f"{t['name']}.exe"
         if p.exists():

@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#5865F2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="D4UC Web">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <title>⚡ D4UC Mobile Web - Discord Username Checker</title>
+  <style>
+    :root {
+      --bg-app: #1e1f22;
+      --bg-panel: #2b2d31;
+      --bg-card: #313338;
+      --bg-input: #232428;
+      --bg-input-focus: #18191c;
+      --border: #3c3f45;
+      --border-focus: #5865f2;
+      --text-white: #f2f3f5;
+      --text-muted: #949ba4;
+      --text-dim: #6d6f78;
+      --accent-blurple: #5865f2;
+      --accent-blurple-hover: #4752c4;
+      --accent-green: #23a55a;
+      --accent-green-hover: #1f9250;
+      --accent-red: #f23f43;
+      --accent-red-hover: #d8363a;
+      --accent-yellow: #fca61a;
+      --accent-cyan: #00c4cc;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --safe-bottom: env(safe-area-inset-bottom, 16px);
+      --safe-top: env(safe-area-inset-top, 12px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-app);
+      color: var(--text-white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-top: var(--safe-top);
+      padding-bottom: calc(var(--safe-bottom) + 70px);
+    }
+
+    /* Header */
+    header {
+      background-color: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-blurple);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--text-muted);
+    }
+
+    .status-dot.running {
+      background-color: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 14px 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Telemetry Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 400px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: border-color 0.2s;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .metric-value {
+      font-size: 19px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      color: var(--text-white);
+    }
+
+    .metric-value.available {
+      color: var(--accent-green);
+      text-shadow: 0 0 10px rgba(35, 165, 90, 0.4);
+    }
+
+    .metric-value.speed {
+      color: var(--accent-cyan);
+    }
+
+    .metric-value.rate-limited {
+      color: var(--accent-yellow);
+    }
+
+    /* Real-Time Speed Canvas */
+    .chart-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .chart-canvas {
+      width: 100%;
+      height: 56px;
+      display: block;
+      background-color: var(--bg-input);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Tabs Navigation */
+    .tabs-bar {
+      display: flex;
+      background-color: var(--bg-panel);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 4px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background-color: var(--accent-blurple);
+      color: var(--text-white);
+      box-shadow: 0 2px 6px rgba(88, 101, 242, 0.4);
+    }
+
+    /* Tab Content Section */
+    .tab-pane {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .tab-pane.active {
+      display: flex;
+    }
+
+    /* Form & Settings Cards */
+    .panel-card {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-white);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      padding: 11px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--border-focus);
+      background-color: var(--bg-input-focus);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* Mode Pill Selector */
+    .pill-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    @media (max-width: 440px) {
+      .pill-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .pill-btn {
+      padding: 10px 4px;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .pill-btn.active {
+      background-color: var(--accent-blurple);
+      border-color: var(--accent-blurple);
+      color: var(--text-white);
+      box-shadow: 0 2px 6px rgba(88, 101, 242, 0.35);
+    }
+
+    /* Length Pills */
+    .length-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .length-btn {
+      padding: 10px;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .length-btn.active {
+      background-color: var(--accent-blurple);
+      border-color: var(--accent-blurple);
+      color: var(--text-white);
+    }
+
+    /* Worker Stepper Control */
+    .stepper-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stepper-btn {
+      width: 44px;
+      height: 44px;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-white);
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .stepper-btn:active {
+      background-color: var(--accent-blurple);
+    }
+
+    .slider-range {
+      flex: 1;
+      accent-color: var(--accent-blurple);
+      height: 6px;
+    }
+
+    .stepper-value {
+      font-size: 16px;
+      font-weight: 800;
+      font-family: ui-monospace, monospace;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    /* Switch toggle */
+    .switch-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+
+    .switch-input {
+      display: none;
+    }
+
+    .switch-slider {
+      width: 46px;
+      height: 26px;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      position: relative;
+      transition: background-color 0.2s;
+    }
+
+    .switch-slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--text-muted);
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .switch-input:checked + .switch-slider {
+      background-color: var(--accent-green);
+      border-color: var(--accent-green);
+    }
+
+    .switch-input:checked + .switch-slider::before {
+      transform: translateX(20px);
+      background-color: #fff;
+    }
+
+    /* Results Feed */
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .action-btn-sm {
+      padding: 6px 10px;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-white);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .action-btn-sm:active {
+      background-color: var(--accent-blurple);
+    }
+
+    .results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .result-item {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-green);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .result-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .result-username {
+      font-size: 16px;
+      font-weight: 800;
+      font-family: ui-monospace, monospace;
+      color: var(--accent-green);
+      letter-spacing: 0.5px;
+    }
+
+    .result-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      padding: 8px 14px;
+      background-color: var(--accent-blurple);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: background-color 0.15s;
+    }
+
+    .copy-btn:active {
+      background-color: var(--accent-blurple-hover);
+      transform: scale(0.96);
+    }
+
+    .empty-placeholder {
+      padding: 40px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Live Log Feed */
+    .log-terminal {
+      background-color: var(--bg-input-focus);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      height: 240px;
+      overflow-y: auto;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .log-entry {
+      word-break: break-all;
+    }
+
+    .log-entry.INFO { color: var(--text-muted); }
+    .log-entry.AVAILABLE { color: var(--accent-green); font-weight: 700; }
+    .log-entry.TAKEN { color: var(--text-dim); }
+    .log-entry.RATELIMIT { color: var(--accent-yellow); }
+    .log-entry.PROXY { color: var(--accent-cyan); }
+    .log-entry.ERROR { color: var(--accent-red); }
+    .log-entry.SYSTEM { color: var(--accent-blurple); font-weight: 600; }
+
+    /* Bottom Fixed Action Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--bg-panel);
+      border-top: 1px solid var(--border);
+      padding: 10px 16px calc(var(--safe-bottom) + 10px) 16px;
+      display: flex;
+      gap: 10px;
+      z-index: 200;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .btn-main {
+      flex: 2;
+      height: 48px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .btn-main.start {
+      background-color: var(--accent-green);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(35, 165, 90, 0.4);
+    }
+
+    .btn-main.start:active {
+      background-color: var(--accent-green-hover);
+      transform: scale(0.98);
+    }
+
+    .btn-main.stop {
+      background-color: var(--accent-red);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(242, 63, 67, 0.4);
+    }
+
+    .btn-main.stop:active {
+      background-color: var(--accent-red-hover);
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      flex: 1;
+      height: 48px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-white);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:active {
+      background-color: var(--bg-input);
+      transform: scale(0.98);
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--accent-green);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .toast-container.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(10px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-container">📋 복사 완료!</div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">⚡</div>
+      <div>
+        <div class="brand-title">D4UC Mobile Web</div>
+        <div class="brand-sub">Discord Username Checker v12.2.0</div>
+      </div>
+    </div>
+    <div id="statusBadge" class="status-badge">
+      <div id="statusDot" class="status-dot"></div>
+      <span id="statusText">대기 중</span>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Telemetry Cards -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-label">속도 (RPS)</span>
+        <span id="metricRps" class="metric-value speed">0.0</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">가용 발견</span>
+        <span id="metricAvailable" class="metric-value available">0</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">총 검사</span>
+        <span id="metricTotal" class="metric-value">0</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">선점 (Taken)</span>
+        <span id="metricTaken" class="metric-value">0</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">429 노드교체</span>
+        <span id="metric429" class="metric-value rate-limited">0</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">평균 레이턴시</span>
+        <span id="metricLatency" class="metric-value">0ms</span>
+      </div>
+    </div>
+
+    <!-- Real-Time Speed Chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <span>⚡ 실시간 탐색 속도 추이 (RPS Rolling Chart)</span>
+        <span id="chartPeak">최고: 0.0 req/s</span>
+      </div>
+      <canvas id="speedCanvas" class="chart-canvas" width="600" height="80"></canvas>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <nav class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('results')">결과 목록</button>
+      <button class="tab-btn" onclick="switchTab('target')">탐색 조건</button>
+      <button class="tab-btn" onclick="switchTab('proxy')">프록시 설정</button>
+      <button class="tab-btn" onclick="switchTab('logs')">실시간 로그</button>
+    </nav>
+
+    <!-- Tab 1: Results -->
+    <section id="tab-results" class="tab-pane active">
+      <div class="panel-card">
+        <div class="results-header">
+          <div class="panel-title" style="border:none; padding:0;">
+            <span>🎉 발견된 희귀 닉네임</span>
+            <span id="resultsCountBadge" style="font-size:12px; background:var(--accent-green); padding:2px 8px; border-radius:10px; color:#fff;">0</span>
+          </div>
+          <div class="results-actions">
+            <button class="action-btn-sm" onclick="exportData('txt')">TXT</button>
+            <button class="action-btn-sm" onclick="exportData('csv')">CSV</button>
+            <button class="action-btn-sm" onclick="exportData('json')">JSON</button>
+          </div>
+        </div>
+
+        <div id="resultsList" class="results-list">
+          <div class="empty-placeholder">
+            <span style="font-size:28px;">🔍</span>
+            <span>아직 발견된 닉네임이 없습니다.<br>하단의 [탐색 시작] 버튼을 눌러 검사를 가동하세요.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Target Settings -->
+    <section id="tab-target" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-title">🔢 탐색 모드 선택</div>
+        <div class="pill-grid">
+          <button class="pill-btn active" data-mode="hybrid" onclick="selectMode('hybrid')">하이브리드</button>
+          <button class="pill-btn" data-mode="permutation" onclick="selectMode('permutation')">순열 (전수)</button>
+          <button class="pill-btn" data-mode="dictionary" onclick="selectMode('dictionary')">사전 단어</button>
+          <button class="pill-btn" data-mode="pattern" onclick="selectMode('pattern')">대칭 패턴</button>
+          <button class="pill-btn" data-mode="numeric" onclick="selectMode('numeric')">숫자 배열</button>
+          <button class="pill-btn" data-mode="custom_mask" onclick="selectMode('custom_mask')">커스텀 마스크</button>
+          <button class="pill-btn" data-mode="combinatorial" onclick="selectMode('combinatorial')">음절 조합</button>
+          <button class="pill-btn" data-mode="recheck" onclick="selectMode('recheck')">과거 재점검</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">자릿수 (Length)</label>
+          <div class="length-grid">
+            <button class="length-btn" data-len="3" onclick="selectLength(3)">3자</button>
+            <button class="length-btn active" data-len="4" onclick="selectLength(4)">4자</button>
+            <button class="length-btn" data-len="5" onclick="selectLength(5)">5자</button>
+            <button class="length-btn" data-len="6" onclick="selectLength(6)">6자</button>
+          </div>
+        </div>
+
+        <!-- Custom Mask Options -->
+        <div id="customMaskSection" style="display:none; flex-direction:column; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">직접 마스크 템플릿 (예: ??.vip 또는 ??99)</label>
+            <input type="text" id="targetMask" class="form-input" placeholder="?.vip">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div class="form-group">
+              <label class="form-label">접두사 (Prefix)</label>
+              <input type="text" id="targetPrefix" class="form-input" placeholder="kr">
+            </div>
+            <div class="form-group">
+              <label class="form-label">접미사 (Suffix)</label>
+              <input type="text" id="targetSuffix" class="form-input" placeholder="vip">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">중간 점 (.) 규칙</label>
+            <select id="targetMiddleDot" class="form-select">
+              <option value="none">사용 안 함 (None)</option>
+              <option value="optional">선택적 허용 (Optional)</option>
+              <option value="required">반드시 1개 포함 (Required)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sharding Option -->
+        <div class="form-group">
+          <label class="form-label">수학적 분할 샤딩 (Sharding)</label>
+          <select id="targetShard" class="form-select">
+            <option value="None">단일 인스턴스 (샤딩 없음)</option>
+            <option value="2_1">2분할 - [1/2] (a–m)</option>
+            <option value="2_2">2분할 - [2/2] (n–_)</option>
+            <option value="3_1">3분할 - [1/3] (a–h)</option>
+            <option value="3_2">3분할 - [2/3] (i–q)</option>
+            <option value="3_3">3분할 - [3/3] (r–_)</option>
+            <option value="4_1">4분할 - [1/4] (a–f)</option>
+            <option value="4_2">4분할 - [2/4] (g–m)</option>
+            <option value="4_3">4분할 - [3/4] (n–t)</option>
+            <option value="4_4">4분할 - [4/4] (u–_)</option>
+          </select>
+        </div>
+
+        <!-- Skip Already Checked -->
+        <label class="switch-label">
+          <span>이미 검사한 닉네임 건너뛰기 (0% 중복)</span>
+          <input type="checkbox" id="skipChecked" class="switch-input" checked>
+          <span class="switch-slider"></span>
+        </label>
+
+        <button class="action-btn-sm" style="padding:12px; background:var(--accent-blurple); font-size:13px;" onclick="applyHotSwap()">
+          🔄 현재 탐색 조건 즉시 적용 (Hot-Swap)
+        </button>
+      </div>
+    </section>
+
+    <!-- Tab 3: Proxy & Workers -->
+    <section id="tab-proxy" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-title">🌐 프록시 인프라 & 워커 스케일링</div>
+
+        <!-- Concurrency Stepper -->
+        <div class="form-group">
+          <div class="form-label">
+            <span>동시 실행 워커 수 (Concurrency)</span>
+            <span id="workerCountLabel" class="stepper-value">5</span>
+          </div>
+          <div class="stepper-container">
+            <button class="stepper-btn" onclick="adjustWorkers(-1)">-</button>
+            <input type="range" id="workerSlider" class="slider-range" min="1" max="50" value="5" oninput="onWorkerSliderChange(this.value)">
+            <button class="stepper-btn" onclick="adjustWorkers(1)">+</button>
+          </div>
+        </div>
+
+        <!-- Proxy Provider -->
+        <div class="form-group">
+          <label class="form-label">프록시 프로바이더</label>
+          <select id="proxyMode" class="form-select" onchange="onProxyModeChange(this.value)">
+            <option value="surfshark">Surfshark 1:1 WireGuard 터널 풀 (권장)</option>
+            <option value="file">커스텀 프록시 파일 (HTTP/SOCKS5)</option>
+            <option value="thordata">Thordata 모바일 IP 회전</option>
+            <option value="direct">다이렉트 연결 (단일 IP / 테스트 전용)</option>
+          </select>
+        </div>
+
+        <!-- Surfshark Keys -->
+        <div id="surfsharkConfigGroup" class="form-group">
+          <div class="form-label">
+            <span>Surfshark WireGuard 개인키 (멀티키 콤마 구분)</span>
+            <a href="javascript:void(0)" onclick="toggleKeyMask()" style="color:var(--accent-cyan); font-size:11px; text-decoration:none;">마스킹 토글</a>
+          </div>
+          <textarea id="surfsharkKeys" class="form-textarea" placeholder="SURFSHARK_PRIVATE_KEY_1,SURFSHARK_PRIVATE_KEY_2"></textarea>
+        </div>
+
+        <!-- Custom Proxy File -->
+        <div id="proxyFileGroup" class="form-group" style="display:none;">
+          <label class="form-label">프록시 파일 경로</label>
+          <input type="text" id="proxyFilePath" class="form-input" placeholder="proxies.txt">
+        </div>
+
+        <!-- Webhook -->
+        <div class="form-group">
+          <label class="form-label">디스코드 웹훅 알림 URL (선택 사항)</label>
+          <input type="text" id="webhookUrl" class="form-input" placeholder="https://discord.com/api/webhooks/...">
+        </div>
+
+        <button class="action-btn-sm" style="padding:12px; background:var(--accent-blurple); font-size:13px;" onclick="saveConfigToServer()">
+          💾 프록시 및 네트워크 설정 저장
+        </button>
+      </div>
+    </section>
+
+    <!-- Tab 4: Logs -->
+    <section id="tab-logs" class="tab-pane">
+      <div class="panel-card">
+        <div class="results-header">
+          <div class="panel-title" style="border:none; padding:0;">📜 실시간 시스템 터미널 로그</div>
+          <button class="action-btn-sm" onclick="clearLogs()">로그 지우기</button>
+        </div>
+        <div id="logTerminal" class="log-terminal"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Fixed Action Bar -->
+  <footer class="bottom-bar">
+    <button id="btnStartStop" class="btn-main start" onclick="toggleStartStop()">
+      <span id="btnIcon">▶</span>
+      <span id="btnLabel">탐색 시작</span>
+    </button>
+    <button class="btn-secondary" onclick="restartChecker()">
+      <span>🔄</span>
+      <span>재시작</span>
+    </button>
+  </footer>
+
+  <script>
+    // State management
+    let isRunning = false;
+    let selectedMode = 'hybrid';
+    let selectedLength = 4;
+    let pollInterval = null;
+    let speedHistory = [];
+    const maxHistoryPoints = 30;
+    let isKeyMasked = true;
+
+    // Toast utility
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+    }
+
+    // Mode Selection
+    function selectMode(mode) {
+      selectedMode = mode;
+      document.querySelectorAll('.pill-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.mode === mode);
+      });
+      document.getElementById('customMaskSection').style.display = (mode === 'custom_mask') ? 'flex' : 'none';
+    }
+
+    // Length Selection
+    function selectLength(len) {
+      selectedLength = len;
+      document.querySelectorAll('.length-btn').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.len) === len);
+      });
+    }
+
+    // Worker Stepper
+    function adjustWorkers(delta) {
+      const slider = document.getElementById('workerSlider');
+      let val = parseInt(slider.value) + delta;
+      val = Math.max(1, Math.min(50, val));
+      slider.value = val;
+      onWorkerSliderChange(val);
+    }
+
+    function onWorkerSliderChange(val) {
+      document.getElementById('workerCountLabel').textContent = val;
+      if (isRunning) {
+        // Dynamic scale call
+        fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ concurrency: parseInt(val) })
+        });
+      }
+    }
+
+    function onProxyModeChange(mode) {
+      document.getElementById('surfsharkConfigGroup').style.display = (mode === 'surfshark') ? 'flex' : 'none';
+      document.getElementById('proxyFileGroup').style.display = (mode === 'file') ? 'flex' : 'none';
+    }
+
+    function toggleKeyMask() {
+      const el = document.getElementById('surfsharkKeys');
+      isKeyMasked = !isKeyMasked;
+      if (isKeyMasked) {
+        el.style.webkitTextSecurity = 'disc';
+      } else {
+        el.style.webkitTextSecurity = 'none';
+      }
+    }
+
+    // Real-Time Speed Canvas Chart
+    function updateChart(currentRps) {
+      speedHistory.push(currentRps);
+      if (speedHistory.length > maxHistoryPoints) {
+        speedHistory.shift();
+      }
+
+      const canvas = document.getElementById('speedCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw faint grid line
+      ctx.strokeStyle = '#2b2d31';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, h / 2);
+      ctx.lineTo(w, h / 2);
+      ctx.stroke();
+
+      if (speedHistory.length < 2) return;
+
+      const maxVal = Math.max(10, Math.max(...speedHistory) * 1.2);
+      document.getElementById('chartPeak').textContent = `최고: ${Math.max(...speedHistory).toFixed(1)} req/s`;
+
+      // Draw gradient fill
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, 'rgba(88, 101, 242, 0.45)');
+      grad.addColorStop(1, 'rgba(88, 101, 242, 0.0)');
+
+      ctx.beginPath();
+      const step = w / (maxHistoryPoints - 1);
+      speedHistory.forEach((v, i) => {
+        const x = i * step;
+        const y = h - (v / maxVal) * (h - 8) - 4;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+
+      // Close path for fill
+      ctx.lineTo((speedHistory.length - 1) * step, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Stroke line
+      ctx.beginPath();
+      speedHistory.forEach((v, i) => {
+        const x = i * step;
+        const y = h - (v / maxVal) * (h - 8) - 4;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = '#5865f2';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+
+    // Copy username to clipboard
+    function copyUsername(name) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(name).then(() => {
+          showToast(`📋 '${name}' 클립보드 복사 완료!`);
+        });
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = name;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(`📋 '${name}' 복사 완료!`);
+      }
+    }
+
+    // Export Available Results
+    function exportData(format) {
+      window.open('/api/export?format=' + format, '_blank');
+      showToast(`📥 ${format.toUpperCase()} 다운로드 시작`);
+    }
+
+    // Clear logs
+    function clearLogs() {
+      document.getElementById('logTerminal').innerHTML = '';
+      showToast('🧹 로그가 초기화되었습니다.');
+    }
+
+    // Apply Hot-Swap
+    function applyHotSwap() {
+      const targetConfig = {
+        mode: selectedMode,
+        length: selectedLength,
+        shard_key: document.getElementById('targetShard').value,
+        skip_already_checked: document.getElementById('skipChecked').checked,
+        prefix: document.getElementById('targetPrefix').value.trim(),
+        suffix: document.getElementById('targetSuffix').value.trim(),
+        middle_dot: document.getElementById('targetMiddleDot').value,
+        mask: document.getElementById('targetMask').value.trim()
+      };
+
+      fetch('/api/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: targetConfig })
+      })
+      .then(res => res.json())
+      .then(data => {
+        showToast('🔄 탐색 설정 핫스왑 적용 완료!');
+      })
+      .catch(err => {
+        showToast('❌ 설정 적용 실패: ' + err);
+      });
+    }
+
+    // Save Config to Server
+    function saveConfigToServer() {
+      const cfg = {
+        proxy: {
+          mode: document.getElementById('proxyMode').value,
+          surfshark_keys: document.getElementById('surfsharkKeys').value.trim(),
+          proxy_file: document.getElementById('proxyFilePath').value.trim()
+        },
+        concurrency: parseInt(document.getElementById('workerSlider').value),
+        webhook: {
+          url: document.getElementById('webhookUrl').value.trim()
+        }
+      };
+
+      fetch('/api/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(cfg)
+      })
+      .then(res => res.json())
+      .then(data => {
+        showToast('💾 프록시 및 네트워크 설정 저장 완료!');
+      })
+      .catch(err => {
+        showToast('❌ 저장 실패: ' + err);
+      });
+    }
+
+    // Start / Stop Toggle
+    function toggleStartStop() {
+      const endpoint = isRunning ? '/api/stop' : '/api/start';
+      fetch(endpoint, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          pollStatus();
+          if (!isRunning) {
+            showToast('🚀 탐색 엔진 기동 시작!');
+          } else {
+            showToast('⏹️ 탐색 엔진 정지 중...');
+          }
+        });
+    }
+
+    // Restart Checker
+    function restartChecker() {
+      fetch('/api/restart', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          showToast('🔄 엔진 재시작 완료!');
+          pollStatus();
+        });
+    }
+
+    // Render results
+    let lastRenderedResultCount = -1;
+    function renderResults(results) {
+      if (results.length === lastRenderedResultCount) return;
+      lastRenderedResultCount = results.length;
+
+      document.getElementById('resultsCountBadge').textContent = results.length;
+      const listEl = document.getElementById('resultsList');
+
+      if (!results || results.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-placeholder">
+            <span style="font-size:28px;">🔍</span>
+            <span>아직 발견된 닉네임이 없습니다.<br>하단의 [탐색 시작] 버튼을 눌러 검사를 가동하세요.</span>
+          </div>`;
+        return;
+      }
+
+      listEl.innerHTML = results.map(r => `
+        <div class="result-item">
+          <div class="result-info">
+            <span class="result-username">${r.username}</span>
+            <span class="result-meta">발견: ${r.timestamp || '방금'} | ${r.latency_ms ? r.latency_ms.toFixed(1) + 'ms' : ''} | ${r.pattern_type || ''}</span>
+          </div>
+          <button class="copy-btn" onclick="copyUsername('${r.username}')">
+            <span>복사</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Append logs
+    let lastLogCount = 0;
+    function appendLogs(logs) {
+      if (!logs || logs.length === 0 || logs.length === lastLogCount) return;
+      lastLogCount = logs.length;
+      const term = document.getElementById('logTerminal');
+      term.innerHTML = logs.map(l => {
+        let cls = 'INFO';
+        if (l.includes('[AVAILABLE]')) cls = 'AVAILABLE';
+        else if (l.includes('[TAKEN]')) cls = 'TAKEN';
+        else if (l.includes('[RATELIMIT]')) cls = 'RATELIMIT';
+        else if (l.includes('[PROXY]')) cls = 'PROXY';
+        else if (l.includes('[ERROR]')) cls = 'ERROR';
+        else if (l.includes('[SYSTEM]') || l.includes('[START]')) cls = 'SYSTEM';
+        return `<div class="log-entry ${cls}">${escapeHtml(l)}</div>`;
+      }).join('');
+      term.scrollTop = term.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Polling status
+    function pollStatus() {
+      fetch('/api/status')
+        .then(res => res.json())
+        .then(data => {
+          isRunning = data.running;
+          const dot = document.getElementById('statusDot');
+          const txt = document.getElementById('statusText');
+          const btn = document.getElementById('btnStartStop');
+          const btnIcon = document.getElementById('btnIcon');
+          const btnLabel = document.getElementById('btnLabel');
+
+          if (isRunning) {
+            dot.className = 'status-dot running';
+            txt.textContent = `실행 중 (${data.active_workers || data.concurrency || 5}w)`;
+            btn.className = 'btn-main stop';
+            btnIcon.textContent = '■';
+            btnLabel.textContent = '탐색 중지';
+          } else {
+            dot.className = 'status-dot';
+            txt.textContent = '대기 중';
+            btn.className = 'btn-main start';
+            btnIcon.textContent = '▶';
+            btnLabel.textContent = '탐색 시작';
+          }
+
+          if (data.metrics) {
+            const m = data.metrics;
+            document.getElementById('metricRps').textContent = (m.rps || 0).toFixed(1);
+            document.getElementById('metricAvailable').textContent = (m.available_count || 0).toLocaleString();
+            document.getElementById('metricTotal').textContent = (m.total_checked || 0).toLocaleString();
+            document.getElementById('metricTaken').textContent = (m.taken_count || 0).toLocaleString();
+            document.getElementById('metric429').textContent = (m.rate_limited_count || 0).toLocaleString();
+            document.getElementById('metricLatency').textContent = `${(m.avg_latency_ms || 0).toFixed(0)}ms`;
+            updateChart(m.rps || 0);
+          }
+
+          if (data.results) {
+            renderResults(data.results);
+          }
+
+          if (data.logs) {
+            appendLogs(data.logs);
+          }
+        })
+        .catch(err => {
+          console.warn('Status poll failed:', err);
+        });
+    }
+
+    // Fetch initial config
+    function loadInitialConfig() {
+      fetch('/api/config')
+        .then(res => res.json())
+        .then(cfg => {
+          if (cfg.target) {
+            if (cfg.target.mode) selectMode(cfg.target.mode);
+            if (cfg.target.length) selectLength(cfg.target.length);
+            if (cfg.target.shard_key) document.getElementById('targetShard').value = cfg.target.shard_key;
+            if (cfg.target.prefix) document.getElementById('targetPrefix').value = cfg.target.prefix;
+            if (cfg.target.suffix) document.getElementById('targetSuffix').value = cfg.target.suffix;
+            if (cfg.target.middle_dot) document.getElementById('targetMiddleDot').value = cfg.target.middle_dot;
+            if (cfg.target.mask) document.getElementById('targetMask').value = cfg.target.mask;
+            if (cfg.target.skip_already_checked !== undefined) {
+              document.getElementById('skipChecked').checked = cfg.target.skip_already_checked;
+            }
+          }
+          if (cfg.network && cfg.network.concurrency) {
+            document.getElementById('workerSlider').value = cfg.network.concurrency;
+            document.getElementById('workerCountLabel').textContent = cfg.network.concurrency;
+          }
+          if (cfg.proxy) {
+            if (cfg.proxy.mode) {
+              document.getElementById('proxyMode').value = cfg.proxy.mode;
+              onProxyModeChange(cfg.proxy.mode);
+            }
+            if (cfg.proxy.surfshark_keys) {
+              document.getElementById('surfsharkKeys').value = cfg.proxy.surfshark_keys;
+            }
+          }
+          if (cfg.webhook && cfg.webhook.url) {
+            document.getElementById('webhookUrl').value = cfg.webhook.url;
+          }
+        });
+    }
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('SW registration skipped:', err);
+        });
+      });
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      loadInitialConfig();
+      pollStatus();
+      pollInterval = setInterval(pollStatus, 1000);
+    });
+  </script>
+</body>
+</html>

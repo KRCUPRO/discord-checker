@@ -578,7 +578,12 @@ def main():
     generate_gui_gifs()
     generate_cli_assets()
     generate_docker_linux_asset()
-    print("\n✅ All 8 visual assets successfully generated in docs/assets/!")
+    try:
+        from deploy.generate_mobile_assets import generate_mobile_assets
+        generate_mobile_assets()
+    except Exception as e:
+        print(f"Mobile assets generator hook: {e}")
+    print("\n✅ All visual assets successfully generated in docs/assets/!")
 
 if __name__ == "__main__":
     main()

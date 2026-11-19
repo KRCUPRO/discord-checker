@@ -2,6 +2,24 @@
 
 All notable changes to **D4UC (`discord-checker`)** are documented in this file.
 
+## [v12.2.0] — 2026-11-19
+
+### Added
+- **Mobile Touch-Optimized Responsive Web GUI & PWA Engine (`src/ui/web/` / `src/web_gui.py`)**:
+  - Full-featured, Discord-dark-themed responsive web interface accessible from any smartphone browser (iPhone Safari, Android Chrome) at `http://<host>:5000`.
+  - Native **"Add to Home Screen" (PWA)** support via `manifest.json` and service worker (`sw.js`), launching as a borderless full-screen mobile app with app icons.
+  - Large touch-optimized controls: Start / Stop / Restart buttons, live rolling RPS canvas speed curve, 1-tap username copy with toast feedback, and instant TXT / CSV / JSON export.
+  - Mobile remote configuration: 8 username generation modes, target length (3–6), sharding, custom masks, proxy modes (Surfshark private keys, proxy files, Thordata), and dynamic worker slider (1–50) with live hot-scaling.
+  - Zero external frontend dependencies: 100% self-contained HTML5, CSS3, and Vanilla JS.
+- **Standalone Windows Executable for Web GUI (`DiscordUsernameCheckerV2_Web.exe`)**:
+  - Added PyInstaller build target in `deploy/build_exe.py` compiling standalone Web GUI binary with embedded PWA assets.
+- **1:1 Full Localization for ALL 11 Locale Documents (`docs/locales/*.md`)**:
+  - Complete native 1:1 professional translation across all sections for Japanese (`ja.md`), Simplified Chinese (`zh-CN.md`), Spanish (`es.md`), French (`fr.md`), German (`de.md`), Russian (`ru.md`), Portuguese (`pt-BR.md`), Arabic (`ar.md`), Hindi (`hi.md`), and Indonesian (`id.md`).
+- **12 Localized SVG Update Badges (`docs/assets/badges/`)**:
+  - Pixel-perfect localized badges for Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Portuguese, Arabic, Hindi, and Indonesian.
+- **Mobile Web GUI Visual Media Assets**:
+  - High-fidelity smartphone mockup screenshot (`docs/assets/mobile_web_main.png`) and animated touch demo GIF (`docs/assets/mobile_web_demo.gif`).
+
 ## [v12.1.0] — 2026-11-19
 
 ### Added

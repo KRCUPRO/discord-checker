@@ -1,9 +1,9 @@
 <div align="center">
 
-# ⚡ D4UC (`discord-checker`) v12.1.0
+# ⚡ D4UC (`discord-checker`) v12.2.0
 
 > **고성능 디스코드 희귀 사용자명 가용성 탐색 엔진**  
-> Chrome 131 TLS 스텔스 위장 · 1:1 유저스페이스 다중 WireGuard 터널 풀 · 0.3초 원자적 429 핫스왑 · SQLite WAL 다중 분할 샤딩
+> 모바일 반응형 웹 GUI & PWA · Chrome 131 TLS 스텔스 위장 · 1:1 유저스페이스 다중 WireGuard 터널 풀 · 0.3초 원자적 429 핫스왑 · SQLite WAL 다중 분할 샤딩
 
 <br />
 
@@ -16,10 +16,10 @@
 <br />
 
 [![최종 업데이트: 2026년 11월 19일](../assets/badges/update_badge.svg)](../../CHANGELOG.md)
-[![Version](https://img.shields.io/badge/Version-v12.1.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)
+[![Version](https://img.shields.io/badge/Version-v12.2.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](../../LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Termux%20%7C%20Docker-purple.svg)](../GUIDE.md)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../GUIDE.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 독점 소프트웨어 라이선스 (All Rights Reserved)</sub>
@@ -29,6 +29,12 @@
 ---
 
 ## 📸 인터페이스 미리보기
+
+### 모바일 터치 최적화 반응형 웹 GUI (PWA - iPhone & Android)
+[![D4UC Mobile Web GUI](../assets/mobile_web_main.png)](../guides/MOBILE_IOS_GUIDE.md)
+
+### 모바일 웹 실시간 조작 데모 (1-Tap 터치 제어 & 실시간 텔레메트리)
+[![D4UC Mobile Web Demo](../assets/mobile_web_demo.gif)](../guides/MOBILE_IOS_GUIDE.md)
 
 ### 데스크톱 GUI 실행 화면
 [![D4UC GUI 메인 화면](../assets/gui_ko_main.png)](../guides/PC_GUIDE.md)
@@ -46,39 +52,45 @@
 
 ## ✨ 주요 기능
 
-1. **Chrome 131 TLS JA3/JA4 스텔스 위장 (`curl_cffi` BoringSSL)**:
+1. **모바일 반응형 웹 GUI & PWA 엔진 (`http://<host>:5000`)**:
+   - PC, VPS, Docker, Termux 어디서든 기동하여 스마트폰(iPhone Safari, Android Chrome) 브라우저로 원격 제어할 수 있습니다.
+   - **홈 화면에 추가 (PWA)** 기능을 기본 지원하여 앱스토어 설치 없이 네이티브 전체화면 모바일 앱으로 실행됩니다.
+   - 대형 터치 친화적 [탐색 시작/중지] 버튼, 실시간 RPS 캔버스 차트, 1-Tap 닉네임 원클릭 복사, TXT/CSV/JSON 즉시 다운로드를 제공합니다.
+   - 프록시(Surfshark 개인키 풀, 커스텀 파일, Thordata), 8대 생성 모드, 워커 슬라이더(1~50개)를 스마트폰에서 즉시 원격 설정 및 핫스왑할 수 있습니다.
+
+2. **Chrome 131 TLS JA3/JA4 스텔스 위장 (`curl_cffi` BoringSSL)**:
    - 일반 Python HTTP 라이브러리(`requests`, `aiohttp`, `httpx`)에서 감지되는 비정상 TLS 핑거프린트를 완전히 탈피했습니다.
    - 실제 최신 Google Chrome 131 브라우저의 암호화 스위트(Cipher Suites), 확장 필드(Extensions), 타원 곡선(Supported Groups), HTTP/2 SETTINGS 프레임 시그니처를 100% 동일하게 에뮬레이션하여 Cloudflare 및 WAF의 사전 차단을 원천 무력화합니다.
 
-2. **1:1 유저스페이스 WireGuard 터널 풀 (`wireproxy`)**:
+3. **1:1 유저스페이스 WireGuard 터널 풀 (`wireproxy`)**:
    - 데스크톱 VPN 클라이언트처럼 호스트 OS의 네트워크 어댑터를 가로채거나 라우팅 테이블을 변경하지 않습니다.
    - 유저스페이스에서 동작하는 경량 `wireproxy` 바이너리를 통하여 워커마다 독립된 로컬 포트(`127.0.0.1:1081+`)를 할당하며, 글로벌 142개 엔드포인트를 1:1로 매핑합니다.
    - 메인 PC의 업무, 웹서핑, 게임, 메신저 트래픽에는 0.00%의 속도 저하 및 IP 간섭도 발생하지 않습니다.
 
-3. **0.3초 원자적 429 핫스왑 (Atomic Rate-Limit Recovery)**:
+4. **0.3초 원자적 429 핫스왑 (Atomic Rate-Limit Recovery)**:
    - 특정 워커가 Discord API의 429 Rate Limit에 도달하더라도 전체 프로세스가 일시 정지되거나 중단되지 않습니다.
    - 429를 수신한 해당 워커만 0.3초 이내에 다른 국가 엔드포인트(예: `JP-Tokyo` ➔ `KR-Seoul`)로 즉시 교체되며, 나머지 형제 워커들은 정상 속도로 검사를 계속 유지합니다.
 
-4. **수학적 무중복 분할 샤딩 (Mathematical Sharding)**:
+5. **수학적 무중복 분할 샤딩 (Mathematical Sharding)**:
    - 4자리 전수조사(`permutation`) 및 대규모 조합 스캔 시 수학적 오프셋 분할 알고리즘(`2_1`, `2_2`, `4_1`–`4_4` 등)을 지원합니다.
    - 여러 개의 GUI 창, CLI 터미널, 도커 컨테이너를 동시에 실행해도 서로 다른 후보군을 검사하므로 중복 요청이 0건입니다.
 
-5. **SQLite WAL 멀티 프로세스 동시 기록 & 레거시 포맷 미러링**:
+6. **SQLite WAL 멀티 프로세스 동시 기록 & 레거시 포맷 미러링**:
    - 고성능 동시성 저장을 위해 `PRAGMA journal_mode = WAL`이 적용된 SQLite(`data/d4uc_results.db`)를 주 데이터베이스로 사용합니다.
    - 발견 즉시 기존 텍스트 파일(`available.txt`, `taken.txt`, `checked_history.txt`) 및 CSV/JSON 포맷으로도 실시간 원자적 미러링을 수행합니다.
 
-6. **8대 지능형 닉네임 생성 엔진**:
+7. **8대 지능형 닉네임 생성 엔진**:
    - 하이브리드, 완전 순열, 사전 단어, 대칭 패턴, 숫자 배열, 커스텀 마스크, 음절 조합, 과거 이력 재점검 등 8가지 전문 생성 모드를 탑재했습니다.
 
-7. **크로스 플랫폼 지원**:
-   - Windows 10/11 전용 단독 실행 파일(`.exe`), Linux/macOS 헤드리스 CLI, Android Termux 모바일 원클릭 스크립트, Multi-Arch Docker 컨테이너를 모두 제공합니다.
+8. **크로스 플랫폼 지원**:
+   - Windows 10/11 전용 4종 단독 실행 파일(`.exe`), 모바일 웹 PWA, Linux/macOS 헤드리스 CLI, Android Termux 모바일 원클릭 스크립트, Multi-Arch Docker 컨테이너를 모두 제공합니다.
 
 ---
 
 ## 🖥️ 필수 환경 & 필요한 라이브러리
 
 ### 1. 런타임 요구 사양
-- **운영체제**: Windows 10/11 (64-bit), Linux (Debian 11+, Ubuntu 20.04+, Arch, Alpine), macOS 12+ (Apple Silicon / Intel), Android 10+ (Termux)
+- **운영체제**: Windows 10/11 (64-bit), Linux (Debian 11+, Ubuntu 20.04+, Arch, Alpine), macOS 12+ (Apple Silicon / Intel), Android 10+ (Termux), iOS Safari (웹 UI 접속)
 - **Python 버전**: Python 3.10, 3.11, 3.12 (권장: **Python 3.12**)
 - **메모리(RAM)**: 최소 512 MB 이상 (50워커 가동 시 약 250 MB 점유)
 - **네트워크**: 광대역 인터넷 (Surfshark WireGuard UDP 통신 포트 51820 허용 환경)
@@ -104,24 +116,29 @@ discord-checker/
 │   ├── surfshark_endpoints.json    # 142개 글로벌 WireGuard 클러스터 공용 엔드포인트
 │   └── d4uc_results.db (생성됨)     # 발견된 닉네임 SQLite WAL 데이터베이스
 ├── deploy/                         # 배포, 컨테이너 및 빌드 스크립트
-│   ├── build_exe.py                # 3종 Windows .exe 자동 패키징 스크립트
+│   ├── build_exe.py                # 4종 Windows .exe 자동 패키징 스크립트
 │   ├── docker-compose.yml          # 도커 컴포즈 (단일 및 2shard 프로파일)
 │   ├── Dockerfile                  # Multi-Arch 경량 컨테이너 이미지 명세
+│   ├── generate_assets.py          # 고해상도 시각 자산 생성기
+│   ├── generate_badges.py          # 12개 언어 1:1 현지화 SVG 배지 생성기
+│   ├── generate_mobile_assets.py   # 모바일 PWA 스크린샷 및 데모 GIF 생성기
 │   ├── install_debian.sh           # Termux / Debian 원클릭 의존성 설치 스크립트
 │   └── run.sh                      # 헤드리스 백그라운드 원클릭 실행 스크립트
 ├── docs/                           # 기술 문서, 다국어 매뉴얼 및 가이드
 │   ├── assets/                     # 고해상도 스크린샷, 데모 GIF, 배지
-│   │   ├── badges/                 # SVG 배지 (update_badge.svg 등)
+│   │   ├── badges/                 # 12개 언어 SVG 배지 (update_badge.svg 등)
+│   │   ├── mobile_web_main.png     # 모바일 웹 GUI 스마트폰 화면 캡처
+│   │   ├── mobile_web_demo.gif     # 모바일 웹 GUI 1-Tap 터치 데모 GIF
 │   │   ├── gui_ko_main.png         # 한국어 GUI 메인 스크린샷
 │   │   ├── gui_ko_demo.gif         # 한국어 GUI 실시간 데모 GIF
 │   │   ├── cli_dashboard.png       # Rich CLI 대시보드 스크린샷
 │   │   └── docker_linux_capture.png# 도커 리눅스 실행 캡처
 │   ├── guides/                     # 플랫폼별 심층 가이드
-│   │   ├── MOBILE_IOS_GUIDE.md     # iOS 모바일 환경 안내 및 원격 제어
+│   │   ├── MOBILE_IOS_GUIDE.md     # iOS 모바일 PWA 환경 안내 및 원격 제어
 │   │   ├── PC_GUIDE.md             # Windows / macOS PC 설정 가이드
 │   │   ├── DOCKER_GUIDE.md         # Docker & Compose 컨테이너 가이드
 │   │   └── TERMUX_DEBIAN_GUIDE.md  # Android Termux 배포 가이드
-│   └── locales/                    # 11개 언어 현지화 문서 (ko, en, ja, zh-CN 등)
+│   └── locales/                    # 11개 언어 1:1 완벽 번역 문서 (ja, zh-CN, es 등)
 ├── src/                            # 소스 코드 핵심 엔진
 │   ├── generator/                  # 8대 닉네임 생성 엔진 및 규칙 필터
 │   ├── network/                    # Chrome 131 TLS 클라이언트 및 백오프 로직
@@ -129,11 +146,13 @@ discord-checker/
 │   ├── proxy/                      # 1:1 WireGuard 터널 풀 및 유저스페이스 매니저
 │   ├── storage/                    # SQLite WAL & 레거시 텍스트 저장소
 │   ├── ui/                         # 다국어(i18n), 툴팁, CLI 대시보드
+│   │   └── web/                    # 모바일 PWA 웹 인터페이스 (HTML5/CSS3/Vanilla JS)
+│   ├── web_gui.py                  # 모바일 반응형 웹 GUI & REST API 백엔드
 │   ├── gui.py                      # CustomTkinter GUI 오케스트레이터 코어
 │   ├── gui_ko.py                   # 한국어 GUI 전용 진입점
 │   ├── gui_en.py                   # 영어 GUI 전용 진입점
 │   └── run.py                      # 헤드리스 CLI 실행 진입점
-├── tests/                          # 84개 전수 단위/통합 회귀 테스트 스위트
+├── tests/                          # 단위/통합 회귀 테스트 스위트
 ├── CHANGELOG.md                    # 버전별 상세 릴리스 노트
 ├── LICENSE                         # 독점 소프트웨어 라이선스 (KRCUPRO)
 ├── NOTICE                          # 서드파티 오픈소스 고지
@@ -158,7 +177,7 @@ D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark 
    # 콤마(,)로 구분하여 최대 수십 개의 개인키를 멀티 계정 풀로 등록 가능
    SURFSHARK_PRIVATE_KEYS=YOUR_WIREGUARD_PRIVATE_KEY_1_HERE,YOUR_WIREGUARD_PRIVATE_KEY_2_HERE
    
-   # 워커 수 (기본: 5)
+   # 워커 수 (기본: 5, 최대: 50)
    D4UC_WORKERS=5
    
    # 디스코드 웹훅 알림 (선택)
@@ -174,34 +193,57 @@ D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark 
 ## 🚀 설치 및 실행
 
 ### 방법 A: Windows 전용 단독 실행 파일 (`.exe`) — 무설치 원클릭
-Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.1.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.1.0)에서 실행 파일을 다운로드합니다:
+Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.2.0)에서 실행 파일을 다운로드합니다:
+- `DiscordUsernameCheckerV2_Web.exe`: **모바일 웹 GUI & PWA 서버 (포트 5000)** [NEW]
 - `DiscordUsernameCheckerV2_KO.exe`: 한국어 데스크톱 GUI
 - `DiscordUsernameCheckerV2_EN.exe`: 영어 데스크톱 GUI
 - `DiscordUsernameCheckerV2_CLI.exe`: 헤드리스 콘솔 CLI 대시보드
 
-### 방법 B: 소스코드 직접 실행 (Windows / macOS / Linux)
+### 방법 B: 모바일 반응형 웹 GUI 실행 (스마트폰 제어)
 ```bash
-# 1. 저장소 클론
-git clone https://github.com/KRCUPRO/discord-checker.git
-cd discord-checker
+# 모바일 웹 GUI 서버 기동 (기본 포트: 5000)
+python src/web_gui.py --port 5000
 
-# 2. 가상환경 생성 및 활성화
+# 스마트폰 Safari / Chrome 브라우저에서 동일 Wi-Fi PC IP로 접속:
+# http://192.168.0.x:5000
+```
+
+### 방법 C: 데스크톱 GUI 및 헤드리스 CLI 실행
+```bash
+# 가상환경 생성 및 실행
 python -m venv .venv
-# Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
-# Linux / macOS:
-source .venv/bin/activate
-
-# 3. 필수 의존성 설치
 pip install -r requirements.txt
 
-# 4. GUI 실행
-python src/gui_ko.py   # 한국어 GUI
-python src/gui_en.py   # 영어 GUI
+# 한국어 데스크톱 GUI 실행
+python src/gui_ko.py
 
-# 5. CLI 실행
+# CLI 대시보드 실행
 python src/run.py --mode hybrid --length 4 --workers 5
 ```
+
+---
+
+## 📱 모바일 웹 GUI & PWA 원격 제어 가이드
+
+스마트폰에서 침대에 누워 편안하게 희귀 닉네임 탐색을 감시하고 제어할 수 있습니다.
+
+### 1. 홈 화면에 추가 (PWA 네이티브 모바일 앱 설치)
+1. 스마트폰(iPhone Safari 또는 Android Chrome)을 켜고 `http://<PC의 로컬 IP>:5000`에 접속합니다.
+2. **iPhone Safari**: 브라우저 하단 공유 버튼(네모+화살표) ➔ **"홈 화면에 추가"** 탭
+3. **Android Chrome**: 우측 상단 더보기(⋮) ➔ **"홈 화면에 추가"** 또는 **"앱 설치"** 탭
+4. 홈 화면에 생성된 보라색 **D4UC Web** 아이콘을 터치하면 주소창 없는 전체화면 네이티브 앱으로 실행됩니다.
+
+### 2. 모바일 터치 제어 기능
+- **실시간 대형 텔레메트리**: 초당 속도(RPS), 가용 발견, 총 검사, 선점, 429 핫스왑, 레이턴시를 30ms 단위로 실시간 확인.
+- **실시간 속도 캔버스 그래프**: 프레임워크 없는 순수 HTML5 캔버스로 탐색 속도 곡선을 매끄럽게 렌더링.
+- **1-Tap 닉네임 즉시 복사**: 마음에 드는 가용 닉네임 옆 [복사] 버튼을 터치하면 진동/토스트 알림과 함께 클립보드 복사.
+- **원클릭 내보내기**: 상단 [TXT], [CSV], [JSON] 버튼으로 스마트폰에 즉시 다운로드.
+- **모바일 원격 설정 핫스왑**:
+  - 생성 모드 8종(하이브리드, 순열, 사전, 대칭, 숫자, 마스크, 조합, 재점검) 탭 전환
+  - 자릿수(3~6자) 및 샤딩 분할(2_1, 2_2 등) 즉시 변경
+  - 워커 슬라이더(1~50개)를 통한 동시성 실시간 무중단 확장/축소 (Hot-Scale)
+  - Surfshark WireGuard 개인키 및 프록시 설정 모바일에서 원격 저장
 
 ---
 
@@ -261,7 +303,7 @@ Discord 사용자명 정책(Community Guidelines & Username Rules)에 위배되�
 ```mermaid
 sequenceDiagram
     autonumber
-    participant App as D4UC 워커
+    participant App as D4UC 워커 / 모바일 웹 GUI
     participant Wire as Wireproxy 터널 (1:1)
     participant Edge as Discord API (Chrome 131 TLS)
     participant Store as SQLite WAL DB
@@ -272,6 +314,7 @@ sequenceDiagram
     alt 200 OK (가용 - AVAILABLE)
         Wire-->>App: 상태: 가용 (Available)
         App->>Store: SQLite WAL 원자적 INSERT + available.txt 기록
+        App->>App: 모바일 웹 GUI 실시간 피드에 즉시 푸시
         App->>Edge: Discord Webhook 축하 알림 전송
     else 404 Not Found (선점 - TAKEN)
         Wire-->>App: 상태: 선점 (Taken)
@@ -322,7 +365,7 @@ sequenceDiagram
 
 ## 📊 실시간 체커 통계
 
-GUI 상단 카드 및 CLI 대시보드를 통해 다음 지표가 30ms 단위로 실시간 렌더링됩니다:
+모바일 웹 GUI, 데스크톱 GUI 상단 카드 및 CLI 대시보드를 통해 다음 지표가 30ms 단위로 실시간 렌더링됩니다:
 - **Scan Speed (RPS)**: 초당 검사 완료 요청 수 (Rolling Window 5초 평균)
 - **Total Checked**: 현재 세션에서 검사 완료된 총 사용자명 수
 - **Available Count**: 발견된 희귀 가용 닉네임 총합
@@ -334,7 +377,8 @@ GUI 상단 카드 및 CLI 대시보드를 통해 다음 지표가 30ms 단위로
 
 ## 🛑 체커 중지
 
-- **GUI**: 상단의 `■ 중지` 버튼을 누르면 즉시 새로운 요청 발송이 중단되며, 진행 중인 세션이 안전하게 플러시된 후 0.5초 이내에 대기 상태로 전환됩니다.
+- **모바일 웹 GUI**: 하단의 붉은색 `■ 탐색 중지` 버튼을 탭하면 즉시 새로운 요청 발송이 중단되고 대기 상태로 전환됩니다.
+- **데스크톱 GUI**: 상단의 `■ 중지` 버튼을 누르면 즉시 세션이 안전하게 플러시된 후 0.5초 이내에 대기 상태로 전환됩니다.
 - **CLI**: `Ctrl + C` 인터럽트 신호 입력 시 `SIGINT` 핸들러가 동작하여 SQLite WAL 체크포인트를 안전하게 커밋하고 모든 백그라운드 프록시 포트를 정리한 후 정상 종료됩니다.
 
 ---
@@ -350,6 +394,7 @@ GUI 상단 카드 및 CLI 대시보드를 통해 다음 지표가 30ms 단위로
 
 | 증상 | 원인 | 해결 방법 |
 | :--- | :--- | :--- |
+| 모바일 웹 접속 불가 | 스마트폰과 PC가 서로 다른 Wi-Fi 망에 접속됨 | PC와 스마트폰을 동일한 Wi-Fi 공유기에 연결하고 PC 방화벽에서 포트 5000 허용 여부를 확인하세요. |
 | `Wireproxy binary not found` | wireproxy 실행 파일 누락 | `bin/wireproxy.exe`가 존재하는지 확인하거나 `deploy/build_exe.py`를 실행하세요. |
 | `Port already in use: 1081` | 이전 작업 프로세스 잔존 | 작업 관리자에서 잔여 Python 또는 wireproxy 프로세스를 종료하세요. |
 | 방화벽 허용 팝업이 뜨는 경우 | Windows Defender 방화벽 미등록 | PowerShell 관리자 권한으로 방화벽 허용 규칙을 등록하세요 (`docs/guides/PC_GUIDE.md` 참조). |
@@ -375,7 +420,7 @@ GUI 상단 카드 및 CLI 대시보드를 통해 다음 지표가 30ms 단위로
 
 > **[학습 및 연구 목적 고지 — Educational & Research Purpose Only]**
 > 
-> 본 소프트웨어는 **현대 네트워크 환경의 TLS 핑거프린트 보안 구조(Chrome 131 BoringSSL JA3/JA4), 유저스페이스 터널링 아키텍처(Wireproxy), 그리고 SQLite WAL 동시성 제어 분할 샤딩**에 대한 순수한 기술 연구 및 컴퓨터 네트워크 학습 목적으로 제작되었습니다.
+> 본 소프트웨어는 **현대 네트워크 환경의 TLS 핑거프린트 보안 구조(Chrome 131 BoringSSL JA3/JA4), 모바일 PWA 반응형 인터페이스, 유저스페이스 터널링 아키텍처(Wireproxy), 그리고 SQLite WAL 동시성 제어 분할 샤딩**에 대한 순수한 기술 연구 및 컴퓨터 네트워크 학습 목적으로 제작되었습니다.
 > 
 > 1. 본 도구를 사용하여 특정 서비스에 대한 과도한 트래픽 유발, 서비스 거부(DoS), 시스템 운영 방해, 계정 무단 선점 등의 남용 행위를 엄격히 금지합니다.
 > 2. 사용자는 해당 플랫폼의 서비스 이용약관(Terms of Service)과 관련 법령을 반드시 준수해야 하며, 본 도구의 부적절한 사용으로 인해 발생하는 모든 법적·행정적 책임은 전적으로 실행자 본인에게 있습니다.
