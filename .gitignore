@@ -45,6 +45,7 @@ ENV/
 build/
 dist/
 *.spec
+bin/
 *.exe
 bin/wireproxy.exe
 bin/wireproxy
