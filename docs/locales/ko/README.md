@@ -11,11 +11,7 @@
 | :---: | :---: | :---: | :---: | :---: |
 | [FR Français](../fr/README.md) | [DE Deutsch](../de/README.md) | [RU Русский](../ru/README.md) | [BR Português](../pt-BR/README.md) | [SA العربية](../ar/README.md) |
 
-<p align="center">[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
-[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20%EB%AC%B4%EC%84%A4%EC%B9%98-4285F4?logo=google&logoColor=white)](gas/README.md)
-[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%EA%B8%B0%EC%A2%85%EB%AC%B4%EA%B4%80-%EC%95%84%EC%9D%B4%ED%8F%B0%20%7C%20%EC%95%84%EC%9D%B4%ED%8C%A8%EB%93%9C%20%7C%20%EA%B0%A4%EB%9f%AD%EC%8B%9C%20%7C%20%ED%83%9C%EB%B8%94%EB%A6%BF-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
-
-<sub>🌐 Also available: <a href="../hi/README.md">HI हिन्दी</a> • <a href="../id/README.md">ID Bahasa Indonesia</a></sub></p>
+<p align="center"><sub>🌐 Also available: <a href="../hi/README.md">HI हिन्दी</a> • <a href="../id/README.md">ID Bahasa Indonesia</a></sub></p>
 
 [![최종 업데이트: 2026년 11월 19일](../../assets/badges/update_badge.svg)](./CHANGELOG.md)
 [![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
@@ -23,6 +19,9 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20%EB%AC%B4%EC%84%A4%EC%B9%98-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%EA%B8%B0%EC%A2%85%EB%AC%B4%EA%B4%80-%EC%95%84%EC%9D%B4%ED%8F%B0%20%7C%20%EC%95%84%EC%9D%B4%ED%8C%A8%EB%93%9C%20%7C%20%EA%B0%A4%EB%9f%AD%EC%8B%9C%20%7C%20%ED%83%9C%EB%B8%94%EB%A6%BF-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 독점 소프트웨어 라이선스 (All Rights Reserved)</sub>
 
