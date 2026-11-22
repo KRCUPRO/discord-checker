@@ -1,0 +1,68 @@
+# Discord Username Checker V2 설정 파일
+
+# 1. 대상 사용자명 설정
+target:
+  mode: "hybrid"            # "dictionary" (사전/음절), "pattern" (정규식/대칭패턴), "random" (무작위), "permutation" (순열전수조사), "hybrid" (사전+패턴 복합)
+  length: 4                 # 글자수 (기본 4자리, 3자리~32자리 지정 가능)
+  custom_regex: ""          # mode가 "regex"일 때 사용할 정규식 패턴 (예: "^[a-z][0-9]{2}[a-z]$")
+  exclude_reserved: true    # Discord 시스템 예약어 자동 제외
+
+# 2. 네트워크 및 동시성 설정
+network:
+  concurrency: 10           # 동시 비동기 워커 수 (프록시 용량에 맞춰 조절 권장: 5~50)
+  timeout_seconds: 8.0      # 요청 타임아웃
+  impersonate: "chrome131"  # 브라우저 TLS 위장 ("chrome131", "chrome124", "safari17_0", "android_chrome")
+  max_retries: 3            # 네트워크/일시적 오류 재시도 횟수
+
+# 3. 프록시 인프라 설정
+proxy:
+  mode: "hybrid"            # "surfshark", "thordata", "file", "hybrid" (파일+ThorData), "direct" (프록시 없음)
+  
+  # Surfshark VPN 연동 (142개 글로벌 클러스터 및 자격 증명)
+  surfshark:
+    enabled: true
+    username: "${SURFSHARK_OPENVPN_USER}"
+    password: "${SURFSHARK_OPENVPN_PASS}"
+    preferred_countries: [] # 전세계 142개 전체 클러스터
+    preferred_country_label: "전세계 142개 전체"
+    local_bridge_port: 1080
+
+  # ThorData 프록시 연동
+  thordata:
+    enabled: false
+    server: "proxy.thordata.com:12345"
+    username: "your_username"
+    password: "your_password"
+    rotate_interval: 3      # N회 요청마다 세션 ID 교체
+    
+  # 파일 기반 프록시 풀 (HTTP / SOCKS5)
+  file:
+    enabled: false
+    path: "proxies.txt"     # 줄당 ip:port, ip:port:user:pass, socks5://... 지원
+    default_protocol: "http" # "http" 또는 "socks5"
+    shuffle: true
+
+  # 헬스 체크 및 서킷 브레이커
+  health:
+    cooldown_429_seconds: 15.0 # 429 수신 시 해당 프록시 격리 시간(초)
+    max_consecutive_fails: 3   # 연속 실패 시 폐기 기준
+
+# 4. 실시간 알림 (Discord Webhook)
+webhook:
+  enabled: false
+  url: ""                   # 예: https://discord.com/api/webhooks/...
+  mention: "@here"          # "@here", "@everyone", 또는 빈칸 ""
+  notify_only_available: true # 사용 가능 닉네임("된거") 즉시 발송
+  progress_enabled: true    # "안된거"(사용중/429/통계) 주기적 종합 진행상황 리포트 발송
+  progress_interval: 300.0  # 진행상황 발송 주기 (초, 기본 300초 = 5분)
+
+# 5. 저장소 및 모니터링
+storage:
+  db_path: "data/d4uc_results.db"
+  save_legacy_txt: true     # available.txt / taken.txt 동시 출력
+  available_file: "available.txt"
+  taken_file: "taken.txt"
+  drive_dir: ""             # Google Drive 백업 경로 (예: /content/drive/MyDrive/D4UC)
+
+ui:
+  rich_dashboard: true      # Rich TUI 실시간 화면 대시보드 사용 여부 (false면 단순 로그)

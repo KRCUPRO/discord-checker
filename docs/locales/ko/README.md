@@ -11,7 +11,11 @@
 | :---: | :---: | :---: | :---: | :---: |
 | [FR Français](../fr/README.md) | [DE Deutsch](../de/README.md) | [RU Русский](../ru/README.md) | [BR Português](../pt-BR/README.md) | [SA العربية](../ar/README.md) |
 
-<p align="center"><sub>🌐 Also available: <a href="../hi/README.md">HI हिन्दी</a> • <a href="../id/README.md">ID Bahasa Indonesia</a></sub></p>
+<p align="center">[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20%EB%AC%B4%EC%84%A4%EC%B9%98-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%EA%B8%B0%EC%A2%85%EB%AC%B4%EA%B4%80-%EC%95%84%EC%9D%B4%ED%8F%B0%20%7C%20%EC%95%84%EC%9D%B4%ED%8C%A8%EB%93%9C%20%7C%20%EA%B0%A4%EB%9f%AD%EC%8B%9C%20%7C%20%ED%83%9C%EB%B8%94%EB%A6%BF-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
+
+<sub>🌐 Also available: <a href="../hi/README.md">HI हिन्दी</a> • <a href="../id/README.md">ID Bahasa Indonesia</a></sub></p>
 
 [![최종 업데이트: 2026년 11월 19일](../../assets/badges/update_badge.svg)](./CHANGELOG.md)
 [![Version](https://img.shields.io/badge/Version-v12.4.0-blue.svg)](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)
@@ -25,6 +29,12 @@
 </div>
 
 ---
+
+> ### ☁️ 100% 클라우드 무설치: 구글 코랩(Google Colab) & 구글 앱스 스크립트(GAS) 24시간 무인 구동
+> **PC나 복잡한 프로그램 설치 일체 불필요!** **아이폰(Safari), 아이패드, 갤럭시(Android), 태블릿, PC** 등 기종과 운영체제에 상관없이 브라우저만으로 즉시 실행됩니다.
+> - 🚀 **[Google Colab 원클릭 실행](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: 10개국어 실시간 전환 지원 인셀(In-Cell) 웹 대시보드(`src/ui/colab_gui.py`), 구글 드라이브 영구 저장(`drive_sync.py`), 디스코드 웹훅 실시간 전송.
+> - ⏱️ **[구글 앱스 스크립트 24/7 체커](gas/README.md)**: 스마트폰 전원을 끄거나 컴퓨터를 종료해도 구글 서버리스 인프라에서 24시간 365일 무중단 자동 감시.
+> - 📱 **[모바일 & 아이폰/태블릿 클라우드 가이드](docs/MOBILE_AND_IPHONE_GUIDE.md)**: 모바일 브라우저 1분 원스톱 가이드.
 
 <a id="-목차"></a><a id="목차"></a>
 ## 📑 목차
@@ -79,6 +89,7 @@
 
 <a id="-주요-기능"></a><a id="주요-기능"></a>
 ## ✨ 주요 기능
+- **☁️ 100% 클라우드 무설치 구동 (Google Colab & GAS 24/7)**: PC 없이 아이폰(Safari), 아이패드, 갤럭시, 태블릿에서 브라우저만으로 구동. 10개국어 실시간 UI, 구글 드라이브/시트 영구 저장 및 24시간 365일 무인 감시 트리거 지원.
 
 1. **모바일 반응형 웹 GUI & PWA 엔진 (`http://<host>:5000`)**:
    - PC, VPS, Docker, Termux 어디서든 기동하여 스마트폰(iPhone Safari, Android Chrome) 브라우저로 원격 제어할 수 있습니다.
@@ -244,6 +255,20 @@ D4UC는 IP 차단과 Rate Limit을 완벽하게 우회하기 위해 **Surfshark 
 
 <a id="-설치-및-실행"></a><a id="설치-및-실행"></a>
 ## 🚀 설치 및 실행
+### ☁️ 방식 0: 100% 클라우드 무설치 (Google Colab & 구글 앱스 스크립트 24시간 무인 체커)
+> **아이폰, 아이패드, 갤럭시, 태블릿 사용자 또는 파이썬 설치 없이 즉시 실행하려는 분들에게 권장합니다.**
+
+1. **Google Colab 노트북 구동**:
+   - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) 배지를 클릭하여 코랩에서 노트북을 엽니다.
+   - 3개 셀을 순서대로 실행합니다: 환경 준비 ➔ 구글 드라이브 및 웹훅 설정 ➔ 대화형 인셀 웹 대시보드 기동.
+   - 10개국어(`ko`, `en`, `ja`, `zh`, `es`, `ru`, `fr`, `de`, `pt`, `vi`) 실시간 언어 전환 및 실시간 발견 닉네임 표를 제공합니다.
+   - 발견된 유효 닉네임과 진행 상태는 내 구글 드라이브(`/content/drive/MyDrive/D4UC/`)에 영구 보관됩니다.
+2. **구글 앱스 스크립트(GAS) 24시간 무인 체커**:
+   - [gas/README.md](gas/README.md) 및 [docs/GAS_24H_CHECKER_GUIDE.md](docs/GAS_24H_CHECKER_GUIDE.md) 안내에 따라 `gas/D4UC_Checker.js`를 복사하여 [script.google.com](https://script.google.com/)에 붙여넣고 `setupChecker()`를 1회 실행합니다.
+   - 스마트폰이나 컴퓨터 전원을 꺼도 구글 인프라에서 시간 기반 트리거로 24시간 365일 무인 실행됩니다.
+   - 유효 닉네임 발견 시 디스코드 웹훅으로 즉시 스마트폰 알림이 전송됩니다.
+3. **모바일 전용 상세 가이드**: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md)를 참조하세요.
+
 
 ### 방법 A: Windows 전용 실행 파일 (`.exe`) & 안드로이드 패키지 (`.apk`) — 무설치 원클릭
 Python 설치 없이 바로 실행하고자 하는 경우, [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0)에서 설치 파일을 다운로드합니다:
@@ -296,6 +321,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-모바일-웹-gui-pwa-원격-제어-가이드"></a><a id="모바일-웹-gui-pwa-원격-제어-가이드"></a>
 ## 📱 모바일 웹 GUI & PWA 원격 제어 가이드
+### 📱 100% 기종 무관 클라우드 실행 (아이폰, 아이패드, 갤럭시, 태블릿 전 기종 지원)
+로컬 PWA 실행 외에도, **Google Colab** 및 **구글 앱스 스크립트(GAS)**를 통해 완전한 무설치 클라우드 구동이 가능합니다:
+- **아이폰 / 아이패드 Safari**: 모바일 사파리에서 `D4UC_Google_Colab.ipynb`를 열어 즉시 실행 (PC 필요 없음).
+- **24시간 무인 백그라운드**: 구글 앱스 스크립트를 통해 기기 화면이 꺼져 있어도 24시간 365일 연속 감시.
+- **실시간 스마트폰 알림**: 유효 닉네임 발견 시 디스코드 모바일 앱으로 웹훅 실시간 푸시 알림 수신.
+- 상세 가이드: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 스마트폰에서 침대에 누워 편안하게 희귀 닉네임 탐색을 감시하고 제어할 수 있습니다.
 

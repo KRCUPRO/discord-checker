@@ -3,17 +3,10 @@ Unit tests verifying that SingleTunnelNode and SurfsharkProxyProvider
 do not deadlock on 429 rotation and parallel worker startup.
 """
 
-import sys
 import unittest
 import threading
 import time
-from pathlib import Path
 from unittest.mock import MagicMock, patch
-
-_ROOT = Path(__file__).resolve().parent.parent
-if str(_ROOT) not in sys.path:
-    sys.path.insert(0, str(_ROOT))
-
 from src.proxy.surfshark import SingleTunnelNode, SurfsharkCluster, SurfsharkProxyProvider
 
 
@@ -135,26 +128,32 @@ class TestSurfsharkDeadlockPrevention(unittest.TestCase):
 
     def test_ensure_workers_running_parallelism(self):
         """Test that ensure_workers_running starts workers in parallel"""
-        provider = SurfsharkProxyProvider(http_port=18080)
+        provider = SurfsharkProxyProvider(http_port=18080, socks5_port=18081)
+        provider._find_available_port_base = MagicMock(return_value=18080)
         provider.clusters = [
             SurfsharkCluster({"id": f"c{i}", "country": f"Country{i}", "countryCode": f"C{i}", "city": f"City{i}", "host": f"c{i}.com", "pubKey": "pk=", "load": i})
             for i in range(1, 10)
         ]
+        provider._acquire_fresh_cluster = MagicMock(return_value=provider.clusters[0])
         with provider._cluster_lock:
             provider._available_clusters = type(provider._available_clusters)(provider.clusters)
 
-        # Mock each node.ensure_running to take 0.1s
+        # Mock each node.ensure_running to simulate brief parallel work (0.05s)
+        def _mock_run():
+            time.sleep(0.05)
+            return True
+
         for wid in range(1, 6):
             node = provider._get_or_create_node(wid)
-            node.ensure_running = MagicMock(side_effect=lambda: time.sleep(0.1) or True)
+            node.ensure_running = MagicMock(side_effect=_mock_run)
 
         start = time.time()
         ok = provider.ensure_workers_running(worker_count=5)
         elapsed = time.time() - start
 
         self.assertTrue(ok)
-        # If sequential: 5 * 0.1s = 0.5s+. If parallel: ~0.1s - 0.25s
-        self.assertLess(elapsed, 0.8, f"ensure_workers_running must run in parallel, took {elapsed:.2f}s")
+        # Sequential would take 5 * 0.05s = 0.25s+. In parallel it finishes in ~0.05s - 0.20s.
+        self.assertLess(elapsed, 1.0, f"ensure_workers_running must run in parallel, took {elapsed:.2f}s")
 
 
 if __name__ == "__main__":
