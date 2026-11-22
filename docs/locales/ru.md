@@ -21,12 +21,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20%D0%91%D0%B5%D0%B7%20%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B8-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%D0%9B%D1%8E%D0%B1%D1%8B%D0%B5%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20%D0%9F%D0%BB%D0%B0%D0%BD%D1%88%D0%B5%D1%82-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Проприетарная лицензия (Все права защищены)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Облачный запуск без установки: Google Colab и Google Apps Script 24/7
+> **Не требуется ПК или установка программ!** Запускайте D4UC прямо в облаке с **любого устройства — iPhone (Safari), iPad, Android или планшета** через браузер.
+> - 🚀 **[Открыть в Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: Интерактивный веб-дашборд с переключением между 10 языками, автосохранением в Google Drive и вебхуками Discord.
+> - ⏱️ **[Google Apps Script 24/7 чекер](gas/README.md)**: Автономная работа 24 часа 365 дней в инфраструктуре Google Cloud даже при выключенном телефоне или ПК.
+> - 📱 **[Руководство для мобильных устройств и iPhone](docs/MOBILE_AND_IPHONE_GUIDE.md)**: Быстрая настройка за 1 минуту.
 
 <a id="-содержание"></a><a id="содержание"></a>
 ## 📑 Содержание
@@ -81,6 +91,7 @@
 
 <a id="-ключевые-возможности"></a><a id="ключевые-возможности"></a>
 ## ✨ Ключевые возможности
+- **☁️ 100% Облачный запуск без установки (Google Colab & GAS 24/7)**: Работает на iPhone (Safari), iPad, Android и планшетах без ПК. UI на 10 языках, автосохранение в Google Drive и круглосуточные триггеры.
 
 1. **Мобильный адаптивный Web GUI & PWA (`http://<host>:5000`)**:
    - Запускайте на ПК, VPS, в Docker или Termux и управляйте процессом проверки с любого смартфона (iPhone Safari, Android Chrome).
@@ -222,6 +233,13 @@ D4UC использует **1:1 пул туннелей WireGuard в прост�
 
 <a id="-установка-и-запуск"></a><a id="установка-и-запуск"></a>
 ## 🚀 Установка и запуск
+### ☁️ Метод 0: 100% Облачный запуск без установки (Google Colab и Google Apps Script 24/7)
+> **Рекомендуется для пользователей iPhone, iPad, Android, планшетов или без установленного Python.**
+
+1. **Google Colab Notebook**: Нажмите [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb). Выполните 3 ячейки для запуска веб-интерфейса на 10 языках.
+2. **Google Apps Script 24/7**: Инструкция в [gas/README.md](gas/README.md) для непрерывной проверки 24/7 на облачных триггерах Google.
+3. **Мобильное руководство**: См. [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Вариант A: Автономные исполняемые файлы для Windows (`.exe`)
 Скачайте готовые сборки со страницы [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
@@ -272,6 +290,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-руководство-по-управлению-через-мобильный-web-gui-pwa"></a><a id="руководство-по-управлению-через-мобильный-web-gui-pwa"></a>
 ## 📱 Руководство по управлению через мобильный Web GUI & PWA
+### 📱 Кросс-платформенный облачный запуск (iPhone, iPad, Android, планшеты)
+Помимо локального PWA, D4UC полностью работает в облаке через **Google Colab** и **Google Apps Script (GAS)**:
+- **iPhone / iPad Safari**: Запуск прямо в Mobile Safari без необходимости в Mac или ПК.
+- **Круглосуточный мониторинг 24/7**: Триггеры Google Apps Script работают при заблокированном экране или выключенном питании.
+- **Уведомления в Discord**: Мгновенный пуш на телефон при обнаружении свободного имени.
+- Полное руководство: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Следите за поиском редких никнеймов и меняйте параметры прямо со своего смартфона.
 

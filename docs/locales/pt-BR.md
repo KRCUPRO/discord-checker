@@ -21,12 +21,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20Sem%20Instala%C3%A7%C3%A3o-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/Qualquer%20Dispositivo-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20Tablet-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Licença Proprietária e Confidencial (Todos os direitos reservados)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Cloud Sem Instalação: Google Colab e Google Apps Script 24/7
+> **Sem necessidade de PC ou instalação!** Execute o D4UC diretamente na nuvem em **qualquer dispositivo — iPhone (Safari), iPad, Android ou Tablet** usando apenas o navegador.
+> - 🚀 **[Abrir no Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: Painel Web interativo com suporte a 10 idiomas, sincronização no Google Drive e Webhooks do Discord em tempo real.
+> - ⏱️ **[Google Apps Script 24/7](gas/README.md)**: Execução contínua 24 horas por dia, 365 dias por ano na nuvem do Google, mesmo com o aparelho desligado.
+> - 📱 **[Guia Mobile & iPhone](docs/MOBILE_AND_IPHONE_GUIDE.md)**: Configuração rápida em 1 minuto para navegadores móveis.
 
 <a id="-índice"></a><a id="índice"></a>
 ## 📑 Índice
@@ -81,6 +91,7 @@
 
 <a id="-recursos-principais"></a><a id="recursos-principais"></a>
 ## ✨ Recursos Principais
+- **☁️ 100% Cloud Sem Instalação (Google Colab & GAS 24/7)**: Funciona no iPhone (Safari), iPad, Android ou Tablet sem PC. Interface em 10 idiomas, sincronização no Google Drive e monitoramento 24/7.
 
 1. **Web GUI Móvel Responsiva & Motor PWA (`http://<host>:5000`)**:
    - Execute localmente ou em VPS/Docker/Termux e gerencie suas verificações a partir de qualquer smartphone (iPhone Safari, Android Chrome).
@@ -222,6 +233,13 @@ Operação 100% gratuita sem necessidade de planos VPN:
 
 <a id="-instalação-e-uso"></a><a id="instalação-e-uso"></a>
 ## 🚀 Instalação e Uso
+### ☁️ Método 0: 100% Cloud Sem Instalação (Google Colab e Google Apps Script 24/7)
+> **Recomendado para iPhone, iPad, Android, Tablet ou para quem não tem Python instalado.**
+
+1. **Notebook Google Colab**: Clique em [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) para iniciar o painel web em 10 idiomas.
+2. **Google Apps Script 24/7**: Veja [gas/README.md](gas/README.md) para executar verificações contínuas 24/7 nos servidores do Google.
+3. **Guia Mobile**: Veja [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Método A: Executáveis Autônomos para Windows (`.exe`)
 Baixe as versões compiladas em [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
@@ -272,6 +290,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-guia-de-controle-remoto-via-web-gui-móvel-pwa"></a><a id="guia-de-controle-remoto-via-web-gui-móvel-pwa"></a>
 ## 📱 Guia de Controle Remoto via Web GUI Móvel & PWA
+### 📱 Execução na Nuvem para Qualquer Aparelho (iPhone, iPad, Android, Tablet)
+Além da PWA local, o D4UC pode ser executado 100% na nuvem pelo **Google Colab** e **Google Apps Script (GAS)**:
+- **iPhone / iPad Safari**: Execute diretamente no Mobile Safari sem Mac ou PC.
+- **Monitoramento 24/7**: Triggers do Google Apps Script continuam ativos mesmo com tela bloqueada ou celular desligado.
+- **Notificações em Tempo Real**: Alertas no Discord ao encontrar um usuário disponível.
+- Guia completo: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Acompanhe os resultados e ajuste as opções diretamente pelo smartphone.
 

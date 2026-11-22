@@ -19,12 +19,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20%E0%A4%AC%E0%A4%BF%E0%A4%A8%E0%A4%BE%20%E0%A4%87%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%9F%E0%A5%89%E0%A4%B2%E0%A5%87%E0%A4%B6%E0%A4%A8-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%E0%A4%B8%E0%A4%AD%E0%A5%80%20%E0%A4%A1%E0%A4%BF%E0%A4%B5%E0%A4%BE%E0%A4%87%E0%A4%B8%20%E0%A4%B8%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%A5%E0%A4%BF%E0%A4%A4-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20%E0%A4%9F%E0%A5%88%E0%A4%AC%E0%A4%B2%E0%A5%87%E0%A4%9F-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · प्रोप्राइटरी और गोपनीय लाइसेंस (सर्वाधिकार सुरक्षित)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% क्लाउड ज़ीरो-इंस्टॉल: Google Colab और Google Apps Script 24/7
+> **किसी पीसी या सॉफ़्टवेयर इंस्टॉलेशन की आवश्यकता नहीं!** D4UC को सीधे क्लाउड में **किसी भी डिवाइस पर — iPhone (Safari), iPad, Android या टैबलेट** केवल ब्राउज़र से चलाएं।
+> - 🚀 **[Google Colab में खोलें](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: 10 भाषाओं में इंटरैक्टिव वेब डैशबोर्ड, Google Drive ऑटो-सिंक और रीयल-टाइम Discord Webhooks।
+> - ⏱️ **[Google Apps Script 24/7 चेकर](gas/README.md)**: आपका डिवाइस बंद होने पर भी Google Cloud इन्फ्रास्ट्रक्चर पर 24 घंटे 365 दिन स्वचालित रूप से चलता रहता है।
+> - 📱 **[मोबाइल और iPhone क्लाउड गाइड](docs/MOBILE_AND_IPHONE_GUIDE.md)**: मोबाइल ब्राउज़र के लिए 1 मिनट का सेटअप गाइड।
 
 <a id="-सामग्री-तालिका"></a><a id="सामग्री-तालिका"></a>
 ## 📑 सामग्री तालिका
@@ -79,6 +89,7 @@
 
 <a id="-मखय-कषमतए-और-वशषतए"></a><a id="मखय-कषमतए-और-वशषतए"></a>
 ## ✨ मुख्य क्षमताएं और विशेषताएं
+- **☁️ 100% क्लाउड ज़ीरो-इंस्टॉल (Google Colab & GAS 24/7)**: iPhone (Safari), iPad, Android या टैबलेट पर बिना पीसी के सीधे चलाएं। 10 भाषाओं में UI, Google Drive स्टोरेज और 24/7 स्वचालित निगरानी।
 
 1. **मोबाइल रिस्पॉन्सिव वेब GUI और PWA इंजन (`http://<host>:5000`)**:
    - इसे अपने PC, VPS, Docker या Termux पर चलाएं और किसी भी स्मार्टफोन ब्राउज़र (iPhone Safari, Android Chrome) से दूरस्थ रूप से नियंत्रित करें।
@@ -220,6 +231,13 @@ D4UC आईपी प्रतिबंधों को बायपास क�
 
 <a id="-सथपन-और-नषपदन"></a><a id="सथपन-और-नषपदन"></a>
 ## 🚀 स्थापना और निष्पादन
+### ☁️ विधि 0: 100% क्लाउड ज़ीरो-इंस्टॉल (Google Colab और Google Apps Script 24/7)
+> **iPhone, iPad, Android, टैबलेट उपयोगकर्ताओं या बिना Python वाले उपयोगकर्ताओं के लिए अनुशंसित।**
+
+1. **Google Colab नोटबुक**: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) पर क्लिक करें और 10 भाषाओं वाले वेब GUI को शुरू करने के लिए 3 सेल चलाएं।
+2. **Google Apps Script 24/7**: अपना डिवाइस चालू रखे बिना 24/7 निरंतर निगरानी के लिए [gas/README.md](gas/README.md) देखें।
+3. **मोबाइल गाइड**: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md) देखें।
+
 
 ### तरीका A: Windows स्टैंडअलोन निष्पादन योग्य फ़ाइलें (`.exe`)
 Python इंस्टॉल किए बिना तुरंत चलाने के लिए [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) से डाउनलोड करें:
@@ -270,6 +288,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-मबइल-वब-gui-और-pwa-रमट-कटरल-गइड"></a><a id="मबइल-वब-gui-और-pwa-रमट-कटरल-गइड"></a>
 ## 📱 मोबाइल वेब GUI और PWA रिमोट कंट्रोल गाइड
+### 📱 किसी भी डिवाइस पर क्लाउड निष्पादन (iPhone, iPad, Android, टैबलेट)
+लोकल PWA के अलावा, D4UC पूरी तरह से **Google Colab** और **Google Apps Script (GAS)** के माध्यम से क्लाउड में चलता है:
+- **iPhone / iPad Safari**: बिना कंप्यूटर के मोबाइल Safari में सीधे चलाएं।
+- **24/7 निरंतर निगरानी**: स्क्रीन लॉक या फोन बंद होने पर भी Google Apps Script ट्रिगर सक्रिय रहते हैं।
+- **लाइव सूचनाएं**: उपलब्ध नाम मिलने पर तुरंत Discord मोबाइल ऐप पर सूचना प्राप्त करें।
+- पूर्ण गाइड: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md)।
+
 
 बिस्तर पर आराम करते हुए अपने स्मार्टफोन से दुर्लभ यूज़रनेम की खोज की निगरानी और नियंत्रण करें।
 

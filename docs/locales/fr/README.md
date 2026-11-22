@@ -19,12 +19,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20Sans%20Installation-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/Tous%20Appareils-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20Tablette-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Licence Propriétaire et Confidentielle (Tous droits réservés)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Cloud Sans Installation : Google Colab & Google Apps Script 24/7
+> **Aucune installation ni PC requis !** Exécutez D4UC directement dans le cloud depuis **n'importe quel appareil — iPhone (Safari), iPad, Android ou Tablette** via votre navigateur.
+> - 🚀 **[Ouvrir dans Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)** : Dashboard Web interactif multilingue (10 langues), synchronisation Google Drive et Webhooks Discord en direct.
+> - ⏱️ **[Google Apps Script 24/7](gas/README.md)** : Exécution continue 24h/24 et 365j/an sur l'infrastructure Google, même appareil éteint.
+> - 📱 **[Guide Mobile & iPhone](docs/MOBILE_AND_IPHONE_GUIDE.md)** : Configuration en 1 minute pour navigateurs mobiles.
 
 <a id="-table-des-matières"></a><a id="table-des-matières"></a>
 ## 📑 Table des Matières
@@ -79,6 +89,7 @@
 
 <a id="-fonctionnalités-principales"></a><a id="fonctionnalités-principales"></a>
 ## ✨ Fonctionnalités Principales
+- **☁️ 100% Cloud Sans Installation (Google Colab & GAS 24/7)** : Fonctionne sur iPhone (Safari), iPad, Android et Tablette sans PC. UI en 10 langues, sauvegarde Google Drive et déclencheurs 24/7.
 
 1. **Web GUI Mobile Réactive & Moteur PWA (`http://<host>:5000`)**:
    - Hébergez-le localement ou sur VPS/Docker/Termux et contrôlez vos scans depuis n'importe quel smartphone (iPhone Safari, Android Chrome).
@@ -220,6 +231,13 @@ Fonctionnement 100% gratuit sans abonnement VPN requis :
 
 <a id="-installation-utilisation"></a><a id="installation-utilisation"></a>
 ## 🚀 Installation & Utilisation
+### ☁️ Méthode 0 : 100% Cloud Sans Installation (Google Colab & Google Apps Script 24/7)
+> **Recommandé pour iPhone, iPad, Android, Tablette ou sans Python installé.**
+
+1. **Google Colab** : Cliquez sur [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb). Exécutez les 3 cellules pour lancer l'interface web en 10 langues.
+2. **Google Apps Script 24/7** : Suivez [gas/README.md](gas/README.md) pour activer la surveillance autonome 24h/24 sans laisser votre appareil allumé.
+3. **Guide Mobile** : Voir [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Méthode A : Exécutables Autonomes pour Windows (`.exe`)
 Téléchargez les binaires compilés depuis [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) :
@@ -270,6 +288,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-guide-dutilisation-de-la-web-gui-mobile-pwa"></a><a id="guide-dutilisation-de-la-web-gui-mobile-pwa"></a>
 ## 📱 Guide d'Utilisation de la Web GUI Mobile & PWA
+### 📱 Exécution Cloud Multi-Appareils (iPhone, iPad, Android, Tablette)
+En plus de la PWA locale, D4UC s'exécute dans le cloud avec **Google Colab** et **Google Apps Script (GAS)** :
+- **iPhone / iPad Safari** : Lancez directement depuis Safari Mobile sans ordinateur.
+- **Surveillance 24/7** : Déclencheurs automatiques Google Cloud actifs même écran verrouillé.
+- **Notifications Directes** : Webhook Discord immédiat sur smartphone en cas de pseudo disponible.
+- Guide complet : [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Surveillez et pilotez vos sessions de recherche depuis votre canapé ou votre lit avec votre smartphone.
 

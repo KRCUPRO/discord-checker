@@ -19,12 +19,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%E6%99%82%E9%96%93%E7%84%A1%E4%BA%BA%E7%9B%A3%E8%A6%96-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%E6%A9%9F%E7%A8%AE%E4%B8%8D%E5%95%8F-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20%E3%82%BF%E3%83%96%E3%83%AC%E3%83%83%E3%83%88-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 独占ソフトウェアライセンス (All Rights Reserved)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% クラウド完全無停止: Google Colab & Google Apps Script 24時間無人監視
+> **PCや環境構築は一切不要！** **iPhone (Safari)、iPad、Android、タブレット、PC** など機種やOSを問わずブラウザだけで即座に実行できます。
+> - 🚀 **[Google Colab で開く](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: 10言語リアルタイム切り替え対応のインセルWebダッシュボード、Googleドライブ自動同期、Discord Webhook通知完備。
+> - ⏱️ **[Google Apps Script 24時間チェッカー](gas/README.md)**: 端末の電源を切ってもGoogleクラウド上で365日24時間完全自動で稼働。
+> - 📱 **[モバイル & iPhone/タブレット クラウド運用ガイド](docs/MOBILE_AND_IPHONE_GUIDE.md)**: 1分でわかるモバイルブラウザ導入手順。
 
 <a id="-目次"></a><a id="目次"></a>
 ## 📑 目次
@@ -79,6 +89,7 @@
 
 <a id="-主な機能"></a><a id="主な機能"></a>
 ## ✨ 主な機能
+- **☁️ 100% クラウド完全無停止稼働 (Google Colab & GAS 24/7)**: PC不要でiPhone (Safari)、iPad、Android、タブレットからブラウザのみで起動可能。10言語対応UI、Googleドライブ永続保存、24時間自動トリガー監視をサポート。
 
 1. **モバイルレスポンシブ Web GUI & PWA エンジン (`http://<host>:5000`)**:
    - PC、VPS、Docker、Termux のいずれで稼働していても、スマートフォン（iPhone Safari、Android Chrome）ブラウザから完全遠隔操作が可能。
@@ -221,6 +232,17 @@ D4UC は IP BAN や Rate Limit を回避するため、**Surfshark WireGuard 1:1
 
 <a id="-インストール-実行"></a><a id="インストール-実行"></a>
 ## 🚀 インストール & 実行
+### ☁️ 方式 0: 100% クラウド完全無停止 (Google Colab & Google Apps Script 24時間監視)
+> **iPhone、iPad、Android、タブレット利用者、またはPythonをインストールせずに即座に実行したい方に推奨します。**
+
+1. **Google Colab ノートブック実行**:
+   - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) をクリックして起動します。
+   - 3つのセルを順番に実行するだけで10言語切り替え対応Web GUIが立ち上がります。
+   - 発見された利用可能ユーザー名はGoogleドライブ (`/content/drive/MyDrive/D4UC/`) に自動保存されます。
+2. **Google Apps Script 24時間自動チェッカー**:
+   - [gas/README.md](gas/README.md) の手順に従って `gas/D4UC_Checker.js` を設定すると、スマホやPCの電源を切ってもGoogleインフラ上で24時間365日無人で稼働し続けます。
+3. **モバイル詳細ガイド**: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md) を参照してください。
+
 
 ### 方法 A: Windows 向けスタンドアロン実行ファイル (`.exe`)
 Python 環境構築なしで即座に実行したい場合、[GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) からダウンロードします：
@@ -271,6 +293,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-モバイル-web-gui-pwa-遠隔操作ガイド"></a><a id="モバイル-web-gui-pwa-遠隔操作ガイド"></a>
 ## 📱 モバイル Web GUI & PWA 遠隔操作ガイド
+### 📱 100% 機種不問クラウド実行 (iPhone、iPad、Android、タブレット全対応)
+ローカルPWA実行に加えて、**Google Colab** および **Google Apps Script (GAS)** を利用した完全なクラウド実行が可能です:
+- **iPhone / iPad Safari**: モバイルSafariで直接ノートブックを開いて即座に実行 (PC不要)。
+- **24時間完全自動監視**: Google Apps Scriptのトリガーにより端末の画面が消灯していても24時間稼働。
+- **リアルタイム通知**: 利用可能なレアユーザー名が発見された瞬間、Discordモバイルアプリへ即座にプッシュ通知。
+- 詳細ガイド: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md)。
+
 
 ベッドに横になりながらスマートフォンで探索状況を監視し、自由に設定を変更できます。
 

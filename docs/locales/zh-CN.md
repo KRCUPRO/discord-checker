@@ -21,12 +21,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%E5%B0%8F%E6%97%B6%E6%97%A0%E4%BA%BA%E5%80%BC%E5%AE%88-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%E8%AE%BE%E5%A4%87%E6%97%A0%E9%99%90%E5%88%B6-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20%E5%B9%B3%E6%9D%BF-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · 专有软件许可证 (All Rights Reserved)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% 云端免安装运行: Google Colab & Google Apps Script 24小时无人值守
+> **无需配置Python或高性能PC！** **iPhone (Safari)、iPad、Android手机、平板电脑、PC** 均可仅通过浏览器直接运行。
+> - 🚀 **[在 Google Colab 中打开](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: 支持10种语言实时切换的Cell内嵌Web仪表盘、Google Drive自动同步、Discord Webhook实时推送。
+> - ⏱️ **[Google Apps Script 24/7 监控器](gas/README.md)**: 即使手机关机或电脑断网，仍可在Google云端自动化基础设施中24小时365天不间断运行。
+> - 📱 **[移动端 & iPhone/平板云端指南](docs/MOBILE_AND_IPHONE_GUIDE.md)**: 1分钟移动端极速部署指南。
 
 <a id="-目录"></a><a id="目录"></a>
 ## 📑 目录
@@ -81,6 +91,7 @@
 
 <a id="-核心特性"></a><a id="核心特性"></a>
 ## ✨ 核心特性
+- **☁️ 100% 云端免安装运行 (Google Colab & GAS 24/7)**: 无需PC，在iPhone (Safari)、iPad、Android、平板电脑上通过浏览器即可一键运行。集成10种语言UI、Google Drive云端数据持久化和24小时无人值守触发器。
 
 1. **移动端响应式 Web GUI & PWA 引擎 (`http://<host>:5000`)**:
    - 无论运行在 PC、VPS、Docker 还是 Termux 上，均可通过手机浏览器（iPhone Safari、Android Chrome）进行远程控制。
@@ -223,6 +234,13 @@ D4UC 配备内置的 **Surfshark WireGuard 1:1 用户空间隧道池**，彻底�
 
 <a id="-安装与使用"></a><a id="安装与使用"></a>
 ## 🚀 安装与使用
+### ☁️ 方式 0: 100% 云端免安装运行 (Google Colab & Google Apps Script 24小时全自动)
+> **推荐iPhone、iPad、Android手机、平板电脑用户，或无需本地安装Python环境的用户使用。**
+
+1. **Google Colab 笔记本**: 点击 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) 启动。依次运行3个单元格即可开启支持10种语言的Web交互界面与Google Drive自动保存。
+2. **Google Apps Script 24/7 自动化服务**: 参考 [gas/README.md](gas/README.md)，将脚本部署至Google云端触发器，无需设备保持开机即可实现24小时无人值守全自动检测。
+3. **移动端详细指南**: 请参阅 [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md)。
+
 
 ### 方案 A: Windows 免安装可执行文件 (`.exe`)
 无需配置 Python 即可使用，请从 [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) 下载对应版本：
@@ -273,6 +291,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-移动端-web-gui-pwa-远程控制指南"></a><a id="移动端-web-gui-pwa-远程控制指南"></a>
 ## 📱 移动端 Web GUI & PWA 远程控制指南
+### 📱 100% 全设备支持云端执行 (iPhone、iPad、Android、平板电脑)
+除本地PWA与移动Web GUI外，D4UC现已全面支持通过 **Google Colab** 与 **Google Apps Script (GAS)** 运行于纯云端环境:
+- **iPhone / iPad Safari**: 直接在手机Safari浏览器中打开运行，无需Mac或PC。
+- **24小时无人值守全天候监控**: 通过Google Apps Script定时触发器，在设备锁屏或关机状态下持续运行。
+- **即时云端推送**: 检测到稀有可用用户名时，第一时间通过Discord Webhook推送至手机通知。
+- 完整指南: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md)。
+
 
 即使躺在床上，也可通过手机随时查看最新发现的稀有用户名并调整检测设置。
 

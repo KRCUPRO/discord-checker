@@ -21,12 +21,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20Tanpa%20Instalasi-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/Semua%20Perangkat-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20Tablet-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Hak Cipta (c) 2026 KRCUPRO · Lisensi Kepemilikan & Rahasia (Semua Hak Dilindungi)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Cloud Tanpa Instalasi: Google Colab & Google Apps Script 24/7
+> **Tidak perlu PC atau instalasi lokal!** Jalankan D4UC langsung di cloud pada **perangkat apa pun — iPhone (Safari), iPad, Android, atau Tablet** hanya melalui browser web.
+> - 🚀 **[Buka di Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: Dasbor Web interaktif dengan dukungan 10 bahasa, sinkronisasi Google Drive otomatis, dan Webhook Discord real-time.
+> - ⏱️ **[Google Apps Script 24/7 Checker](gas/README.md)**: Berjalan otomatis 24 jam 365 hari di Google Cloud tanpa perlu menyalakan perangkat Anda.
+> - 📱 **[Panduan Cloud Mobile & iPhone](docs/MOBILE_AND_IPHONE_GUIDE.md)**: Panduan 1 menit untuk browser seluler.
 
 <a id="-daftar-isi"></a><a id="daftar-isi"></a>
 ## 📑 Daftar Isi
@@ -81,6 +91,7 @@
 
 <a id="-fitur-kemampuan-utama"></a><a id="fitur-kemampuan-utama"></a>
 ## ✨ Fitur & Kemampuan Utama
+- **☁️ 100% Cloud Tanpa Instalasi (Google Colab & GAS 24/7)**: Berjalan di iPhone (Safari), iPad, Android, atau Tablet tanpa PC. UI dalam 10 bahasa, penyimpanan Google Drive, dan pemantauan 24/7.
 
 1. **Web GUI Responsif Seluler & Mesin PWA (`http://<host>:5000`)**:
    - Jalankan di PC, VPS, Docker, atau Termux dan kendalikan secara nirkabel dari peramban ponsel pintar mana pun (iPhone Safari, Android Chrome).
@@ -222,6 +233,13 @@ Operasi 100% gratis tanpa memerlukan langganan VPN berbayar:
 
 <a id="-pemasangan-penggunaan"></a><a id="pemasangan-penggunaan"></a>
 ## 🚀 Pemasangan & Penggunaan
+### ☁️ Metode 0: 100% Cloud Tanpa Instalasi (Google Colab & Google Apps Script 24/7)
+> **Direkomendasikan untuk pengguna iPhone, iPad, Android, Tablet, atau tanpa Python terpasang.**
+
+1. **Notebook Google Colab**: Klik [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb). Jalankan 3 sel untuk membuka dasbor web dalam 10 bahasa.
+2. **Google Apps Script 24/7**: Lihat [gas/README.md](gas/README.md) untuk menjalankan pemantauan 24/7 di Google Cloud tanpa harus menyalakan perangkat Anda.
+3. **Panduan Seluler**: Lihat [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Metode A: Program Mandiri untuk Windows (`.exe`)
 Unduh aplikasi yang telah dikompilasi dari [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
@@ -272,6 +290,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-panduan-kendali-jarak-jauh-web-gui-seluler-pwa"></a><a id="panduan-kendali-jarak-jauh-web-gui-seluler-pwa"></a>
 ## 📱 Panduan Kendali Jarak Jauh Web GUI Seluler & PWA
+### 📱 Eksekusi Cloud untuk Semua Perangkat (iPhone, iPad, Android, Tablet)
+Selain PWA lokal, D4UC dapat dijalankan sepenuhnya di cloud via **Google Colab** dan **Google Apps Script (GAS)**:
+- **iPhone / iPad Safari**: Buka langsung di Safari Seluler tanpa Mac atau PC.
+- **Pemantauan 24/7 Tanpa Henti**: Pemicu Google Apps Script terus berjalan saat layar terkunci atau perangkat mati.
+- **Notifikasi Langsung**: Notifikasi instan di Discord saat nama langka ditemukan.
+- Panduan lengkap: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Pantau pencarian nama pengguna langka dan ubah pengaturannya langsung dari ponsel Anda.
 

@@ -21,12 +21,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20%D8%A8%D8%AF%D9%88%D9%86%20%D8%AA%D8%AB%D8%A8%D9%8A%D8%AA-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/%D9%85%D8%AA%D9%88%D8%A7%D9%81%D9%82%20%D9%85%D8%B9%20%D8%AC%D9%85%D9%8A%D8%B9%20%D8%A7%D9%84%D8%A3%D8%AC%D9%87%D8%B2%D8%A9-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20%D8%A3%D8%AC%D9%87%D8%B2%D8%A9%20%D9%84%D9%88%D8%AD%D9%8A%D8%A9-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · ترخيص ملكية وسرية خاص (جميع الحقوق محفوظة)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ تشغيل سحابي كامل 100% بدون تثبيت: Google Colab و Google Apps Script 24/7
+> **لا يلزم وجود جهاز كمبيوتر أو تثبيت برامج!** شغّل D4UC مباشرة في السحابة على **أي جهاز — iPhone (Safari) أو iPad أو Android أو الأجهزة اللوحية** عبر المتصفح فقط.
+> - 🚀 **[فتح في Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: لوحة تحكم تفاعلية مدمجة تدعم 10 لغات، ومزامنة تلقائية مع Google Drive، وإشعارات Discord Webhook فورية.
+> - ⏱️ **[فاحص Google Apps Script 24/7](gas/README.md)**: تشغيل تلقائي متواصل على مدار 24 ساعة طوال 365 يومًا على خوادم Google، حتى لو كان هاتفك مغلقًا.
+> - 📱 **[دليل الهواتف و iPhone](docs/MOBILE_AND_IPHONE_GUIDE.md)**: إعداد سريع في دقيقة واحدة لمتصفحات الهواتف.
 
 <a id="-جدول-المحتويات"></a><a id="جدول-المحتويات"></a>
 ## 📑 جدول المحتويات
@@ -81,6 +91,7 @@
 
 <a id="-القدرات-والميزات-الأساسية"></a><a id="القدرات-والميزات-الأساسية"></a>
 ## ✨ القدرات والميزات الأساسية
+- **☁️ تشغيل سحابي كامل 100% بدون تثبيت (Google Colab & GAS 24/7)**: تشغيل مباشر على iPhone (Safari) و iPad و Android دون الحاجة لجهاز كمبيوتر. واجهة بـ 10 لغات وحفظ دائم على Google Drive ومراقبة 24/7.
 
 1. **واجهة ويب متجاوبة للهواتف الذكية (الهواتف المحمولة) ومحرك PWA (`http://<host>:5000`)**:
    - قم بتشغيل الخادم على جهازك الشخصي أو VPS أو داخل Docker أو Termux وتحكم في كل شيء عن بُعد عبر متصفح هاتفك (iPhone Safari أو Android Chrome).
@@ -222,6 +233,13 @@ discord-checker/
 
 <a id="-التثبيت-والتشغيل"></a><a id="التثبيت-والتشغيل"></a>
 ## 🚀 التثبيت والتشغيل
+### ☁️ الطريقة 0: تشغيل سحابي كامل 100% بدون تثبيت (Google Colab و Google Apps Script 24/7)
+> **يوصى بها لمستخدمي iPhone و iPad و Android والأجهزة اللوحية، أو لمن ليس لديهم بيئة Python مثبتة.**
+
+1. **دفتر Google Colab**: انقر على [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) للتشغيل. قم بتشغيل الخلايا الـ 3 لبدء واجهة الويب بـ 10 لغات.
+2. **خدمة Google Apps Script 24/7**: راجع [gas/README.md](gas/README.md) لتشغيل الفحص التلقائي على مدار الساعة عبر محفزات Google Cloud دون إبقاء جهازك يعمل.
+3. **دليل الهواتف**: راجع [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### الطريقة أ: الملفات الجاهزة للتشغيل المباشر على ويندوز (`.exe`)
 حمّل الملفات الجاهزة من صفحة الإصدارات [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
@@ -272,6 +290,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-دليل-التحكم-عن-بعد-عبر-واجهة-الويب-للهواتف-pwa"></a><a id="دليل-التحكم-عن-بعد-عبر-واجهة-الويب-للهواتف-pwa"></a>
 ## 📱 دليل التحكم عن بُعد عبر واجهة الويب للهواتف (PWA)
+### 📱 تشغيل سحابي متوافق مع كافة الأجهزة (iPhone, iPad, Android, أجهزة لوحية)
+بالإضافة إلى تطبيق PWA المحلي، يعمل D4UC سحابيًا بالكامل عبر **Google Colab** و **Google Apps Script (GAS)**:
+- **iPhone / iPad Safari**: تشغيل مباشر في Safari للهواتف دون الحاجة لجهاز كمبيوتر.
+- **مراقبة 24/7 بدون انقطاع**: تعمل مشغلات Google Apps Script باستمرار حتى لو كانت الشاشة مغلقة أو الهاتف مطفأ.
+- **إشعارات فورية**: تنبيه فوري عبر Discord Webhook عند اكتشاف اسم مستخدم متاح.
+- الدليل الكامل: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 تابع عمليات الفحص واضبط الإعدادات من سريرك بكل راحة عبر هاتفك المحمول.
 

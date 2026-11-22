@@ -19,12 +19,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20Zero--Install-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/Device%20Agnostic-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20Tablet-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Proprietary & Confidential License (All Rights Reserved)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Cloud Zero-Install: Google Colab & Google Apps Script 24/7
+> **No installation or high-end PC required!** Run D4UC directly in the cloud on **any device — iPhone (Safari), iPad, Android, or Tablet** with zero local dependencies.
+> - 🚀 **[Open In Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: Interactive In-Cell Web GUI with 10-language switching, Google Drive auto-sync (`drive_sync.py`), and real-time Discord Webhooks.
+> - ⏱️ **[Google Apps Script 24/7 Checker](gas/README.md)**: 100% serverless, autonomous cron runner that checks 24 hours / 365 days even when your phone or PC is turned off.
+> - 📱 **[Mobile & iPhone/Tablet Cloud Guide](docs/MOBILE_AND_IPHONE_GUIDE.md)**: Step-by-step 1-minute setup guide for mobile browsers.
 
 <a id="-table-of-contents"></a><a id="table-of-contents"></a>
 ## 📑 Table of Contents
@@ -79,6 +89,7 @@
 
 <a id="-key-capabilities"></a><a id="key-capabilities"></a>
 ## ✨ Key Capabilities
+- **☁️ 100% Cloud Zero-Install (Google Colab & GAS 24/7)**: Run directly on iPhone (Safari), iPad, Android, or Tablet without any PC or local dependencies. Features real-time In-Cell Web GUI with 10-language switching, Google Drive auto-sync, and 24/7 unattended cron checks.
 
 1. **Mobile Touch-Optimized Responsive Web GUI & PWA Engine (`http://<host>:5000`)**:
    - Host anywhere (PC, VPS, Docker, Termux) and manage scans remotely from any smartphone browser (iPhone Safari, Android Chrome).
@@ -238,6 +249,21 @@ D4UC now supports completely zero-cost operation via built-in open-source public
 
 <a id="-installation-execution"></a><a id="installation-execution"></a>
 ## 🚀 Installation & Execution
+### ☁️ Method 0: 100% Zero-Install Cloud (Google Colab & Google Apps Script 24/7)
+> **Recommended for iPhone, iPad, Android, Tablet, or users without Python installed.**
+
+1. **Google Colab Notebook**:
+   - Click [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) to launch.
+   - Run the 3 cells in order: Environment Setup ➔ Configuration (Google Drive / Webhook) ➔ Launch Interactive In-Cell Web GUI (`src/ui/colab_gui.py`).
+   - Switch languages on the fly across 10 languages (`ko`, `en`, `ja`, `zh`, `es`, `ru`, `fr`, `de`, `pt`, `vi`).
+   - All valid hits and progress are automatically persisted to your Google Drive (`/content/drive/MyDrive/D4UC/`).
+2. **Google Apps Script (GAS) 24/7 Autonomous Runner**:
+   - Go to [gas/README.md](gas/README.md) and open `gas/D4UC_Checker.js`.
+   - Paste into [script.google.com](https://script.google.com/) and run `setupChecker()`.
+   - Automatically executes periodic checks 24 hours / 365 days using Google Cloud triggers even when your phone or PC is powered off.
+   - Saves results directly to Google Drive and Google Sheets, and sends instant Discord Webhook notifications.
+3. **Mobile & iPhone Step-by-Step Guide**: See [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Method A: Standalone Windows Executables (`.exe`) & Android Package (`.apk`) — Zero Setup
 Download pre-compiled binaries from [GitHub Releases v12.3.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
@@ -292,6 +318,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-mobile-web-gui-pwa-remote-control-guide"></a><a id="mobile-web-gui-pwa-remote-control-guide"></a>
 ## 📱 Mobile Web GUI & PWA Remote Control Guide
+### 📱 100% Device-Agnostic Cloud Execution (iPhone, iPad, Android, Tablet)
+In addition to the local PWA and Mobile Web GUI, D4UC can be run entirely in the cloud via **Google Colab** and **Google Apps Script (GAS)**:
+- **iPhone / iPad Safari**: Open `D4UC_Google_Colab.ipynb` directly in Mobile Safari. No Mac or PC required.
+- **24/7 Unattended Monitoring**: Google Apps Script triggers run persistently even when your mobile device screen is locked or turned off.
+- **Cloud Notification**: Live Discord Webhooks notify your mobile Discord app immediately when a rare username is discovered.
+- Complete guide: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Monitor and steer your username searches from your smartphone while relaxing in bed.
 

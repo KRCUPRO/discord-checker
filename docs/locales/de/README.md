@@ -19,12 +19,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20Keine%20Installation-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/Ger%C3%A4teunabh%C3%A4ngig-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20Tablet-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Proprietäre Lizenz (Alle Rechte vorbehalten)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Cloud Zero-Install: Google Colab & Google Apps Script 24/7
+> **Keine lokale Installation oder Hochleistungs-PC erforderlich!** Führen Sie D4UC direkt in der Cloud auf **jedem Gerät aus — iPhone (Safari), iPad, Android oder Tablet**.
+> - 🚀 **[In Google Colab öffnen](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: Interaktives Web-Dashboard in 10 Sprachen, automatische Google Drive-Synchronisierung und Discord Webhooks in Echtzeit.
+> - ⏱️ **[Google Apps Script 24/7 Checker](gas/README.md)**: Läuft 24 Stunden an 365 Tagen autonom in der Google Cloud, selbst wenn Ihr Gerät ausgeschaltet ist.
+> - 📱 **[Mobile & iPhone Cloud-Leitfaden](docs/MOBILE_AND_IPHONE_GUIDE.md)**: 1-Minuten-Setup für mobile Browser.
 
 <a id="-inhaltsverzeichnis"></a><a id="inhaltsverzeichnis"></a>
 ## 📑 Inhaltsverzeichnis
@@ -79,6 +89,7 @@
 
 <a id="-hauptfunktionen"></a><a id="hauptfunktionen"></a>
 ## ✨ Hauptfunktionen
+- **☁️ 100% Cloud Zero-Install (Google Colab & GAS 24/7)**: Läuft auf iPhone (Safari), iPad, Android und Tablets ohne PC. 10-Sprachen-UI, Google Drive-Speicherung und 24/7-Trigger.
 
 1. **Mobile responsive Web-GUI & PWA-Engine (`http://<host>:5000`)**:
    - Lokal, auf VPS, Docker oder Termux ausführen und bequem von jedem Smartphone-Browser (iPhone Safari, Android Chrome) aus fernsteuern.
@@ -220,6 +231,13 @@ Vollständig kostenloser Betrieb ohne VPN-Abonnement:
 
 <a id="-installation-ausführung"></a><a id="installation-ausführung"></a>
 ## 🚀 Installation & Ausführung
+### ☁️ Methode 0: 100% Cloud Zero-Install (Google Colab & Google Apps Script 24/7)
+> **Empfohlen für iPhone, iPad, Android, Tablets oder Anwender ohne Python-Installation.**
+
+1. **Google Colab Notebook**: Klicken Sie auf [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb), um das Dashboard in 10 Sprachen zu starten.
+2. **Google Apps Script 24/7 Runner**: Siehe [gas/README.md](gas/README.md) für 24/7-Dauerüberwachung auf Google Cloud-Triggern.
+3. **Mobilleitfaden**: Siehe [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Methode A: Eigenständige Windows-Programme (`.exe`)
 Binärdateien ohne Python-Installation direkt aus [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0) herunterladen:
@@ -270,6 +288,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-anleitung-zur-mobilen-web-gui-pwa-fernsteuerung"></a><a id="anleitung-zur-mobilen-web-gui-pwa-fernsteuerung"></a>
 ## 📱 Anleitung zur mobilen Web-GUI & PWA-Fernsteuerung
+### 📱 Geräteunabhängige Cloud-Ausführung (iPhone, iPad, Android, Tablet)
+Neben der lokalen PWA kann D4UC vollständig in der Cloud über **Google Colab** und **Google Apps Script (GAS)** ausgeführt werden:
+- **iPhone / iPad Safari**: Direkt in Mobile Safari öffnen ohne PC.
+- **24/7 Autonome Überwachung**: Google Apps Script läuft bei gesperrtem Bildschirm oder ausgeschaltetem Gerät weiter.
+- **Echtzeit-Meldung**: Sofortige Discord Webhook-Benachrichtigung bei verfügbarem Namen.
+- Leitfaden: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Überwachen und steuern Sie den Suchfortschritt bequem vom Smartphone aus.
 

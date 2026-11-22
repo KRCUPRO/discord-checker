@@ -19,12 +19,22 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-brightgreen.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20%7C%20iOS%20%7C%20Docker-purple.svg)](../../guides/README.md)
 [![TLS Stealth](https://img.shields.io/badge/TLS-Chrome%20131%20JA3%2FJA4-orange.svg)](../../specs/01_NETWORK_CORE_ENGINE.md)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)
+[![Google Apps Script 24/7](https://img.shields.io/badge/Google%20Apps%20Script-24%2F7%20Sin%20Instalaci%C3%B3n-4285F4?logo=google&logoColor=white)](gas/README.md)
+[![100% Mobile & iPhone Agnostic](https://img.shields.io/badge/Cualquier%20Dispositivo-iPhone%20%7C%20iPad%20%7C%20Android%20%7C%20Tablet-success)](docs/MOBILE_AND_IPHONE_GUIDE.md)
 
 <sub>Copyright (c) 2026 KRCUPRO · Licencia Propietaria y Confidencial (Todos los derechos reservados)</sub>
 
 </div>
 
 ---
+
+
+> ### ☁️ 100% Cloud Sin Instalación: Google Colab y Google Apps Script 24/7
+> **¡No requiere PC ni instalación local!** Ejecute D4UC directamente en la nube desde **cualquier dispositivo — iPhone (Safari), iPad, Android o Tablet** usando solo su navegador web.
+> - 🚀 **[Abrir en Google Colab](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: Panel Web interactivo con soporte para 10 idiomas, sincronización automática con Google Drive y Webhooks de Discord en tiempo real.
+> - ⏱️ **[Google Apps Script 24/7](gas/README.md)**: Ejecución continua 24 horas los 365 días en la nube de Google, incluso con su dispositivo apagado.
+> - 📱 **[Guía Móvil & iPhone](docs/MOBILE_AND_IPHONE_GUIDE.md)**: Configuración en 1 minuto para navegadores móviles.
 
 <a id="-tabla-de-contenidos"></a><a id="tabla-de-contenidos"></a>
 ## 📑 Tabla de Contenidos
@@ -79,6 +89,7 @@
 
 <a id="-capacidades-principales"></a><a id="capacidades-principales"></a>
 ## ✨ Capacidades Principales
+- **☁️ 100% Cloud Sin Instalación (Google Colab & GAS 24/7)**: Ejecución directa en iPhone (Safari), iPad, Android o Tablet sin PC ni dependencias locales. Panel en 10 idiomas, guardado en Google Drive y monitoreo 24/7.
 
 1. **Web GUI Móvil Responsiva & Motor PWA (`http://<host>:5000`)**:
    - Ejecútelo localmente o en un VPS/Docker/Termux y contrólelo de forma remota desde cualquier smartphone (iPhone Safari, Android Chrome).
@@ -220,6 +231,13 @@ Operación 100% gratuita sin necesidad de suscripciones VPN:
 
 <a id="-instalación-y-uso"></a><a id="instalación-y-uso"></a>
 ## 🚀 Instalación y Uso
+### ☁️ Método 0: 100% Cloud Sin Instalación (Google Colab y Google Apps Script 24/7)
+> **Recomendado para usuarios de iPhone, iPad, Android, Tablet o sin Python instalado.**
+
+1. **Cuaderno Google Colab**: Haga clic en [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb) para iniciar. Ejecute las 3 celdas para abrir la interfaz web en 10 idiomas.
+2. **Google Apps Script 24/7**: Consulte [gas/README.md](gas/README.md) para ejecutar comprobaciones continuas 24/7 en la infraestructura de Google sin necesidad de mantener encendido su dispositivo.
+3. **Guía Móvil**: Consulte [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 ### Método A: Ejecutables Autónomos de Windows (`.exe`)
 Descargue los binarios precompilados desde [GitHub Releases v12.2.0](https://github.com/KRCUPRO/discord-checker/releases/tag/v12.4.0):
@@ -270,6 +288,13 @@ python src/run.py --mode hybrid --length 4 --workers 5
 
 <a id="-guía-de-control-remoto-con-web-gui-móvil-pwa"></a><a id="guía-de-control-remoto-con-web-gui-móvil-pwa"></a>
 ## 📱 Guía de Control Remoto con Web GUI Móvil & PWA
+### 📱 Ejecución en la Nube para Cualquier Dispositivo (iPhone, iPad, Android, Tablet)
+Además de la PWA local, D4UC puede ejecutarse completamente en la nube vía **Google Colab** y **Google Apps Script (GAS)**:
+- **iPhone / iPad Safari**: Abra el cuaderno directamente en Mobile Safari (sin necesidad de Mac o PC).
+- **Monitoreo 24/7 Desatendido**: Los disparadores de Google Apps Script se ejecutan incluso con la pantalla bloqueada o el teléfono apagado.
+- **Notificación en Vivo**: Alerta instantánea en Discord al encontrar un nombre disponible.
+- Guía completa: [docs/MOBILE_AND_IPHONE_GUIDE.md](docs/MOBILE_AND_IPHONE_GUIDE.md).
+
 
 Monitorice y controle la búsqueda de nombres raros desde la comodidad de su cama a través de su smartphone.
 
