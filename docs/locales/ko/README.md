@@ -33,7 +33,7 @@
 > **PC나 복잡한 프로그램 설치 일체 불필요!** **아이폰(Safari), 아이패드, 갤럭시(Android), 태블릿, PC** 등 기종과 운영체제에 상관없이 브라우저만으로 즉시 실행됩니다.
 > - 🚀 **[Google Colab 원클릭 실행](https://colab.research.google.com/github/KRCUPRO/discord-checker/blob/main/D4UC_Google_Colab.ipynb)**: 10개국어 실시간 전환 지원 인셀(In-Cell) 웹 대시보드(`src/ui/colab_gui.py`), 구글 드라이브 영구 저장(`drive_sync.py`), 디스코드 웹훅 실시간 전송.
 > - ⏱️ **[구글 앱스 스크립트 24/7 체커](gas/README.md)**: 스마트폰 전원을 끄거나 컴퓨터를 종료해도 구글 서버리스 인프라에서 24시간 365일 무중단 자동 감시.
-> - 📱 **[모바일 & 아이폰/태블릿 클라우드 가이드](docs/MOBILE_AND_IPHONE_GUIDE.md)**: 모바일 브라우저 1분 원스톱 가이드.
+> - 📱 **[모바일 & 아이폰/태블릿 클라우드 가이드](docs/MOBILE_AND_IPHONE_GUIDE.md)**: 모바일 브라우저 1분 원스톱 가이드. <- 파일 없는 경우 : 위에 내용 참고
 
 <a id="-목차"></a><a id="목차"></a>
 ## 📑 목차
